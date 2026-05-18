@@ -25,9 +25,20 @@
 
 > **ONE SENTENCE**: "Trade space for time — use a map as a guest book to avoid searching twice."
 
+## 🎯 What is a HashMap?
+
+A **HashMap** is like a **phonebook** — you give it a NAME (key), it instantly gives you the PHONE NUMBER (value).
+- `map.put(key, value)` → write an entry
+- `map.get(key)` → look up a value
+- `map.containsKey(key)` → check if an entry exists
+- **Speed:** All operations are O(1) — instant, no searching!
+
+**WHY use it?** Without a HashMap, finding something in an array means scanning every element → O(N).
+With a HashMap, you look it up instantly → O(1). You **trade memory for speed**.
+
 ## 🎯 The Pattern Story: The Guest Book
 
-Imagine you're at a **PARTY**. Without a guest book, to find someone you'd ask EVERY person → O(N²).
+Imagine you're at a **PARTY** with 1000 people. Without a guest book, to find someone you'd ask EVERY person → O(N).
 With a **GUEST BOOK** at the door, you just check the book → O(1) lookup.
 
 **HashMap = Guest Book**
@@ -72,10 +83,16 @@ freq.put(num, freq.getOrDefault(num, 0) + 1);
 | | |
 |---|---|
 | **Problem** | Find two numbers that add up to target, return their indices |
-| **Story** | You walk in wearing shirt #2. Target=9. You NEED partner #7. CHECK guest book → not there. SIGN guest book. Next person wearing #7 checks → finds you! |
+| **Story** | You walk into a party wearing shirt #2. Target=9. You NEED partner wearing #7 (because 9-2=7). CHECK guest book → not there. SIGN guest book. Later someone wearing #7 walks in, checks → finds you! |
 
-**How to think:**
+**Full dry run:**
 ```
+nums = [2, 7, 11, 15], target = 9
+
+i=0, nums[0]=2: need = 9-2 = 7. Guest book has 7? NO → Sign: {2: 0}
+i=1, nums[1]=7: need = 9-7 = 2. Guest book has 2? YES at index 0!
+   → return [0, 1] ✓
+
 Guest Book (HashMap):
 ┌─────────┬───────┐
 │ Number  │ Index │
@@ -85,7 +102,10 @@ Guest Book (HashMap):
 └─────────┴───────┘
 ```
 
-**Key steps:** INIT map → LOOP → CHECK `need = target - nums[i]` → if found return → else STORE
+**Intent of each step:**
+1. **Calculate what you NEED** — `need = target - current`
+2. **CHECK** the guest book for your need — O(1) lookup
+3. **SIGN** the guest book with yourself — so your future partner can find you
 
 **⚠️ Pitfall:** Always CHECK before you SIGN (prevents matching with yourself!)
 
@@ -98,17 +118,32 @@ Guest Book (HashMap):
 | | |
 |---|---|
 | **Problem** | Group words that are anagrams of each other |
-| **Story** | SORT each word's letters → they become a FINGERPRINT. File each word into the correct drawer |
+| **Story** | You have scrambled words. SORT each word's letters → they become a FINGERPRINT (like DNA). Same fingerprint = same group! |
 
-**How to think:**
+**Full dry run:**
 ```
-"eat" → sort → "aet"    ┐
-"tea" → sort → "aet"    ├─ same drawer!
-"ate" → sort → "aet"    ┘
-"tan" → sort → "ant"    → different drawer
+strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+
+"eat" → sort letters → "aet" → file into drawer "aet": ["eat"]
+"tea" → sort letters → "aet" → file into drawer "aet": ["eat", "tea"]
+"tan" → sort letters → "ant" → new drawer "ant": ["tan"]
+"ate" → sort letters → "aet" → file into drawer "aet": ["eat", "tea", "ate"]
+"nat" → sort letters → "ant" → file into drawer "ant": ["tan", "nat"]
+"bat" → sort letters → "abt" → new drawer "abt": ["bat"]
+
+Filing Cabinet (HashMap):
+┌──────────────┬──────────────────┐
+│ Fingerprint  │ Words            │
+├──────────────┼──────────────────┤
+│    "aet"     │ [eat, tea, ate]  │
+│    "ant"     │ [tan, nat]       │
+│    "abt"     │ [bat]            │
+└──────────────┴──────────────────┘
+
+Return all drawers → [[eat,tea,ate], [tan,nat], [bat]]
 ```
 
-**Key steps:** INIT `Map<String, List<String>>` → LOOP words → SORT letters = fingerprint → FILE into drawer
+**Intent:** Sorting letters converts any anagram into the SAME key. Then HashMap groups them automatically.
 
 **⚠️ Pitfall:** Don't forget to `new ArrayList<>()` when encountering a new key
 
@@ -121,22 +156,37 @@ Guest Book (HashMap):
 | | |
 |---|---|
 | **Problem** | Check if a 9×9 Sudoku board is valid (no duplicates in row/col/box) |
-| **Story** | Hotel with 3 rules: no same-name on same FLOOR (row), WING (col), or SUITE (3×3 box) |
+| **Story** | Hotel with 3 guest books. Every guest must be unique on their FLOOR (row), WING (col), and SUITE (3×3 box). |
 
-**How to think:**
+**What is a HashSet?** Like a guest book that only records NAMES (no values). You can instantly ask: "Is this name already here?" → O(1). Perfect for duplicate detection.
+
+**Full dry run (partial):**
 ```
-For each cell → check 3 HashSets:
-  rows[row].contains(num)?       → duplicate on this floor!
-  cols[col].contains(num)?       → duplicate in this wing!
-  boxes[boxIndex].contains(num)? → duplicate in this suite!
+Board row 0: [5, 3, ., ., 7, ., ., ., .]
 
-BOX INDEX FORMULA (memorize!):
-  boxIndex = (row / 3) * 3 + (col / 3)
+Cell (0,0) = 5:
+  rows[0] has 5? NO. cols[0] has 5? NO. boxes[0] has 5? NO.
+  → Add 5 to all three books ✓
+
+Cell (0,1) = 3:
+  rows[0] has 3? NO. cols[1] has 3? NO. boxes[0] has 3? NO.
+  → Add 3 to all three books ✓
+
+Cell (0,2) = '.': SKIP (empty cell)
+
+If cell (0,3) were 5:
+  rows[0] has 5? YES! → DUPLICATE → return false!
 ```
 
-**Key steps:** INIT 3 arrays of 9 HashSets → LOOP cells → SKIP '.' → CHECK all 3 → STORE in all 3
+**Box index formula (memorize!):**
+```
+boxIndex = (row / 3) * 3 + (col / 3)
 
-**⚠️ Pitfall:** Forgetting `boxIndex = (row / 3) * 3 + (col / 3)`. Not skipping empty cells.
+Row 0-2, Col 0-2 → box 0    Row 0-2, Col 3-5 → box 1
+Row 3-5, Col 0-2 → box 3    Row 3-5, Col 3-5 → box 4
+```
+
+**⚠️ Pitfall:** Forgetting box formula. Not skipping '.' cells.
 
 ⏱ O(1) time (board is always 81 cells)
 
@@ -176,12 +226,22 @@ Sum:   0   1    2    3
 
 > **ONE SENTENCE**: "Two people walking toward each other on a sorted road — move the one that fixes the problem."
 
+## 🎯 What are Two Pointers?
+
+Two **index variables** (usually called `left` and `right`) that move through an array. Instead of checking every pair with nested loops O(N²), two pointers narrow the search in O(N).
+
+**WHY does it work?** Because the array is **SORTED**:
+- Moving `left` RIGHT always **increases** the value
+- Moving `right` LEFT always **decreases** the value
+- So you can **control the direction** of change!
+
 ## 🎯 The Pattern Story: Two People on a Sorted Road
 
-Sorted row of items. Place one person at each END. Walk TOWARD each other:
-- Too small? → Move LEFT person right (bigger values)
-- Too big? → Move RIGHT person left (smaller values)
-- Just right? → DONE!
+Imagine kids standing in a LINE sorted by height. You need two kids whose combined height = target.
+- Start with the SHORTEST (left) and TALLEST (right)
+- Too short together? → Replace the shorter kid with the next taller one (`left++`)
+- Too tall together? → Replace the taller kid with the next shorter one (`right--`)
+- Perfect match? → DONE!
 
 ---
 
@@ -213,11 +273,27 @@ left=2, right=7  → 9  → MATCH!
 | | |
 |---|---|
 | **Problem** | Is string a palindrome? (alphanumeric only, ignore case) |
-| **Story** | Friend A reads LEFT, Friend B reads RIGHT. Skip junk. Compare lowercase. |
+| **Story** | Two friends stand at opposite ends of a BANNER. They read toward each other, skipping spaces and punctuation, comparing lowercase letters. |
 
-**Key steps:** INIT both ends → LOOP → SKIP non-alphanumeric → CHECK lowercase match → MOVE inward
+**Full dry run:**
+```
+s = "A man, a plan, a canal: Panama"
 
-**⚠️ Pitfall:** Must check `left < right` INSIDE the skip loops to avoid out of bounds!
+left=0 ('A'), right=29 ('a') → both alphanumeric → 'a'=='a' ✓ → move inward
+left=1 (' ') → NOT alphanumeric → skip → left=2
+left=2 ('m'), right=28 ('m') → 'm'=='m' ✓ → move inward
+left=3 ('a'), right=27 ('a') → 'a'=='a' ✓ → move inward
+left=4 ('n'), right=26 ('n') → 'n'=='n' ✓ → move inward
+... all match → return true!
+
+s = "race a car"
+left=0 ('r'), right=9 ('r') → ✓
+left=1 ('a'), right=8 ('a') → ✓
+left=2 ('c'), right=7 ('c') → ✓
+left=3 ('e'), right=5 ('a') → 'e'≠'a' → return false!
+```
+
+**⚠️ Pitfall:** Must check `left < right` INSIDE the skip loops — otherwise you go out of bounds on strings like `".,"`!
 
 ⏱ O(N) time, O(1) space
 
@@ -228,17 +304,36 @@ left=2, right=7  → 9  → MATCH!
 | | |
 |---|---|
 | **Problem** | Find all unique triplets [a,b,c] where a+b+c = 0 |
-| **Story** | Sort → Pick an ANCHOR kid → Run TwoSumII on the rest → Skip duplicates |
+| **Story** | Sort the kids. Pick one as an ANCHOR (they stand still). The other two kids do TwoSumII to find the pair that cancels the anchor's value. |
 
-**How to think:**
+**Key Insight: 3Sum = for each anchor, solve TwoSumII!**
+
+**Full dry run:**
 ```
-3Sum = for each anchor, solve TwoSumII
-Sort → Fix one element → Two pointers on rest → Skip duplicate anchors & pairs
+nums = [-1, 0, 1, 2, -1, -4]
+After sort: [-4, -1, -1, 0, 1, 2]
+
+Anchor i=0 (-4): need two nums summing to 4
+  left=1(-1), right=5(2) → sum=-1+2=1 < 4 → left++
+  left=2(-1), right=5(2) → sum=-1+2=1 < 4 → left++
+  left=3(0), right=5(2) → sum=0+2=2 < 4 → left++
+  left=4(1), right=5(2) → sum=1+2=3 < 4 → left++
+  left=5 >= right=5 → STOP. No triplet with -4.
+
+Anchor i=1 (-1): need two nums summing to 1
+  left=2(-1), right=5(2) → sum=-1+2=1 = 1 → FOUND [-1,-1,2] ✓
+  Skip dup left, skip dup right → left=3, right=4
+  left=3(0), right=4(1) → sum=0+1=1 = 1 → FOUND [-1,0,1] ✓
+
+Anchor i=2 (-1): same as i=1 → SKIP duplicate anchor!
+
+Anchor i=3 (0): 0 > 0? No. left=4(1), right=5(2) → sum=3 > 0 → right--
+  left >= right → STOP.
+
+Result: [[-1,-1,2], [-1,0,1]]
 ```
 
-**Key steps:** SORT → LOOP anchor i → PRUNE (skip dup anchors, break if >0) → TwoSumII inner loop → SKIP duplicate pairs
-
-**⚠️ Pitfall:** Forgetting to sort first. Not skipping duplicates → duplicate triplets.
+**⚠️ Pitfalls:** Sort first! Skip duplicate anchors (`nums[i]==nums[i-1]`). Skip duplicate pairs after finding a match.
 
 ⏱ O(N²) time, O(1) space
 
@@ -248,21 +343,36 @@ Sort → Fix one element → Two pointers on rest → Skip duplicate anchors & p
 
 | | |
 |---|---|
-| **Problem** | Given elevation map, compute trapped water |
-| **Story** | Walls of different heights. Water = min(leftMax, rightMax) - current. Always process SHORTER side. |
+| **Problem** | Given elevation map, compute how much rainwater is trapped |
+| **Story** | Imagine walls of different heights after rain. Water at any spot is held by the SHORTER of the two tallest walls on either side — like a bathtub overflowing on the lower side. |
 
-**How to think:**
+**Key Insight:** Water at position i = `min(leftMax, rightMax) - height[i]`. Always process the SHORTER side (it's the bottleneck).
+
+**Full dry run:**
 ```
-Water at any spot = min(tallest wall left, tallest wall right) - height
-Always process the SHORTER side (it's the bottleneck).
+height = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]
 
-If height[left] < height[right]:
-  left is bottleneck → if height[left] >= leftMax: update. else: water += leftMax - height[left]
-  left++
-Else: same for right side
+left=0, right=11, leftMax=0, rightMax=0, water=0
+
+h[0]=0 < h[11]=1 → process LEFT
+  h[0]=0 >= leftMax=0 → update leftMax=0. left++
+
+left=1: h[1]=1 < h[11]=1? NO → process RIGHT
+  h[11]=1 >= rightMax=0 → update rightMax=1. right--
+
+left=1, right=10: h[1]=1 < h[10]=2 → process LEFT
+  h[1]=1 >= leftMax=0 → update leftMax=1. left++
+
+left=2: h[2]=0 < h[10]=2 → process LEFT
+  h[2]=0 < leftMax=1 → water += 1-0 = 1. left++. water=1
+
+left=3: h[3]=2 < h[10]=2? NO → process RIGHT
+  h[10]=2 >= rightMax=1 → update rightMax=2. right--
+
+... continuing → final water = 6 ✓
 ```
 
-**⚠️ Pitfall:** Moving the WRONG pointer. Water level = min(leftMax, rightMax), not max!
+**⚠️ Pitfall:** Always process the SHORTER side. Water = min(leftMax, rightMax) - height, NOT max!
 
 ⏱ O(N) time, O(1) space
 
@@ -272,12 +382,16 @@ Else: same for right side
 
 > **ONE SENTENCE**: "A magnifying glass sliding across data — add right, remove left, track the best."
 
-## 🎯 The Pattern Story: Magnifying Glass
+## 🎯 What is a Sliding Window?
 
-A fixed-width (or variable-width) lens slides across data. Instead of recalculating everything, just **+right, -left**.
+Instead of re-examining the entire subarray every time you move, you **reuse** the previous result:
+- **Add** the new element entering from the right
+- **Remove** the old element exiting from the left
+- This turns O(N×K) brute force into O(N)!
 
-**Fixed Window:** BUILD first window → SLIDE (add right, remove left) → TRACK best
-**Variable Window:** EXPAND right until valid → SHRINK left while still valid → TRACK best
+**Two types:**
+- **Fixed Window:** Window size is always K. BUILD first → SLIDE → TRACK best
+- **Variable Window:** Window grows/shrinks. EXPAND until valid → SHRINK while still valid → TRACK best
 
 ---
 
@@ -286,11 +400,22 @@ A fixed-width (or variable-width) lens slides across data. Instead of recalculat
 | | |
 |---|---|
 | **Problem** | Find contiguous subarray of length k with max average |
-| **Story** | Place magnifying glass at start, sum first k. Slide: +right, -left. Track best sum. |
+| **Story** | You have a magnifying glass exactly K cells wide. Place it at the start, sum everything inside. Slide it one step right: a new number enters from the right edge, an old number exits from the left edge. |
 
-**Key steps:** BUILD first window sum → SLIDE: `windowSum += nums[i] - nums[i-k]` → TRACK max → RETURN max/k
+**Full dry run:**
+```
+nums = [1, 12, -5, -6, 50, 3], k = 4
 
-**Why O(N) not O(N×K)?** With sliding, you just do +1 and -1 at each position.
+BUILD first window [1, 12, -5, -6]: sum = 1+12+(-5)+(-6) = 2. maxSum=2
+
+SLIDE right by 1:
+  i=4: +50, -1 → sum = 2 + 50 - 1 = 51. maxSum=51
+  i=5: +3, -12 → sum = 51 + 3 - 12 = 42. maxSum=51
+
+Return 51 / 4 = 12.75 ✓
+```
+
+**WHY O(N) not O(N×K)?** Brute force recalculates all K elements for each position. Sliding window just does ONE add and ONE subtract → O(N).
 
 ⏱ O(N) time, O(1) space
 
@@ -300,10 +425,27 @@ A fixed-width (or variable-width) lens slides across data. Instead of recalculat
 
 | | |
 |---|---|
-| **Problem** | Max vowels in any substring of length k |
-| **Story** | Same magnifying glass. Count vowels instead of summing numbers. |
+| **Problem** | Max number of vowels in any substring of length k |
+| **Story** | Same magnifying glass, but instead of summing numbers, you're counting VOWELS (a,e,i,o,u). |
 
-**Key steps:** Same template as MaxAverage! BUILD vowel count → SLIDE: if entering is vowel ++, if exiting is vowel -- → TRACK max
+**Full dry run:**
+```
+s = "abciiidef", k = 3
+
+BUILD first window "abc": vowels = 1 (just 'a'). maxVowels=1
+
+SLIDE:
+  i=3: entering 'i' (vowel +1), exiting 'a' (vowel -1) → count=1. max=1
+  i=4: entering 'i' (vowel +1), exiting 'b' (not vowel) → count=2. max=2
+  i=5: entering 'i' (vowel +1), exiting 'c' (not vowel) → count=3. max=3 ★
+  i=6: entering 'd' (not vowel), exiting 'i' (vowel -1) → count=2. max=3
+  i=7: entering 'e' (vowel +1), exiting 'i' (vowel -1) → count=2. max=3
+  i=8: entering 'f' (not vowel), exiting 'i' (vowel -1) → count=1. max=3
+
+Return 3 ✓ (window "iii" at positions 3-5)
+```
+
+**Intent:** Exact same template as MaxAverage — just replace "sum += num" with "if vowel, count++"
 
 ⏱ O(N) time, O(1) space
 
@@ -313,26 +455,42 @@ A fixed-width (or variable-width) lens slides across data. Instead of recalculat
 
 | | |
 |---|---|
-| **Problem** | Smallest window in s containing all chars of t |
-| **Story** | Detective with telescope + shopping list. EXPAND until all items found → SHRINK while still valid → Track shortest INSIDE shrink loop |
+| **Problem** | Smallest window in s containing all characters of t |
+| **Story** | You're a detective looking through a TELESCOPE at a street of letters. You have a SHOPPING LIST of letters you must find. Widen the telescope until you have everything, then shrink it to find the smallest valid window. |
 
-**How to think:**
+**Full dry run:**
 ```
-Tracking:
-  "need" map   = shopping list (what t requires)
-  "have" map   = what's currently in telescope
-  "matched"    = how many UNIQUE chars fully satisfied
-  "required"   = total unique chars needed
-  When matched == required → window is VALID → shrink!
+s = "ADOBECODEBANC", t = "ABC"
 
-WHERE to update min?
-  SHORTEST → update INSIDE the shrink loop
-  LONGEST → update OUTSIDE/AFTER the shrink loop
+Shopping list (need): {A:1, B:1, C:1}. required=3
+
+EXPAND right:
+  right=0 'A': have={A:1}. A matches need → matched=1
+  right=1 'D': have={A:1,D:1}. matched=1
+  right=2 'O': matched=1
+  right=3 'B': have={..B:1}. B matches → matched=2
+  right=4 'E': matched=2
+  right=5 'C': have={..C:1}. C matches → matched=3 = required!
+
+  SHRINK from left (matched==required):
+    Window "ADOBEC" (len=6). bestLen=6, bestStart=0
+    Remove 'A': have={A:0} < need={A:1} → matched=2. left=1. STOP shrinking.
+
+  Continue EXPANDING...
+  right=9 'A': matched=3 again!
+  SHRINK: window "CODEBA" → "ODEBA" → ...
+  right=10 'N', right=11 'C': matched=3!
+  SHRINK: window "BANC" (len=4). bestLen=4 ★
+    Remove 'B' → matched drops. STOP.
+
+Return "BANC" ✓
 ```
 
-**Key steps:** BUILD need map from t → EXPAND right → CHECK if char completes a requirement (matched++) → SHRINK while matched==required → TRACK min inside shrink → RETURN best
+**WHERE to update min (critical rule!):**
+- Finding **SHORTEST** → update INSIDE the shrink loop
+- Finding **LONGEST** → update OUTSIDE/AFTER the shrink loop
 
-**⚠️ Pitfall:** Use `.intValue()` when comparing Integer objects! Update min INSIDE shrink loop for shortest.
+**⚠️ Pitfall:** Use `.intValue()` when comparing Integer objects in Java! `have.get(c).intValue() == need.get(c).intValue()`
 
 ⏱ O(S + T) time, O(1) space (alphabet-bounded maps)
 
