@@ -344,9 +344,17 @@ WHERE to update min?
 
 ## 🎯 The Pattern Story: Dictionary Lookup
 
-Open to middle page. Word comes after? → ignore left half. Before? → ignore right half. Each flip HALVES remaining pages.
+Imagine finding the word "mango" in a 1000-page dictionary.
+Do you flip page by page? NO! That's O(N) = 1000 flips.
 
-**Key formula (memorize!):** `mid = left + (right - left) / 2` (overflow-safe)
+SMART WAY: Open to **page 500** (the MIDDLE).
+- "mango" comes AFTER page 500? → **Rip out the left half**, search pages 501-1000.
+- "mango" comes BEFORE page 500? → **Rip out the right half**, search pages 1-499.
+- Each rip **HALVES** remaining pages. 1000 → 500 → 250 → 125 → ~10 flips total!
+
+**Key formula (memorize!):** `mid = left + (right - left) / 2` (prevents integer overflow)
+
+**WHY not `(left + right) / 2`?** If left and right are both near Integer.MAX_VALUE, their sum overflows!
 
 ---
 
@@ -354,10 +362,24 @@ Open to middle page. Word comes after? → ignore left half. Before? → ignore 
 
 | | |
 |---|---|
-| **Problem** | Find target in sorted array |
-| **Story** | Open dictionary to middle → halve. 1000 pages → ~10 flips. |
+| **Problem** | Find target in sorted array, return index or -1 |
+| **Story** | You have a sorted dictionary. Open to the middle page. Is your word here? Before? After? Halve and repeat. |
 
-**Key steps:** INIT left=0, right=end → LOOP while left<=right → MID → CHECK: equal=found, less=go right, more=go left
+**Full dry run:**
+```
+nums = [-1, 0, 3, 5, 9, 12], target = 9
+
+left=0, right=5 → mid=2 → nums[2]=3  < 9 → go RIGHT → left=3
+left=3, right=5 → mid=4 → nums[4]=9  = 9 → FOUND at index 4!
+
+Another: target = 2
+left=0, right=5 → mid=2 → nums[2]=3  > 2 → go LEFT → right=1
+left=0, right=1 → mid=0 → nums[0]=-1 < 2 → go RIGHT → left=1
+left=1, right=1 → mid=1 → nums[1]=0  < 2 → go RIGHT → left=2
+left=2 > right=1 → STOP → NOT FOUND → return -1
+```
+
+**Key steps:** INIT left=0, right=end → LOOP `while(left<=right)` → MID → CHECK: equal=found, less=go right (`left=mid+1`), more=go left (`right=mid-1`)
 
 ⏱ O(log N) time, O(1) space
 
@@ -368,19 +390,38 @@ Open to middle page. Word comes after? → ignore left half. Before? → ignore 
 | | |
 |---|---|
 | **Problem** | Find target in a rotated sorted array |
-| **Story** | Dictionary was DROPPED. Pages shuffled. But ONE HALF is always sorted! |
+| **Story** | You DROPPED the dictionary. Pages got shuffled at a random point! |
 
-**How to think:**
+**Key Insight: At any mid, at least ONE HALF is perfectly sorted.**
 ```
-[4, 5, 6, 7 | 0, 1, 2] — two sorted halves
+Original: [0, 1, 2, 4, 5, 6, 7]
+Dropped:  [4, 5, 6, 7 | 0, 1, 2]  ← rotated at index 4
+                        ↑ pivot
 
-At any mid:
-1. Figure out WHICH half is sorted (nums[left] <= nums[mid]?)
-2. Check if target is IN that sorted half's range
-3. Yes → search that half. No → search the other half.
+At mid=3 (value=7):
+  Left half [4,5,6,7] → nums[left]=4 <= nums[mid]=7 → LEFT is sorted ✓
+  Right half [0,1,2]  → not sorted relative to mid
+
+So: Is target in the sorted half [4..7]?
+  YES → search left.  NO → search right.
 ```
 
-**⚠️ Pitfall:** Use `<=` when checking if left half is sorted (`nums[left] <= nums[mid]`).
+**Full dry run (target=0):**
+```
+nums=[4,5,6,7,0,1,2], target=0
+
+left=0, right=6, mid=3 → nums[3]=7 ≠ 0
+  nums[0]=4 <= nums[3]=7 → LEFT sorted [4,5,6,7]
+  Is 0 in [4..7]? NO → go right → left=4
+
+left=4, right=6, mid=5 → nums[5]=1 ≠ 0
+  nums[4]=0 <= nums[5]=1 → LEFT sorted [0,1]
+  Is 0 in [0..1]? YES → go left → right=4
+
+left=4, right=4, mid=4 → nums[4]=0 = 0 → FOUND!
+```
+
+**⚠️ Pitfall:** Use `<=` not `<` when checking `nums[left] <= nums[mid]` (handles single-element halves).
 
 ⏱ O(log N) time, O(1) space
 
@@ -391,7 +432,32 @@ At any mid:
 | | |
 |---|---|
 | **Problem** | Find median of two sorted arrays in O(log(m+n)) |
-| **Story** | Two assembly lines. Binary search the shorter one. Partition so left ≤ right. |
+| **Story** | Two CONVEYOR BELTS of sorted items merging. Find the middle item WITHOUT fully merging. |
+
+**Key Insight: Binary search on the SHORTER array to find the right partition.**
+```
+nums1 = [1, 3]    (length m=2)
+nums2 = [2]        (length n=1)
+Combined sorted: [1, 2, 3] → median = 2
+
+Partition nums1 at i=1: left=[1], right=[3]
+Partition nums2 at j=(3+1)/2 - 1 = 1: left=[2], right=[]
+  → j auto-calculated: j = (m+n+1)/2 - i
+
+Valid partition: maxLeft1(1) ≤ minRight2(∞) ✓
+                 maxLeft2(2) ≤ minRight1(3) ✓
+→ Median (odd) = max(maxLeft1, maxLeft2) = max(1,2) = 2 ✓
+```
+
+**The 4 boundary values (edge cases use MIN/MAX_VALUE):**
+```
+maxLeft1  = (i==0) ? -∞ : nums1[i-1]   ← biggest on left side of nums1
+minRight1 = (i==m) ? +∞ : nums1[i]     ← smallest on right side of nums1
+maxLeft2  = (j==0) ? -∞ : nums2[j-1]
+minRight2 = (j==n) ? +∞ : nums2[j]
+```
+
+**⚠️ Pitfalls:** Always search the SHORTER array. Use -∞/+∞ for edge partitions.
 
 ⏱ O(log(min(M,N))) time, O(1) space
 
@@ -403,9 +469,12 @@ At any mid:
 
 ## 🎯 The Pattern Story
 
-**Stack:** Last In, First Out. Like an undo button — the most recent action gets undone first.
-**Monotonic Stack:** Keeps elements in sorted order. Pop when the condition breaks.
-**Key:** Monotonic stacks store **INDICES** not values!
+**Stack (LIFO):** Imagine a stack of PLATES. You can only add/remove from the TOP.
+The LAST plate you put on is the FIRST one you take off.
+
+**Monotonic Stack:** A special stack where elements stay in sorted order.
+When a new element would break the order → POP until order is restored.
+**CRITICAL:** Store **INDICES** not values — you need indices to calculate distances!
 
 ---
 
@@ -414,9 +483,25 @@ At any mid:
 | | |
 |---|---|
 | **Problem** | Check if brackets are properly matched |
-| **Story** | Opener (left sock) → PUSH to pile. Closer (right sock) → POP and compare. End: pile should be EMPTY. |
+| **Story** | Imagine sorting laundry. You pick up socks one by one from a basket. |
 
-**Key steps:** INIT stack + pairs map → LOOP chars → if closer: pop & compare → if opener: push → RETURN stack.isEmpty()
+**Full dry run:**
+```
+s = "({[]})"
+
+Read '(' → it's a LEFT sock → push onto pile: ['(']
+Read '{' → LEFT sock → push: ['(', '{']
+Read '[' → LEFT sock → push: ['(', '{', '[']
+Read ']' → RIGHT sock! → peek top: '[' → MATCH! Pop. Pile: ['(', '{']
+Read '}' → RIGHT sock! → peek top: '{' → MATCH! Pop. Pile: ['(']
+Read ')' → RIGHT sock! → peek top: '(' → MATCH! Pop. Pile: []
+
+Pile empty → ALL socks matched → return true!
+
+s = "(]" → push '(', then ']' doesn't match '(' → return false!
+```
+
+**Key steps:** INIT stack + pairs map → LOOP chars → closer? pop & compare → opener? push → RETURN stack.isEmpty()
 
 ⏱ O(N) time, O(N) space
 
@@ -426,18 +511,31 @@ At any mid:
 
 | | |
 |---|---|
-| **Problem** | For each day, how many days until warmer? |
-| **Story** | People waiting in line. When a WARMER person arrives → they "answer" everyone cooler. |
+| **Problem** | For each day, how many days until a warmer temperature? |
+| **Story** | People standing in a queue holding their temperature sign. When someone WARMER arrives, everyone cooler in front finally gets their answer! |
 
-**How to think:**
+**Full dry run:**
 ```
-Stack stores INDICES of days still waiting.
-When warmer temp arrives → pop all cooler days, calculate wait: today - coldDay
+temps = [73, 74, 75, 71, 69, 72, 76, 73]
+
+Day 0 (73): nobody waiting. Push 0. Stack=[0]
+Day 1 (74): 74 > stack top 73 → pop 0, answer[0]=1-0=1. Push 1. Stack=[1]
+Day 2 (75): 75 > 74 → pop 1, answer[1]=2-1=1. Push 2. Stack=[2]
+Day 3 (71): 71 < 75 → just push. Stack=[2,3]
+Day 4 (69): 69 < 71 → just push. Stack=[2,3,4]
+Day 5 (72): 72 > 69 → pop 4, answer[4]=5-4=1
+            72 > 71 → pop 3, answer[3]=5-3=2. Stack=[2,5]
+Day 6 (76): 76 > 72 → pop 5, answer[5]=6-5=1
+            76 > 75 → pop 2, answer[2]=6-2=4. Stack=[6]
+Day 7 (73): 73 < 76 → push. Stack=[6,7]
+
+Result: [1, 1, 4, 2, 1, 1, 0, 0]
+         Days 6,7 never found warmer → stay 0
 ```
 
-**Key steps:** INIT stack of indices → LOOP → while top is cooler: POP, answer[coldDay] = today - coldDay → PUSH today
+**Key insight:** Each index is pushed ONCE and popped ONCE → O(N) despite the while loop!
 
-⏱ O(N) time (each index pushed/popped at most once)
+⏱ O(N) time, O(N) space
 
 ---
 
@@ -445,20 +543,32 @@ When warmer temp arrives → pop all cooler days, calculate wait: today - coldDa
 
 | | |
 |---|---|
-| **Problem** | Find largest rectangle area in histogram |
-| **Story** | Stack keeps bars in INCREASING order. Shorter bar arrives → pop taller bars, calculate their rectangle area. |
+| **Problem** | Find the largest rectangle area in a histogram |
+| **Story** | Imagine a city skyline of buildings. The stack keeps buildings in INCREASING height. When a SHORTER building appears, all taller buildings to its left can't extend any further right — so calculate their max rectangle before removing them. |
 
-**How to think:**
+**Full dry run:**
 ```
-When shorter bar arrives:
-  Pop taller bar → height = popped height
-  Width = stack empty ? i : i - stack.peek() - 1
-  Area = height × width
-  
-Trick: Loop to heights.length (add virtual 0-height bar to flush stack)
+heights = [2, 1, 5, 6, 2, 3]
+
+i=0 (h=2): push 0. Stack=[0]
+i=1 (h=1): 1 < 2 → pop 0. height=2, width=1 (stack empty→i). area=2. Stack=[1]
+i=2 (h=5): push. Stack=[1,2]
+i=3 (h=6): push. Stack=[1,2,3]
+i=4 (h=2): 2 < 6 → pop 3. h=6, w=4-2-1=1. area=6.
+           2 < 5 → pop 2. h=5, w=4-1-1=2. area=10 ★
+           2 ≥ 1 → stop. Push 4. Stack=[1,4]
+i=5 (h=3): push. Stack=[1,4,5]
+i=6 (h=0 virtual): flush all remaining.
+           pop 5. h=3, w=6-4-1=1. area=3.
+           pop 4. h=2, w=6-1-1=4. area=8.
+           pop 1. h=1, w=6 (empty). area=6.
+
+Max area = 10 (from bars at heights 5,6 with width 2)
 ```
 
-**⚠️ Pitfall:** Width calculation when stack is empty = `i` (extends to the very left edge).
+**Width formula:** `stack.isEmpty() ? i : i - stack.peek() - 1`
+
+**⚠️ Pitfall:** Loop to `heights.length` (add virtual 0-height bar to flush the stack). Width when stack empty = `i` (bar extends all the way left).
 
 ⏱ O(N) time, O(N) space
 
@@ -466,7 +576,13 @@ Trick: Loop to heights.length (add virtual 0-height bar to flush stack)
 
 # 6 — Trees / Graphs
 
-> **ONE SENTENCE**: "DFS = explore one path deep (recursion). BFS = explore all neighbors first (queue)."
+> **ONE SENTENCE**: "DFS = explore one path deep (recursion/stack). BFS = explore all neighbors first (queue)."
+
+## 🎯 The Pattern Story
+
+Imagine a FAMILY TREE. Two ways to visit everyone:
+- **DFS (Depth-First):** Visit one branch ALL THE WAY DOWN before backtracking. Like walking to the deepest room of a house before checking others.
+- **BFS (Breadth-First):** Visit EVERYONE on the current floor before going to the next floor. Like a fire drill — evacuate floor by floor.
 
 ---
 
@@ -475,15 +591,29 @@ Trick: Loop to heights.length (add virtual 0-height bar to flush stack)
 | | |
 |---|---|
 | **Problem** | Find maximum depth of binary tree |
-| **Story** | Drop a ball. At each fork, go left AND right. Return the DEEPER path + 1. |
+| **Story** | You drop a ball into a well with FORKS. At each fork the ball splits — one goes LEFT, one goes RIGHT. Report the DEEPEST the ball reaches. |
 
-**Key code:**
-```java
-if (root == null) return 0;
-return Math.max(solve(root.left), solve(root.right)) + 1;
+**Full dry run:**
+```
+        3          ← depth 1
+       / \
+      9   20       ← depth 2
+         /  \
+        15   7     ← depth 3
+
+solve(3):
+  leftDepth  = solve(9) → solve(null)=0, solve(null)=0 → max(0,0)+1 = 1
+  rightDepth = solve(20) → solve(15)=1, solve(7)=1 → max(1,1)+1 = 2
+  return max(1, 2) + 1 = 3 ✓
 ```
 
-⏱ O(N) time, O(H) space
+**The magic 3-line pattern (memorize this!):**
+```java
+if (root == null) return 0;                              // base case
+return Math.max(solve(root.left), solve(root.right)) + 1; // max child + 1
+```
+
+⏱ O(N) time, O(H) space (H = height, recursion stack)
 
 ---
 
@@ -491,12 +621,25 @@ return Math.max(solve(root.left), solve(root.right)) + 1;
 
 | | |
 |---|---|
-| **Problem** | Return nodes level by level |
-| **Story** | Loudspeaker announces each floor. Use a QUEUE. Process all nodes at current level, add their children. |
+| **Problem** | Return tree nodes level by level |
+| **Story** | A building with a LOUDSPEAKER. Announce everyone on floor 1, then floor 2, etc. Use a QUEUE — it naturally processes people in arrival order (FIFO). |
 
-**Key steps:** INIT queue with root → LOOP while queue not empty → `levelSize = queue.size()` → process that many nodes → add children → save level list
+**Full dry run:**
+```
+        3
+       / \
+      9   20
+         /  \
+        15   7
 
-**Key insight:** `levelSize` snapshot prevents mixing levels!
+Queue starts: [3]
+
+Level 1: size=1. Process 3 → add children 9,20. Queue=[9,20]. Result=[[3]]
+Level 2: size=2. Process 9 (no kids), 20 (kids 15,7). Queue=[15,7]. Result=[[3],[9,20]]
+Level 3: size=2. Process 15,7 (no kids). Queue=[]. Result=[[3],[9,20],[15,7]]
+```
+
+**Key insight:** `levelSize = queue.size()` — snapshot the count BEFORE processing! This prevents mixing levels.
 
 ⏱ O(N) time, O(N) space
 
@@ -506,16 +649,41 @@ return Math.max(solve(root.left), solve(root.right)) + 1;
 
 | | |
 |---|---|
-| **Problem** | Find LCA of two nodes in binary tree |
-| **Story** | Two cousins finding their nearest common grandparent. DFS from root. If both sides return non-null → I'm the LCA! |
+| **Problem** | Find the lowest common ancestor of two nodes p and q |
+| **Story** | Two COUSINS at a family reunion. They each walk UP the family tree. The FIRST ancestor they BOTH pass through is the LCA (nearest common grandparent). |
 
-**Key code:**
+**How the recursion thinks:**
+```
+         3  ← if BOTH sides return something, I'M the LCA!
+        / \
+       5   1
+      / \
+     6   2
+
+Looking for p=5 and q=1:
+  solve(3):
+    left  = solve(5) → root==p → return 5 (found!)
+    right = solve(1) → root==q → return 1 (found!)
+    Both non-null → return 3 → I AM THE LCA! ✓
+
+Looking for p=5 and q=6:
+  solve(3):
+    left = solve(5):
+      left  = solve(6) → root==q → return 6
+      right = solve(2) → null
+      Only left returned → pass up 6... wait,
+      Actually root==p → return 5 (found p first!)
+    right = solve(1) → null
+    Only left returned → pass up 5 → LCA = 5 ✓
+```
+
+**The 4-line pattern:**
 ```java
-if (root == null || root == p || root == q) return root;
-TreeNode left = solve(root.left, p, q);
-TreeNode right = solve(root.right, p, q);
-if (left != null && right != null) return root;  // I'm the grandparent!
-return left != null ? left : right;               // pass up whichever found
+if (root == null || root == p || root == q) return root;  // base: found or dead end
+TreeNode left = solve(root.left, p, q);                   // search left
+TreeNode right = solve(root.right, p, q);                 // search right
+if (left != null && right != null) return root;           // both found → I'm LCA!
+return left != null ? left : right;                       // pass up whichever found
 ```
 
 ⏱ O(N) time, O(H) space
@@ -526,7 +694,12 @@ return left != null ? left : right;               // pass up whichever found
 
 > **ONE SENTENCE**: "A VIP bouncer that always hands you the smallest (or largest) item in O(log N)."
 
-**Java:** `PriorityQueue<>()` = min-heap by default.
+## 🎯 The Pattern Story
+
+**Java:** `PriorityQueue<>()` = **min-heap** by default (smallest on top).
+For max-heap: `new PriorityQueue<>(Collections.reverseOrder())`
+
+Think of a min-heap as a **BOUNCER** at a club who always knows the smallest person inside.
 
 ---
 
@@ -535,11 +708,24 @@ return left != null ? left : right;               // pass up whichever found
 | | |
 |---|---|
 | **Problem** | Find kth largest element |
-| **Story** | VIP club with K spots. New person arrives → if better than least VIP, swap in. peek() = Kth largest. |
+| **Story** | VIP club with EXACTLY K spots. New person arrives → if better than the WEAKEST VIP, kick the weakest out and let the new person in. |
 
-**Key steps:** INIT min-heap → LOOP: offer each element → PRUNE: if size > k, poll → RETURN peek()
+**Key insight: For Kth LARGEST, use a MIN-heap of size K!**
+```
+WHY min-heap? Because peek() gives the SMALLEST in the heap.
+If heap has K elements → the smallest is the Kth largest overall!
 
-**Key insight:** Min-heap of size K. The TOP (smallest in heap) is the Kth largest overall!
+nums = [4, 5, 8, 2], K=3
+
+Process 4: heap=[4]          (size 1 ≤ 3, just add)
+Process 5: heap=[4,5]        (size 2 ≤ 3, just add)
+Process 8: heap=[4,5,8]      (size 3 = K, full)
+Process 2: 2 < peek()=4      (not better than weakest VIP → REJECT)
+
+peek() = 4 → that's the 3rd largest! ✓ (8 > 5 > 4)
+```
+
+**Key steps:** INIT min-heap → LOOP: offer each → PRUNE: if size > k, poll() → RETURN peek()
 
 ⏱ O(N log K) time, O(K) space
 
@@ -550,11 +736,24 @@ return left != null ? left : right;               // pass up whichever found
 | | |
 |---|---|
 | **Problem** | Find k most frequent elements |
-| **Story** | Election: count votes (frequency map) → heap picks top K winners |
+| **Story** | ELECTION DAY. Phase 1: Count all votes. Phase 2: Heap picks the top K vote-getters. |
 
-**Key steps:** COUNT frequencies (HashMap) → MIN-HEAP sorted by frequency → add candidates, PRUNE to size K → collect results
+**Full dry run:**
+```
+nums = [1,1,1,2,2,3], k=2
 
-**Key insight:** Two-phase: frequency counting THEN heap selection.
+Phase 1 — COUNT VOTES (HashMap):
+  {1: 3, 2: 2, 3: 1}
+
+Phase 2 — HEAP PICKS TOP K (min-heap sorted by frequency):
+  Process candidate 1 (3 votes): heap=[1(3)]       size 1 ≤ 2
+  Process candidate 2 (2 votes): heap=[2(2), 1(3)]  size 2 = k
+  Process candidate 3 (1 vote):  1 < peek()=2 votes → REJECT
+
+  Heap contains: [2, 1] → the top 2 most frequent! ✓
+```
+
+**Key steps:** COUNT frequencies → MIN-HEAP sorted by freq → add candidates, PRUNE to K → collect
 
 ⏱ O(N log K) time, O(N) space
 
@@ -564,10 +763,30 @@ return left != null ? left : right;               // pass up whichever found
 
 | | |
 |---|---|
-| **Problem** | Merge k sorted linked lists into one |
-| **Story** | K checkout lines. Coordinator (min-heap) picks smallest ticket. After serving → next from same line joins. |
+| **Problem** | Merge k sorted linked lists into one sorted list |
+| **Story** | K checkout lines at a store, each sorted by ticket number. A COORDINATOR (min-heap) always serves the customer with the SMALLEST ticket. After serving, the next person from that same line steps up. |
 
-**Key steps:** INIT min-heap → SEED with head of each list → LOOP: poll smallest, attach to result, offer smallest.next if exists
+**Full dry run:**
+```
+List 1: 1 → 4 → 5
+List 2: 1 → 3 → 4
+List 3: 2 → 6
+
+SEED heap with heads: [1, 1, 2]
+
+Poll 1 (from list 1) → result: 1 → add 4 from list 1. Heap=[1, 2, 4]
+Poll 1 (from list 2) → result: 1→1 → add 3. Heap=[2, 4, 3]
+Poll 2 (from list 3) → result: 1→1→2 → add 6. Heap=[3, 4, 6]
+Poll 3 (from list 2) → result: ...→3 → add 4. Heap=[4, 4, 6]
+Poll 4 (from list 1) → result: ...→4 → add 5. Heap=[4, 5, 6]
+Poll 4 (from list 2) → result: ...→4 → no next. Heap=[5, 6]
+Poll 5 → result: ...→5 → no next. Heap=[6]
+Poll 6 → result: ...→6 → done!
+
+Final: 1→1→2→3→4→4→5→6 ✓
+```
+
+**Key steps:** INIT min-heap → SEED with heads → LOOP: poll smallest, attach to result, offer .next if exists
 
 ⏱ O(N log K) time, O(K) space
 
@@ -577,7 +796,13 @@ return left != null ? left : right;               // pass up whichever found
 
 > **ONE SENTENCE**: "Don't solve the same puzzle twice — save the answer in a notebook and look it up next time."
 
-**DP Pattern:** Define subproblem → Find recurrence → Set base cases → Build bottom-up
+## 🎯 The Pattern Story
+
+Imagine a student solving a MATH WORKBOOK. Some problems require answers from earlier pages.
+STUPID way: re-solve earlier problems every time → exponential time.
+SMART way: write answers in a NOTEBOOK (dp array). Look them up when needed → polynomial time.
+
+**DP Recipe:** 1) Define what dp[i] MEANS → 2) Find the RECURRENCE → 3) Set BASE CASES → 4) Build BOTTOM-UP
 
 ---
 
@@ -585,8 +810,26 @@ return left != null ? left : right;               // pass up whichever found
 
 | | |
 |---|---|
-| **Problem** | How many ways to climb N stairs (1 or 2 steps)? |
-| **Story** | To reach step N, you came from N-1 or N-2. `ways(N) = ways(N-1) + ways(N-2)` → it's Fibonacci! |
+| **Problem** | How many ways to climb N stairs (1 or 2 steps at a time)? |
+| **Story** | Standing at the BOTTOM. To reach step N, you MUST have come from step N-1 (1 step) or N-2 (2 steps). So ways(N) = ways(N-1) + ways(N-2). It's FIBONACCI! |
+
+**Full dry run:**
+```
+N = 5
+
+Step 1: 1 way   (just take 1 step)
+Step 2: 2 ways  (1+1 or 2)
+Step 3: ways(2) + ways(1) = 2 + 1 = 3 ways
+Step 4: ways(3) + ways(2) = 3 + 2 = 5 ways
+Step 5: ways(4) + ways(3) = 5 + 3 = 8 ways ✓
+
+Optimization: Don't need an array! Just two variables:
+  prev2=1, prev1=2
+  i=3: current=3, shift → prev2=2, prev1=3
+  i=4: current=5, shift → prev2=3, prev1=5
+  i=5: current=8, shift → prev2=5, prev1=8
+  return prev1 = 8 ✓
+```
 
 **Key code:**
 ```java
@@ -608,7 +851,22 @@ return prev1;
 | | |
 |---|---|
 | **Problem** | Fewest coins to make amount |
-| **Story** | At distance 0, want to reach `amount`. Each coin = bus route. dp[d] = fewest rides to reach distance d. |
+| **Story** | You're at distance 0, want to reach distance `amount`. Each coin denomination is a BUS ROUTE. dp[d] = fewest bus rides to reach distance d. |
+
+**Full dry run:**
+```
+coins = [1, 5, 10], amount = 11
+
+dp[0] = 0  (base: 0 rides to stay at 0)
+dp[1] = min(dp[1-1]+1) = min(dp[0]+1) = 1         → one $1 coin
+dp[2] = min(dp[2-1]+1) = 2                         → two $1 coins
+...
+dp[5] = min(dp[5-1]+1, dp[5-5]+1) = min(5, 1) = 1  → one $5 coin!
+dp[6] = min(dp[6-1]+1, dp[6-5]+1) = min(2, 2) = 2  → $5 + $1
+...
+dp[10] = min(dp[9]+1, dp[5]+1, dp[0]+1) = min(?, 2, 1) = 1  → one $10!
+dp[11] = min(dp[10]+1, dp[6]+1, dp[1]+1) = min(2, 3, 2) = 2 → $10 + $1 ✓
+```
 
 **Key formula:**
 ```java
@@ -616,7 +874,7 @@ dp[d] = Math.min(dp[d], dp[d - coin] + 1);
 // "If I take this bus, I need 1 ride + rides to reach d-coin"
 ```
 
-**Key steps:** INIT dp array with amount+1 (infinity) → dp[0]=0 → LOOP amounts 1..target → TRY each coin → RETURN dp[amount] or -1
+**⚠️ Pitfall:** Initialize dp with `amount+1` (acts as infinity). Return -1 if dp[amount] > amount.
 
 ⏱ O(amount × coins) time, O(amount) space
 
@@ -627,14 +885,29 @@ dp[d] = Math.min(dp[d], dp[d - coin] + 1);
 | | |
 |---|---|
 | **Problem** | Length of longest strictly increasing subsequence |
-| **Story** | Chain of rising dominoes. For each domino, check all previous — if shorter, extend their chain. |
+| **Story** | Chain of DOMINOES with numbers. You want the longest chain where each next domino is TALLER. For each domino i, check ALL previous dominoes j — if j is shorter, extend j's chain. |
+
+**Full dry run:**
+```
+nums = [10, 9, 2, 5, 3, 7, 101, 18]
+dp   = [ 1, 1, 1, 1, 1, 1,  1,   1]  (each element alone = length 1)
+
+i=1 (9):  check j=0 (10>9 NO)  → dp=[1,1,1,1,1,1,1,1]
+i=2 (2):  check j=0,1 (both>2) → dp=[1,1,1,1,1,1,1,1]
+i=3 (5):  j=2 (2<5 YES) dp[3]=dp[2]+1=2  → dp=[1,1,1,2,1,1,1,1]
+i=4 (3):  j=2 (2<3 YES) dp[4]=dp[2]+1=2  → dp=[1,1,1,2,2,1,1,1]
+i=5 (7):  j=2 (2<7) dp[5]=2, j=3 (5<7) dp[5]=3, j=4 (3<7) dp[5]=3
+          → dp=[1,1,1,2,2,3,1,1]
+i=6 (101): j=5 (7<101) dp[6]=4  → dp=[1,1,1,2,2,3,4,1]
+i=7 (18):  j=5 (7<18) dp[7]=4  → dp=[1,1,1,2,2,3,4,4]
+
+Max = 4 → subsequence [2, 5, 7, 101] or [2, 3, 7, 101] ✓
+```
 
 **Key formula:**
 ```java
 dp[i] = Math.max(dp[i], dp[j] + 1);  // for all j < i where nums[j] < nums[i]
 ```
-
-**Key steps:** INIT dp[] all 1s → LOOP i → inner LOOP j<i → if nums[j]<nums[i]: extend → TRACK global max
 
 ⏱ O(N²) time, O(N) space
 
@@ -644,7 +917,14 @@ dp[i] = Math.max(dp[i], dp[j] + 1);  // for all j < i where nums[j] < nums[i]
 
 > **ONE SENTENCE**: "Try every door. Dead end? Back up and try the next door. Save all successful paths."
 
-**Template:** CHOOSE → EXPLORE → UNCHOOSE (backtrack)
+## 🎯 The Pattern Story
+
+Imagine exploring a MAZE. At each junction:
+1. **CHOOSE** a door to walk through
+2. **EXPLORE** what's behind it (recurse deeper)
+3. **UNCHOOSE** — walk BACK to the junction and try the NEXT door
+
+**The universal template:** CHOOSE → EXPLORE → UNCHOOSE (backtrack)
 
 ---
 
@@ -652,12 +932,40 @@ dp[i] = Math.max(dp[i], dp[j] + 1);  // for all j < i where nums[j] < nums[i]
 
 | | |
 |---|---|
-| **Problem** | Return all possible subsets |
-| **Story** | For each item: INCLUDE it or SKIP it. Every combination = different subset. |
+| **Problem** | Return all possible subsets of a set of distinct integers |
+| **Story** | Packing for a trip. For each item, TWO choices: pack it (INCLUDE) or leave it (SKIP). Every combination = different subset. |
 
-**Key steps:** SAVE current bag → LOOP from start → CHOOSE (add) → EXPLORE (recurse i+1) → UNCHOOSE (remove last)
+**Full dry run:**
+```
+nums = [1, 2, 3]
 
-**Key insight:** Start from `i+1` to avoid duplicates. Save at EVERY level (even empty bag).
+backtrack(start=0, bag=[])
+  SAVE [] ✓
+  i=0: add 1 → bag=[1]
+    backtrack(start=1, bag=[1])
+      SAVE [1] ✓
+      i=1: add 2 → bag=[1,2]
+        backtrack(start=2, bag=[1,2])
+          SAVE [1,2] ✓
+          i=2: add 3 → bag=[1,2,3]
+            backtrack(start=3) → SAVE [1,2,3] ✓
+          remove 3 ← BACKTRACK
+        remove 2 ← BACKTRACK
+      i=2: add 3 → bag=[1,3]
+        backtrack(start=3) → SAVE [1,3] ✓
+      remove 3 ← BACKTRACK
+    remove 1 ← BACKTRACK
+  i=1: add 2 → bag=[2]
+    ... SAVE [2], [2,3]
+  i=2: add 3 → bag=[3]
+    ... SAVE [3]
+
+Result: [[], [1], [1,2], [1,2,3], [1,3], [2], [2,3], [3]]
+```
+
+**Key steps:** SAVE current bag → LOOP from `start` → CHOOSE (add) → EXPLORE (recurse i+1) → UNCHOOSE (remove last)
+
+**Key insight:** `start = i + 1` prevents revisiting earlier items (avoids duplicates like [2,1]).
 
 ⏱ O(2^N × N) time
 
@@ -668,13 +976,32 @@ dp[i] = Math.max(dp[i], dp[j] + 1);  // for all j < i where nums[j] < nums[i]
 | | |
 |---|---|
 | **Problem** | Return all permutations of distinct integers |
-| **Story** | Try every order. At each position, place each UNUSED book. |
+| **Story** | Arranging books on a shelf. At each position, try placing each UNUSED book. |
 
 **Key difference from Subsets:**
-- Subsets: include/skip, order doesn't matter, use `start` index
-- Permutations: every element used, ORDER matters → use `boolean[] used` tracker
+```
+Subsets:      include/skip, ORDER doesn't matter → use `start` index
+Permutations: every element used, ORDER matters → use `boolean[] used`
+```
 
-**Key steps:** If shelf full → SAVE → LOOP all elements → skip if used → CHOOSE (add + mark) → EXPLORE → UNCHOOSE (remove + unmark)
+**Full dry run (nums=[1,2,3]):**
+```
+shelf=[], used=[F,F,F]
+  Try 1: shelf=[1], used=[T,F,F]
+    Try 2: shelf=[1,2], used=[T,T,F]
+      Try 3: shelf=[1,2,3] → FULL → SAVE ✓
+      Remove 3, unmark
+    Try 3: shelf=[1,3], used=[T,F,T]
+      Try 2: shelf=[1,3,2] → FULL → SAVE ✓
+    Remove 3, unmark
+  Remove 1, unmark
+  Try 2: shelf=[2], ...
+    → [2,1,3], [2,3,1]
+  Try 3: ...
+    → [3,1,2], [3,2,1]
+```
+
+**Key steps:** If shelf full → SAVE → LOOP ALL elements → skip if used → CHOOSE (add + mark) → EXPLORE → UNCHOOSE (remove + unmark)
 
 ⏱ O(N! × N) time
 
@@ -684,21 +1011,27 @@ dp[i] = Math.max(dp[i], dp[j] + 1);  // for all j < i where nums[j] < nums[i]
 
 | | |
 |---|---|
-| **Problem** | Place N queens so no two attack each other |
-| **Story** | No two queens in same ROW (one per row), COLUMN, or DIAGONAL. |
+| **Problem** | Place N queens on N×N board so no two attack each other |
+| **Story** | Seating N QUEENS at a royal banquet table. Rules: no two queens in the same ROW, COLUMN, or DIAGONAL. |
 
 **How to think:**
 ```
-For each ROW:
-  Try each COLUMN → isSafe? → Place queen → Next row → Backtrack
+One queen per ROW (we recurse row by row, so rows are automatic).
+For each row, try each COLUMN → isSafe()? → place → next row → backtrack.
 
-isSafe checks 3 things:
-  1. Column above (any Q in same col?)
-  2. Upper-left diagonal
-  3. Upper-right diagonal
+isSafe(row, col) checks 3 things ABOVE current row:
+  1. Same column? → scan straight UP
+  2. Upper-left diagonal? → scan ↖
+  3. Upper-right diagonal? → scan ↗
+
+N=4 solution:
+. Q . .    . . Q .
+. . . Q    Q . . .
+ Q . . .   . . . Q
+. . Q .    . Q . .
 ```
 
-**Key steps:** All rows done → SAVE → LOOP columns → isSafe? → PLACE queen → RECURSE next row → REMOVE queen
+**Key steps:** All rows done → SAVE → LOOP columns → isSafe? → PLACE 'Q' → RECURSE next row → REMOVE 'Q'
 
 ⏱ O(N!) time, O(N²) space
 
