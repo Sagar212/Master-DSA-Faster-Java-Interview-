@@ -1,0 +1,2833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DSA 6-Day Mastery Study Journal</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-dark: #070913;
+      --bg-card: rgba(13, 17, 33, 0.7);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      
+      /* Theme colors Two Pointers (Cyan/Teal) */
+      --tp-primary: #0ea5e9;
+      --tp-glow: rgba(14, 165, 233, 0.15);
+      --tp-gradient: linear-gradient(135deg, #0ea5e9 0%, #14b8a6 100%);
+      
+      /* Theme colors Sliding Window (Orange/Amber) */
+      --sw-primary: #f97316;
+      --sw-glow: rgba(249, 115, 22, 0.15);
+      --sw-gradient: linear-gradient(135deg, #f97316 0%, #eab308 100%);
+
+      /* Utility colors */
+      --success: #10b981;
+      --error: #ef4444;
+      --warning: #f59e0b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.05) 0px, transparent 50%);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Layout & Utilities */
+    .app-container {
+      display: flex;
+      flex: 1;
+      min-height: calc(100vh - 70px);
+    }
+
+    header {
+      height: 70px;
+      background: rgba(13, 17, 33, 0.85);
+      border-bottom: 1px solid var(--border-color);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-badge {
+      background: linear-gradient(135deg, #0ea5e9, #f97316);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .logo-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+      border: 1px solid var(--border-color);
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin-left: 8px;
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      width: 320px;
+      background: rgba(8, 11, 22, 0.6);
+      border-right: 1px solid var(--border-color);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .day-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .day-card::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: transparent;
+      transition: all 0.3s ease;
+    }
+
+    .day-card.active-two-pointer {
+      background: rgba(14, 165, 233, 0.06);
+      border-color: rgba(14, 165, 233, 0.3);
+      box-shadow: 0 4px 20px rgba(14, 165, 233, 0.08);
+    }
+
+    .day-card.active-two-pointer::after {
+      background: var(--tp-primary);
+    }
+
+    .day-card.active-sliding-window {
+      background: rgba(249, 115, 22, 0.06);
+      border-color: rgba(249, 115, 22, 0.3);
+      box-shadow: 0 4px 20px rgba(249, 115, 22, 0.08);
+    }
+
+    .day-card.active-sliding-window::after {
+      background: var(--sw-primary);
+    }
+
+    .day-card:hover:not(.active-two-pointer):not(.active-sliding-window) {
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateX(4px);
+    }
+
+    .day-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .day-num {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .day-num.tp { color: var(--tp-primary); }
+    .day-num.sw { color: var(--sw-primary); }
+
+    .day-name {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .day-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .day-status {
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+    }
+
+    .day-status.completed {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: var(--success);
+    }
+
+    /* Main Workspace */
+    .workspace {
+      flex: 1;
+      padding: 32px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 28px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 20px;
+      margin-bottom: 12px;
+    }
+
+    .dashboard-title-area h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+
+    .dashboard-title-area p {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .overall-stats {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .progress-bar-container {
+      width: 200px;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--tp-primary) 0%, var(--sw-primary) 100%);
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ROI Card Highlights */
+    .roi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .roi-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .roi-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .roi-icon-container {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .roi-icon-container.tp {
+      background: rgba(14, 165, 233, 0.1);
+      color: var(--tp-primary);
+      border: 1px solid rgba(14, 165, 233, 0.2);
+    }
+
+    .roi-icon-container.sw {
+      background: rgba(249, 115, 22, 0.1);
+      color: var(--sw-primary);
+      border: 1px solid rgba(249, 115, 22, 0.2);
+    }
+
+    .roi-content h3 {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .roi-content p {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    /* Study Panel for Day 1 & 4 */
+    .learn-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .two-pass-selector {
+      display: flex;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      align-self: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .pass-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .pass-btn.active.tp {
+      background: var(--tp-primary);
+      color: white;
+    }
+
+    .pass-btn.active.sw {
+      background: var(--sw-primary);
+      color: white;
+    }
+
+    /* Mock Code Editor */
+    .editor-wrapper {
+      background: #090b11;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .editor-header {
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .editor-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .editor-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #ff5f56; }
+    .dot-yellow { background: #ffbd2e; }
+    .dot-green { background: #27c93f; }
+
+    .editor-title {
+      font-family: 'Fira Code', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .editor-body {
+      padding: 24px;
+      font-family: 'Fira Code', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .code-line {
+      display: flex;
+      gap: 16px;
+      padding: 2px 4px;
+      border-radius: 4px;
+      transition: background 0.15s ease;
+    }
+
+    .code-line.highlighted {
+      background: rgba(14, 165, 233, 0.12);
+      border-left: 2px solid var(--tp-primary);
+    }
+
+    .code-line.highlighted-sw {
+      background: rgba(249, 115, 22, 0.12);
+      border-left: 2px solid var(--sw-primary);
+    }
+
+    .line-number {
+      color: rgba(255, 255, 255, 0.25);
+      width: 24px;
+      text-align: right;
+      user-select: none;
+    }
+
+    .code-content {
+      white-space: pre;
+    }
+
+    .step-explain-box {
+      margin-top: 16px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 16px 20px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      min-height: 80px;
+    }
+
+    .step-explain-box i {
+      font-size: 20px;
+      margin-top: 2px;
+    }
+
+    .step-explain-box.tp i { color: var(--tp-primary); }
+    .step-explain-box.sw i { color: var(--sw-primary); }
+
+    /* Interactive Building Sandbox */
+    .sandbox-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sandbox-instruction {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .sandbox-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .sandbox-step-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sandbox-step-card h4 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .sandbox-step-card.tp h4 { color: var(--tp-primary); }
+    .sandbox-step-card.sw h4 { color: var(--sw-primary); }
+
+    .sandbox-select {
+      background: #090b11;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-family: 'Fira Code', monospace;
+      font-size: 12px;
+      outline: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .sandbox-select:focus {
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Dry Run Visualizer (Day 2 & 5) */
+    .problem-tabs {
+      display: flex;
+      gap: 10px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1px;
+      margin-bottom: 24px;
+    }
+
+    .prob-tab {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 10px 20px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s ease;
+    }
+
+    .prob-tab::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: transparent;
+      transition: all 0.2s ease;
+    }
+
+    .prob-tab.active.tp {
+      color: var(--tp-primary);
+    }
+    .prob-tab.active.tp::after {
+      background: var(--tp-primary);
+    }
+
+    .prob-tab.active.sw {
+      color: var(--sw-primary);
+    }
+    .prob-tab.active.sw::after {
+      background: var(--sw-primary);
+    }
+
+    .dry-run-workspace {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    @media (max-width: 1024px) {
+      .dry-run-workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Visual Simulation Area */
+    .simulation-card {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      justify-content: space-between;
+    }
+
+    .sim-array-container {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      align-items: center;
+      margin: 20px 0;
+    }
+
+    .array-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      position: relative;
+      padding: 12px 0;
+    }
+
+    .array-cell {
+      width: 56px;
+      height: 56px;
+      border: 1px solid var(--border-color);
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      font-family: 'Outfit', sans-serif;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .array-cell.active-left {
+      border-color: var(--tp-primary);
+      background: rgba(14, 165, 233, 0.1);
+      box-shadow: 0 0 15px rgba(14, 165, 233, 0.2);
+    }
+
+    .array-cell.active-right {
+      border-color: var(--warning);
+      background: rgba(245, 158, 11, 0.1);
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+    }
+
+    .array-cell.active-left-sw {
+      border-color: var(--sw-primary);
+      background: rgba(249, 115, 22, 0.1);
+      box-shadow: 0 0 15px rgba(249, 115, 22, 0.2);
+    }
+
+    .array-cell.in-window {
+      background: rgba(249, 115, 22, 0.12);
+      border-color: var(--sw-primary);
+    }
+
+    .array-index {
+      position: absolute;
+      top: -20px;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: 'Fira Code', monospace;
+    }
+
+    .cell-pointer {
+      position: absolute;
+      bottom: -24px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      animation: bounce 1.5s infinite;
+    }
+
+    .cell-pointer i {
+      font-size: 12px;
+    }
+
+    .cell-pointer.lp { color: var(--tp-primary); }
+    .cell-pointer.rp { color: var(--warning); }
+    .cell-pointer.sw-lp { color: var(--text-main); }
+    .cell-pointer.sw-rp { color: var(--sw-primary); }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .vars-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+    }
+
+    .var-badge {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .var-name {
+      color: var(--text-muted);
+      font-family: 'Fira Code', monospace;
+    }
+
+    .var-value {
+      font-weight: 700;
+      font-family: 'Fira Code', monospace;
+    }
+
+    /* Simulation Controls */
+    .sim-controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .sim-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .sim-btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .sim-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .step-indicator {
+      font-family: 'Fira Code', monospace;
+      font-size: 13px;
+      color: var(--text-muted);
+      min-width: 90px;
+      text-align: center;
+    }
+
+    /* Quiz Panel styles */
+    .quiz-panel {
+      margin-top: 24px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 24px;
+    }
+
+    .quiz-question-box {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .quiz-question {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .quiz-option {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+
+    .quiz-option:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .quiz-option.selected {
+      border-color: var(--tp-primary);
+      background: rgba(14, 165, 233, 0.05);
+    }
+
+    .quiz-option.selected.sw {
+      border-color: var(--sw-primary);
+      background: rgba(249, 115, 22, 0.05);
+    }
+
+    .quiz-option.correct {
+      border-color: var(--success);
+      background: rgba(16, 185, 129, 0.08);
+    }
+
+    .quiz-option.incorrect {
+      border-color: var(--error);
+      background: rgba(239, 68, 68, 0.08);
+    }
+
+    .quiz-feedback {
+      margin-top: 12px;
+      font-size: 13px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Active Recall Skeletons (Day 3 & 6) */
+    .skeleton-input {
+      background: #1e293b;
+      border: 1px dashed rgba(255, 255, 255, 0.3);
+      color: #38bdf8;
+      font-family: 'Fira Code', monospace;
+      font-size: 13px;
+      padding: 1px 6px;
+      border-radius: 4px;
+      outline: none;
+      width: 130px;
+      transition: all 0.2s ease;
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    .skeleton-input:focus {
+      border: 1px solid var(--tp-primary);
+      background: #0f172a;
+      box-shadow: 0 0 8px rgba(14, 165, 233, 0.3);
+    }
+
+    .skeleton-input.correct {
+      border: 1px solid var(--success) !important;
+      color: #34d399 !important;
+      background: rgba(16, 185, 129, 0.15) !important;
+      font-weight: 700;
+    }
+
+    .skeleton-input.incorrect {
+      border: 1px solid var(--error) !important;
+      color: #f87171 !important;
+      background: rgba(239, 68, 68, 0.15) !important;
+    }
+
+    .skeleton-controls {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .primary-action-btn {
+      background: linear-gradient(135deg, #0ea5e9 0%, #14b8a6 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .primary-action-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+    }
+
+    .primary-action-btn.sw {
+      background: linear-gradient(135deg, #f97316 0%, #eab308 100%);
+      box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+    }
+
+    .primary-action-btn.sw:hover {
+      box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+    }
+
+    .secondary-action-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .secondary-action-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Mental story banner styles */
+    .story-banner {
+      background: rgba(14, 165, 233, 0.05);
+      border: 1px solid rgba(14, 165, 233, 0.15);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .story-banner.sw {
+      background: rgba(249, 115, 22, 0.05);
+      border: 1px solid rgba(249, 115, 22, 0.15);
+    }
+
+    .story-banner i {
+      font-size: 24px;
+    }
+
+    .story-banner.tp i { color: var(--tp-primary); }
+    .story-banner.sw i { color: var(--sw-primary); }
+
+    .story-text h4 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .story-text p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Complete Day Panel */
+    .day-complete-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .day-complete-btn {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: 800;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .day-complete-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    }
+
+    .day-complete-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .back-dashboard-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      transition: color 0.2s ease;
+    }
+
+    .back-dashboard-btn:hover {
+      color: var(--text-main);
+    }
+
+    /* Splash / Dashboard View */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+      margin-top: 20px;
+    }
+
+    .dash-day-card {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .dash-day-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .dash-day-card.completed {
+      border-color: rgba(16, 185, 129, 0.25);
+      background: rgba(16, 185, 129, 0.02);
+    }
+
+    .dash-day-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .dash-day-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .dash-day-icon.tp {
+      background: rgba(14, 165, 233, 0.1);
+      color: var(--tp-primary);
+    }
+
+    .dash-day-icon.sw {
+      background: rgba(249, 115, 22, 0.1);
+      color: var(--sw-primary);
+    }
+
+    .dash-day-body h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .dash-day-body p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .dash-day-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .dash-day-footer .status-text {
+      color: var(--text-muted);
+    }
+
+    .dash-day-footer.completed .status-text {
+      color: var(--success);
+    }
+
+    .dash-day-footer .action-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .dash-day-card.tp-card .action-link { color: var(--tp-primary); }
+    .dash-day-card.sw-card .action-link { color: var(--sw-primary); }
+
+    /* Modal styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      backdrop-filter: blur(8px);
+    }
+
+    .modal-card {
+      background: #0d1121;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 32px;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+
+    .modal-card i {
+      font-size: 60px;
+      color: var(--success);
+      animation: scaleUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes scaleUp {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-card h2 {
+      font-size: 24px;
+      font-weight: 800;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .modal-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- React Libraries from Unpkg CDN -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Main React App Script (JSX Compiled on the Fly) -->
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // ==========================================
+    // DATA LAYER (CURRICULUM SPECIFICATIONS)
+    // ==========================================
+    const CURRICULUM = {
+      1: {
+        id: 1,
+        title: "Two Pointers — ROI & Pattern",
+        patternType: "tp",
+        category: "Two Pointers",
+        oneSentence: "Two pointers narrow down the search space in sorted data from opposite ends.",
+        description: "Focus on understanding the template twice. First through guided line-by-line tracing, then by reconstructing the core steps.",
+        roi: {
+          frequency: "⭐⭐⭐⭐⭐ (Tested in 80% of top tech interviews)",
+          complexity: "Time: O(N) | Space: O(1) in-place",
+          dependsOn: "Arrays (Sorted or Symmetric)",
+          signals: "Finding pairs/triplets in sorted lists, reversing arrays, checking symmetry."
+        },
+        template: {
+          filename: "TwoPointer_Pattern_Template.java",
+          codeLines: [
+            { num: 1, text: "public class TwoPointer_Pattern_Template {" },
+            { num: 2, text: "    public static int solve(int[] nums) {" },
+            { num: 3, text: "        // STEP 1 — INIT: Place pointers at opposite ends" },
+            { num: 4, text: "        int left = 0;" },
+            { num: 5, text: "        int right = nums.length - 1;" },
+            { num: 6, text: "" },
+            { num: 7, text: "        // STEP 2 — LOOP: Narrow inward until they meet" },
+            { num: 8, text: "        while (left < right) {" },
+            { num: 9, text: "            // STEP 3 — CHECK: Evaluate condition and decide pointer step" },
+            { num: 10, text: "            int sum = nums[left] + nums[right];" },
+            { num: 11, text: "            if (sum == target) {" },
+            { num: 12, text: "                return ...; // MATCH found!" },
+            { num: 13, text: "            } else if (sum < target) {" },
+            { num: 14, text: "                left++;  // Too small -> need larger -> move left up" },
+            { num: 15, text: "            } else {" },
+            { num: 16, text: "                right--; // Too big -> need smaller -> move right down" },
+            { num: 17, text: "            }" },
+            { num: 18, text: "        }" },
+            { num: 19, text: "        // STEP 4 — RETURN" },
+            { num: 20, text: "        return -1;" },
+            { num: 21, text: "    }" },
+            { num: 22, text: "}" }
+          ],
+          traceSteps: [
+            { line: 3, title: "1. Pointer Initialization", text: "Place one pointer at index 0 and the other at the very end of the array." },
+            { line: 8, title: "2. Loop Inward", text: "Continue the search while left < right. Once they cross, all pairs are exhausted." },
+            { line: 10, title: "3. Evaluate State", text: "Evaluate the current sum or criteria. We compare the combination at left and right." },
+            { line: 13, title: "4. Move Pointer (left++)", text: "Because the data is sorted, incrementing left increases the sum for the next check." },
+            { line: 15, title: "5. Move Pointer (right--)", text: "Decrementing right decreases the sum for the next check." },
+            { line: 20, title: "6. Fallback Return", text: "If the pointers cross and no matches are found, return the fallback indicator (e.g. -1)." }
+          ],
+          sandbox: [
+            {
+              step: "INIT",
+              question: "How do you initialize pointers for opposite-ends Two Pointers?",
+              options: [
+                "int left = 0; int right = nums.length - 1;",
+                "int left = 0; int right = 0;",
+                "int left = nums.length / 2; int right = left + 1;"
+              ],
+              correct: 0
+            },
+            {
+              step: "LOOP",
+              question: "What is the correct loop condition for two pointers walking toward each other?",
+              options: [
+                "while (left <= nums.length)",
+                "while (left < right)",
+                "while (left != right + 1)"
+              ],
+              correct: 1
+            },
+            {
+              step: "CHECK & MOVE",
+              question: "If our current sum is TOO SMALL, how do we adjust?",
+              options: [
+                "right-- (decreases sum)",
+                "left++ (increases sum)",
+                "left-- (increases sum)"
+              ],
+              correct: 1
+            }
+          ]
+        }
+      },
+      2: {
+        id: 2,
+        title: "Two Pointers — Dry Run & Recall",
+        patternType: "tp",
+        category: "Two Pointers",
+        oneSentence: "Trace existing problems (Two Sum II, Palindrome, 3Sum, Trapping Rain Water) step-by-step.",
+        problems: {
+          twoSumII: {
+            title: "Two Sum II — Sorted Array",
+            description: "Given a 1-indexed sorted array, find two numbers that sum to a target.",
+            story: "Shortest + tallest kids. Too short? Pick next taller. Too tall? Pick next shorter.",
+            array: [2, 7, 11, 15],
+            target: 9,
+            code: [
+              "public static int[] solve(int[] nums, int target) {",
+              "    int left = 0, right = nums.length - 1;",
+              "    while (left < right) {",
+              "        int sum = nums[left] + nums[right];",
+              "        if (sum == target) {",
+              "            return new int[]{left + 1, right + 1};",
+              "        } else if (sum < target) {",
+              "            left++;",
+              "        } else {",
+              "            right--;",
+              "        }",
+              "    }",
+              "    return new int[]{-1, -1};",
+              "}"
+            ],
+            steps: [
+              { left: 0, right: 3, sum: null, line: 1, desc: "Init: left pointer at 0 (value 2), right pointer at 3 (value 15)." },
+              { left: 0, right: 3, sum: 17, line: 3, desc: "Check sum: nums[left] + nums[right] = 2 + 15 = 17." },
+              { left: 0, right: 3, sum: 17, line: 7, desc: "Sum (17) > target (9). It is too tall. We must narrow our right wall. Decrement right." },
+              { left: 0, right: 2, sum: 17, line: 8, desc: "right pointer decremented to index 2 (value 11)." },
+              { left: 0, right: 2, sum: 13, line: 3, desc: "Check sum: nums[left] + nums[right] = 2 + 11 = 13." },
+              { left: 0, right: 2, sum: 13, line: 7, desc: "Sum (13) > target (9). Still too tall. Decrement right." },
+              { left: 0, right: 1, sum: 13, line: 8, desc: "right pointer decremented to index 1 (value 7)." },
+              { left: 0, right: 1, sum: 9, line: 3, desc: "Check sum: nums[left] + nums[right] = 2 + 7 = 9." },
+              { left: 0, right: 1, sum: 9, line: 4, desc: "Sum (9) matches target (9)! Return 1-indexed result: [1, 2]." }
+            ]
+          },
+          palindrome: {
+            title: "Valid Palindrome",
+            description: "Check if a string is a palindrome, skipping non-alphanumeric chars and ignoring case.",
+            story: "Two friends reading a banner from outside-in, skipping spaces & punctuation.",
+            array: ["a", ",", " ", "b", "!", " ", "a"],
+            code: [
+              "public static boolean solve(String s) {",
+              "    int left = 0, right = s.length() - 1;",
+              "    while (left < right) {",
+              "        while (left < right && !Character.isLetterOrDigit(s.charAt(left))) left++;",
+              "        while (left < right && !Character.isLetterOrDigit(s.charAt(right))) right--;",
+              "        if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right)))",
+              "            return false;",
+              "        left++; right--;",
+              "    }",
+              "    return true;",
+              "}"
+            ],
+            steps: [
+              { left: 0, right: 6, line: 1, desc: "Init: left at index 0 ('a'), right at index 6 ('a')." },
+              { left: 0, right: 6, line: 3, desc: "Left character 'a' is valid alphanumeric. No skip needed." },
+              { left: 0, right: 6, line: 4, desc: "Right character 'a' is valid alphanumeric. No skip needed." },
+              { left: 0, right: 6, line: 5, desc: "Compare left ('a') & right ('a'). They match! Both step inward." },
+              { left: 1, right: 5, line: 7, desc: "left increments to 1 (','), right decrements to 5 (' ')." },
+              { left: 3, right: 5, line: 3, desc: "Left skip: character at index 1 (',') and index 2 (' ') are not valid. left skips to index 3 ('b')." },
+              { left: 3, right: 3, line: 4, desc: "Right skip: character at index 5 (' ') and index 4 ('!') are not valid. right skips to index 3 ('b')." },
+              { left: 3, right: 3, line: 2, desc: "Now left (3) is not less than right (3). The loop terminates. Return true." }
+            ]
+          },
+          trappingRain: {
+            title: "Trapping Rain Water",
+            description: "Given wall heights, compute how much rainwater is trapped between them.",
+            story: "Bathtub walls. Always process the shorter wall first because it is the bottleneck.",
+            array: [0, 1, 0, 2],
+            code: [
+              "public static int solve(int[] height) {",
+              "    int left = 0, right = height.length - 1;",
+              "    int leftMax = 0, rightMax = 0, water = 0;",
+              "    while (left < right) {",
+              "        if (height[left] < height[right]) {",
+              "            if (height[left] >= leftMax) leftMax = height[left];",
+              "            else water += leftMax - height[left];",
+              "            left++;",
+              "        } else {",
+              "            if (height[right] >= rightMax) rightMax = height[right];",
+              "            else water += rightMax - height[right];",
+              "            right--;",
+              "        }",
+              "    }",
+              "    return water;",
+              "}"
+            ],
+            steps: [
+              { left: 0, right: 3, leftMax: 0, rightMax: 0, water: 0, line: 1, desc: "Init: left=0 (height 0), right=3 (height 2). leftMax=0, rightMax=0, water=0." },
+              { left: 0, right: 3, leftMax: 0, rightMax: 0, water: 0, line: 4, desc: "Compare: height[left] (0) < height[right] (2). Left is the bottleneck!" },
+              { left: 0, right: 3, leftMax: 0, rightMax: 0, water: 0, line: 5, desc: "height[left] (0) >= leftMax (0). Update leftMax to 0." },
+              { left: 1, right: 3, leftMax: 0, rightMax: 0, water: 0, line: 7, desc: "Move left to index 1." },
+              { left: 1, right: 3, leftMax: 0, rightMax: 0, water: 0, line: 4, desc: "Compare: height[left] (1) < height[right] (2). Left is still the bottleneck." },
+              { left: 1, right: 3, leftMax: 1, rightMax: 0, water: 0, line: 5, desc: "height[left] (1) > leftMax (0). Update leftMax to 1." },
+              { left: 2, right: 3, leftMax: 1, rightMax: 0, water: 0, line: 7, desc: "Move left to index 2." },
+              { left: 2, right: 3, leftMax: 1, rightMax: 0, water: 0, line: 4, desc: "Compare: height[left] (0) < height[right] (2). Left remains the bottleneck." },
+              { left: 2, right: 3, leftMax: 1, rightMax: 0, water: 1, line: 6, desc: "height[left] (0) < leftMax (1). Water trapped! water += 1 - 0 = 1 (Total: 1)." },
+              { left: 3, right: 3, leftMax: 1, rightMax: 0, water: 1, line: 7, desc: "Move left to index 3." },
+              { left: 3, right: 3, leftMax: 1, rightMax: 0, water: 1, line: 3, desc: "Pointers met (left == right). Loop finishes. Return water (1)." }
+            ]
+          }
+        },
+        quiz: [
+          {
+            q: "What is the critical rule for moving pointers in Trapping Rain Water?",
+            options: [
+              "Always move the pointer that points to a smaller height first, because it limits the water level.",
+              "Always move both pointers inward at each step.",
+              "Always move the pointer pointing to the taller wall, to search for a new boundary."
+            ],
+            correct: 0,
+            explain: "The shorter wall is always the bottleneck for holding water. We process the shorter side and compare it against its maximum boundary."
+          },
+          {
+            q: "Why do we need a left < right check inside the Valid Palindrome nested character loops?",
+            options: [
+              "To prevent the pointers from moving out of bounds when the entire string contains non-alphanumeric chars.",
+              "To make the algorithm execute in O(log N) complexity.",
+              "It is optional and does not affect safety."
+            ],
+            correct: 0,
+            explain: "If the string is all spaces/commas (e.g. ' ,,, '), the inner while loops would increment left or decrement right past the string boundaries if not restricted."
+          }
+        ]
+      },
+      3: {
+        id: 3,
+        title: "Two Pointers — Active Recall Skeletons",
+        patternType: "tp",
+        category: "Two Pointers",
+        oneSentence: "Fill in the blank active recall templates for Two Pointer problems.",
+        problems: {
+          twoSumII: {
+            title: "Two Sum II — Active Recall",
+            story: "Opposite ends. Too small? Move left up. Too big? Move right down.",
+            template: [
+              "public static int[] solve(int[] nums, int target) {",
+              "    int left = [[0]], right = [[nums.length - 1]];",
+              "    while ([[left]] < [[right]]) {",
+              "        int sum = [[nums[left]]] + [[nums[right]]];",
+              "        if (sum == [[target]]) {",
+              "            return new int[]{[[left + 1]], [[right + 1]]};",
+              "        } else if (sum < [[target]]) {",
+              "            [[left++]];",
+              "        } else {",
+              "            [[right--]];",
+              "        }",
+              "    }",
+              "    return new int[]{-1, -1};",
+              "}"
+            ]
+          },
+          palindrome: {
+            title: "Valid Palindrome — Active Recall",
+            story: "Skip non-alphanumeric junk inside the loop, compare lowercase, move both inwards.",
+            template: [
+              "public static boolean solve(String s) {",
+              "    int left = [[0]], right = [[s.length() - 1]];",
+              "    while ([[left]] < [[right]]) {",
+              "        while (left < right && !Character.isLetterOrDigit([[s.charAt(left)]])) [[left++]];",
+              "        while (left < right && !Character.isLetterOrDigit([[s.charAt(right)]])) [[right--]];",
+              "        if (Character.toLowerCase([[s.charAt(left)]]) != Character.toLowerCase([[s.charAt(right)]])) {",
+              "            return [[false]];",
+              "        }",
+              "        [[left++]];",
+              "        [[right--]];",
+              "    }",
+              "    return [[true]];",
+              "}"
+            ]
+          },
+          threeSum: {
+            title: "3Sum — Active Recall",
+            story: "Sort first! Loop anchor i, do TwoSumII on left (i+1) and right (end), skip duplicate anchors.",
+            template: [
+              "public static List<List<Integer>> solve(int[] nums) {",
+              "    List<List<Integer>> result = new ArrayList<>();",
+              "    Arrays.sort([[nums]]);",
+              "    for (int i = 0; i < [[nums.length - 2]]; i++) {",
+              "        if (nums[i] > 0) [[break]];",
+              "        if (i > 0 && [[nums[i] == nums[i - 1]]]) [[continue]];",
+              "        int left = [[i + 1]], right = [[nums.length - 1]];",
+              "        while (left < right) {",
+              "            int sum = nums[i] + nums[left] + nums[right];",
+              "            if (sum == 0) {",
+              "                result.add(Arrays.asList(nums[i], nums[left], nums[right]));",
+              "                left++; right--;",
+              "                while (left < right && [[nums[left] == nums[left - 1]]]) [[left++]];",
+              "                while (left < right && [[nums[right] == nums[right + 1]]]) [[right--]];",
+              "            } else if (sum < 0) {",
+              "                [[left++]];",
+              "            } else {",
+              "                [[right--]];",
+              "            }",
+              "        }",
+              "    }",
+              "    return result;",
+              "}"
+            ]
+          }
+        }
+      },
+      4: {
+        id: 4,
+        title: "Sliding Window — ROI & Pattern",
+        patternType: "sw",
+        category: "Sliding Window",
+        oneSentence: "Avoid recalculating overlapping subarray values by sliding a window.",
+        description: "Trace the sliding window templates (Fixed & Variable length) and learn the core 4 steps of sliding windows.",
+        roi: {
+          frequency: "⭐⭐⭐⭐⭐ (Critical for array/string substring problems)",
+          complexity: "Time: O(N) linear time | Space: O(1) or O(K) for state",
+          dependsOn: "Two Pointers concept",
+          signals: "Keywords: 'Contiguous subarray', 'substring', 'max/min size', 'longest/shortest sum'."
+        },
+        template: {
+          filename: "SlidingWindow_Pattern_Template.java",
+          codeLines: [
+            { num: 1, text: "public class SlidingWindow_Pattern_Template {" },
+            { num: 2, text: "    // ========== FIXED WINDOW PATTERN ==========" },
+            { num: 3, text: "    public static int solveFixed(int[] nums, int k) {" },
+            { num: 4, text: "        int windowSum = 0, maxSum = 0;" },
+            { num: 5, text: "        // STEP 1 — BUILD: Add first window of size K" },
+            { num: 6, text: "        for (int i = 0; i < k; i++) windowSum += nums[i];" },
+            { num: 7, text: "        maxSum = windowSum;" },
+            { num: 8, text: "" },
+            { num: 9, text: "        // STEP 2 — SLIDE: Shift window right one step" },
+            { num: 10, text: "        for (int i = k; i < nums.length; i++) {" },
+            { num: 11, text: "            windowSum += nums[i];     // Right enters -> add" },
+            { num: 12, text: "            windowSum -= nums[i - k]; // Left exits -> subtract" },
+            { num: 13, text: "            // STEP 3 — TRACK: Update best sum seen" },
+            { num: 14, text: "            maxSum = Math.max(maxSum, windowSum);" },
+            { num: 15, text: "        }" },
+            { num: 16, text: "        return maxSum;" },
+            { num: 17, text: "    }" },
+            { num: 18, text: "}" }
+          ],
+          traceSteps: [
+            { line: 5, title: "1. Build Initial Window", text: "Process elements from 0 to K-1 to establish our first window state." },
+            { line: 10, title: "2. Slide Loop", text: "Loop from index K to the end of the array, introducing one element at a time." },
+            { line: 11, title: "3. Expand Window Right", text: "Add the new incoming element `nums[i]` to our active window tracking." },
+            { line: 12, title: "4. Shrink Window Left", text: "Deduct the outgoing element `nums[i - k]` that is no longer inside the glass." },
+            { line: 14, title: "5. Track Maximum State", text: "Update the best state variable (e.g. maxSum) with the current window value." }
+          ],
+          sandbox: [
+            {
+              step: "BUILD",
+              question: "For a fixed window of size K, how do we initialize our window state?",
+              options: [
+                "Sum elements from index 0 to K-1",
+                "Start with index 0 and index 1",
+                "Loop through the entire array first"
+              ],
+              correct: 0
+            },
+            {
+              step: "SLIDE ADD/REMOVE",
+              question: "When sliding a fixed window of size K at index `i`, which element is removed?",
+              options: [
+                "nums[i]",
+                "nums[i - k]",
+                "nums[i - 1]"
+              ],
+              correct: 1
+            },
+            {
+              step: "VARIABLE RULE",
+              question: "Where do you update the tracker for a SHORTEST variable window?",
+              options: [
+                "Outside the shrink loop",
+                "Inside the shrink loop (while window is valid)",
+                "At the very end of the main function"
+              ],
+              correct: 1
+            }
+          ]
+        }
+      },
+      5: {
+        id: 5,
+        title: "Sliding Window — Dry Run & Recall",
+        patternType: "sw",
+        category: "Sliding Window",
+        oneSentence: "Trace Maximum Average Subarray, Max Vowels, and Minimum Window Substring.",
+        problems: {
+          maxAvgSubarray: {
+            title: "Maximum Average Subarray I (Fixed)",
+            description: "Find a contiguous subarray of size k with the maximum average value.",
+            story: "A magnifying glass of width K slides across the array. Add right, remove left, track max sum.",
+            array: [1, 12, -5, -6, 50, 3],
+            k: 4,
+            code: [
+              "public static double solve(int[] nums, int k) {",
+              "    double windowSum = 0, maxSum = 0;",
+              "    for (int i = 0; i < k; i++) windowSum += nums[i];",
+              "    maxSum = windowSum;",
+              "    for (int i = k; i < nums.length; i++) {",
+              "        windowSum += nums[i];",
+              "        windowSum -= nums[i - k];",
+              "        maxSum = Math.max(maxSum, windowSum);",
+              "    }",
+              "    return maxSum / k;",
+              "}"
+            ],
+            steps: [
+              { i: 3, windowSum: 2, maxSum: 2, leftIdx: 0, rightIdx: 3, line: 2, desc: "Build initial window (0 to 3): 1 + 12 + (-5) + (-6) = 2. maxSum = 2." },
+              { i: 4, windowSum: 51, maxSum: 51, leftIdx: 1, rightIdx: 4, line: 5, desc: "Slide index 4: Add nums[4] (50) to windowSum (2 + 50 = 52). Deduct nums[0] (1) -> windowSum becomes 51." },
+              { i: 4, windowSum: 51, maxSum: 51, leftIdx: 1, rightIdx: 4, line: 7, desc: "Track: Math.max(maxSum 2, newSum 51) = 51." },
+              { i: 5, windowSum: 42, maxSum: 51, leftIdx: 2, rightIdx: 5, line: 5, desc: "Slide index 5: Add nums[5] (3) -> (51 + 3 = 54). Deduct nums[1] (12) -> windowSum becomes 42." },
+              { i: 5, windowSum: 42, maxSum: 51, leftIdx: 2, rightIdx: 5, line: 7, desc: "Track: Math.max(maxSum 51, newSum 42) = 51." },
+              { i: 6, windowSum: 42, maxSum: 51, leftIdx: 2, rightIdx: 5, line: 9, desc: "Loop finishes. Return maxSum / k = 51.0 / 4 = 12.75." }
+            ]
+          },
+          maxVowels: {
+            title: "Max Vowels of Length K (Fixed)",
+            description: "Given s and k, return the max number of vowels in any substring of length k.",
+            story: "Magnifying glass, but instead of summing numbers, count vowels. Add right, remove left.",
+            array: ["a", "b", "c", "i", "i", "i", "d"],
+            k: 3,
+            code: [
+              "public static int solve(String s, int k) {",
+              "    int vowelCount = 0, maxVowels = 0;",
+              "    for (int i = 0; i < k; i++) if (isVowel(s.charAt(i))) vowelCount++;",
+              "    maxVowels = vowelCount;",
+              "    for (int i = k; i < s.length(); i++) {",
+              "        if (isVowel(s.charAt(i))) vowelCount++;",
+              "        if (isVowel(s.charAt(i - k))) vowelCount--;",
+              "        maxVowels = Math.max(maxVowels, vowelCount);",
+              "    }",
+              "    return maxVowels;",
+              "}"
+            ],
+            steps: [
+              { i: 2, vowelCount: 1, maxVowels: 1, leftIdx: 0, rightIdx: 2, line: 2, desc: "Build initial window 'abc': vowelCount = 1 ('a'). maxVowels = 1." },
+              { i: 3, vowelCount: 1, maxVowels: 1, leftIdx: 1, rightIdx: 3, line: 5, desc: "Slide index 3 ('i'): 'i' enters (is vowel -> vowelCount becomes 2). 'a' (index 0) exits (is vowel -> vowelCount becomes 1)." },
+              { i: 3, vowelCount: 1, maxVowels: 1, leftIdx: 1, rightIdx: 3, line: 7, desc: "Track: Math.max(1, 1) = 1." },
+              { i: 4, vowelCount: 2, maxVowels: 2, leftIdx: 2, rightIdx: 4, line: 5, desc: "Slide index 4 ('i'): 'i' enters (is vowel -> vowelCount becomes 2). 'b' (index 1) exits (not vowel -> count stays 2)." },
+              { i: 4, vowelCount: 2, maxVowels: 2, leftIdx: 2, rightIdx: 4, line: 7, desc: "Track: Math.max(1, 2) = 2." },
+              { i: 5, vowelCount: 3, maxVowels: 3, leftIdx: 3, rightIdx: 5, line: 5, desc: "Slide index 5 ('i'): 'i' enters (is vowel -> vowelCount becomes 3). 'c' (index 2) exits (not vowel -> count stays 3)." },
+              { i: 5, vowelCount: 3, maxVowels: 3, leftIdx: 3, rightIdx: 5, line: 7, desc: "Track: Math.max(2, 3) = 3." },
+              { i: 6, vowelCount: 2, maxVowels: 3, leftIdx: 4, rightIdx: 6, line: 5, desc: "Slide index 6 ('d'): 'd' enters (not vowel). 'i' (index 3) exits (is vowel -> vowelCount decrements to 2)." },
+              { i: 6, vowelCount: 2, maxVowels: 3, leftIdx: 4, rightIdx: 6, line: 7, desc: "Track: Math.max(3, 2) = 3. Return 3." }
+            ]
+          }
+        },
+        quiz: [
+          {
+            q: "What distinguishes a Fixed Window from a Variable Window?",
+            options: [
+              "Fixed Windows always have the right and left pointers move at the exact same time (maintaining distance K), whereas Variable Windows expand right and shrink left dynamically based on conditions.",
+              "Fixed Windows can only contain positive numbers, while Variable Windows support negative values.",
+              "There is no difference; they are different names for the same template."
+            ],
+            correct: 0,
+            explain: "Fixed windows maintain a distance of exactly K between their boundaries (i.e. we add right and deduct left in the same step). Variable windows expand and shrink independently."
+          },
+          {
+            q: "For a variable sliding window where we need to find the LONGEST valid subarray, when do we update our max length?",
+            options: [
+              "Inside the while-shrink loop.",
+              "Directly after/outside the while-shrink loop, once the window is confirmed to be valid.",
+              "Before the while-shrink loop."
+            ],
+            correct: 1,
+            explain: "For a LONGEST valid window, we shrink the window until it becomes valid, and then we record the length outside the loop because the window is at its largest possible valid state at that step."
+          }
+        ]
+      },
+      6: {
+        id: 6,
+        title: "Sliding Window — Active Recall Skeletons",
+        patternType: "sw",
+        category: "Sliding Window",
+        oneSentence: "Fill in the blank active recall templates for Sliding Window problems.",
+        problems: {
+          maxAvgSubarray: {
+            title: "Maximum Average Subarray I — Active Recall",
+            story: "Build initial window of size K, slide, add right, remove left, track max average.",
+            template: [
+              "public static double solve(int[] nums, int k) {",
+              "    double windowSum = 0, maxSum = 0;",
+              "    for (int i = 0; i < [[k]]; i++) {",
+              "        windowSum += [[nums[i]]];",
+              "    }",
+              "    maxSum = [[windowSum]];",
+              "    for (int i = [[k]]; i < nums.length; i++) {",
+              "        windowSum += [[nums[i]]]; // add right",
+              "        windowSum -= [[nums[i - k]]]; // remove left",
+              "        maxSum = Math.max([[maxSum]], [[windowSum]]);",
+              "    }",
+              "    return [[maxSum]] / [[k]];",
+              "}"
+            ]
+          },
+          maxVowels: {
+            title: "Max Vowels of Length K — Active Recall",
+            story: "Slide fixed window, if char entering is vowel -> count++, if char exiting is vowel -> count--.",
+            template: [
+              "public static int solve(String s, int k) {",
+              "    int vowelCount = 0, maxVowels = 0;",
+              "    for (int i = 0; i < [[k]]; i++) {",
+              "        if (isVowel([[s.charAt(i)]])) vowelCount++;",
+              "    }",
+              "    maxVowels = [[vowelCount]];",
+              "    for (int i = [[k]]; i < s.length(); i++) {",
+              "        if (isVowel([[s.charAt(i)]])) vowelCount++;",
+              "        if (isVowel([[s.charAt(i - k)]])) [[vowelCount--]];",
+              "        maxVowels = Math.max([[maxVowels]], [[vowelCount]]);",
+              "    }",
+              "    return [[maxVowels]];",
+              "}"
+            ]
+          },
+          minWindowSubstring: {
+            title: "Minimum Window Substring — Active Recall",
+            story: "Shopping list matching. Expand right until valid, shrink left while valid, track shortest.",
+            template: [
+              "public static String solve(String s, String t) {",
+              "    Map<Character, Integer> need = new HashMap<>();",
+              "    for (char c : t.toCharArray()) need.put(c, need.getOrDefault(c, 0) + 1);",
+              "    int required = [[need.size()]], matched = 0;",
+              "    Map<Character, Integer> have = new HashMap<>();",
+              "    int bestLen = Integer.MAX_VALUE, bestStart = 0, left = [[0]];",
+              "    for (int right = 0; right < [[s.length()]]; right++) {",
+              "        char r = s.charAt(right);",
+              "        have.put(r, have.getOrDefault(r, 0) + 1);",
+              "        if (need.containsKey(r) && [[have.get(r).intValue() == need.get(r).intValue()]]) {",
+              "            [[matched++]];",
+              "        }",
+              "        while ([[matched]] == [[required]]) {",
+              "            int len = right - left + 1;",
+              "            if (len < [[bestLen]]) {",
+              "                bestLen = [[len]];",
+              "                bestStart = [[left]];",
+              "            }",
+              "            char l = s.charAt(left);",
+              "            have.put(l, have.get(l) - 1);",
+              "            if (need.containsKey(l) && [[have.get(l).intValue() < need.get(l).intValue()]]) {",
+              "                [[matched--]];",
+              "            }",
+              "            [[left++]];",
+              "        }",
+              "    }",
+              "    return bestLen == Integer.MAX_VALUE ? \"\" : s.substring([[bestStart]], [[bestStart + bestLen]]);",
+              "}"
+            ]
+          }
+        }
+      }
+    };
+
+    // ==========================================
+    // MAIN APP WRAPPER
+    // ==========================================
+    function App() {
+      const [activeDay, setActiveDay] = useState(null); // null = dashboard
+      const [progress, setProgress] = useState({});
+      const [showMasteryModal, setShowMasteryModal] = useState(false);
+
+      // Load progress on init
+      useEffect(() => {
+        const savedProgress = localStorage.getItem("dsa_mastery_journal_progress");
+        if (savedProgress) {
+          try {
+            setProgress(JSON.parse(savedProgress));
+          } catch(e) {}
+        }
+      }, []);
+
+      const saveProgress = (newProgress) => {
+        setProgress(newProgress);
+        localStorage.setItem("dsa_mastery_journal_progress", JSON.stringify(newProgress));
+      };
+
+      const completeDay = (dayNum) => {
+        const newProgress = { ...progress, [dayNum]: true };
+        saveProgress(newProgress);
+        setShowMasteryModal(true);
+      };
+
+      const getCompletionPercentage = () => {
+        let done = 0;
+        for (let i = 1; i <= 6; i++) {
+          if (progress[i]) done++;
+        }
+        return Math.round((done / 6) * 100);
+      };
+
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+          {/* Header */}
+          <header>
+            <div className="logo" onClick={() => setActiveDay(null)} style={{ cursor: 'pointer' }}>
+              <i className="fa-solid fa-graduation-cap logo-badge"></i>
+              <span>DSA <span className="logo-badge">Mastery</span> Journal</span>
+              <span className="logo-subtitle">6-Day Blueprint</span>
+            </div>
+            
+            <div className="overall-stats">
+              <span style={{ fontSize: '13px', color: 'var(--text-muted)', fontWeight: '700' }}>
+                Total Progress: {getCompletionPercentage()}%
+              </span>
+              <div className="progress-bar-container">
+                <div className="progress-bar-fill" style={{ width: `${getCompletionPercentage()}%` }}></div>
+              </div>
+            </div>
+          </header>
+
+          <div className="app-container">
+            {/* Sidebar Navigation */}
+            <aside className="sidebar">
+              <div className="sidebar-title">Mastery Timeline</div>
+              
+              {[1, 2, 3, 4, 5, 6].map(dayNum => {
+                const day = CURRICULUM[dayNum];
+                const isActive = activeDay === dayNum;
+                let activeClass = "";
+                if (isActive) {
+                  activeClass = day.patternType === "tp" ? "active-two-pointer" : "active-sliding-window";
+                }
+                
+                return (
+                  <div 
+                    key={dayNum} 
+                    className={`day-card ${activeClass}`}
+                    onClick={() => setActiveDay(dayNum)}
+                  >
+                    <div className="day-info">
+                      <span className={`day-num ${day.patternType}`}>Day {dayNum} ({day.category})</span>
+                      <span className="day-name">{day.title.split(" — ")[1]}</span>
+                      <span className="day-subtitle">{dayNum === 1 || dayNum === 4 ? "Learn Pattern 2x" : dayNum === 2 || dayNum === 5 ? "Dry Run & Quiz" : "Active Recall"}</span>
+                    </div>
+                    <div className={`day-status ${progress[dayNum] ? "completed" : ""}`}>
+                      {progress[dayNum] ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-lock-open"></i>}
+                    </div>
+                  </div>
+                );
+              })}
+            </aside>
+
+            {/* Main Content Workspace */}
+            <main className="workspace">
+              {activeDay === null ? (
+                <DashboardView 
+                  progress={progress} 
+                  setActiveDay={setActiveDay} 
+                  percent={getCompletionPercentage()} 
+                />
+              ) : activeDay === 1 || activeDay === 4 ? (
+                <DayPatternLearn 
+                  dayData={CURRICULUM[activeDay]} 
+                  onComplete={() => completeDay(activeDay)} 
+                  isCompleted={progress[activeDay]} 
+                  onBack={() => setActiveDay(null)}
+                />
+              ) : activeDay === 2 || activeDay === 5 ? (
+                <DayDryRunAndQuiz 
+                  dayData={CURRICULUM[activeDay]} 
+                  onComplete={() => completeDay(activeDay)} 
+                  isCompleted={progress[activeDay]}
+                  onBack={() => setActiveDay(null)}
+                />
+              ) : (
+                <DayActiveRecall 
+                  dayData={CURRICULUM[activeDay]} 
+                  onComplete={() => completeDay(activeDay)} 
+                  isCompleted={progress[activeDay]}
+                  onBack={() => setActiveDay(null)}
+                />
+              )}
+            </main>
+          </div>
+
+          {/* Mastery Celebratory Modal */}
+          {showMasteryModal && (
+            <div className="modal-overlay" onClick={() => setShowMasteryModal(false)}>
+              <div className="modal-card" onClick={e => e.stopPropagation()}>
+                <i className="fa-solid fa-circle-check"></i>
+                <h2>Day Completed!</h2>
+                <p>
+                  You've successfully completed the learning, recall, and coding tasks for this day. 
+                  Keep up the high-ROI daily consistency to master DSA patterns for your interviews!
+                </p>
+                <button 
+                  className="primary-action-btn" 
+                  onClick={() => setShowMasteryModal(false)}
+                  style={{ width: '100%', justifyContent: 'center' }}
+                >
+                  Continue Journey
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // ==========================================
+    // COMPONENT: DASHBOARD / SPLASH VIEW
+    // ==========================================
+    function DashboardView({ progress, setActiveDay, percent }) {
+      return (
+        <div className="card" style={{ flex: 1 }}>
+          <div className="dashboard-header">
+            <div className="dashboard-title-area">
+              <h1>DSA Pattern Mastery Blueprint</h1>
+              <p>Traces and templates optimized for Java Technical Interviews</p>
+            </div>
+            
+            <div style={{ background: 'rgba(255,255,255,0.03)', padding: '12px 20px', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
+              <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: '700', textTransform: 'uppercase' }}>Current Plan Status</span>
+              <div style={{ fontSize: '20px', fontWeight: '800', marginTop: '4px', color: percent === 100 ? 'var(--success)' : 'var(--tp-primary)' }}>
+                {percent === 100 ? "🏆 All Days Mastered!" : `${percent}% Complete`}
+              </div>
+            </div>
+          </div>
+
+          <div style={{ margin: '24px 0', padding: '16px 20px', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-color)', borderRadius: '12px', fontSize: '14px', lineHeight: '1.6' }}>
+            <h3 style={{ fontSize: '15px', color: 'var(--text-main)', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <i className="fa-solid fa-bolt" style={{ color: 'var(--warning)' }}></i> 
+              The 3-Day Pattern Rotation Strategy
+            </h3>
+            Each pattern is mastered in a high-retention 3-day cycle:
+            <ul style={{ marginLeft: '20px', marginTop: '6px', color: 'var(--text-muted)' }}>
+              <li><strong>Day 1 / 4 (Pattern Learn 2x):</strong> Build conceptual understanding by tracing templates and doing step-by-step reconstruction.</li>
+              <li><strong>Day 2 / 5 (Dry Run & Recall):</strong> Analyze execution flow line-by-line using pointer visualization on existing interview problems.</li>
+              <li><strong>Day 3 / 6 (Active Recall Skeletons):</strong> Force memory retrieval by writing/filling the code from blank templates.</li>
+            </ul>
+          </div>
+
+          <h2 style={{ fontSize: '18px', fontWeight: '800', marginTop: '32px', marginBottom: '16px', fontFamily: 'Outfit', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <i className="fa-solid fa-road" style={{ color: 'var(--tp-primary)' }}></i> Roadmap Tasks
+          </h2>
+
+          <div className="dashboard-grid">
+            {[1, 2, 3, 4, 5, 6].map(dayNum => {
+              const day = CURRICULUM[dayNum];
+              const isDone = progress[dayNum];
+              
+              return (
+                <div 
+                  key={dayNum} 
+                  className={`dash-day-card ${day.patternType}-card ${isDone ? 'completed' : ''}`}
+                  onClick={() => setActiveDay(dayNum)}
+                >
+                  <div className="dash-day-header">
+                    <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: day.patternType === 'tp' ? 'var(--tp-primary)' : 'var(--sw-primary)' }}>Day {dayNum}</span>
+                    <div className={`dash-day-icon ${day.patternType}`}>
+                      {day.patternType === 'tp' ? <i className="fa-solid fa-arrows-left-right"></i> : <i className="fa-solid fa-magnifying-glass"></i>}
+                    </div>
+                  </div>
+                  <div className="dash-day-body">
+                    <h3>{day.title.split(" — ")[1]}</h3>
+                    <p>{day.oneSentence}</p>
+                  </div>
+                  <div className={`dash-day-footer ${isDone ? 'completed' : ''}`}>
+                    <span className="status-text">
+                      {isDone ? <React.Fragment><i className="fa-solid fa-circle-check"></i> Mastered</React.Fragment> : "To Do"}
+                    </span>
+                    <span className="action-link">
+                      Start <i className="fa-solid fa-arrow-right-long"></i>
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    // ==========================================
+    // COMPONENT: DAY 1 & 4 (PATTERN LEARN 2X)
+    // ==========================================
+    function DayPatternLearn({ dayData, onComplete, isCompleted, onBack }) {
+      const [activePass, setActivePass] = useState(1); // 1 = Trace study, 2 = Reconstruction
+      const [highlightedLine, setHighlightedLine] = useState(null);
+      const [sandboxAnswers, setSandboxAnswers] = useState({ 0: "", 1: "", 2: "" });
+      const [sandboxErrors, setSandboxErrors] = useState({});
+      const [sandboxCorrect, setSandboxCorrect] = useState(false);
+
+      const handleLineClick = (lineNum) => {
+        const step = dayData.template.traceSteps.find(s => s.line === lineNum);
+        if (step) {
+          setHighlightedLine(lineNum);
+        }
+      };
+
+      const handleSandboxChange = (index, val) => {
+        setSandboxAnswers({ ...sandboxAnswers, [index]: val });
+      };
+
+      const verifySandbox = () => {
+        let errors = {};
+        let isAllCorrect = true;
+        dayData.template.sandbox.forEach((q, idx) => {
+          if (parseInt(sandboxAnswers[idx]) !== q.correct) {
+            errors[idx] = true;
+            isAllCorrect = false;
+          }
+        });
+        setSandboxErrors(errors);
+        setSandboxCorrect(isAllCorrect);
+      };
+
+      const activeStepExplain = dayData.template.traceSteps.find(s => s.line === highlightedLine);
+
+      return (
+        <div>
+          <a href="#" className="back-dashboard-btn" onClick={(e) => { e.preventDefault(); onBack(); }}>
+            <i className="fa-solid fa-arrow-left"></i> Back to Dashboard
+          </a>
+
+          <div className="card">
+            <div className="dashboard-header" style={{ border: 'none', marginBottom: '0', paddingBottom: '0' }}>
+              <div className="dashboard-title-area">
+                <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: dayData.patternType === 'tp' ? 'var(--tp-primary)' : 'var(--sw-primary)' }}>
+                  Day {dayData.id} Curriculum — {dayData.category}
+                </span>
+                <h1 style={{ marginTop: '4px' }}>{dayData.title}</h1>
+              </div>
+            </div>
+
+            {/* ROI statistics cards */}
+            <div className="roi-grid">
+              <div className="roi-card">
+                <div className={`roi-icon-container ${dayData.patternType}`}>
+                  <i className="fa-solid fa-star-half-stroke"></i>
+                </div>
+                <div className="roi-content">
+                  <h3>Frequency in Interviews</h3>
+                  <p>{dayData.roi.frequency}</p>
+                </div>
+              </div>
+
+              <div className="roi-card">
+                <div className={`roi-icon-container ${dayData.patternType}`}>
+                  <i className="fa-solid fa-gauge-high"></i>
+                </div>
+                <div className="roi-content">
+                  <h3>Complexity Bounds</h3>
+                  <p>{dayData.roi.complexity}</p>
+                </div>
+              </div>
+
+              <div className="roi-card">
+                <div className={`roi-icon-container ${dayData.patternType}`}>
+                  <i className="fa-solid fa-circle-exclamation"></i>
+                </div>
+                <div className="roi-content">
+                  <h3>Recognition Signals</h3>
+                  <p style={{ fontSize: '13px', fontWeight: '500', color: 'var(--text-muted)' }}>{dayData.roi.signals}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Two Pass Learn Controller */}
+            <h3 style={{ fontSize: '16px', fontWeight: '800', marginBottom: '12px' }}>
+              <i className="fa-solid fa-repeat" style={{ color: dayData.patternType === 'tp' ? 'var(--tp-primary)' : 'var(--sw-primary)' }}></i> Learn The Pattern Twice
+            </h3>
+
+            <div className="two-pass-selector">
+              <button 
+                className={`pass-btn ${activePass === 1 ? `active ${dayData.patternType}` : ''}`}
+                onClick={() => setActivePass(1)}
+              >
+                <i className="fa-solid fa-eye"></i> Pass 1: Line-by-Line Study Trace
+              </button>
+              <button 
+                className={`pass-btn ${activePass === 2 ? `active ${dayData.patternType}` : ''}`}
+                onClick={() => setActivePass(2)}
+              >
+                <i className="fa-solid fa-code"></i> Pass 2: Reconstruct Core Logic
+              </button>
+            </div>
+
+            {activePass === 1 ? (
+              <div className="learn-panel">
+                <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>
+                  Click on highlighted rows of the Java template below to view the logical purpose and explanation of each step.
+                </p>
+
+                <div className="editor-wrapper">
+                  <div className="editor-header">
+                    <div className="editor-dots">
+                      <div className="editor-dot dot-red"></div>
+                      <div className="editor-dot dot-yellow"></div>
+                      <div className="editor-dot dot-green"></div>
+                    </div>
+                    <div className="editor-title">{dayData.template.filename}</div>
+                    <div><span style={{ fontSize: '10px', color: '#10b981', background: 'rgba(16, 185, 129, 0.15)', padding: '2px 6px', borderRadius: '4px', fontWeight: '700' }}>Java</span></div>
+                  </div>
+                  
+                  <div className="editor-body">
+                    {dayData.template.codeLines.map((line, idx) => {
+                      const hasStep = dayData.template.traceSteps.some(s => s.line === line.num);
+                      const isHighlighted = highlightedLine === line.num;
+                      
+                      return (
+                        <div 
+                          key={idx} 
+                          className={`code-line ${isHighlighted ? (dayData.patternType === 'tp' ? 'highlighted' : 'highlighted-sw') : ''}`}
+                          style={{ cursor: hasStep ? 'pointer' : 'default' }}
+                          onClick={() => handleLineClick(line.num)}
+                        >
+                          <span className="line-number">{line.num}</span>
+                          <span className="code-content" style={{ color: hasStep ? (dayData.patternType === 'tp' ? 'var(--tp-primary)' : 'var(--sw-primary)') : 'inherit', fontWeight: hasStep ? '600' : 'normal' }}>
+                            {line.text}
+                          </span>
+                          {hasStep && !isHighlighted && (
+                            <i className="fa-solid fa-circle-question" style={{ opacity: 0.4, fontSize: '10px', alignSelf: 'center', marginLeft: '6px' }}></i>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className={`step-explain-box ${dayData.patternType}`}>
+                  <i className="fa-solid fa-circle-info"></i>
+                  <div>
+                    <h4 style={{ fontSize: '14px', fontWeight: '700', marginBottom: '4px' }}>
+                      {activeStepExplain ? activeStepExplain.title : "Trace Step Explanation"}
+                    </h4>
+                    <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
+                      {activeStepExplain ? activeStepExplain.text : "Click any colored code lines in the editor above to trace the template execution."}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="sandbox-container">
+                <p className="sandbox-instruction">
+                  Reconstruct the core pattern steps by choosing the correct operations for the pattern.
+                </p>
+
+                <div className="sandbox-steps-grid">
+                  {dayData.template.sandbox.map((item, idx) => {
+                    const hasErr = sandboxErrors[idx];
+                    return (
+                      <div key={idx} className={`sandbox-step-card ${dayData.patternType}`} style={{ borderColor: hasErr ? 'var(--error)' : 'var(--border-color)' }}>
+                        <h4 style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1px' }}>Step {idx + 1} — {item.step}</h4>
+                        <p style={{ fontSize: '13px', minHeight: '38px' }}>{item.question}</p>
+                        <select 
+                          className="sandbox-select" 
+                          value={sandboxAnswers[idx]} 
+                          onChange={(e) => handleSandboxChange(idx, e.target.value)}
+                        >
+                          <option value="">-- Choose Code Line --</option>
+                          {item.options.map((opt, oIdx) => (
+                            <option key={oIdx} value={oIdx}>{opt}</option>
+                          ))}
+                        </select>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div style={{ display: 'flex', gap: '16px', alignItems: 'center', marginTop: '12px' }}>
+                  <button className={`primary-action-btn ${dayData.patternType}`} onClick={verifySandbox}>
+                    Verify Reconstruction
+                  </button>
+                  {sandboxCorrect && (
+                    <span style={{ color: 'var(--success)', fontWeight: '700', fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <i className="fa-solid fa-circle-check"></i> Perfect! Core logic reconstructed.
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Complete Day action */}
+            <div className="day-complete-section">
+              <div style={{ color: 'var(--text-muted)', fontSize: '13px' }}>
+                {!sandboxCorrect && activePass === 2 ? "💡 Complete the Pass 2 Reconstruction challenge to unlock day completion." : ""}
+              </div>
+              <button 
+                className="day-complete-btn" 
+                onClick={onComplete}
+                disabled={!isCompleted && activePass === 2 && !sandboxCorrect}
+              >
+                <i className="fa-solid fa-graduation-cap"></i> Mark Day {dayData.id} Complete
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // ==========================================
+    // COMPONENT: DAY 2 & 5 (DRY RUN & QUIZ)
+    // ==========================================
+    function DayDryRunAndQuiz({ dayData, onComplete, isCompleted, onBack }) {
+      const pKeys = Object.keys(dayData.problems);
+      const [activeTab, setActiveTab] = useState(pKeys[0]);
+      const [stepIdx, setStepIdx] = useState(0);
+      const [selectedQuizOpts, setSelectedQuizOpts] = useState({});
+      const [quizChecked, setQuizChecked] = useState(false);
+
+      const activeProb = dayData.problems[activeTab];
+      const trace = activeProb.steps[stepIdx];
+
+      // Reset step index when problem changes
+      useEffect(() => {
+        setStepIdx(0);
+      }, [activeTab]);
+
+      const handleQuizSelect = (qIdx, optIdx) => {
+        if (quizChecked) return;
+        setSelectedQuizOpts({ ...selectedQuizOpts, [qIdx]: optIdx });
+      };
+
+      const handleVerifyQuiz = () => {
+        setQuizChecked(true);
+      };
+
+      // Check if all quiz questions are answered correctly
+      const isQuizPassed = () => {
+        let passed = true;
+        dayData.quiz.forEach((q, idx) => {
+          if (selectedQuizOpts[idx] !== q.correct) passed = false;
+        });
+        return passed;
+      };
+
+      return (
+        <div>
+          <a href="#" className="back-dashboard-btn" onClick={(e) => { e.preventDefault(); onBack(); }}>
+            <i className="fa-solid fa-arrow-left"></i> Back to Dashboard
+          </a>
+
+          <div className="card">
+            <div className="dashboard-header" style={{ border: 'none', marginBottom: '0', paddingBottom: '16px' }}>
+              <div className="dashboard-title-area">
+                <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: dayData.patternType === 'tp' ? 'var(--tp-primary)' : 'var(--sw-primary)' }}>
+                  Day {dayData.id} Curriculum — Visual Dry Runs
+                </span>
+                <h1 style={{ marginTop: '4px' }}>{dayData.title}</h1>
+              </div>
+            </div>
+
+            {/* Problem Tabs */}
+            <div className="problem-tabs">
+              {pKeys.map(key => (
+                <button 
+                  key={key} 
+                  className={`prob-tab ${activeTab === key ? `active ${dayData.patternType}` : ''}`}
+                  onClick={() => setActiveTab(key)}
+                >
+                  {dayData.problems[key].title}
+                </button>
+              ))}
+            </div>
+
+            {/* Mental Story Banner */}
+            <div className={`story-banner ${dayData.patternType}`}>
+              <i className="fa-solid fa-lightbulb"></i>
+              <div className="story-text">
+                <h4>Mental Story Tool</h4>
+                <p>"{activeProb.story}"</p>
+              </div>
+            </div>
+
+            {/* Dry Run Workspace */}
+            <div className="dry-run-workspace">
+              {/* Visual Simulation Card */}
+              <div className="simulation-card">
+                <div>
+                  <h3 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>Visual State Simulation</h3>
+                  <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{activeProb.description}</p>
+                </div>
+
+                <div className="sim-array-container">
+                  <div className="array-row">
+                    {activeProb.array.map((val, idx) => {
+                      let cellClass = "";
+                      
+                      // Highlights for Two Pointer
+                      if (dayData.patternType === 'tp') {
+                        if (trace.left === idx) cellClass = "active-left";
+                        else if (trace.right === idx) cellClass = "active-right";
+                      }
+                      // Highlights for Sliding Window
+                      if (dayData.patternType === 'sw') {
+                        const inWin = idx >= trace.leftIdx && idx <= trace.rightIdx;
+                        if (inWin) {
+                          cellClass = "in-window";
+                        }
+                        if (trace.leftIdx === idx && trace.rightIdx === idx) {
+                          cellClass = "active-left-sw";
+                        } else if (trace.leftIdx === idx) {
+                          cellClass = "active-left-sw";
+                        } else if (trace.rightIdx === idx) {
+                          cellClass = "active-left-sw"; // or primary
+                        }
+                      }
+
+                      return (
+                        <div key={idx} className={`array-cell ${cellClass}`}>
+                          <span className="array-index">{idx}</span>
+                          <span>{val}</span>
+
+                          {/* Render Pointers */}
+                          {dayData.patternType === 'tp' && trace.left === idx && (
+                            <span className="cell-pointer lp">
+                              <i className="fa-solid fa-circle-arrow-up"></i>
+                              <span>left</span>
+                            </span>
+                          )}
+                          {dayData.patternType === 'tp' && trace.right === idx && (
+                            <span className="cell-pointer rp">
+                              <i className="fa-solid fa-circle-arrow-up"></i>
+                              <span>right</span>
+                            </span>
+                          )}
+
+                          {dayData.patternType === 'sw' && trace.leftIdx === idx && (
+                            <span className="cell-pointer sw-lp">
+                              <i className="fa-solid fa-caret-up"></i>
+                              <span>L</span>
+                            </span>
+                          )}
+                          {dayData.patternType === 'sw' && trace.rightIdx === idx && (
+                            <span className="cell-pointer sw-rp">
+                              <i className="fa-solid fa-caret-up"></i>
+                              <span>R</span>
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Variable block */}
+                <div className="vars-container">
+                  {dayData.patternType === 'tp' ? (
+                    <React.Fragment>
+                      <div className="var-badge">
+                        <span className="var-name">left pointer</span>
+                        <span className="var-value" style={{ color: 'var(--tp-primary)' }}>{trace.left}</span>
+                      </div>
+                      <div className="var-badge">
+                        <span className="var-name">right pointer</span>
+                        <span className="var-value" style={{ color: 'var(--warning)' }}>{trace.right}</span>
+                      </div>
+                      <div className="var-badge">
+                        <span className="var-name">sum check</span>
+                        <span className="var-value">{trace.sum !== null ? trace.sum : "N/A"}</span>
+                      </div>
+                      <div className="var-badge">
+                        <span className="var-name">target</span>
+                        <span className="var-value">{activeProb.target || "N/A"}</span>
+                      </div>
+                      {trace.leftMax !== undefined && (
+                        <div className="var-badge">
+                          <span className="var-name">leftMax</span>
+                          <span className="var-value">{trace.leftMax}</span>
+                        </div>
+                      )}
+                      {trace.rightMax !== undefined && (
+                        <div className="var-badge">
+                          <span className="var-name">rightMax</span>
+                          <span className="var-value">{trace.rightMax}</span>
+                        </div>
+                      )}
+                      {trace.water !== undefined && (
+                        <div className="var-badge">
+                          <span className="var-name">water trapped</span>
+                          <span className="var-value" style={{ color: 'var(--success)' }}>{trace.water}</span>
+                        </div>
+                      )}
+                    </React.Fragment>
+                  ) : (
+                    <React.Fragment>
+                      <div className="var-badge">
+                        <span className="var-name">left L</span>
+                        <span className="var-value">{trace.leftIdx}</span>
+                      </div>
+                      <div className="var-badge">
+                        <span className="var-name">right R</span>
+                        <span className="var-value" style={{ color: 'var(--sw-primary)' }}>{trace.rightIdx}</span>
+                      </div>
+                      {trace.windowSum !== undefined && (
+                        <div className="var-badge">
+                          <span className="var-name">windowSum</span>
+                          <span className="var-value">{trace.windowSum}</span>
+                        </div>
+                      )}
+                      {trace.maxSum !== undefined && (
+                        <div className="var-badge">
+                          <span className="var-name">maxSum</span>
+                          <span className="var-value" style={{ color: 'var(--success)' }}>{trace.maxSum}</span>
+                        </div>
+                      )}
+                      {trace.vowelCount !== undefined && (
+                        <div className="var-badge">
+                          <span className="var-name">vowelCount</span>
+                          <span className="var-value">{trace.vowelCount}</span>
+                        </div>
+                      )}
+                      {trace.maxVowels !== undefined && (
+                        <div className="var-badge">
+                          <span className="var-name">maxVowels</span>
+                          <span className="var-value" style={{ color: 'var(--success)' }}>{trace.maxVowels}</span>
+                        </div>
+                      )}
+                    </React.Fragment>
+                  )}
+                </div>
+
+                {/* Step Controls */}
+                <div className="sim-controls">
+                  <button 
+                    className="sim-btn" 
+                    onClick={() => setStepIdx(prev => prev - 1)} 
+                    disabled={stepIdx === 0}
+                  >
+                    <i className="fa-solid fa-chevron-left"></i> Prev
+                  </button>
+                  <span className="step-indicator">
+                    Step {stepIdx + 1} / {activeProb.steps.length}
+                  </span>
+                  <button 
+                    className="sim-btn" 
+                    onClick={() => setStepIdx(prev => prev + 1)} 
+                    disabled={stepIdx === activeProb.steps.length - 1}
+                  >
+                    Next <i className="fa-solid fa-chevron-right"></i>
+                  </button>
+                </div>
+              </div>
+
+              {/* Code Display area */}
+              <div className="editor-wrapper">
+                <div className="editor-header">
+                  <div className="editor-dots">
+                    <div className="editor-dot dot-red"></div>
+                    <div className="editor-dot dot-yellow"></div>
+                    <div className="editor-dot dot-green"></div>
+                  </div>
+                  <div className="editor-title">{activeProb.title}.java</div>
+                  <div><span style={{ fontSize: '10px', color: '#38bdf8', background: 'rgba(56, 189, 248, 0.15)', padding: '2px 6px', borderRadius: '4px', fontWeight: '700' }}>Active Code Trace</span></div>
+                </div>
+
+                <div className="editor-body" style={{ fontSize: '13px' }}>
+                  {activeProb.code.map((line, idx) => {
+                    const isCodeLineHighlighted = trace.line === idx;
+                    return (
+                      <div 
+                        key={idx} 
+                        className={`code-line ${isCodeLineHighlighted ? (dayData.patternType === 'tp' ? 'highlighted' : 'highlighted-sw') : ''}`}
+                      >
+                        <span className="line-number">{idx + 1}</span>
+                        <span className="code-content">{line}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Explanation panel */}
+                <div className="step-explain-box" style={{ margin: '16px', background: 'rgba(0,0,0,0.3)', border: 'none' }}>
+                  <i className="fa-solid fa-circle-play" style={{ color: dayData.patternType === 'tp' ? 'var(--tp-primary)' : 'var(--sw-primary)' }}></i>
+                  <div>
+                    <h4 style={{ fontSize: '13px', fontWeight: '700', marginBottom: '2px' }}>Line Step Explanation</h4>
+                    <p style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: '1.4' }}>{trace.desc}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Pattern Recognition Quiz Section */}
+            <div className="quiz-panel">
+              <h3 style={{ fontSize: '16px', fontWeight: '800', marginBottom: '16px', display: 'flex', alignLines: 'center', gap: '8px' }}>
+                <i className="fa-solid fa-clipboard-question" style={{ color: dayData.patternType === 'tp' ? 'var(--tp-primary)' : 'var(--sw-primary)' }}></i> Active Recall Pitfall Quiz
+              </h3>
+
+              {dayData.quiz.map((item, qIdx) => {
+                return (
+                  <div key={qIdx} className="quiz-question-box">
+                    <div className="quiz-question">
+                      <span style={{ color: 'var(--text-muted)' }}>Q{qIdx + 1}.</span>
+                      <span>{item.q}</span>
+                    </div>
+
+                    <div className="quiz-options">
+                      {item.options.map((opt, optIdx) => {
+                        const isSelected = selectedQuizOpts[qIdx] === optIdx;
+                        let optionClass = "";
+                        
+                        if (isSelected) {
+                          optionClass = `selected ${dayData.patternType}`;
+                        }
+                        if (quizChecked) {
+                          if (optIdx === item.correct) {
+                            optionClass = "correct";
+                          } else if (isSelected) {
+                            optionClass = "incorrect";
+                          }
+                        }
+
+                        return (
+                          <div 
+                            key={optIdx} 
+                            className={`quiz-option ${optionClass}`}
+                            onClick={() => handleQuizSelect(qIdx, optIdx)}
+                          >
+                            <span>{opt}</span>
+                            {quizChecked && optIdx === item.correct && <i className="fa-solid fa-circle-check" style={{ color: 'var(--success)' }}></i>}
+                            {quizChecked && isSelected && optIdx !== item.correct && <i className="fa-solid fa-circle-xmark" style={{ color: 'var(--error)' }}></i>}
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {quizChecked && isSelected && (
+                      <div className="quiz-feedback">
+                        <strong>Explanation:</strong> {item.explain}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+
+              <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                <button 
+                  className={`primary-action-btn ${dayData.patternType}`}
+                  onClick={handleVerifyQuiz}
+                  disabled={quizChecked || Object.keys(selectedQuizOpts).length < dayData.quiz.length}
+                >
+                  Verify Quiz Answers
+                </button>
+                {quizChecked && (
+                  <span style={{ color: isQuizPassed() ? 'var(--success)' : 'var(--warning)', fontWeight: '700', fontSize: '14px' }}>
+                    {isQuizPassed() ? "🎉 All answers correct! Day cleared." : "⚠️ Some answers were incorrect. Review explanations."}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* Mark completed */}
+            <div className="day-complete-section">
+              <div style={{ color: 'var(--text-muted)', fontSize: '13px' }}>
+                {!quizChecked ? "💡 Complete the Recall Quiz below to unlock day completion." : ""}
+              </div>
+              <button 
+                className="day-complete-btn" 
+                onClick={onComplete}
+                disabled={!isCompleted && !quizChecked}
+              >
+                <i className="fa-solid fa-graduation-cap"></i> Mark Day {dayData.id} Complete
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // ==========================================
+    // COMPONENT: DAY 3 & 6 (ACTIVE RECALL BLANKS)
+    // ==========================================
+    function DayActiveRecall({ dayData, onComplete, isCompleted, onBack }) {
+      const pKeys = Object.keys(dayData.problems);
+      const [activeTab, setActiveTab] = useState(pKeys[0]);
+      
+      // Store user inputs for each problem
+      const [inputs, setInputs] = useState({});
+      const [validation, setValidation] = useState({}); // { [probKey]: { [idx]: 'correct'|'incorrect' } }
+      const [checked, setChecked] = useState({}); // { [probKey]: boolean }
+      const [showHints, setShowHints] = useState({}); // { [probKey]: boolean }
+
+      const activeProb = dayData.problems[activeTab];
+
+      // Parse template strings into segments with [[answers]]
+      // e.g. "int left = [[0]], right = [[nums.length - 1]];" -> segments and answer keys
+      const parsedTemplate = activeProb.template.map(line => {
+        const regex = /\[\[(.*?)\]\]/g;
+        let match;
+        const segments = [];
+        let lastIndex = 0;
+        
+        while ((match = regex.exec(line)) !== null) {
+          const textBefore = line.substring(lastIndex, match.index);
+          const answer = match[1];
+          segments.push({ type: 'text', value: textBefore });
+          segments.push({ type: 'input', expected: answer });
+          lastIndex = regex.lastIndex;
+        }
+        
+        segments.push({ type: 'text', value: line.substring(lastIndex) });
+        return segments;
+      });
+
+      // Count total inputs across this template
+      let inputCounter = 0;
+      parsedTemplate.forEach(line => {
+        line.forEach(seg => {
+          if (seg.type === 'input') {
+            seg.inputIdx = inputCounter++;
+          }
+        });
+      });
+
+      const handleInputChange = (idx, value) => {
+        setInputs({
+          ...inputs,
+          [activeTab]: {
+            ...inputs[activeTab],
+            [idx]: value
+          }
+        });
+      };
+
+      const handleVerifyAnswers = () => {
+        const currentInputs = inputs[activeTab] || {};
+        const results = {};
+        let allCorrect = true;
+        
+        let counter = 0;
+        parsedTemplate.forEach(line => {
+          line.forEach(seg => {
+            if (seg.type === 'input') {
+              const userVal = (currentInputs[counter] || "").trim().replace(/\s+/g, "");
+              const expectedVal = seg.expected.trim().replace(/\s+/g, "");
+              
+              // Simple check: strip whitespace and ignore casing
+              const isMatch = userVal.toLowerCase() === expectedVal.toLowerCase() ||
+                              (expectedVal === "nums.length-1" && userVal === "nums.length-1") ||
+                              (expectedVal === "nums.length-2" && userVal === "nums.length-2");
+              
+              results[counter] = isMatch ? 'correct' : 'incorrect';
+              if (!isMatch) allCorrect = false;
+              
+              counter++;
+            }
+          });
+        });
+
+        setValidation({ ...validation, [activeTab]: results });
+        setChecked({ ...checked, [activeTab]: true });
+      };
+
+      const handleRevealSolution = () => {
+        const solutionInputs = {};
+        let counter = 0;
+        parsedTemplate.forEach(line => {
+          line.forEach(seg => {
+            if (seg.type === 'input') {
+              solutionInputs[counter] = seg.expected;
+              counter++;
+            }
+          });
+        });
+        
+        setInputs({
+          ...inputs,
+          [activeTab]: solutionInputs
+        });
+        
+        const results = {};
+        for (let i = 0; i < counter; i++) {
+          results[i] = 'correct';
+        }
+        
+        setValidation({ ...validation, [activeTab]: results });
+        setChecked({ ...checked, [activeTab]: true });
+      };
+
+      // Check if all problems on this day are validated as correct
+      const isDayFullyValid = () => {
+        let fullyValid = true;
+        pKeys.forEach(probKey => {
+          const prob = dayData.problems[probKey];
+          const valStates = validation[probKey] || {};
+          
+          // Get total input count for this problem
+          let probInputsCount = 0;
+          prob.template.forEach(line => {
+            const matches = line.match(/\[\[(.*?)\]\]/g);
+            if (matches) probInputsCount += matches.length;
+          });
+
+          // Check if we have that many correct states
+          let correctCount = 0;
+          for (let i = 0; i < probInputsCount; i++) {
+            if (valStates[i] === 'correct') correctCount++;
+          }
+          if (correctCount !== probInputsCount) fullyValid = false;
+        });
+        return fullyValid;
+      };
+
+      const activeProbInputs = inputs[activeTab] || {};
+      const activeProbValidation = validation[activeTab] || {};
+      const isActiveProbChecked = checked[activeTab] || false;
+
+      return (
+        <div>
+          <a href="#" className="back-dashboard-btn" onClick={(e) => { e.preventDefault(); onBack(); }}>
+            <i className="fa-solid fa-arrow-left"></i> Back to Dashboard
+          </a>
+
+          <div className="card">
+            <div className="dashboard-header" style={{ border: 'none', marginBottom: '0', paddingBottom: '16px' }}>
+              <div className="dashboard-title-area">
+                <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: dayData.patternType === 'tp' ? 'var(--tp-primary)' : 'var(--sw-primary)' }}>
+                  Day {dayData.id} Curriculum — Active Recall Skeletons
+                </span>
+                <h1 style={{ marginTop: '4px' }}>{dayData.title}</h1>
+              </div>
+            </div>
+
+            {/* Problem Tabs */}
+            <div className="problem-tabs">
+              {pKeys.map(key => (
+                <button 
+                  key={key} 
+                  className={`prob-tab ${activeTab === key ? `active ${dayData.patternType}` : ''}`}
+                  onClick={() => setActiveTab(key)}
+                >
+                  {dayData.problems[key].title}
+                </button>
+              ))}
+            </div>
+
+            {/* Mental Story Banner */}
+            <div className={`story-banner ${dayData.patternType}`}>
+              <i className="fa-solid fa-brain"></i>
+              <div className="story-text">
+                <h4>Active Recall Story Prompt</h4>
+                <p>"{activeProb.story}"</p>
+              </div>
+            </div>
+
+            {/* Interactive Code Editor with Blanks */}
+            <div className="editor-wrapper">
+              <div className="editor-header">
+                <div className="editor-dots">
+                  <div className="editor-dot dot-red"></div>
+                  <div className="editor-dot dot-yellow"></div>
+                  <div className="editor-dot dot-green"></div>
+                </div>
+                <div className="editor-title">{activeProb.title.split(" — ")[0]}.java</div>
+                <div>
+                  <span style={{ fontSize: '10px', color: '#ffb020', background: 'rgba(255, 176, 32, 0.15)', padding: '2px 6px', borderRadius: '4px', fontWeight: '700' }}>
+                    Active Recall Skeleton
+                  </span>
+                </div>
+              </div>
+
+              <div className="editor-body">
+                {parsedTemplate.map((lineSegments, lineIdx) => {
+                  return (
+                    <div key={lineIdx} className="code-line">
+                      <span className="line-number">{lineIdx + 1}</span>
+                      <span className="code-content">
+                        {lineSegments.map((seg, segIdx) => {
+                          if (seg.type === 'text') {
+                            return <span key={segIdx}>{seg.value}</span>;
+                          } else {
+                            const valState = activeProbValidation[seg.inputIdx] || '';
+                            let validationClass = '';
+                            if (valState === 'correct') validationClass = 'correct';
+                            if (valState === 'incorrect') validationClass = 'incorrect';
+
+                            // Dynamic size depending on expected length
+                            const width = Math.max(80, seg.expected.length * 9);
+
+                            return (
+                              <input 
+                                key={segIdx}
+                                type="text"
+                                className={`skeleton-input ${validationClass}`}
+                                style={{ width: `${width}px` }}
+                                placeholder="___"
+                                value={activeProbInputs[seg.inputIdx] || ""}
+                                onChange={(e) => handleInputChange(seg.inputIdx, e.target.value)}
+                                disabled={valState === 'correct'}
+                              />
+                            );
+                          }
+                        })}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Skeleton Controls */}
+            <div className="skeleton-controls">
+              <button 
+                className={`primary-action-btn ${dayData.patternType}`}
+                onClick={handleVerifyAnswers}
+              >
+                <i className="fa-solid fa-circle-check"></i> Check Code Blanks
+              </button>
+              
+              <button 
+                className="secondary-action-btn"
+                onClick={handleRevealSolution}
+              >
+                Reveal Solution
+              </button>
+
+              {isActiveProbChecked && (
+                <span style={{ fontWeight: '700', fontSize: '14px' }}>
+                  {Object.values(activeProbValidation).every(v => v === 'correct') ? (
+                    <span style={{ color: 'var(--success)' }}>
+                      <i className="fa-solid fa-star"></i> Challenge solved! You recalled this pattern perfectly.
+                    </span>
+                  ) : (
+                    <span style={{ color: 'var(--error)' }}>
+                      <i className="fa-solid fa-triangle-exclamation"></i> Some blanks are incorrect. Try again!
+                    </span>
+                  )}
+                </span>
+              )}
+            </div>
+
+            {/* Complete Day footer */}
+            <div className="day-complete-section">
+              <div style={{ color: 'var(--text-muted)', fontSize: '13px' }}>
+                {!isDayFullyValid() ? "💡 Reconstruct all templates on this page to clear this recall challenge." : "🎉 You have recalled all templates for this day!"}
+              </div>
+              <button 
+                className="day-complete-btn" 
+                onClick={onComplete}
+                disabled={!isCompleted && !isDayFullyValid()}
+              >
+                <i className="fa-solid fa-graduation-cap"></i> Mark Day {dayData.id} Complete
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Render React Root
+    const container = document.getElementById('root');
+    const root = ReactDOM.createRoot(container);
+    root.render(<App />);
+  </script>
+</body>
+</html>

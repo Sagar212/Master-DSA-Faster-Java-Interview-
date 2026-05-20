@@ -236,14 +236,26 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 function CodeBlock({ code, color }) {
   const lines = code.trim().split("\n");
+  const regex = /(\/\/.*)|("[^"\\]*(?:\\.[^"\\]*)*")|(\b(int|while|for|if|return|Map|Set|HashMap|char|boolean|String|void|public|new|Queue|Stack|Deque|ArrayDeque|LinkedList|else|break|continue|List|ArrayList)\b)|(\b\d+\b)/g;
+
+  const escapeHtml = (text) => {
+    return text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  };
+
   return (
     <div style={styles.code}>
       {lines.map((line, i) => {
-        const keywords = ["int", "while", "for", "if", "return", "Map", "Set", "HashMap", "char", "boolean", "String", "void", "public", "new", "Queue", "Stack", "Deque", "ArrayDeque", "LinkedList", "else", "break", "continue"];
-        const highlighted = line
-          .replace(/\/\/.*/g, (m) => `<span style="color:${C.muted}">${m}</span>`)
-          .replace(/"[^"]*"/g, (m) => `<span style="color:${C.green}">${m}</span>`)
-          .replace(/\b(\d+)\b/g, (m) => `<span style="color:${C.orange}">${m}</span>`);
+        const escaped = escapeHtml(line);
+        const highlighted = escaped.replace(regex, (match, comment, string, keyword, number) => {
+          if (comment !== undefined) return `<span style="color:${C.muted}">${comment}</span>`;
+          if (string !== undefined) return `<span style="color:${C.green}">${string}</span>`;
+          if (keyword !== undefined) return `<span style="color:${color || C.accent}; font-weight: 700;">${keyword}</span>`;
+          if (number !== undefined) return `<span style="color:${C.orange}">${number}</span>`;
+          return match;
+        });
         return (
           <div key={i} style={{ display: "flex", gap: 16 }}>
             <span style={{ color: C.muted, minWidth: 24, textAlign: "right", userSelect: "none", fontSize: 10 }}>{i + 1}</span>
