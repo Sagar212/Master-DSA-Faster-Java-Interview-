@@ -1786,6 +1786,7 @@
     function App() {
       const [activeDay, setActiveDay] = useState(null); // null = dashboard
       const [progress, setProgress] = useState({});
+      const [showComplexity, setShowComplexity] = useState(false);
       const [showMasteryModal, setShowMasteryModal] = useState(false);
 
       // Load progress on init
@@ -1867,126 +1868,6 @@
                   </div>
                 );
               })}
-
-              {/* ── Complexity Cheat Sheet Panel ── */}
-              <div style={{ marginTop: '8px' }}>
-                <div className="sidebar-title" style={{ marginBottom: '10px' }}>
-                  <i className="fa-solid fa-bolt" style={{ color: '#f59e0b', marginRight: '6px' }}></i>
-                  Complexity Quick Ref
-                </div>
-
-                {[
-                  {
-                    notation: 'O(1)',
-                    label: 'Constant',
-                    color: '#10b981',
-                    intent: 'Same cost regardless of input size',
-                    use: 'HashMap get/put, array index access, math ops',
-                    signal: 'No loops depend on N; just pointer math or hash lookup'
-                  },
-                  {
-                    notation: 'O(log N)',
-                    label: 'Logarithmic',
-                    color: '#0ea5e9',
-                    intent: 'Halve the search space each step',
-                    use: 'Binary Search, balanced BST, divide & conquer',
-                    signal: 'Sorted array + "find target" → try Binary Search first'
-                  },
-                  {
-                    notation: 'O(N)',
-                    label: 'Linear',
-                    color: '#38bdf8',
-                    intent: 'Visit every element exactly once',
-                    use: 'Two Pointers, Sliding Window, single-pass HashMap',
-                    signal: 'One for-loop over array, no nested scan'
-                  },
-                  {
-                    notation: 'O(N·K)',
-                    label: 'Linear × Window',
-                    color: '#a78bfa',
-                    intent: 'Outer loop N, inner work proportional to K',
-                    use: 'Fixed window with per-element inner scan (avoid with SW)',
-                    signal: 'Brute-force subarray check; Sliding Window reduces this to O(N)'
-                  },
-                  {
-                    notation: 'O(N²)',
-                    label: 'Quadratic',
-                    color: '#f97316',
-                    intent: 'Every pair of elements visited',
-                    use: 'Brute-force two pointer / bubble sort (avoid in interviews)',
-                    signal: 'Nested for-loops over same array → red flag'
-                  },
-                  {
-                    notation: 'O(N log N)',
-                    label: 'Sort + Linear',
-                    color: '#eab308',
-                    intent: 'Sort first, then do one linear pass',
-                    use: '3Sum (sort + TP), Merge Sort, most Heap/PQ operations',
-                    signal: '"Sort then solve" pattern — sort costs O(N log N)'
-                  },
-                  {
-                    notation: 'Space O(1)',
-                    label: 'In-Place',
-                    color: '#10b981',
-                    intent: 'No extra DS proportional to input; only a few variables',
-                    use: 'Two Pointers, fixed window (just pointers & vars)',
-                    signal: 'No new array/map created — purely pointer manipulation'
-                  },
-                  {
-                    notation: 'Space O(K)',
-                    label: 'Window State',
-                    color: '#f97316',
-                    intent: 'Extra space proportional to window size or charset',
-                    use: 'Variable SW with HashMap/Set (e.g. freq map of 26 chars)',
-                    signal: 'You track "what is inside the window" with a map or set'
-                  },
-                  {
-                    notation: 'Space O(N)',
-                    label: 'Full Copy',
-                    color: '#ef4444',
-                    intent: 'Extra DS grows with input (stack, result list, DP table)',
-                    use: 'DFS recursion stack, BFS queue, DP arrays',
-                    signal: 'You store all N elements or recurse N levels deep'
-                  }
-                ].map((item, idx) => (
-                  <div key={idx} style={{
-                    background: 'rgba(255,255,255,0.02)',
-                    border: `1px solid ${item.color}33`,
-                    borderLeft: `3px solid ${item.color}`,
-                    borderRadius: '8px',
-                    padding: '10px 12px',
-                    marginBottom: '8px'
-                  }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
-                      <span style={{
-                        fontFamily: 'Fira Code, monospace',
-                        fontSize: '13px',
-                        fontWeight: '700',
-                        color: item.color
-                      }}>{item.notation}</span>
-                      <span style={{
-                        fontSize: '9px',
-                        fontWeight: '800',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.8px',
-                        color: item.color,
-                        background: `${item.color}18`,
-                        padding: '2px 6px',
-                        borderRadius: '4px'
-                      }}>{item.label}</span>
-                    </div>
-                    <div style={{ fontSize: '11px', color: 'var(--text-main)', fontWeight: '600', marginBottom: '3px' }}>
-                      {item.intent}
-                    </div>
-                    <div style={{ fontSize: '10px', color: 'var(--text-muted)', lineHeight: '1.5', marginBottom: '3px' }}>
-                      <span style={{ color: item.color, fontWeight: '700' }}>When: </span>{item.use}
-                    </div>
-                    <div style={{ fontSize: '10px', color: '#64748b', lineHeight: '1.4', fontStyle: 'italic' }}>
-                      💡 {item.signal}
-                    </div>
-                  </div>
-                ))}
-              </div>
             </aside>
 
             {/* Main Content Workspace */}
@@ -2040,6 +1921,168 @@
                   Continue Journey
                 </button>
               </div>
+            </div>
+          )}
+
+          {/* ⚡ Complexity Floating Drawer */}
+          <button
+            onClick={() => setShowComplexity(v => !v)}
+            style={{
+              position: 'fixed', bottom: '28px', right: '28px', zIndex: 300,
+              background: 'linear-gradient(135deg, #f59e0b, #f97316)',
+              border: 'none', borderRadius: '50px',
+              padding: '12px 20px', cursor: 'pointer',
+              display: 'flex', alignItems: 'center', gap: '8px',
+              color: '#000', fontWeight: '800', fontSize: '13px',
+              boxShadow: '0 8px 32px rgba(245,158,11,0.4)',
+              transition: 'all 0.3s ease',
+              fontFamily: 'Outfit, sans-serif'
+            }}
+          >
+            <i className={`fa-solid ${showComplexity ? 'fa-xmark' : 'fa-bolt'}`}></i>
+            {showComplexity ? 'Close' : 'Big-O Cheat'}
+          </button>
+
+          {showComplexity && (
+            <div style={{
+              position: 'fixed', top: 0, right: 0, bottom: 0, zIndex: 200,
+              width: '380px',
+              background: 'rgba(7,9,19,0.97)',
+              borderLeft: '1px solid rgba(255,255,255,0.08)',
+              backdropFilter: 'blur(20px)',
+              overflowY: 'auto',
+              padding: '28px 20px 100px',
+              boxShadow: '-12px 0 60px rgba(0,0,0,0.6)'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+                <div>
+                  <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#f59e0b', fontWeight: '800', marginBottom: '4px' }}>
+                    <i className="fa-solid fa-bolt" style={{ marginRight: '6px' }}></i>Big-O Complexity
+                  </div>
+                  <div style={{ fontSize: '18px', fontWeight: '800', fontFamily: 'Outfit' }}>Mental Story Guide</div>
+                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '2px' }}>Understand the intent, not just the math</div>
+                </div>
+              </div>
+
+              {/* Time Complexity Section */}
+              <div style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#f59e0b', fontWeight: '800', marginBottom: '10px', paddingBottom: '6px', borderBottom: '1px solid rgba(245,158,11,0.2)' }}>
+                ⏱ Time Complexity
+              </div>
+
+              {[
+                {
+                  notation: 'O(1)',
+                  label: 'Instant',
+                  color: '#10b981',
+                  story: '🔑 You have the exact locker number. Walk straight to it, no searching, no matter if there are 10 or 10 million lockers.',
+                  pattern: 'HashMap get/put, array[i] access, pointer math',
+                  signal: 'No loop depends on input size — just direct access'
+                },
+                {
+                  notation: 'O(log N)',
+                  label: 'Halving',
+                  color: '#0ea5e9',
+                  story: '📖 Finding a word in a dictionary by opening the middle, deciding left or right, repeating. 1 million words takes only 20 decisions.',
+                  pattern: 'Binary Search, balanced BST operations',
+                  signal: 'Sorted input + find target → always try Binary Search first'
+                },
+                {
+                  notation: 'O(N)',
+                  label: 'One Pass',
+                  color: '#38bdf8',
+                  story: '🚶 Reading every page of a book exactly once. Cost grows directly with book length. No re-reading, no skipping.',
+                  pattern: 'Two Pointers, Sliding Window, single-pass HashMap',
+                  signal: 'One for-loop with no inner scan over full array = O(N)'
+                },
+                {
+                  notation: 'O(N·K)',
+                  label: 'Outer × Window',
+                  color: '#a78bfa',
+                  story: '🔍 For each of N seats in a stadium, you inspect K neighboring seats. Sliding Window removes this by reusing old work.',
+                  pattern: 'Brute-force subarray scan (what SW is optimizing away)',
+                  signal: 'If you’re re-scanning the window each step, you have this'
+                },
+                {
+                  notation: 'O(N²)',
+                  label: 'Every Pair',
+                  color: '#f97316',
+                  story: '🤝 Introducing every person in a room to every other person. Double the guests = quadruple the handshakes. Interview red flag.',
+                  pattern: 'Nested loops over same array — brute force',
+                  signal: 'Two nested for-loops over input → always ask: can Two Pointers help?'
+                },
+                {
+                  notation: 'O(N log N)',
+                  label: 'Sort First',
+                  color: '#eab308',
+                  story: '📂 Alphabetizing a bookshelf (sort), then searching it in 20 steps (log N). The sort is where the time is spent.',
+                  pattern: '3Sum (sort + two pointers), Merge Sort, Heap push/pop N times',
+                  signal: '"Sort then solve linearly" pattern always lands here'
+                }
+              ].map((item, idx) => (
+                <div key={idx} style={{
+                  background: `${item.color}0a`,
+                  border: `1px solid ${item.color}25`,
+                  borderLeft: `3px solid ${item.color}`,
+                  borderRadius: '10px', padding: '12px 14px', marginBottom: '10px'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                    <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '15px', fontWeight: '700', color: item.color }}>{item.notation}</span>
+                    <span style={{ fontSize: '9px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1px', color: item.color, background: `${item.color}20`, padding: '2px 8px', borderRadius: '20px' }}>{item.label}</span>
+                  </div>
+                  <div style={{ fontSize: '12px', color: 'var(--text-main)', lineHeight: '1.6', marginBottom: '8px' }}>{item.story}</div>
+                  <div style={{ fontSize: '10px', color: item.color, fontWeight: '700', marginBottom: '2px' }}>DSA Pattern:</div>
+                  <div style={{ fontSize: '10px', color: 'var(--text-muted)', lineHeight: '1.5', marginBottom: '4px' }}>{item.pattern}</div>
+                  <div style={{ fontSize: '10px', color: '#475569', fontStyle: 'italic', lineHeight: '1.4' }}>💡 {item.signal}</div>
+                </div>
+              ))}
+
+              {/* Space Complexity Section */}
+              <div style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#a78bfa', fontWeight: '800', margin: '16px 0 10px', paddingBottom: '6px', borderBottom: '1px solid rgba(167,139,250,0.2)' }}>
+                📦 Space Complexity
+              </div>
+
+              {[
+                {
+                  notation: 'Space O(1)',
+                  label: 'No Notepad',
+                  color: '#10b981',
+                  story: '👆 You solve it purely with your two fingers on the page — two pointer variables, nothing else. No extra paper no matter how big the input.',
+                  pattern: 'Two Pointers, Fixed Sliding Window (just pointer vars)',
+                  signal: 'No new array, map, or set created that scales with N'
+                },
+                {
+                  notation: 'Space O(K)',
+                  label: 'Sticky Note',
+                  color: '#f97316',
+                  story: '📝 You carry one small sticky note tracking only what’s inside the window — never the whole input. Window grows, note grows, but stays small.',
+                  pattern: 'Variable Sliding Window with HashMap/Set tracking window state',
+                  signal: 'You store "what is currently in the window" — not the full array'
+                },
+                {
+                  notation: 'Space O(N)',
+                  label: 'Full Photocopy',
+                  color: '#ef4444',
+                  story: '📄 You make a full photocopy of the entire input to work on separately. Copy size = input size. Recursion goes N levels deep = N stack frames.',
+                  pattern: 'DFS recursion stack, BFS queue, DP arrays, result lists',
+                  signal: 'You store all N elements OR recurse N levels deep'
+                }
+              ].map((item, idx) => (
+                <div key={idx} style={{
+                  background: `${item.color}0a`,
+                  border: `1px solid ${item.color}25`,
+                  borderLeft: `3px solid ${item.color}`,
+                  borderRadius: '10px', padding: '12px 14px', marginBottom: '10px'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                    <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '14px', fontWeight: '700', color: item.color }}>{item.notation}</span>
+                    <span style={{ fontSize: '9px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1px', color: item.color, background: `${item.color}20`, padding: '2px 8px', borderRadius: '20px' }}>{item.label}</span>
+                  </div>
+                  <div style={{ fontSize: '12px', color: 'var(--text-main)', lineHeight: '1.6', marginBottom: '8px' }}>{item.story}</div>
+                  <div style={{ fontSize: '10px', color: item.color, fontWeight: '700', marginBottom: '2px' }}>DSA Pattern:</div>
+                  <div style={{ fontSize: '10px', color: 'var(--text-muted)', lineHeight: '1.5', marginBottom: '4px' }}>{item.pattern}</div>
+                  <div style={{ fontSize: '10px', color: '#475569', fontStyle: 'italic', lineHeight: '1.4' }}>💡 {item.signal}</div>
+                </div>
+              ))}
             </div>
           )}
         </div>
