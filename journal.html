@@ -1653,24 +1653,24 @@
               "}"
             ],
             steps: [
-              { left: 0, right: 0, window: "{ }",       maxLen: 0, line: 0, desc: "Init: left=0, right=0. window is empty. maxLen=0." },
-              { left: 0, right: 0, window: "{a}",       maxLen: 1, line: 9, desc: "right=0 ('a'): 'a' not in window. Add 'a'. window={a}. maxLen=max(0,1)=1." },
-              { left: 0, right: 1, window: "{a,b}",     maxLen: 2, line: 9, desc: "right=1 ('b'): 'b' not in window. Add 'b'. window={a,b}. maxLen=max(1,2)=2." },
-              { left: 0, right: 2, window: "{a,b,c}",   maxLen: 3, line: 9, desc: "right=2 ('c'): 'c' not in window. Add 'c'. window={a,b,c}. maxLen=max(2,3)=3." },
-              { left: 0, right: 3, window: "{a,b,c}",   maxLen: 3, line: 5, desc: "right=3 ('a'): 'a' IS in window. Enter shrink loop." },
-              { left: 1, right: 3, window: "{b,c}",     maxLen: 3, line: 6, desc: "Shrink: remove s[left=0]='a' from window. left=1. window={b,c}. 'a' no longer duplicate." },
-              { left: 1, right: 3, window: "{b,c,a}",   maxLen: 3, line: 9, desc: "right=3: Add 'a'. window={b,c,a}. maxLen=max(3,3)=3." },
-              { left: 1, right: 4, window: "{b,c,a}",   maxLen: 3, line: 5, desc: "right=4 ('b'): 'b' IS in window. Enter shrink loop." },
-              { left: 2, right: 4, window: "{c,a}",     maxLen: 3, line: 6, desc: "Shrink: remove s[left=1]='b'. left=2. window={c,a}." },
-              { left: 2, right: 4, window: "{c,a,b}",   maxLen: 3, line: 9, desc: "Add 'b'. window={c,a,b}. maxLen=max(3,3)=3." },
-              { left: 2, right: 5, window: "{c,a,b}",   maxLen: 3, line: 5, desc: "right=5 ('c'): 'c' IS in window. Enter shrink loop." },
-              { left: 3, right: 5, window: "{a,b}",     maxLen: 3, line: 6, desc: "Shrink: remove s[left=2]='c'. left=3. window={a,b}." },
-              { left: 3, right: 5, window: "{a,b,c}",   maxLen: 3, line: 9, desc: "Add 'c'. window={a,b,c}. maxLen=max(3,3)=3." },
-              { left: 3, right: 6, window: "{a,b,c}",   maxLen: 3, line: 5, desc: "right=6 ('b'): 'b' IS in window. Shrink." },
-              { left: 4, right: 6, window: "{b,c}",     maxLen: 3, line: 6, desc: "Shrink: remove 'a' (left=3), left=4. Still 'b' in window. Remove 'b' (left=4), left=5. window={c}." },
-              { left: 5, right: 6, window: "{c,b}",     maxLen: 3, line: 9, desc: "Add 'b'. window={c,b}. maxLen=max(3,2)=3." },
-              { left: 5, right: 7, window: "{c,b}",     maxLen: 3, line: 5, desc: "right=7 ('b'): 'b' IS in window. Shrink: remove s[left=5]='c'... left=6. Remove s[6]='b', left=7." },
-              { left: 7, right: 7, window: "{b}",       maxLen: 3, line: 9, desc: "Add 'b'. window={b}. maxLen=max(3,1)=3. Loop ends. Return 3." }
+              { leftIdx: 0, rightIdx: -1, winStr: "{ }",       maxLen: 0, line: 0, desc: "Init: left=0, right starts before array. window is empty. maxLen=0." },
+              { leftIdx: 0, rightIdx: 0,  winStr: "{a}",       maxLen: 1, line: 9, desc: "right=0 ('a'): 'a' not in window. Add 'a'. window={a}. maxLen=max(0,1)=1." },
+              { leftIdx: 0, rightIdx: 1,  winStr: "{a,b}",     maxLen: 2, line: 9, desc: "right=1 ('b'): 'b' not in window. Add 'b'. window={a,b}. maxLen=max(1,2)=2." },
+              { leftIdx: 0, rightIdx: 2,  winStr: "{a,b,c}",   maxLen: 3, line: 9, desc: "right=2 ('c'): 'c' not in window. Add 'c'. window={a,b,c}. maxLen=max(2,3)=3." },
+              { leftIdx: 0, rightIdx: 3,  winStr: "{a,b,c}",   maxLen: 3, line: 5, desc: "right=3 ('a'): 'a' IS in window! Enter shrink-while loop." },
+              { leftIdx: 1, rightIdx: 3,  winStr: "{b,c}",     maxLen: 3, line: 6, desc: "Shrink: remove s[0]='a'. left becomes 1. window={b,c}. 'a' gone — exit shrink loop." },
+              { leftIdx: 1, rightIdx: 3,  winStr: "{b,c,a}",   maxLen: 3, line: 9, desc: "Add 'a'. window={b,c,a}. maxLen=max(3,3)=3." },
+              { leftIdx: 1, rightIdx: 4,  winStr: "{b,c,a}",   maxLen: 3, line: 5, desc: "right=4 ('b'): 'b' IS in window. Enter shrink loop." },
+              { leftIdx: 2, rightIdx: 4,  winStr: "{c,a}",     maxLen: 3, line: 6, desc: "Shrink: remove s[1]='b'. left=2. window={c,a}. 'b' gone." },
+              { leftIdx: 2, rightIdx: 4,  winStr: "{c,a,b}",   maxLen: 3, line: 9, desc: "Add 'b'. window={c,a,b}. maxLen=max(3,3)=3." },
+              { leftIdx: 2, rightIdx: 5,  winStr: "{c,a,b}",   maxLen: 3, line: 5, desc: "right=5 ('c'): 'c' IS in window. Enter shrink loop." },
+              { leftIdx: 3, rightIdx: 5,  winStr: "{a,b}",     maxLen: 3, line: 6, desc: "Shrink: remove s[2]='c'. left=3. window={a,b}." },
+              { leftIdx: 3, rightIdx: 5,  winStr: "{a,b,c}",   maxLen: 3, line: 9, desc: "Add 'c'. window={a,b,c}. maxLen=max(3,3)=3." },
+              { leftIdx: 3, rightIdx: 6,  winStr: "{a,b,c}",   maxLen: 3, line: 5, desc: "right=6 ('b'): 'b' IS in window. Enter shrink loop." },
+              { leftIdx: 5, rightIdx: 6,  winStr: "{c,b}",     maxLen: 3, line: 6, desc: "Shrink: remove 'a'(left=3)→left=4. Still 'b' in window. Remove 'b'(left=4)→left=5. window={c}." },
+              { leftIdx: 5, rightIdx: 6,  winStr: "{c,b}",     maxLen: 3, line: 9, desc: "Add 'b'. window={c,b}. maxLen=max(3,2)=3." },
+              { leftIdx: 5, rightIdx: 7,  winStr: "{c,b}",     maxLen: 3, line: 5, desc: "right=7 ('b'): 'b' IS in window. Shrink: remove s[5]='c'→left=6, then s[6]='b'→left=7." },
+              { leftIdx: 7, rightIdx: 7,  winStr: "{b}",       maxLen: 3, line: 9, desc: "Add 'b'. window={b}. maxLen=max(3,1)=3. Loop ends. Return 3! ✅" }
             ]
           }
         },
@@ -1773,6 +1773,28 @@
               "        }",
               "    }",
               "    return bestLen == Integer.MAX_VALUE ? \"\" : s.substring([[bestStart]], [[bestStart + bestLen]]);",
+              "}"
+            ]
+          },
+          longestNoRepeat: {
+            title: "Longest Substring No Repeat — Active Recall",
+            story: "Variable window: expand right freely, shrink left when a duplicate enters, track biggest valid window.",
+            template: [
+              "public static int solve(String s) {",
+              "    Set<Character> window = new [[HashSet<>()]];",
+              "    int left = [[0]], maxLen = [[0]];",
+              "    for (int right = 0; right < [[s.length()]]; right++) {",
+              "        // SHRINK: kick duplicates out from left",
+              "        while ([[window.contains(s.charAt(right))]]) {",
+              "            window.remove([[s.charAt(left)]]);",
+              "            [[left++]];",
+              "        }",
+              "        // EXPAND: new char is safe to add",
+              "        window.add([[s.charAt(right)]]);",
+              "        // TRACK: window is valid — record longest",
+              "        maxLen = Math.max([[maxLen]], [[right - left + 1]]);",
+              "    }",
+              "    return [[maxLen]];",
               "}"
             ]
           }
@@ -2569,11 +2591,11 @@
                     <React.Fragment>
                       <div className="var-badge">
                         <span className="var-name">left L</span>
-                        <span className="var-value">{trace.leftIdx}</span>
+                        <span className="var-value">{trace.leftIdx !== undefined ? trace.leftIdx : '—'}</span>
                       </div>
                       <div className="var-badge">
                         <span className="var-name">right R</span>
-                        <span className="var-value" style={{ color: 'var(--sw-primary)' }}>{trace.rightIdx}</span>
+                        <span className="var-value" style={{ color: 'var(--sw-primary)' }}>{trace.rightIdx !== undefined ? trace.rightIdx : '—'}</span>
                       </div>
                       {trace.windowSum !== undefined && (
                         <div className="var-badge">
@@ -2597,6 +2619,18 @@
                         <div className="var-badge">
                           <span className="var-name">maxVowels</span>
                           <span className="var-value" style={{ color: 'var(--success)' }}>{trace.maxVowels}</span>
+                        </div>
+                      )}
+                      {trace.winStr !== undefined && (
+                        <div className="var-badge" style={{ minWidth: '160px' }}>
+                          <span className="var-name">window set</span>
+                          <span className="var-value" style={{ color: '#a78bfa', fontFamily: 'Fira Code, monospace', fontSize: '11px' }}>{trace.winStr}</span>
+                        </div>
+                      )}
+                      {trace.maxLen !== undefined && (
+                        <div className="var-badge">
+                          <span className="var-name">maxLen</span>
+                          <span className="var-value" style={{ color: 'var(--success)' }}>{trace.maxLen}</span>
                         </div>
                       )}
                     </React.Fragment>
