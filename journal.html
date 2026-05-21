@@ -981,6 +981,102 @@
       line-height: 1.4;
     }
 
+    /* LeetCode reference & layout styles */
+    .problem-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .problem-info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .leetcode-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .leetcode-card.tp {
+      border-color: rgba(14, 165, 233, 0.15);
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.02) 0%, rgba(13, 17, 33, 0.4) 100%);
+    }
+
+    .leetcode-card.sw {
+      border-color: rgba(249, 115, 22, 0.15);
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.02) 0%, rgba(13, 17, 33, 0.4) 100%);
+    }
+
+    .leetcode-spec-card {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px dashed var(--border-color);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .leetcode-spec-card {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+
+    .leetcode-card h4 {
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .leetcode-card h4 i {
+      color: #ffa116;
+    }
+
+    .leetcode-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.45;
+      flex-grow: 1;
+    }
+
+    .leetcode-link-btn {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .leetcode-link-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--text-muted);
+      transform: translateY(-1px);
+    }
+
     /* Complete Day Panel */
     .day-complete-section {
       display: flex;
@@ -1196,8 +1292,153 @@
     const { useState, useEffect } = React;
 
     // ==========================================
-    // DATA LAYER (CURRICULUM SPECIFICATIONS)
+    // LEETCODE QUESTION METADATA MAP
     // ==========================================
+    const LEETCODE_MAP = {
+      twoSumII: {
+        id: "167",
+        title: "Two Sum II - Input Array Is Sorted",
+        url: "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/",
+        desc: "Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Let these two numbers be numbers[index1] and numbers[index2] where 1 <= index1 < index2 <= numbers.length. Return the indices of the two numbers, index1 and index2, added by one as an integer array [index1, index2] of length 2. The tests are generated such that there is exactly one solution. You may not use the same element twice. Your solution must use only constant extra space.",
+        example: {
+          input: "numbers = [2,7,11,15], target = 9",
+          output: "[1,2]",
+          explanation: "The sum of 2 and 7 is 9. Since the array is 1-indexed, index1 = 1, index2 = 2. We return [1, 2]."
+        },
+        constraints: [
+          "2 <= numbers.length <= 3 * 10^4",
+          "-1000 <= numbers[i] <= 1000",
+          "numbers is sorted in non-decreasing order.",
+          "Exactly one solution exists."
+        ]
+      },
+      palindrome: {
+        id: "125",
+        title: "Valid Palindrome",
+        url: "https://leetcode.com/problems/valid-palindrome/",
+        desc: "A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers. Given a string s, return true if it is a palindrome, or false otherwise.",
+        example: {
+          input: 's = "A man, a plan, a canal: Panama"',
+          output: "true",
+          explanation: '"amanaplanacanalpanama" is a palindrome after removing non-alphanumeric characters and converting to lowercase.'
+        },
+        constraints: [
+          "1 <= s.length <= 2 * 10^5",
+          "s consists only of printable ASCII characters."
+        ]
+      },
+      threeSum: {
+        id: "15",
+        title: "3Sum",
+        url: "https://leetcode.com/problems/3sum/",
+        desc: "Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0. Notice that the solution set must not contain duplicate triplets.",
+        example: {
+          input: "nums = [-1,0,1,2,-1,-4]",
+          output: "[[-1,-1,2],[-1,0,1]]",
+          explanation: "The distinct triplets are [-1, -1, 2] and [-1, 0, 1]. Note that the order of the output and the order of the triplets does not matter."
+        },
+        constraints: [
+          "3 <= nums.length <= 3000",
+          "-10^5 <= nums[i] <= 10^5"
+        ]
+      },
+      trappingRain: {
+        id: "42",
+        title: "Trapping Rain Water",
+        url: "https://leetcode.com/problems/trapping-rain-water/",
+        desc: "Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.",
+        example: {
+          input: "height = [0,1,0,2,1,0,1,3,2,1,2,1]",
+          output: "6",
+          explanation: "The above elevation map (black section) is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped."
+        },
+        constraints: [
+          "n == height.length",
+          "1 <= n <= 2 * 10^4",
+          "0 <= height[i] <= 10^5"
+        ]
+      },
+      linkedListCycle: {
+        id: "141",
+        title: "Linked List Cycle",
+        url: "https://leetcode.com/problems/linked-list-cycle/",
+        desc: "Given head, the head of a linked list, determine if the linked list has a cycle in it. There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Return true if there is a cycle in the linked list. Otherwise, return false.",
+        example: {
+          input: "head = [3,2,0,-4], pos = 1",
+          output: "true",
+          explanation: "There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed, value 2)."
+        },
+        constraints: [
+          "The number of nodes in the list is in the range [0, 10^4].",
+          "-10^5 <= Node.val <= 10^5",
+          "pos is -1 or a valid index in the linked-list."
+        ]
+      },
+      maxAvgSubarray: {
+        id: "643",
+        title: "Maximum Average Subarray I",
+        url: "https://leetcode.com/problems/maximum-average-subarray-i/",
+        desc: "You are given an integer array nums consisting of n elements, and an integer k. Find a contiguous subarray whose length is equal to k that has the maximum average value and return this value. Any answer with a calculation error less than 10^-5 will be accepted.",
+        example: {
+          input: "nums = [1,12,-5,-6,50,3], k = 4",
+          output: "12.75",
+          explanation: "Maximum average is (12 - 5 - 6 + 50) / 4 = 51 / 4 = 12.75."
+        },
+        constraints: [
+          "n == nums.length",
+          "1 <= k <= n <= 10^5",
+          "-10^4 <= nums[i] <= 10^4"
+        ]
+      },
+      maxVowels: {
+        id: "1456",
+        title: "Maximum Number of Vowels in a Substring of Given Length",
+        url: "https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/",
+        desc: "Given a string s and an integer k, return the maximum number of vowel letters in any substring of s with length k. Vowel letters in English are 'a', 'e', 'i', 'o', and 'u'.",
+        example: {
+          input: 's = "abciiidef", k = 3',
+          output: "3",
+          explanation: 'The substring "iii" contains 3 vowel letters.'
+        },
+        constraints: [
+          "1 <= s.length <= 10^5",
+          "s consists of lowercase English letters.",
+          "1 <= k <= s.length"
+        ]
+      },
+      longestNoRepeat: {
+        id: "3",
+        title: "Longest Substring Without Repeating Characters",
+        url: "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+        desc: "Given a string s, find the length of the longest substring without repeating characters.",
+        example: {
+          input: 's = "abcabcbb"',
+          output: "3",
+          explanation: 'The answer is "abc", with the length of 3.'
+        },
+        constraints: [
+          "0 <= s.length <= 5 * 10^4",
+          "s consists of English letters, digits, symbols and spaces."
+        ]
+      },
+      minWindowSubstring: {
+        id: "76",
+        title: "Minimum Window Substring",
+        url: "https://leetcode.com/problems/minimum-window-substring/",
+        desc: "Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string \"\".",
+        example: {
+          input: 's = "ADOBECODEBANC", t = "ABC"',
+          output: '"BANC"',
+          explanation: 'The minimum window substring "BANC" includes \'A\', \'B\', and \'C\' from string t.'
+        },
+        constraints: [
+          "m == s.length, n == t.length",
+          "1 <= m, n <= 10^5",
+          "s and t consist of uppercase and lowercase English letters."
+        ]
+      }
+    };
+
     const CURRICULUM = {
       1: {
         id: 1,
@@ -1285,10 +1526,11 @@
         title: "Two Pointers — Dry Run & Recall",
         patternType: "tp",
         category: "Two Pointers",
-        oneSentence: "Trace existing problems (Two Sum II, Palindrome, 3Sum, Trapping Rain Water) step-by-step.",
+        oneSentence: "Trace existing problems (Two Sum II, Palindrome, 3Sum, Trapping Rain, LinkedList Cycle) step-by-step.",
         problems: {
           twoSumII: {
             title: "Two Sum II — Sorted Array",
+            patternSubtype: "Opposite Ends Two-Pointer",
             description: "Given a 1-indexed sorted array, find two numbers that sum to a target.",
             story: "Shortest + tallest kids. Too short? Pick next taller. Too tall? Pick next shorter.",
             array: [2, 7, 11, 15],
@@ -1319,10 +1561,23 @@
               { left: 0, right: 1, sum: 13, line: 8, desc: "right pointer decremented to index 1 (value 7)." },
               { left: 0, right: 1, sum: 9, line: 3, desc: "Check sum: nums[left] + nums[right] = 2 + 7 = 9." },
               { left: 0, right: 1, sum: 9, line: 4, desc: "Sum (9) matches target (9)! Return 1-indexed result: [1, 2]." }
+            ],
+            quiz: [
+              {
+                q: "Why can we safely increment left if sum < target in Two Sum II?",
+                options: [
+                  "Because the array is sorted, incrementing left moves it to a larger value, which increases the sum.",
+                  "Because the array is sorted, incrementing left decreases the sum.",
+                  "It is a random choice and we could also decrement right."
+                ],
+                correct: 0,
+                explain: "Since the array is sorted in ascending order, incrementing the left pointer moves it to a larger value, which increases the total sum closer to the target."
+              }
             ]
           },
           palindrome: {
             title: "Valid Palindrome",
+            patternSubtype: "Opposite Ends Two-Pointer",
             description: "Check if a string is a palindrome, skipping non-alphanumeric chars and ignoring case.",
             story: "Two friends reading a banner from outside-in, skipping spaces & punctuation.",
             array: ["a", ",", " ", "b", "!", " ", "a"],
@@ -1348,10 +1603,76 @@
               { left: 3, right: 5, line: 3, desc: "Left skip: character at index 1 (',') and index 2 (' ') are not valid. left skips to index 3 ('b')." },
               { left: 3, right: 3, line: 4, desc: "Right skip: character at index 5 (' ') and index 4 ('!') are not valid. right skips to index 3 ('b')." },
               { left: 3, right: 3, line: 2, desc: "Now left (3) is not less than right (3). The loop terminates. Return true." }
+            ],
+            quiz: [
+              {
+                q: "Why do we need left < right checks inside the inner character skip loops in Valid Palindrome?",
+                options: [
+                  "To prevent pointers from moving out of bounds when skipping non-alphanumeric characters.",
+                  "To speed up the execution to O(log N).",
+                  "It has no functional purpose and is optional."
+                ],
+                correct: 0,
+                explain: "If a string contains only non-alphanumeric characters (like ' ,,, '), the pointers would continue incrementing or decrementing past the string bounds without the left < right check."
+              }
+            ]
+          },
+          threeSum: {
+            title: "3Sum",
+            patternSubtype: "Opposite Ends Two-Pointer",
+            description: "Find all unique triplets in an array that sum to zero.",
+            story: "For each person, find two others whose wealth exactly offsets yours to zero. Opposite-ends style.",
+            array: [-4, -1, -1, 0, 1, 2],
+            code: [
+              "public static List<List<Integer>> solve(int[] nums) {",
+              "    List<List<Integer>> res = new ArrayList<>();",
+              "    Arrays.sort(nums);",
+              "    for (int i = 0; i < nums.length - 2; i++) {",
+              "        if (i > 0 && nums[i] == nums[i-1]) continue;",
+              "        int left = i + 1, right = nums.length - 1;",
+              "        while (left < right) {",
+              "            int sum = nums[i] + nums[left] + nums[right];",
+              "            if (sum == 0) {",
+              "                res.add(Arrays.asList(nums[i], nums[left], nums[right]));",
+              "                left++; right--;",
+              "                while (left < right && nums[left] == nums[left-1]) left++;",
+              "                while (left < right && nums[right] == nums[right+1]) right--;",
+              "            } else if (sum < 0) left++;",
+              "            else right--;",
+              "        }",
+              "    }",
+              "    return res;",
+              "}"
+            ],
+            steps: [
+              { left: 1, right: 5, sum: null, line: 3, desc: "Outer i=0 (val -4): Place left at 1 (val -1), right at 5 (val 2)." },
+              { left: 1, right: 5, sum: -3, line: 7, desc: "Sum = -4 + (-1) + 2 = -3 < 0. Too small! increment left to seek larger values." },
+              { left: 2, right: 5, sum: -3, line: 13, desc: "left moves to index 2 (val -1). Sum is still -3 < 0. Increment left." },
+              { left: 3, right: 5, sum: -2, line: 13, desc: "left moves to index 3 (val 0). Sum = -4 + 0 + 2 = -2 < 0. Increment left." },
+              { left: 4, right: 5, sum: -1, line: 13, desc: "left moves to 4 (val 1). Sum = -4 + 1 + 2 = -1 < 0. Increment left." },
+              { left: 5, right: 5, sum: null, line: 6, desc: "left met right (5 == 5). Inner loop ends for i=0." },
+              { left: 2, right: 5, sum: null, line: 3, desc: "Outer i=1 (val -1): Place left at 2 (val -1), right at 5 (val 2)." },
+              { left: 2, right: 5, sum: 0, line: 7, desc: "Sum = -1 + (-1) + 2 = 0! MATCH found! Add [-1, -1, 2]. Increment left, decrement right." },
+              { left: 3, right: 4, sum: null, line: 11, desc: "left becomes 3 (val 0), right becomes 4 (val 1). No duplicates to skip." },
+              { left: 3, right: 4, sum: 0, line: 7, desc: "Sum = -1 + 0 + 1 = 0! MATCH found! Add [-1, 0, 1]. Increment left, decrement right." },
+              { left: 4, right: 3, sum: null, line: 6, desc: "left crosses right (4 > 3). Inner loop ends. Return results." }
+            ],
+            quiz: [
+              {
+                q: "In 3Sum, why is sorting the array initially a critical step?",
+                options: [
+                  "It allows us to easily skip duplicate elements to avoid duplicate triplets and use the Two-Pointer approach.",
+                  "It reduces the time complexity from O(N^2) to O(N log N).",
+                  "It is required for Java's Arrays.asList to work."
+                ],
+                correct: 0,
+                explain: "Sorting groups duplicates together. This allows us to skip duplicate values for the anchor i and pointers left/right, avoiding duplicate triplets."
+              }
             ]
           },
           trappingRain: {
             title: "Trapping Rain Water",
+            patternSubtype: "Opposite Ends Two-Pointer",
             description: "Given wall heights, compute how much rainwater is trapped between them.",
             story: "Bathtub walls. Always process the shorter wall first because it is the bottleneck.",
             array: [0, 1, 0, 2],
@@ -1383,33 +1704,62 @@
               { left: 2, right: 3, leftMax: 1, rightMax: 0, water: 0, line: 7, desc: "Move left to index 2." },
               { left: 2, right: 3, leftMax: 1, rightMax: 0, water: 0, line: 4, desc: "Compare: height[left] (0) < height[right] (2). Left remains the bottleneck." },
               { left: 2, right: 3, leftMax: 1, rightMax: 0, water: 1, line: 6, desc: "height[left] (0) < leftMax (1). Water trapped! water += 1 - 0 = 1 (Total: 1)." },
-              { left: 3, right: 3, leftMax: 1, rightMax: 0, water: 1, line: 7, desc: "Move left to index 3." },
+              { left: 3, right: 3, leftMax: 1, rightMax: 0, water: 1, line: 3, desc: "Move left to index 3." },
               { left: 3, right: 3, leftMax: 1, rightMax: 0, water: 1, line: 3, desc: "Pointers met (left == right). Loop finishes. Return water (1)." }
+            ],
+            quiz: [
+              {
+                q: "What is the critical rule for moving pointers in Trapping Rain Water?",
+                options: [
+                  "Always move the pointer that points to a smaller height first, because it limits the water level.",
+                  "Always move both pointers inward at each step.",
+                  "Always move the pointer pointing to the taller wall, to search for a new boundary."
+                ],
+                correct: 0,
+                explain: "The shorter wall is always the bottleneck for holding water. We process the shorter side and compare it against its maximum boundary."
+              }
+            ]
+          },
+          linkedListCycle: {
+            title: "Linked List Cycle",
+            patternSubtype: "Fast & Slow Pointers",
+            description: "Determine if a linked list contains a cycle using Floyd's Tortoise and Hare.",
+            story: "Tortoise (1 step) and Hare (2 steps) run on a circular track. Collide if there is a cycle.",
+            array: [3, 2, 0, -4],
+            code: [
+              "public static boolean hasCycle(ListNode head) {",
+              "    if (head == null) return false;",
+              "    ListNode slow = head, fast = head;",
+              "    while (fast != null && fast.next != null) {",
+              "        slow = slow.next;",
+              "        fast = fast.next.next;",
+              "        if (slow == fast) {",
+              "            return true; // Cycle detected!",
+              "        }",
+              "    }",
+              "    return false;",
+              "}"
+            ],
+            steps: [
+              { left: 0, right: 0, line: 2, desc: "Init: both slow pointer (slow) and fast pointer (fast) start at head node index 0 (val 3)." },
+              { left: 1, right: 2, line: 4, desc: "slow moves 1 step to index 1 (val 2). fast moves 2 steps to index 2 (val 0)." },
+              { left: 2, right: 1, line: 5, desc: "slow moves to index 2 (val 0). fast moves 2 steps: index 2 -> 3 (-4) -> cycles back to index 1 (val 2)!" },
+              { left: 3, right: 3, line: 6, desc: "slow moves to index 3 (-4). fast moves 2 steps: index 1 -> 2 -> 3 (-4). Collision at node -4! Return true." }
+            ],
+            quiz: [
+              {
+                q: "In Floyd's Cycle Detection (Tortoise and Hare), why are the slow and fast pointers guaranteed to meet if there is a cycle?",
+                options: [
+                  "The relative distance between them decreases by exactly 1 at each step once both are in the cycle.",
+                  "The fast pointer moves backwards if it detects a cycle.",
+                  "The slow pointer stops at the start of the cycle."
+                ],
+                correct: 0,
+                explain: "Once both pointers are in the cycle, the fast pointer (speed 2) gains 1 step on the slow pointer (speed 1) at each iteration. Thus, the distance between them decreases by 1 until they meet."
+              }
             ]
           }
-        },
-        quiz: [
-          {
-            q: "What is the critical rule for moving pointers in Trapping Rain Water?",
-            options: [
-              "Always move the pointer that points to a smaller height first, because it limits the water level.",
-              "Always move both pointers inward at each step.",
-              "Always move the pointer pointing to the taller wall, to search for a new boundary."
-            ],
-            correct: 0,
-            explain: "The shorter wall is always the bottleneck for holding water. We process the shorter side and compare it against its maximum boundary."
-          },
-          {
-            q: "Why do we need a left < right check inside the Valid Palindrome nested character loops?",
-            options: [
-              "To prevent the pointers from moving out of bounds when the entire string contains non-alphanumeric chars.",
-              "To make the algorithm execute in O(log N) complexity.",
-              "It is optional and does not affect safety."
-            ],
-            correct: 0,
-            explain: "If the string is all spaces/commas (e.g. ' ,,, '), the inner while loops would increment left or decrement right past the string boundaries if not restricted."
-          }
-        ]
+        }
       },
       3: {
         id: 3,
@@ -1420,69 +1770,192 @@
         problems: {
           twoSumII: {
             title: "Two Sum II — Active Recall",
+            patternSubtype: "Opposite Ends Two-Pointer",
             story: "Opposite ends. Too small? Move left up. Too big? Move right down.",
             template: [
               "public static int[] solve(int[] nums, int target) {",
+              "    // STEP 1 — INIT: Place pointers at opposite ends of the sorted array",
               "    int left = [[0]], right = [[nums.length - 1]];",
+              "",
+              "    // STEP 2 — LOOP: Narrow inward until the pointers meet",
               "    while ([[left]] < [[right]]) {",
               "        int sum = [[nums[left]]] + [[nums[right]]];",
+              "",
+              "        // STEP 3 — CHECK: Compare sum against target and decide which pointer to move",
               "        if (sum == [[target]]) {",
-              "            return new int[]{[[left + 1]], [[right + 1]]};",
+              "            return new int[]{[[left + 1]], [[right + 1]]}; // match → return 1-indexed answer",
               "        } else if (sum < [[target]]) {",
-              "            [[left++]];",
+              "            [[left++]];   // sum too small → move left up to increase",
               "        } else {",
-              "            [[right--]];",
+              "            [[right--]];  // sum too big → move right down to decrease",
               "        }",
               "    }",
-              "    return new int[]{-1, -1};",
+              "",
+              "    // STEP 4 — RETURN: Fallback (problem guarantees a solution)",
+              "    return new int[]{[[-1]], [[-1]]};",
               "}"
             ]
           },
           palindrome: {
             title: "Valid Palindrome — Active Recall",
+            patternSubtype: "Opposite Ends Two-Pointer",
             story: "Skip non-alphanumeric junk inside the loop, compare lowercase, move both inwards.",
             template: [
               "public static boolean solve(String s) {",
-              "    int left = [[0]], right = [[s.length() - 1]];",
+              "    // STEP 1 — INIT: Place pointers at both ends of the string",
+              "    int left = [[0]];",
+              "    int right = [[s.length() - 1]];",
+              "",
+              "    // STEP 2 — LOOP: Walk inward until the two friends meet",
               "    while ([[left]] < [[right]]) {",
-              "        while (left < right && !Character.isLetterOrDigit([[s.charAt(left)]])) [[left++]];",
-              "        while (left < right && !Character.isLetterOrDigit([[s.charAt(right)]])) [[right--]];",
-              "        if (Character.toLowerCase([[s.charAt(left)]]) != Character.toLowerCase([[s.charAt(right)]])) {",
-              "            return [[false]];",
+              "",
+              "        // STEP 3 — SKIP: Jump over non-alphanumeric junk on both sides",
+              "        while (left < right && !Character.isLetterOrDigit([[s.charAt(left)]])) {",
+              "            [[left++]]; // junk on left → skip it",
               "        }",
+              "        while (left < right && !Character.isLetterOrDigit([[s.charAt(right)]])) {",
+              "            [[right--]]; // junk on right → skip it",
+              "        }",
+              "",
+              "        // STEP 4 — CHECK: Compare the two valid characters (case-insensitive)",
+              "        if (Character.toLowerCase([[s.charAt(left)]]) != Character.toLowerCase([[s.charAt(right)]])) {",
+              "            return [[false]]; // mismatch → NOT a palindrome",
+              "        }",
+              "",
+              "        // STEP 5 — MOVE: Both matched → step inward",
               "        [[left++]];",
               "        [[right--]];",
               "    }",
+              "",
+              "    // STEP 6 — RETURN: All matched → IS a palindrome",
               "    return [[true]];",
               "}"
             ]
           },
           threeSum: {
             title: "3Sum — Active Recall",
+            patternSubtype: "Opposite Ends Two-Pointer",
             story: "Sort first! Loop anchor i, do TwoSumII on left (i+1) and right (end), skip duplicate anchors.",
             template: [
               "public static List<List<Integer>> solve(int[] nums) {",
               "    List<List<Integer>> result = new ArrayList<>();",
+              "",
+              "    // STEP 1 — INIT: Sort the array (required for two pointers to work)",
               "    Arrays.sort([[nums]]);",
+              "",
+              "    // STEP 2 — LOOP: Pick each element as the \"anchor\"",
               "    for (int i = 0; i < [[nums.length - 2]]; i++) {",
-              "        if (nums[i] > 0) [[break]];",
-              "        if (i > 0 && [[nums[i] == nums[i - 1]]]) [[continue]];",
-              "        int left = [[i + 1]], right = [[nums.length - 1]];",
-              "        while (left < right) {",
-              "            int sum = nums[i] + nums[left] + nums[right];",
+              "",
+              "        // STEP 3 — PRUNE: Early exit & skip duplicate anchors",
+              "        if ([[nums[i] > 0]]) [[break]];                           // impossible to sum to 0 → stop",
+              "        if (i > 0 && [[nums[i] == nums[i - 1]]]) [[continue]];    // same anchor → skip duplicate",
+              "",
+              "        // STEP 4 — INIT POINTERS: Set up TwoSumII on the remaining subarray",
+              "        int left = [[i + 1]];",
+              "        int right = [[nums.length - 1]];",
+              "",
+              "        // STEP 5 — INNER LOOP: TwoSumII to find pairs that cover the anchor's debt",
+              "        while ([[left]] < [[right]]) {",
+              "            int sum = [[nums[i]]] + [[nums[left]]] + [[nums[right]]];",
+              "",
+              "            // STEP 6 — CHECK: Compare sum and decide which pointer to move",
               "            if (sum == 0) {",
-              "                result.add(Arrays.asList(nums[i], nums[left], nums[right]));",
-              "                left++; right--;",
-              "                while (left < right && [[nums[left] == nums[left - 1]]]) [[left++]];",
-              "                while (left < right && [[nums[right] == nums[right + 1]]]) [[right--]];",
-              "            } else if (sum < 0) {",
+              "                result.add(Arrays.asList([[nums[i]]], [[nums[left]]], [[nums[right]]])); // triplet found!",
               "                [[left++]];",
-              "            } else {",
               "                [[right--]];",
+              "                while (left < right && [[nums[left] == nums[left - 1]]]) [[left++]];   // skip dup left",
+              "                while (left < right && [[nums[right] == nums[right + 1]]]) [[right--]]; // skip dup right",
+              "",
+              "            } else if (sum < 0) {",
+              "                [[left++]];   // sum too small → need bigger, move left up",
+              "            } else {",
+              "                [[right--]];  // sum too big → need smaller, move right down",
               "            }",
               "        }",
               "    }",
-              "    return result;",
+              "",
+              "    // STEP 7 — RETURN: All unique triplets",
+              "    return [[result]];",
+              "}"
+            ]
+          },
+          trappingRain: {
+            title: "Trapping Rain Water — Active Recall",
+            patternSubtype: "Opposite Ends Two-Pointer",
+            story: "Bathtub walls. Process shorter wall first. If wall >= wallMax -> update max, else trap water.",
+            template: [
+              "public static int solve(int[] height) {",
+              "    if ([[height == null || height.length == 0]]) return [[0]];",
+              "",
+              "    // STEP 1 — INIT: Place pointers at both ends, track max heights from each side",
+              "    int left = [[0]];",
+              "    int right = [[height.length - 1]];",
+              "    int leftMax = [[0]];",
+              "    int rightMax = [[0]];",
+              "    int water = [[0]];",
+              "",
+              "    // STEP 2 — LOOP: Walk inwards until pointers meet",
+              "    while ([[left]] < [[right]]) {",
+              "",
+              "        // STEP 3 — CHECK: Which side is the bottleneck? Process that side.",
+              "        if (height[left] < [[height[right]]]) {",
+              "            // Left side is shorter → it's the bottleneck",
+              "",
+              "            // STEP 4a — UPDATE: Is this wall taller than any we've seen on the left?",
+              "            if (height[left] >= [[leftMax]]) {",
+              "                leftMax = [[height[left]]]; // new tallest wall → update boundary",
+              "            } else {",
+              "                water += [[leftMax - height[left]]]; // lower than boundary → water trapped!",
+              "            }",
+              "",
+              "            // STEP 5a — MOVE: Done with this position → move inward",
+              "            [[left++]];",
+              "",
+              "        } else {",
+              "            // Right side is shorter → it's the bottleneck",
+              "",
+              "            // STEP 4b — UPDATE: Is this wall taller than any we've seen on the right?",
+              "            if (height[right] >= [[rightMax]]) {",
+              "                rightMax = [[height[right]]]; // new tallest wall → update boundary",
+              "            } else {",
+              "                water += [[rightMax - height[right]]]; // lower than boundary → water trapped!",
+              "            }",
+              "",
+              "            // STEP 5b — MOVE: Done with this position → move inward",
+              "            [[right--]];",
+              "        }",
+              "    }",
+              "",
+              "    // STEP 6 — RETURN: Total water trapped",
+              "    return [[water]];",
+              "}"
+            ]
+          },
+          linkedListCycle: {
+            title: "Linked List Cycle — Active Recall",
+            patternSubtype: "Fast & Slow Pointers",
+            story: "Tortoise (1 step) and Hare (2 steps) collide on a circular track if cycle exists.",
+            template: [
+              "public static boolean solve(ListNode head) {",
+              "    // STEP 1 — INIT: Both pointers start at the head node",
+              "    if ([[head == null]]) return [[false]];",
+              "    ListNode slow = [[head]];",
+              "    ListNode fast = [[head]];",
+              "",
+              "    // STEP 2 — LOOP: Walk through the list as long as the fast pointer can move 2 steps",
+              "    while ([[fast != null && fast.next != null]]) {",
+              "        // STEP 3 — MOVE: Slow moves 1 step, Fast moves 2 steps",
+              "        slow = [[slow.next]];",
+              "        fast = [[fast.next.next]];",
+              "",
+              "        // STEP 4 — CHECK: If they meet at the same node, a cycle is detected!",
+              "        if ([[slow == fast]]) {",
+              "            return [[true]];",
+              "        }",
+              "    }",
+              "",
+              "    // STEP 5 — RETURN: Fast pointer reached the end of the list → no cycle",
+              "    return [[false]];",
               "}"
             ]
           }
@@ -1494,7 +1967,7 @@
         patternType: "sw",
         category: "Sliding Window",
         oneSentence: "Avoid recalculating overlapping subarray values by sliding a window.",
-        description: "Trace the sliding window templates (Fixed & Variable length) and learn the core 4 steps of sliding windows.",
+        description: "Trace the sliding window templates (Fixed & Variable length) and learn the core steps of sliding windows.",
         roi: {
           frequency: "⭐⭐⭐⭐⭐ (Critical for array/string substring problems)",
           complexity: "Time: O(N) linear time | Space: O(1) or O(K) for state",
@@ -1502,33 +1975,45 @@
           signals: "Keywords: 'Contiguous subarray', 'substring', 'max/min size', 'longest/shortest sum'."
         },
         template: {
-          filename: "SlidingWindow_Pattern_Template.java",
+          filename: "SlidingWindow_Pattern_Templates.java",
           codeLines: [
-            { num: 1, text: "public class SlidingWindow_Pattern_Template {" },
+            { num: 1, text: "public class SlidingWindow_Pattern_Templates {" },
             { num: 2, text: "    // ========== FIXED WINDOW PATTERN ==========" },
             { num: 3, text: "    public static int solveFixed(int[] nums, int k) {" },
             { num: 4, text: "        int windowSum = 0, maxSum = 0;" },
-            { num: 5, text: "        // STEP 1 — BUILD: Add first window of size K" },
-            { num: 6, text: "        for (int i = 0; i < k; i++) windowSum += nums[i];" },
-            { num: 7, text: "        maxSum = windowSum;" },
-            { num: 8, text: "" },
-            { num: 9, text: "        // STEP 2 — SLIDE: Shift window right one step" },
-            { num: 10, text: "        for (int i = k; i < nums.length; i++) {" },
-            { num: 11, text: "            windowSum += nums[i];     // Right enters -> add" },
-            { num: 12, text: "            windowSum -= nums[i - k]; // Left exits -> subtract" },
-            { num: 13, text: "            // STEP 3 — TRACK: Update best sum seen" },
-            { num: 14, text: "            maxSum = Math.max(maxSum, windowSum);" },
-            { num: 15, text: "        }" },
-            { num: 16, text: "        return maxSum;" },
-            { num: 17, text: "    }" },
-            { num: 18, text: "}" }
+            { num: 5, text: "        for (int i = 0; i < k; i++) windowSum += nums[i];" },
+            { num: 6, text: "        maxSum = windowSum;" },
+            { num: 7, text: "        for (int i = k; i < nums.length; i++) {" },
+            { num: 8, text: "            windowSum += nums[i];     // Right enters -> add" },
+            { num: 9, text: "            windowSum -= nums[i - k]; // Left exits -> subtract" },
+            { num: 10, text: "            maxSum = Math.max(maxSum, windowSum);" },
+            { num: 11, text: "        }" },
+            { num: 12, text: "        return maxSum;" },
+            { num: 13, text: "    }" },
+            { num: 14, text: "" },
+            { num: 15, text: "    // ========== VARIABLE WINDOW PATTERN ==========" },
+            { num: 16, text: "    public static int solveVariable(int[] nums, int target) {" },
+            { num: 17, text: "        int left = 0, maxLen = 0, currentSum = 0;" },
+            { num: 18, text: "        for (int right = 0; right < nums.length; right++) {" },
+            { num: 19, text: "            currentSum += nums[right]; // Expand window right" },
+            { num: 20, text: "            // Shrink window left while condition is violated" },
+            { num: 21, text: "            while (currentSum > target) {" },
+            { num: 22, text: "                currentSum -= nums[left];" },
+            { num: 23, text: "                left++;" },
+            { num: 24, text: "            }" },
+            { num: 25, text: "            // Window is guaranteed valid here" },
+            { num: 26, text: "            maxLen = Math.max(maxLen, right - left + 1);" },
+            { num: 27, text: "        }" },
+            { num: 28, text: "        return maxLen;" },
+            { num: 29, text: "    }" },
+            { num: 30, text: "}" }
           ],
           traceSteps: [
             { line: 5, title: "1. Build Initial Window", text: "Process elements from 0 to K-1 to establish our first window state." },
-            { line: 10, title: "2. Slide Loop", text: "Loop from index K to the end of the array, introducing one element at a time." },
-            { line: 11, title: "3. Expand Window Right", text: "Add the new incoming element `nums[i]` to our active window tracking." },
-            { line: 12, title: "4. Shrink Window Left", text: "Deduct the outgoing element `nums[i - k]` that is no longer inside the glass." },
-            { line: 14, title: "5. Track Maximum State", text: "Update the best state variable (e.g. maxSum) with the current window value." }
+            { line: 7, title: "2. Slide Loop", text: "Loop from index K to the end of the array, introducing one element at a time." },
+            { line: 8, title: "3. Expand Window Right", text: "Add the new incoming element `nums[i]` to our active window tracking." },
+            { line: 9, title: "4. Shrink Window Left", text: "Deduct the outgoing element `nums[i - k]` that is no longer inside the glass." },
+            { line: 10, title: "5. Track Maximum State", text: "Update the best state variable (e.g. maxSum) with the current window value." }
           ],
           sandbox: [
             {
@@ -1572,7 +2057,8 @@
         oneSentence: "Trace Maximum Average Subarray, Max Vowels, and Minimum Window Substring.",
         problems: {
           maxAvgSubarray: {
-            title: "Maximum Average Subarray I (Fixed)",
+            title: "Maximum Average Subarray I",
+            patternSubtype: "Fixed Sliding Window",
             description: "Find a contiguous subarray of size k with the maximum average value.",
             story: "A magnifying glass of width K slides across the array. Add right, remove left, track max sum.",
             array: [1, 12, -5, -6, 50, 3],
@@ -1597,10 +2083,23 @@
               { i: 5, windowSum: 42, maxSum: 51, leftIdx: 2, rightIdx: 5, line: 5, desc: "Slide index 5: Add nums[5] (3) -> (51 + 3 = 54). Deduct nums[1] (12) -> windowSum becomes 42." },
               { i: 5, windowSum: 42, maxSum: 51, leftIdx: 2, rightIdx: 5, line: 7, desc: "Track: Math.max(maxSum 51, newSum 42) = 51." },
               { i: 6, windowSum: 42, maxSum: 51, leftIdx: 2, rightIdx: 5, line: 9, desc: "Loop finishes. Return maxSum / k = 51.0 / 4 = 12.75." }
+            ],
+            quiz: [
+              {
+                q: "In Maximum Average Subarray I (Fixed Window), how do we efficiently slide the window of size K?",
+                options: [
+                  "Add the new element on the right and subtract the element exiting on the left.",
+                  "Recalculate the sum of all K elements from scratch at each step.",
+                  "Double the window size whenever the average is negative."
+                ],
+                correct: 0,
+                explain: "To maintain O(N) time complexity, we slide the window by adding the entering element and subtracting the exiting element, updating the sum in O(1) time."
+              }
             ]
           },
           maxVowels: {
-            title: "Max Vowels of Length K (Fixed)",
+            title: "Max Vowels of Length K",
+            patternSubtype: "Fixed Sliding Window",
             description: "Given s and k, return the max number of vowels in any substring of length k.",
             story: "Magnifying glass, but instead of summing numbers, count vowels. Add right, remove left.",
             array: ["a", "b", "c", "i", "i", "i", "d"],
@@ -1628,12 +2127,25 @@
               { i: 5, vowelCount: 3, maxVowels: 3, leftIdx: 3, rightIdx: 5, line: 7, desc: "Track: Math.max(2, 3) = 3." },
               { i: 6, vowelCount: 2, maxVowels: 3, leftIdx: 4, rightIdx: 6, line: 5, desc: "Slide index 6 ('d'): 'd' enters (not vowel). 'i' (index 3) exits (is vowel -> vowelCount decrements to 2)." },
               { i: 6, vowelCount: 2, maxVowels: 3, leftIdx: 4, rightIdx: 6, line: 7, desc: "Track: Math.max(3, 2) = 3. Return 3." }
+            ],
+            quiz: [
+              {
+                q: "When sliding the window in Max Vowels of Length K, how do we update the vowel count?",
+                options: [
+                  "Increment if the entering character is a vowel, and decrement if the exiting character is a vowel.",
+                  "Re-count all vowels in the current window of size K at each step.",
+                  "Vowel counts cannot be updated dynamically and must be re-evaluated."
+                ],
+                correct: 0,
+                explain: "By checking only the entering and exiting characters, we update the vowel count in O(1) time instead of O(K)."
+              }
             ]
           },
           longestNoRepeat: {
-            title: "Longest Substring Without Repeating (Variable)",
-            description: "Find the length of the longest substring without repeating characters — classic variable window.",
-            story: "Bouncer at the door: If a new char already exists inside, kick the leftmost copy out until the club has no duplicates. Track the biggest valid crowd size.",
+            title: "Longest Substring Without Repeating",
+            patternSubtype: "Variable Sliding Window",
+            description: "Find the length of the longest substring without repeating characters.",
+            story: "Bouncer at the door: If duplicate enters, kick leftmost copy out until club has no duplicates.",
             array: ["a", "b", "c", "a", "b", "c", "b", "b"],
             code: [
               "public static int solve(String s) {",
@@ -1671,31 +2183,76 @@
               { leftIdx: 5, rightIdx: 6,  winStr: "{c,b}",     maxLen: 3, line: 9, desc: "Add 'b'. window={c,b}. maxLen=max(3,2)=3." },
               { leftIdx: 5, rightIdx: 7,  winStr: "{c,b}",     maxLen: 3, line: 5, desc: "right=7 ('b'): 'b' IS in window. Shrink: remove s[5]='c'→left=6, then s[6]='b'→left=7." },
               { leftIdx: 7, rightIdx: 7,  winStr: "{b}",       maxLen: 3, line: 9, desc: "Add 'b'. window={b}. maxLen=max(3,1)=3. Loop ends. Return 3! ✅" }
+            ],
+            quiz: [
+              {
+                q: "In a variable sliding window for finding the LONGEST valid substring, when do we update our max length?",
+                options: [
+                  "Directly after the while-shrink loop, once the window is confirmed to be valid (no duplicates).",
+                  "Inside the while-shrink loop while duplicates still exist.",
+                  "At the beginning of the outer loop before adding the new character."
+                ],
+                correct: 0,
+                explain: "We record the length after shrinking the window to a valid state, representing the longest valid window ending at the current right pointer."
+              }
+            ]
+          },
+          minWindowSubstring: {
+            title: "Minimum Window Substring",
+            patternSubtype: "Variable Sliding Window",
+            description: "Given s and t, return the minimum window substring of s containing all characters of t.",
+            story: "Shopping list matching. Expand right until valid, shrink left to trim off excess, track shortest valid.",
+            array: ["A", "D", "O", "B", "E", "C", "O", "D", "E", "B", "A", "N", "C"],
+            code: [
+              "public static String solve(String s, String t) {",
+              "    Map<Character, Integer> need = new HashMap<>();",
+              "    for (char c : t.toCharArray()) need.put(c, need.getOrDefault(c, 0) + 1);",
+              "    Map<Character, Integer> have = new HashMap<>();",
+              "    int required = need.size(), matched = 0;",
+              "    int bestLen = Integer.MAX_VALUE, bestStart = 0, left = 0;",
+              "    for (int right = 0; right < s.length(); right++) {",
+              "        char r = s.charAt(right);",
+              "        have.put(r, have.getOrDefault(r, 0) + 1);",
+              "        if (need.containsKey(r) && have.get(r).intValue() == need.get(r).intValue()) matched++;",
+              "        while (matched == required) {",
+              "            if (right - left + 1 < bestLen) {",
+              "                bestLen = right - left + 1; bestStart = left;",
+              "            }",
+              "            char l = s.charAt(left);",
+              "            have.put(l, have.get(l) - 1);",
+              "            if (need.containsKey(l) && have.get(l).intValue() < need.get(l).intValue()) matched--;",
+              "            left++;",
+              "        }",
+              "    }",
+              "    return bestLen == Integer.MAX_VALUE ? \"\" : s.substring(bestStart, bestStart + bestLen);",
+              "}"
+            ],
+            steps: [
+              { leftIdx: 0, rightIdx: 0, matched: 1, bestLen: 999, winStr: "{A}", line: 6, desc: "R=0 ('A'): Add 'A' to have. 'A' matched count! matched=1." },
+              { leftIdx: 0, rightIdx: 3, matched: 2, bestLen: 999, winStr: "{A,D,O,B}", line: 6, desc: "R=1..3: Add 'D', 'O', 'B'. 'B' matched count! matched=2 (need A,B,C)." },
+              { leftIdx: 0, rightIdx: 5, matched: 3, bestLen: 6, winStr: "{A..C}", line: 10, desc: "R=4..5: Add 'E', 'C'. 'C' matched! matched=3 (matched == required!). Enter shrink loop." },
+              { leftIdx: 1, rightIdx: 5, matched: 2, bestLen: 6, winStr: "{D..C}", line: 17, desc: "Shrink L=0: remove 'A'. 'A' count drops below need! matched=2. Exit shrink loop. left becomes 1." },
+              { leftIdx: 1, rightIdx: 10, matched: 3, bestLen: 6, winStr: "{D..A}", line: 10, desc: "R=6..10: Add 'O','D','E','B','A'. 'A' found again, matched=3! Enter shrink loop. Current length = 10." },
+              { leftIdx: 5, rightIdx: 10, matched: 3, bestLen: 6, winStr: "{C..A}", line: 11, desc: "Shrink L=1..4: remove 'D','O','B','E' (they are not bottleneck). left=5. Window 'CODEBA' length = 6. Still valid." },
+              { leftIdx: 6, rightIdx: 10, matched: 2, bestLen: 6, winStr: "{O..A}", line: 17, desc: "Shrink L=5: remove 'C'. 'C' drops below need! matched=2. left=6. Exit shrink." },
+              { leftIdx: 6, rightIdx: 12, matched: 3, bestLen: 4, winStr: "{O..C}", line: 10, desc: "R=11..12: Add 'N','C'. 'C' matches, matched=3! Enter shrink loop." },
+              { leftIdx: 9, rightIdx: 12, matched: 3, bestLen: 4, winStr: "{B..C}", line: 11, desc: "Shrink L=6..8: remove excess 'O','D','E'. left=9. Window is 'BANC' length = 4! Update bestLen = 4." },
+              { leftIdx: 10, rightIdx: 12, matched: 2, bestLen: 4, winStr: "{A..C}", line: 17, desc: "Shrink L=9: remove 'B'. matched=2. left=10. Loop ends. Return 'BANC'." }
+            ],
+            quiz: [
+              {
+                q: "In Minimum Window Substring, why do we shrink the window from the left as soon as we have a valid window (matched == required)?",
+                options: [
+                  "To find if a smaller valid window exists by trimming off excess characters from the left.",
+                  "To make the window invalid so we can expand it further.",
+                  "To reset the character map and start a new search."
+                ],
+                correct: 0,
+                explain: "Once the window is valid, we attempt to shrink it from the left to find the minimum possible length that still contains all required characters."
+              }
             ]
           }
-        },
-        quiz: [
-          {
-            q: "What distinguishes a Fixed Window from a Variable Window?",
-            options: [
-              "Fixed Windows always have the right and left pointers move at the exact same time (maintaining distance K), whereas Variable Windows expand right and shrink left dynamically based on conditions.",
-              "Fixed Windows can only contain positive numbers, while Variable Windows support negative values.",
-              "There is no difference; they are different names for the same template."
-            ],
-            correct: 0,
-            explain: "Fixed windows maintain a distance of exactly K between their boundaries (i.e. we add right and deduct left in the same step). Variable windows expand and shrink independently."
-          },
-          {
-            q: "For a variable sliding window where we need to find the LONGEST valid subarray, when do we update our max length?",
-            options: [
-              "Inside the while-shrink loop.",
-              "Directly after/outside the while-shrink loop, once the window is confirmed to be valid.",
-              "Before the while-shrink loop."
-            ],
-            correct: 1,
-            explain: "For a LONGEST valid window, we shrink the window until it becomes valid, and then we record the length outside the loop because the window is at its largest possible valid state at that step."
-          }
-        ]
+        }
       },
       6: {
         id: 6,
@@ -1706,94 +2263,150 @@
         problems: {
           maxAvgSubarray: {
             title: "Maximum Average Subarray I — Active Recall",
+            patternSubtype: "Fixed Sliding Window",
             story: "Build initial window of size K, slide, add right, remove left, track max average.",
             template: [
               "public static double solve(int[] nums, int k) {",
-              "    double windowSum = 0, maxSum = 0;",
+              "    double windowSum = 0;",
+              "    double maxSum = 0;",
+              "",
+              "    // STEP 1 — BUILD: Place the magnifying glass at the start — sum up the first K elements",
               "    for (int i = 0; i < [[k]]; i++) {",
               "        windowSum += [[nums[i]]];",
               "    }",
-              "    maxSum = [[windowSum]];",
+              "    maxSum = [[windowSum]]; // first window is our initial best",
+              "",
+              "    // STEP 2 — SLIDE: Move the glass one step at a time",
               "    for (int i = [[k]]; i < nums.length; i++) {",
-              "        windowSum += [[nums[i]]]; // add right",
-              "        windowSum -= [[nums[i - k]]]; // remove left",
+              "        windowSum += [[nums[i]]];       // new number enters from the right → add it",
+              "        windowSum -= [[nums[i - k]]];   // old number exits from the left → subtract it",
+              "",
+              "        // STEP 3 — TRACK: Is this new window better than our best?",
               "        maxSum = Math.max([[maxSum]], [[windowSum]]);",
               "    }",
+              "",
+              "    // STEP 4 — RETURN: Convert the best sum to average",
               "    return [[maxSum]] / [[k]];",
               "}"
             ]
           },
           maxVowels: {
             title: "Max Vowels of Length K — Active Recall",
+            patternSubtype: "Fixed Sliding Window",
             story: "Slide fixed window, if char entering is vowel -> count++, if char exiting is vowel -> count--.",
             template: [
               "public static int solve(String s, int k) {",
-              "    int vowelCount = 0, maxVowels = 0;",
+              "    int vowelCount = 0;",
+              "    int maxVowels = 0;",
+              "",
+              "    // STEP 1 — BUILD: Count vowels in the first window of size K",
               "    for (int i = 0; i < [[k]]; i++) {",
               "        if (isVowel([[s.charAt(i)]])) vowelCount++;",
               "    }",
               "    maxVowels = [[vowelCount]];",
+              "",
+              "    // STEP 2 — SLIDE: Move the window one step at a time",
               "    for (int i = [[k]]; i < s.length(); i++) {",
-              "        if (isVowel([[s.charAt(i)]])) vowelCount++;",
-              "        if (isVowel([[s.charAt(i - k)]])) [[vowelCount--]];",
+              "        if (isVowel([[s.charAt(i)]])) vowelCount++;       // vowel enters from right → count up",
+              "        if (isVowel([[s.charAt(i - k)]])) [[vowelCount--]];   // vowel exits from left → count down",
+              "",
+              "        // STEP 3 — TRACK: Is this window better than our best?",
               "        maxVowels = Math.max([[maxVowels]], [[vowelCount]]);",
               "    }",
+              "",
+              "    // STEP 4 — RETURN",
               "    return [[maxVowels]];",
               "}"
             ]
           },
           minWindowSubstring: {
             title: "Minimum Window Substring — Active Recall",
+            patternSubtype: "Variable Sliding Window",
             story: "Shopping list matching. Expand right until valid, shrink left while valid, track shortest.",
             template: [
               "public static String solve(String s, String t) {",
+              "    if ([[s.length() == 0 || t.length() == 0]]) return \"\";",
+              "",
+              "    // STEP 1 — INIT: Build the shopping list from t",
               "    Map<Character, Integer> need = new HashMap<>();",
-              "    for (char c : t.toCharArray()) need.put(c, need.getOrDefault(c, 0) + 1);",
-              "    int required = [[need.size()]], matched = 0;",
+              "    for (char c : t.toCharArray()) {",
+              "        need.put(c, need.getOrDefault(c, 0) + 1);",
+              "    }",
+              "    int required = [[need.size()]];  // how many UNIQUE chars must be fully matched",
+              "    int matched = [[0]];             // how many unique chars ARE fully matched now",
+              "",
+              "    // STEP 2 — INIT: Set up the window tracking",
               "    Map<Character, Integer> have = new HashMap<>();",
-              "    int bestLen = Integer.MAX_VALUE, bestStart = 0, left = [[0]];",
+              "    int bestLen = Integer.MAX_VALUE;",
+              "    int bestStart = 0;",
+              "    int left = [[0]];",
+              "",
+              "    // STEP 3 — EXPAND: Widen the telescope to the right, one character at a time",
               "    for (int right = 0; right < [[s.length()]]; right++) {",
-              "        char r = s.charAt(right);",
-              "        have.put(r, have.getOrDefault(r, 0) + 1);",
-              "        if (need.containsKey(r) && [[have.get(r).intValue() == need.get(r).intValue()]]) {",
-              "            [[matched++]];",
+              "        char rightChar = [[s.charAt(right)]];",
+              "        have.put(rightChar, have.getOrDefault(rightChar, 0) + 1);",
+              "",
+              "        // STEP 4 — CHECK: Did adding this char complete a shopping list requirement?",
+              "        if (need.containsKey(rightChar) && [[have.get(rightChar).intValue() == need.get(rightChar).intValue()]]) {",
+              "            [[matched++]]; // one more requirement fully satisfied",
               "        }",
+              "",
+              "        // STEP 5 — SHRINK: While ALL shopping list items are found → try shrinking from left",
               "        while ([[matched]] == [[required]]) {",
-              "            int len = right - left + 1;",
-              "            if (len < [[bestLen]]) {",
-              "                bestLen = [[len]];",
+              "",
+              "            // STEP 6 — TRACK: This is a valid window! Is it shorter than our best?",
+              "            int windowLen = [[right - left + 1]];",
+              "            if (windowLen < [[bestLen]]) {",
+              "                bestLen = [[windowLen]];",
               "                bestStart = [[left]];",
               "            }",
-              "            char l = s.charAt(left);",
-              "            have.put(l, have.get(l) - 1);",
-              "            if (need.containsKey(l) && [[have.get(l).intValue() < need.get(l).intValue()]]) {",
-              "                [[matched--]];",
+              "",
+              "            // Remove the leftmost character from the window",
+              "            char leftChar = [[s.charAt(left)]];",
+              "            have.put(leftChar, have.get(leftChar) - 1);",
+              "",
+              "            // Did removing this char break a shopping list requirement?",
+              "            if (need.containsKey(leftChar) && [[have.get(leftChar).intValue() < need.get(leftChar).intValue()]]) {",
+              "                [[matched--]]; // lost a requirement → loop will exit",
               "            }",
-              "            [[left++]];",
+              "",
+              "            [[left++]]; // shrink window from left",
               "        }",
               "    }",
+              "",
+              "    // STEP 7 — RETURN: Return the shortest valid window, or empty if none found",
               "    return bestLen == Integer.MAX_VALUE ? \"\" : s.substring([[bestStart]], [[bestStart + bestLen]]);",
               "}"
             ]
           },
           longestNoRepeat: {
             title: "Longest Substring No Repeat — Active Recall",
+            patternSubtype: "Variable Sliding Window",
             story: "Variable window: expand right freely, shrink left when a duplicate enters, track biggest valid window.",
             template: [
               "public static int solve(String s) {",
               "    Set<Character> window = new [[HashSet<>()]];",
-              "    int left = [[0]], maxLen = [[0]];",
+              "    int left = [[0]];",
+              "    int maxLen = [[0]];",
+              "",
+              "    // STEP 1 — EXPAND: Move the right pointer to expand the window",
               "    for (int right = 0; right < [[s.length()]]; right++) {",
-              "        // SHRINK: kick duplicates out from left",
-              "        while ([[window.contains(s.charAt(right))]]) {",
+              "        char current = [[s.charAt(right)]];",
+              "",
+              "        // STEP 2 — SHRINK: If duplicate exists, shrink left pointer until duplicate is removed",
+              "        while (window.contains([[current]])) {",
               "            window.remove([[s.charAt(left)]]);",
-              "            [[left++]];",
+              "            [[left++]]; // shrink from left",
               "        }",
-              "        // EXPAND: new char is safe to add",
-              "        window.add([[s.charAt(right)]]);",
-              "        // TRACK: window is valid — record longest",
+              "",
+              "        // STEP 3 — ADD: It's now safe to add the current character to the window",
+              "        window.add([[current]]);",
+              "",
+              "        // STEP 4 — TRACK: The window is guaranteed valid (no duplicates) — update max length",
               "        maxLen = Math.max([[maxLen]], [[right - left + 1]]);",
               "    }",
+              "",
+              "    // STEP 5 — RETURN",
               "    return [[maxLen]];",
               "}"
             ]
@@ -1868,6 +2481,7 @@
               {[1, 2, 3, 4, 5, 6].map(dayNum => {
                 const day = CURRICULUM[dayNum];
                 const isActive = activeDay === dayNum;
+                const isLocked = day.patternType === "sw" && !(progress[1] && progress[2] && progress[3]);
                 let activeClass = "";
                 if (isActive) {
                   activeClass = day.patternType === "tp" ? "active-two-pointer" : "active-sliding-window";
@@ -1876,16 +2490,25 @@
                 return (
                   <div 
                     key={dayNum} 
-                    className={`day-card ${activeClass}`}
-                    onClick={() => setActiveDay(dayNum)}
+                    className={`day-card ${activeClass} ${isLocked ? 'locked' : ''}`}
+                    style={isLocked ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+                    onClick={() => !isLocked && setActiveDay(dayNum)}
                   >
                     <div className="day-info">
-                      <span className={`day-num ${day.patternType}`}>Day {dayNum} ({day.category})</span>
+                      <span className={`day-num ${isLocked ? '' : day.patternType}`} style={isLocked ? { color: 'var(--text-muted)' } : {}}>
+                        Day {dayNum} ({day.category})
+                      </span>
                       <span className="day-name">{day.title.split(" — ")[1]}</span>
                       <span className="day-subtitle">{dayNum === 1 || dayNum === 4 ? "Learn Pattern 2x" : dayNum === 2 || dayNum === 5 ? "Dry Run & Quiz" : "Active Recall"}</span>
                     </div>
                     <div className={`day-status ${progress[dayNum] ? "completed" : ""}`}>
-                      {progress[dayNum] ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-lock-open"></i>}
+                      {progress[dayNum] ? (
+                        <i className="fa-solid fa-check"></i>
+                      ) : isLocked ? (
+                        <i className="fa-solid fa-lock"></i>
+                      ) : (
+                        <i className="fa-solid fa-lock-open"></i>
+                      )}
                     </div>
                   </div>
                 );
@@ -1902,6 +2525,7 @@
                 />
               ) : activeDay === 1 || activeDay === 4 ? (
                 <DayPatternLearn 
+                  key={activeDay}
                   dayData={CURRICULUM[activeDay]} 
                   onComplete={() => completeDay(activeDay)} 
                   isCompleted={progress[activeDay]} 
@@ -1909,6 +2533,7 @@
                 />
               ) : activeDay === 2 || activeDay === 5 ? (
                 <DayDryRunAndQuiz 
+                  key={activeDay}
                   dayData={CURRICULUM[activeDay]} 
                   onComplete={() => completeDay(activeDay)} 
                   isCompleted={progress[activeDay]}
@@ -1916,6 +2541,7 @@
                 />
               ) : (
                 <DayActiveRecall 
+                  key={activeDay}
                   dayData={CURRICULUM[activeDay]} 
                   onComplete={() => completeDay(activeDay)} 
                   isCompleted={progress[activeDay]}
@@ -2152,17 +2778,19 @@
             {[1, 2, 3, 4, 5, 6].map(dayNum => {
               const day = CURRICULUM[dayNum];
               const isDone = progress[dayNum];
+              const isLocked = day.patternType === "sw" && !(progress[1] && progress[2] && progress[3]);
               
               return (
                 <div 
                   key={dayNum} 
-                  className={`dash-day-card ${day.patternType}-card ${isDone ? 'completed' : ''}`}
-                  onClick={() => setActiveDay(dayNum)}
+                  className={`dash-day-card ${day.patternType}-card ${isDone ? 'completed' : ''} ${isLocked ? 'locked' : ''}`}
+                  style={isLocked ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+                  onClick={() => !isLocked && setActiveDay(dayNum)}
                 >
                   <div className="dash-day-header">
-                    <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: day.patternType === 'tp' ? 'var(--tp-primary)' : 'var(--sw-primary)' }}>Day {dayNum}</span>
-                    <div className={`dash-day-icon ${day.patternType}`}>
-                      {day.patternType === 'tp' ? <i className="fa-solid fa-arrows-left-right"></i> : <i className="fa-solid fa-magnifying-glass"></i>}
+                    <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: isLocked ? 'var(--text-muted)' : (day.patternType === 'tp' ? 'var(--tp-primary)' : 'var(--sw-primary)') }}>Day {dayNum}</span>
+                    <div className={`dash-day-icon ${isLocked ? 'locked' : day.patternType}`} style={isLocked ? { background: 'rgba(255,255,255,0.03)', color: 'var(--text-muted)' } : {}}>
+                      {isLocked ? <i className="fa-solid fa-lock"></i> : (day.patternType === 'tp' ? <i className="fa-solid fa-arrows-left-right"></i> : <i className="fa-solid fa-magnifying-glass"></i>)}
                     </div>
                   </div>
                   <div className="dash-day-body">
@@ -2171,11 +2799,19 @@
                   </div>
                   <div className={`dash-day-footer ${isDone ? 'completed' : ''}`}>
                     <span className="status-text">
-                      {isDone ? <React.Fragment><i className="fa-solid fa-circle-check"></i> Mastered</React.Fragment> : "To Do"}
+                      {isDone ? (
+                        <React.Fragment><i className="fa-solid fa-circle-check"></i> Mastered</React.Fragment>
+                      ) : isLocked ? (
+                        <React.Fragment><i className="fa-solid fa-lock"></i> Locked</React.Fragment>
+                      ) : (
+                        "To Do"
+                      )}
                     </span>
-                    <span className="action-link">
-                      Start <i className="fa-solid fa-arrow-right-long"></i>
-                    </span>
+                    {!isLocked && (
+                      <span className="action-link">
+                        Start <i className="fa-solid fa-arrow-right-long"></i>
+                      </span>
+                    )}
                   </div>
                 </div>
               );
@@ -2411,7 +3047,8 @@
       const [activeTab, setActiveTab] = useState(pKeys[0]);
       const [stepIdx, setStepIdx] = useState(0);
       const [selectedQuizOpts, setSelectedQuizOpts] = useState({});
-      const [quizChecked, setQuizChecked] = useState(false);
+      const [quizChecked, setQuizChecked] = useState({});
+      const [completedTabs, setCompletedTabs] = useState([]);
 
       const activeProb = dayData.problems[activeTab];
       const trace = activeProb.steps[stepIdx];
@@ -2421,22 +3058,57 @@
         setStepIdx(0);
       }, [activeTab]);
 
+      // Mark current tab as completed when user reaches the last step of the dry-run
+      useEffect(() => {
+        if (stepIdx === activeProb.steps.length - 1) {
+          setCompletedTabs(prev => {
+            if (!prev.includes(activeTab)) return [...prev, activeTab];
+            return prev;
+          });
+        }
+      }, [stepIdx, activeTab, activeProb.steps.length]);
+
       const handleQuizSelect = (qIdx, optIdx) => {
-        if (quizChecked) return;
-        setSelectedQuizOpts({ ...selectedQuizOpts, [qIdx]: optIdx });
+        setSelectedQuizOpts(prev => ({
+          ...prev,
+          [activeTab]: {
+            ...(prev[activeTab] || {}),
+            [qIdx]: optIdx
+          }
+        }));
+        setQuizChecked(prev => ({
+          ...prev,
+          [activeTab]: false
+        }));
       };
 
       const handleVerifyQuiz = () => {
-        setQuizChecked(true);
+        setQuizChecked(prev => ({
+          ...prev,
+          [activeTab]: true
+        }));
       };
 
-      // Check if all quiz questions are answered correctly
-      const isQuizPassed = () => {
+      // Check if all quiz questions are answered correctly for a specific problem key
+      const isProbQuizPassed = (probKey) => {
+        const prob = dayData.problems[probKey];
+        if (!prob || !prob.quiz) return true;
+        const probAnswers = selectedQuizOpts[probKey] || {};
+        if (Object.keys(probAnswers).length < prob.quiz.length) return false;
         let passed = true;
-        dayData.quiz.forEach((q, idx) => {
-          if (selectedQuizOpts[idx] !== q.correct) passed = false;
+        prob.quiz.forEach((q, idx) => {
+          if (probAnswers[idx] !== q.correct) passed = false;
         });
         return passed;
+      };
+
+      // Check if all quizzes on this day are passed
+      const areAllQuizzesPassed = () => {
+        return pKeys.every(key => {
+          const prob = dayData.problems[key];
+          if (!prob.quiz || prob.quiz.length === 0) return true;
+          return quizChecked[key] && isProbQuizPassed(key);
+        });
       };
 
       return (
@@ -2457,25 +3129,106 @@
 
             {/* Problem Tabs */}
             <div className="problem-tabs">
-              {pKeys.map(key => (
-                <button 
-                  key={key} 
-                  className={`prob-tab ${activeTab === key ? `active ${dayData.patternType}` : ''}`}
-                  onClick={() => setActiveTab(key)}
-                >
-                  {dayData.problems[key].title}
-                </button>
-              ))}
+              {pKeys.map((key) => {
+                const isTabDryRunDone = completedTabs.includes(key);
+                const isTabQuizPassed = quizChecked[key] && isProbQuizPassed(key);
+                const isTabComplete = isTabDryRunDone && isTabQuizPassed;
+                return (
+                  <button 
+                    key={key} 
+                    className={`prob-tab ${activeTab === key ? `active ${dayData.patternType}` : ''}`}
+                    onClick={() => setActiveTab(key)}
+                  >
+                    {isTabComplete && <i className="fa-solid fa-circle-check" style={{ color: 'var(--success)', marginRight: '8px' }}></i>}
+                    {dayData.problems[key].title}
+                  </button>
+                );
+              })}
             </div>
 
-            {/* Mental Story Banner */}
-            <div className={`story-banner ${dayData.patternType}`}>
-              <i className="fa-solid fa-lightbulb"></i>
-              <div className="story-text">
-                <h4>Mental Story Tool</h4>
-                <p>"{activeProb.story}"</p>
+            {/* Problem Info & Reference Grid */}
+            <div className="problem-info-grid">
+              {/* Mental Story Banner */}
+              <div className={`story-banner ${dayData.patternType}`} style={{ marginBottom: 0 }}>
+                <i className="fa-solid fa-lightbulb"></i>
+                <div className="story-text">
+                  <h4>Mental Story Tool</h4>
+                  <p>"{activeProb.story}"</p>
+                </div>
               </div>
+
+              {/* LeetCode Reference Card */}
+              {LEETCODE_MAP[activeTab] && (
+                <div className={`leetcode-card ${dayData.patternType}`}>
+                  <div>
+                    <h4>
+                      <i className="fa-solid fa-code"></i>
+                      <span>LeetCode {LEETCODE_MAP[activeTab].id}: {LEETCODE_MAP[activeTab].title}</span>
+                    </h4>
+                    <p style={{ marginTop: '6px' }}>{LEETCODE_MAP[activeTab].desc}</p>
+                  </div>
+                  <a 
+                    href={LEETCODE_MAP[activeTab].url} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="leetcode-link-btn"
+                  >
+                    <span>Solve on LeetCode</span>
+                    <i className="fa-solid fa-up-right-from-square"></i>
+                  </a>
+                </div>
+              )}
             </div>
+
+            {/* LeetCode Specification Panel */}
+            {LEETCODE_MAP[activeTab] && LEETCODE_MAP[activeTab].example && (
+              <div className="leetcode-spec-card">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <h4 style={{ fontSize: '13px', fontWeight: '800', textTransform: 'uppercase', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <i className="fa-solid fa-vial" style={{ color: dayData.patternType === 'tp' ? 'var(--tp-primary)' : 'var(--sw-primary)' }}></i>
+                    Example
+                  </h4>
+                  <div style={{
+                    background: 'rgba(0, 0, 0, 0.25)',
+                    borderRadius: '8px',
+                    padding: '10px 14px',
+                    fontFamily: 'monospace',
+                    fontSize: '12px',
+                    lineHeight: '1.5',
+                    color: '#e2e8f0',
+                    border: '1px solid rgba(255, 255, 255, 0.03)'
+                  }}>
+                    <div><span style={{ color: '#888' }}>Input:</span> {LEETCODE_MAP[activeTab].example.input}</div>
+                    <div><span style={{ color: '#888' }}>Output:</span> {LEETCODE_MAP[activeTab].example.output}</div>
+                    {LEETCODE_MAP[activeTab].example.explanation && (
+                      <div style={{ marginTop: '4px', fontStyle: 'italic', color: '#94a3b8', fontSize: '11.5px' }}>
+                        <span style={{ color: '#888', fontStyle: 'normal' }}>Explanation:</span> {LEETCODE_MAP[activeTab].example.explanation}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <h4 style={{ fontSize: '13px', fontWeight: '800', textTransform: 'uppercase', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <i className="fa-solid fa-list-check" style={{ color: dayData.patternType === 'tp' ? 'var(--tp-primary)' : 'var(--sw-primary)' }}></i>
+                    Constraints
+                  </h4>
+                  <ul style={{
+                    margin: 0,
+                    paddingLeft: '20px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '4px',
+                    fontSize: '12px',
+                    color: 'var(--text-muted)'
+                  }}>
+                    {LEETCODE_MAP[activeTab].constraints.map((constraint, cIdx) => (
+                      <li key={cIdx}>{constraint}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
 
             {/* Dry Run Workspace */}
             <div className="dry-run-workspace">
@@ -2698,83 +3451,94 @@
             </div>
 
             {/* Pattern Recognition Quiz Section */}
-            <div className="quiz-panel">
-              <h3 style={{ fontSize: '16px', fontWeight: '800', marginBottom: '16px', display: 'flex', alignLines: 'center', gap: '8px' }}>
-                <i className="fa-solid fa-clipboard-question" style={{ color: dayData.patternType === 'tp' ? 'var(--tp-primary)' : 'var(--sw-primary)' }}></i> Active Recall Pitfall Quiz
-              </h3>
+            {activeProb.quiz && activeProb.quiz.length > 0 && (
+              <div className="quiz-panel">
+                <h3 style={{ fontSize: '16px', fontWeight: '800', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <i className="fa-solid fa-clipboard-question" style={{ color: dayData.patternType === 'tp' ? 'var(--tp-primary)' : 'var(--sw-primary)' }}></i> Active Recall Pitfall Quiz
+                </h3>
 
-              {dayData.quiz.map((item, qIdx) => {
-                return (
-                  <div key={qIdx} className="quiz-question-box">
-                    <div className="quiz-question">
-                      <span style={{ color: 'var(--text-muted)' }}>Q{qIdx + 1}.</span>
-                      <span>{item.q}</span>
-                    </div>
+                {activeProb.quiz.map((item, qIdx) => {
+                  const activeProbAnswers = selectedQuizOpts[activeTab] || {};
+                  const isSelected = activeProbAnswers[qIdx] !== undefined;
+                  const selectedOpt = activeProbAnswers[qIdx];
+                  const isTabQuizChecked = !!quizChecked[activeTab];
 
-                    <div className="quiz-options">
-                      {item.options.map((opt, optIdx) => {
-                        const isSelected = selectedQuizOpts[qIdx] === optIdx;
-                        let optionClass = "";
-                        
-                        if (isSelected) {
-                          optionClass = `selected ${dayData.patternType}`;
-                        }
-                        if (quizChecked) {
-                          if (optIdx === item.correct) {
-                            optionClass = "correct";
-                          } else if (isSelected) {
-                            optionClass = "incorrect";
-                          }
-                        }
-
-                        return (
-                          <div 
-                            key={optIdx} 
-                            className={`quiz-option ${optionClass}`}
-                            onClick={() => handleQuizSelect(qIdx, optIdx)}
-                          >
-                            <span>{opt}</span>
-                            {quizChecked && optIdx === item.correct && <i className="fa-solid fa-circle-check" style={{ color: 'var(--success)' }}></i>}
-                            {quizChecked && isSelected && optIdx !== item.correct && <i className="fa-solid fa-circle-xmark" style={{ color: 'var(--error)' }}></i>}
-                          </div>
-                        );
-                      })}
-                    </div>
-
-                    {quizChecked && isSelected && (
-                      <div className="quiz-feedback">
-                        <strong>Explanation:</strong> {item.explain}
+                  return (
+                    <div key={qIdx} className="quiz-question-box">
+                      <div className="quiz-question">
+                        <span style={{ color: 'var(--text-muted)' }}>Q{qIdx + 1}.</span>
+                        <span>{item.q}</span>
                       </div>
-                    )}
-                  </div>
-                );
-              })}
 
-              <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-                <button 
-                  className={`primary-action-btn ${dayData.patternType}`}
-                  onClick={handleVerifyQuiz}
-                  disabled={quizChecked || Object.keys(selectedQuizOpts).length < dayData.quiz.length}
-                >
-                  Verify Quiz Answers
-                </button>
-                {quizChecked && (
-                  <span style={{ color: isQuizPassed() ? 'var(--success)' : 'var(--warning)', fontWeight: '700', fontSize: '14px' }}>
-                    {isQuizPassed() ? "🎉 All answers correct! Day cleared." : "⚠️ Some answers were incorrect. Review explanations."}
-                  </span>
-                )}
+                      <div className="quiz-options">
+                        {item.options.map((opt, optIdx) => {
+                          const isOptSelected = selectedOpt === optIdx;
+                          let optionClass = "";
+                          
+                          if (isOptSelected) {
+                            optionClass = `selected ${dayData.patternType}`;
+                          }
+                          if (isTabQuizChecked) {
+                            if (optIdx === item.correct) {
+                              optionClass = "correct";
+                            } else if (isOptSelected) {
+                              optionClass = "incorrect";
+                            }
+                          }
+
+                          return (
+                            <div 
+                              key={optIdx} 
+                              className={`quiz-option ${optionClass}`}
+                              onClick={() => handleQuizSelect(qIdx, optIdx)}
+                            >
+                              <span>{opt}</span>
+                              {isTabQuizChecked && optIdx === item.correct && <i className="fa-solid fa-circle-check" style={{ color: 'var(--success)' }}></i>}
+                              {isTabQuizChecked && isOptSelected && optIdx !== item.correct && <i className="fa-solid fa-circle-xmark" style={{ color: 'var(--error)' }}></i>}
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {isTabQuizChecked && isSelected && (
+                        <div className="quiz-feedback">
+                          <strong>Explanation:</strong> {item.explain}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+
+                <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                  <button 
+                    className={`primary-action-btn ${dayData.patternType}`}
+                    onClick={handleVerifyQuiz}
+                    disabled={!!quizChecked[activeTab] || Object.keys(selectedQuizOpts[activeTab] || {}).length < activeProb.quiz.length}
+                  >
+                    Verify Quiz Answers
+                  </button>
+                  {!!quizChecked[activeTab] && (
+                    <span style={{ color: isProbQuizPassed(activeTab) ? 'var(--success)' : 'var(--warning)', fontWeight: '700', fontSize: '14px' }}>
+                      {isProbQuizPassed(activeTab) ? "🎉 All answers correct! Tab cleared." : "⚠️ Some answers were incorrect. Review explanations."}
+                    </span>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Mark completed */}
             <div className="day-complete-section">
               <div style={{ color: 'var(--text-muted)', fontSize: '13px' }}>
-                {!quizChecked ? "💡 Complete the Recall Quiz below to unlock day completion." : ""}
+                {completedTabs.length < pKeys.length 
+                  ? "💡 Step through the dry-run simulation to the end for all problems on this page." 
+                  : !areAllQuizzesPassed() 
+                    ? "💡 Complete the Pitfall Quiz below and get all answers correct for all problems to unlock day completion." 
+                    : "🎉 You have completed all dry runs and passed all quizzes!"}
               </div>
               <button 
                 className="day-complete-btn" 
                 onClick={onComplete}
-                disabled={!isCompleted && !quizChecked}
+                disabled={!isCompleted && (completedTabs.length < pKeys.length || !areAllQuizzesPassed())}
               >
                 <i className="fa-solid fa-graduation-cap"></i> Mark Day {dayData.id} Complete
               </button>
@@ -2796,6 +3560,7 @@
       const [validation, setValidation] = useState({}); // { [probKey]: { [idx]: 'correct'|'incorrect' } }
       const [checked, setChecked] = useState({}); // { [probKey]: boolean }
       const [showHints, setShowHints] = useState({}); // { [probKey]: boolean }
+      const [completedTabsAR, setCompletedTabsAR] = useState([]);
 
       const activeProb = dayData.problems[activeTab];
 
@@ -2840,32 +3605,37 @@
       };
 
       const handleVerifyAnswers = () => {
-        const currentInputs = inputs[activeTab] || {};
         const results = {};
-        let allCorrect = true;
-        
+        const currentInputs = inputs[activeTab] || {};
         let counter = 0;
         parsedTemplate.forEach(line => {
           line.forEach(seg => {
             if (seg.type === 'input') {
               const userVal = (currentInputs[counter] || "").trim().replace(/\s+/g, "");
               const expectedVal = seg.expected.trim().replace(/\s+/g, "");
-              
-              // Simple check: strip whitespace and ignore casing
               const isMatch = userVal.toLowerCase() === expectedVal.toLowerCase() ||
-                              (expectedVal === "nums.length-1" && userVal === "nums.length-1") ||
-                              (expectedVal === "nums.length-2" && userVal === "nums.length-2");
-              
+                (expectedVal === "nums.length-1" && userVal === "nums.length-1") ||
+                (expectedVal === "nums.length-2" && userVal === "nums.length-2");
               results[counter] = isMatch ? 'correct' : 'incorrect';
-              if (!isMatch) allCorrect = false;
-              
               counter++;
             }
           });
         });
-
         setValidation({ ...validation, [activeTab]: results });
         setChecked({ ...checked, [activeTab]: true });
+        // If all inputs correct, mark this problem as completed and auto-advance
+        const allCorrect = Object.values(results).every(v => v === 'correct');
+        if (allCorrect) {
+          setCompletedTabsAR(prev => {
+            const newSet = [...prev];
+            if (!newSet.includes(activeTab)) newSet.push(activeTab);
+            return newSet;
+          });
+          const currentIdx = pKeys.indexOf(activeTab);
+          if (currentIdx < pKeys.length - 1) {
+            setActiveTab(pKeys[currentIdx + 1]);
+          }
+        }
       };
 
       const handleRevealSolution = () => {
@@ -2940,25 +3710,104 @@
 
             {/* Problem Tabs */}
             <div className="problem-tabs">
-              {pKeys.map(key => (
-                <button 
-                  key={key} 
-                  className={`prob-tab ${activeTab === key ? `active ${dayData.patternType}` : ''}`}
-                  onClick={() => setActiveTab(key)}
-                >
-                  {dayData.problems[key].title}
-                </button>
-              ))}
+              {pKeys.map((key, idx) => {
+                const isSolved = completedTabsAR.includes(key);
+                return (
+                  <button 
+                    key={key} 
+                    className={`prob-tab ${activeTab === key ? `active ${dayData.patternType}` : ''}`}
+                    onClick={() => setActiveTab(key)}
+                  >
+                    {isSolved && <i className="fa-solid fa-circle-check" style={{ color: 'var(--success)', marginRight: '8px' }}></i>}
+                    {dayData.problems[key].title}
+                  </button>
+                );
+              })}
             </div>
 
-            {/* Mental Story Banner */}
-            <div className={`story-banner ${dayData.patternType}`}>
-              <i className="fa-solid fa-brain"></i>
-              <div className="story-text">
-                <h4>Active Recall Story Prompt</h4>
-                <p>"{activeProb.story}"</p>
+            {/* Problem Info & Reference Grid */}
+            <div className="problem-info-grid">
+              {/* Mental Story Banner */}
+              <div className={`story-banner ${dayData.patternType}`} style={{ marginBottom: 0 }}>
+                <i className="fa-solid fa-brain"></i>
+                <div className="story-text">
+                  <h4>Active Recall Story Prompt</h4>
+                  <p>"{activeProb.story}"</p>
+                </div>
               </div>
+
+              {/* LeetCode Reference Card */}
+              {LEETCODE_MAP[activeTab] && (
+                <div className={`leetcode-card ${dayData.patternType}`}>
+                  <div>
+                    <h4>
+                      <i className="fa-solid fa-code"></i>
+                      <span>LeetCode {LEETCODE_MAP[activeTab].id}: {LEETCODE_MAP[activeTab].title}</span>
+                    </h4>
+                    <p style={{ marginTop: '6px' }}>{LEETCODE_MAP[activeTab].desc}</p>
+                  </div>
+                  <a 
+                    href={LEETCODE_MAP[activeTab].url} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="leetcode-link-btn"
+                  >
+                    <span>Solve on LeetCode</span>
+                    <i className="fa-solid fa-up-right-from-square"></i>
+                  </a>
+                </div>
+              )}
             </div>
+
+            {/* LeetCode Specification Panel */}
+            {LEETCODE_MAP[activeTab] && LEETCODE_MAP[activeTab].example && (
+              <div className="leetcode-spec-card">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <h4 style={{ fontSize: '13px', fontWeight: '800', textTransform: 'uppercase', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <i className="fa-solid fa-vial" style={{ color: dayData.patternType === 'tp' ? 'var(--tp-primary)' : 'var(--sw-primary)' }}></i>
+                    Example
+                  </h4>
+                  <div style={{
+                    background: 'rgba(0, 0, 0, 0.25)',
+                    borderRadius: '8px',
+                    padding: '10px 14px',
+                    fontFamily: 'monospace',
+                    fontSize: '12px',
+                    lineHeight: '1.5',
+                    color: '#e2e8f0',
+                    border: '1px solid rgba(255, 255, 255, 0.03)'
+                  }}>
+                    <div><span style={{ color: '#888' }}>Input:</span> {LEETCODE_MAP[activeTab].example.input}</div>
+                    <div><span style={{ color: '#888' }}>Output:</span> {LEETCODE_MAP[activeTab].example.output}</div>
+                    {LEETCODE_MAP[activeTab].example.explanation && (
+                      <div style={{ marginTop: '4px', fontStyle: 'italic', color: '#94a3b8', fontSize: '11.5px' }}>
+                        <span style={{ color: '#888', fontStyle: 'normal' }}>Explanation:</span> {LEETCODE_MAP[activeTab].example.explanation}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <h4 style={{ fontSize: '13px', fontWeight: '800', textTransform: 'uppercase', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <i className="fa-solid fa-list-check" style={{ color: dayData.patternType === 'tp' ? 'var(--tp-primary)' : 'var(--sw-primary)' }}></i>
+                    Constraints
+                  </h4>
+                  <ul style={{
+                    margin: 0,
+                    paddingLeft: '20px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '4px',
+                    fontSize: '12px',
+                    color: 'var(--text-muted)'
+                  }}>
+                    {LEETCODE_MAP[activeTab].constraints.map((constraint, cIdx) => (
+                      <li key={cIdx}>{constraint}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
 
             {/* Interactive Code Editor with Blanks */}
             <div className="editor-wrapper">
@@ -2969,7 +3818,20 @@
                   <div className="editor-dot dot-green"></div>
                 </div>
                 <div className="editor-title">{activeProb.title.split(" — ")[0]}.java</div>
-                <div>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                  {activeProb.patternSubtype && (
+                    <span style={{ 
+                      fontSize: '10px', 
+                      color: dayData.patternType === 'tp' ? 'var(--tp-primary)' : 'var(--sw-primary)', 
+                      background: dayData.patternType === 'tp' ? 'var(--tp-glow)' : 'var(--sw-glow)', 
+                      padding: '2px 8px', 
+                      borderRadius: '4px', 
+                      fontWeight: '800',
+                      border: `1px solid ${dayData.patternType === 'tp' ? 'rgba(14, 165, 233, 0.3)' : 'rgba(249, 115, 22, 0.3)'}`
+                    }}>
+                      {activeProb.patternSubtype}
+                    </span>
+                  )}
                   <span style={{ fontSize: '10px', color: '#ffb020', background: 'rgba(255, 176, 32, 0.15)', padding: '2px 6px', borderRadius: '4px', fontWeight: '700' }}>
                     Active Recall Skeleton
                   </span>

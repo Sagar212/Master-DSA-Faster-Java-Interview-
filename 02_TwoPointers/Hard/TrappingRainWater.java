@@ -2,7 +2,8 @@ public class TrappingRainWater {
 
     /*
      * PROBLEM: Trapping Rain Water (LeetCode #42)
-     * Given n non-negative integers representing an elevation map, compute how much water it can trap.
+     * Given n non-negative integers representing an elevation map where the width of each bar is 1,
+     * compute how much water it can trap after raining.
      *
      * PATTERN: Two Pointers (Opposite Ends + Max Tracking)
      *
@@ -101,37 +102,37 @@ public class TrappingRainWater {
     // --- SKELETON FOR ACTIVE RECALL ---
     // STORY: Bathtub walls. Process the shorter side. Water = max boundary - current height.
     public static int solveSkeleton(int[] height) {
-        // STEP 1 — INIT
+        // STEP 1 — INIT: Place pointers at both ends, track max heights from each side
         int left = 0, right = ___;
         int leftMax = 0, rightMax = 0;
         int water = 0;
 
-        // STEP 2 — LOOP
+        // STEP 2 — LOOP: Walk inwards until pointers meet
         while (___ < ___) {
 
-            // STEP 3 — CHECK (which side is bottleneck?)
+            // STEP 3 — CHECK: Which side is the bottleneck? Process that side.
             if (height[left] < height[right]) {
-                // STEP 4a — UPDATE
+                // STEP 4a — UPDATE: Is this wall taller than any we've seen on the left?
                 if (___ >= leftMax) {
                     leftMax = ___;
                 } else {
                     water += ___ - ___;
                 }
-                // STEP 5a — MOVE
+                // STEP 5a — MOVE: Done with this position → move inward
                 ___;
             } else {
-                // STEP 4b — UPDATE
+                // STEP 4b — UPDATE: Is this wall taller than any we've seen on the right?
                 if (___ >= rightMax) {
                     rightMax = ___;
                 } else {
                     water += ___ - ___;
                 }
-                // STEP 5b — MOVE
+                // STEP 5b — MOVE: Done with this position → move inward
                 ___;
             }
         }
 
-        // STEP 6 — RETURN
+        // STEP 6 — RETURN: Total water trapped
         return water;
     }
     */

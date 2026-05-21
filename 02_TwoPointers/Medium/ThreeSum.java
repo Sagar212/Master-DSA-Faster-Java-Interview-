@@ -6,7 +6,9 @@ public class ThreeSum {
 
     /*
      * PROBLEM: 3Sum (LeetCode #15)
-     * Find all unique triplets [a, b, c] where a + b + c = 0.
+     * Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that
+     * i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0. Notice that the solution
+     * set must not contain duplicate triplets.
      *
      * PATTERN: Two Pointers (Opposite Ends) + Sorting
      *
@@ -93,24 +95,24 @@ public class ThreeSum {
     public static List<List<Integer>> solveSkeleton(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
 
-        // STEP 1 — INIT (sort)
+        // STEP 1 — INIT: Sort the array (required for two pointers to work)
         Arrays.sort(___);
 
-        // STEP 2 — LOOP (anchor)
+        // STEP 2 — LOOP: Pick each element as the "anchor"
         for (int i = 0; i < ___; i++) {
 
-            // STEP 3 — PRUNE
+            // STEP 3 — PRUNE: Early exit & skip duplicate anchors
             if (___) break;
             if (i > 0 && ___) continue;
 
-            // STEP 4 — INIT POINTERS
+            // STEP 4 — INIT POINTERS: Set up TwoSumII on the remaining subarray
             int left = ___, right = ___;
 
-            // STEP 5 — INNER LOOP
+            // STEP 5 — INNER LOOP: TwoSumII to find pairs that cover the anchor's debt
             while (___ < ___) {
                 int sum = ___ + ___ + ___;
 
-                // STEP 6 — CHECK
+                // STEP 6 — CHECK: Compare sum and decide which pointer to move
                 if (sum == 0) {
                     result.add(Arrays.asList(___, ___, ___));
                     ___; ___;
@@ -124,7 +126,7 @@ public class ThreeSum {
             }
         }
 
-        // STEP 7 — RETURN
+        // STEP 7 — RETURN: All unique triplets
         return result;
     }
     */

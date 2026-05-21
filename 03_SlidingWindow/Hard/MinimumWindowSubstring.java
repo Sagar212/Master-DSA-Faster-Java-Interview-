@@ -5,7 +5,7 @@ public class MinimumWindowSubstring {
 
     /*
      * PROBLEM: Minimum Window Substring (LeetCode #76)
-     * Given strings s and t, find the minimum window in s containing all characters of t.
+     * Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
      *
      * PATTERN: Sliding Window (Variable) + HashMap
      *
@@ -108,32 +108,32 @@ public class MinimumWindowSubstring {
     // --- SKELETON FOR ACTIVE RECALL ---
     // STORY: Detective + telescope + shopping list. Expand → All found? → Shrink → Track shortest.
     public static String solveSkeleton(String s, String t) {
-        // STEP 1 — INIT (shopping list)
+        // STEP 1 — INIT: Build the shopping list from t
         Map<Character, Integer> need = new HashMap<>();
         // ... populate need from t ...
         int required = ___;
         int matched = 0;
 
-        // STEP 2 — INIT (window)
+        // STEP 2 — INIT: Set up the window tracking
         Map<Character, Integer> have = new HashMap<>();
         int bestLen = Integer.MAX_VALUE;
         int bestStart = 0;
         int left = 0;
 
-        // STEP 3 — EXPAND
+        // STEP 3 — EXPAND: Widen the telescope to the right, one character at a time
         for (int right = 0; right < ___; right++) {
             char rightChar = s.charAt(___);
             have.put(rightChar, have.getOrDefault(rightChar, 0) + 1);
 
-            // STEP 4 — CHECK
+            // STEP 4 — CHECK: Did adding this char complete a shopping list requirement?
             if (need.containsKey(___) && have.get(___).intValue() == need.get(___).intValue()) {
                 ___;
             }
 
-            // STEP 5 — SHRINK
+            // STEP 5 — SHRINK: While ALL shopping list items are found → try shrinking from left
             while (___ == ___) {
 
-                // STEP 6 — TRACK (shortest!)
+                // STEP 6 — TRACK: This is a valid window! Is it shorter than our best?
                 int windowLen = ___ - ___ + 1;
                 if (windowLen < ___) {
                     bestLen = ___;
@@ -150,7 +150,7 @@ public class MinimumWindowSubstring {
             }
         }
 
-        // STEP 7 — RETURN
+        // STEP 7 — RETURN: Return the shortest valid window, or empty if none found
         return bestLen == Integer.MAX_VALUE ? "" : s.substring(___, ___);
     }
     */

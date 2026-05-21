@@ -7,30 +7,27 @@ echo         DSA Mastery Suite - Starting Server
 echo =======================================================
 echo.
 
-REM Kill any existing Python server on port 8000
-echo Checking for existing server on port 8000...
-for /f "tokens=5" %%a in ('netstat -aon 2^>nul ^| findstr /R "0\.0\.0\.0:8000 "') do (
-    echo Stopping existing server (PID %%a)...
-    taskkill /f /pid %%a >nul 2>&1
+REM Check if port 8000 is already listening
+netstat -aon | findstr :8000 | findstr LISTENING >nul 2>&1
+if %ERRORLEVEL% equ 0 (
+    echo Server is already running on port 8000.
+    goto open_browser
 )
-timeout /t 1 /nobreak >nul
 
-REM Start Python server from this folder
-echo Starting server from: %~dp0
+echo Port 8000 is free. Starting Python server...
 start "DSA Mastery Server" /MIN cmd /c "python -m http.server 8000"
 
 REM Give it time to bind the port
 echo Waiting for server to start...
-timeout /t 2 /nobreak >nul
+ping -n 3 127.0.0.1 >nul
 
-REM Open browser
-echo Opening http://localhost:8000 in browser...
+:open_browser
+echo Opening http://localhost:8000/index.html in browser...
 start "" "http://localhost:8000/index.html"
 
 echo.
 echo -------------------------------------------------------
 echo  Server running at http://localhost:8000/index.html
-echo  Close the "DSA Mastery Server" window to stop it.
 echo -------------------------------------------------------
 echo.
 pause

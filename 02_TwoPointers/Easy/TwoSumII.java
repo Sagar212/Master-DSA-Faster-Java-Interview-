@@ -2,7 +2,12 @@ public class TwoSumII {
 
     /*
      * PROBLEM: Two Sum II - Input Array Is Sorted (LeetCode #167)
-     * Given a 1-indexed sorted array, find two numbers that add up to a specific target.
+     * Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order,
+     * find two numbers such that they add up to a specific target number. Let these two numbers be
+     * numbers[index1] and numbers[index2] where 1 <= index1 < index2 <= numbers.length. Return the
+     * indices of the two numbers, index1 and index2, added by one as an integer array [index1, index2]
+     * of length 2. The tests are generated such that there is exactly one solution. You may not use
+     * the same element twice. Your solution must use only constant extra space.
      *
      * PATTERN: Two Pointers (Opposite Ends)
      *
@@ -65,14 +70,14 @@ public class TwoSumII {
     // --- SKELETON FOR ACTIVE RECALL ---
     // STORY: Shortest + tallest kid. Too short? Next taller. Too tall? Next shorter.
     public static int[] solveSkeleton(int[] nums, int target) {
-        // STEP 1 — INIT
+        // STEP 1 — INIT: Place pointers at opposite ends of the sorted array
         int left = ___, right = ___;
 
-        // STEP 2 — LOOP
+        // STEP 2 — LOOP: Narrow inward until the pointers meet
         while (___ < ___) {
             int sum = ___ + ___;
 
-            // STEP 3 — CHECK
+            // STEP 3 — CHECK: Compare sum against target and decide which pointer to move
             if (sum == ___) {
                 return new int[]{___, ___};
             } else if (sum < ___) {
@@ -82,7 +87,7 @@ public class TwoSumII {
             }
         }
 
-        // STEP 4 — RETURN
+        // STEP 4 — RETURN: Fallback (problem guarantees a solution)
         return new int[]{-1, -1};
     }
     */

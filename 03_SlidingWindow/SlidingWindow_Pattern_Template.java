@@ -69,18 +69,18 @@ public class SlidingWindow_Pattern_Template {
     /*
     // --- SKELETON FOR ACTIVE RECALL (FIXED) ---
     public static int skeletonFixed(int[] nums, int k) {
-        // STEP 1 — BUILD
-        // STEP 2 — SLIDE (+right, -left)
-        // STEP 3 — TRACK
+        // STEP 1 — BUILD: Sum up the first window of size K
+        // STEP 2 — SLIDE: Move the window one step at a time
+        // STEP 3 — TRACK: Update the best
         // STEP 4 — RETURN
         return ___;
     }
 
     // --- SKELETON FOR ACTIVE RECALL (VARIABLE) ---
     public static int skeletonVariable(int[] nums) {
-        // STEP 1 — EXPAND (right)
-        // STEP 2 — SHRINK (left while invalid)
-        // STEP 3 — TRACK (window is valid)
+        // STEP 1 — EXPAND: Move right pointer to grow the window
+        // STEP 2 — SHRINK: While condition is violated, shrink from left
+        // STEP 3 — TRACK: Window is valid here, update best
         // STEP 4 — RETURN
         return ___;
     }

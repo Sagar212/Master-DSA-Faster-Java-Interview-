@@ -2,7 +2,10 @@ public class ValidPalindrome {
 
     /*
      * PROBLEM: Valid Palindrome (LeetCode #125)
-     * Given a string s, return true if it is a palindrome (only alphanumeric, ignore case).
+     * A phrase is a palindrome if, after converting all uppercase letters into lowercase letters
+     * and removing all non-alphanumeric characters, it reads the same forward and backward.
+     * Alphanumeric characters include letters and numbers. Given a string s, return true if it is
+     * a palindrome, or false otherwise.
      *
      * PATTERN: Two Pointers (Opposite Ends)
      *
@@ -69,28 +72,28 @@ public class ValidPalindrome {
     // --- SKELETON FOR ACTIVE RECALL ---
     // STORY: Two friends at each end of a banner, skipping junk, comparing letters.
     public static boolean solveSkeleton(String s) {
-        // STEP 1 — INIT
+        // STEP 1 — INIT: Place pointers at both ends of the string
         int left = ___;
         int right = ___;
 
-        // STEP 2 — LOOP
+        // STEP 2 — LOOP: Walk inward until the two friends meet
         while (___ < ___) {
 
-            // STEP 3 — SKIP
+            // STEP 3 — SKIP: Jump over non-alphanumeric junk on both sides
             while (___ < ___ && !Character.isLetterOrDigit(___)) ___;
             while (___ < ___ && !Character.isLetterOrDigit(___)) ___;
 
-            // STEP 4 — CHECK
+            // STEP 4 — CHECK: Compare the two valid characters (case-insensitive)
             if (Character.toLowerCase(___) != Character.toLowerCase(___)) {
                 return false;
             }
 
-            // STEP 5 — MOVE
+            // STEP 5 — MOVE: Both matched → step inward
             ___;
             ___;
         }
 
-        // STEP 6 — RETURN
+        // STEP 6 — RETURN: All matched → IS a palindrome
         return true;
     }
     */

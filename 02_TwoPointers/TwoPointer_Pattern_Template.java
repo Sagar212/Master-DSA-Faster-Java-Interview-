@@ -44,12 +44,12 @@ public class TwoPointer_Pattern_Template {
     /*
     // --- SKELETON FOR ACTIVE RECALL ---
     public static int solveSkeleton(int[] nums) {
-        // STEP 1 — INIT
+        // STEP 1 — INIT: Place pointers at opposite ends (or same direction)
         int left = ___, right = ___;
 
-        // STEP 2 — LOOP
+        // STEP 2 — LOOP: Narrow inward until they meet
         while (___ < ___) {
-            // STEP 3 — CHECK
+            // STEP 3 — CHECK: Evaluate condition and decide which pointer to move
         }
 
         // STEP 4 — RETURN

@@ -2,7 +2,9 @@ public class MaximumAverageSubarrayI {
 
     /*
      * PROBLEM: Maximum Average Subarray I (LeetCode #643)
-     * Find a contiguous subarray of length k that has the maximum average value.
+     * You are given an integer array nums consisting of n elements, and an integer k.
+     * Find a contiguous subarray whose length is equal to k that has the maximum average value
+     * and return this value. Any answer with a calculation error less than 10^-5 will be accepted.
      *
      * PATTERN: Sliding Window (Fixed)
      *
@@ -71,22 +73,22 @@ public class MaximumAverageSubarrayI {
         double windowSum = 0;
         double maxSum = 0;
 
-        // STEP 1 — BUILD
+        // STEP 1 — BUILD: Place the magnifying glass at the start — sum up the first K elements
         for (int i = 0; i < ___; i++) {
             windowSum += ___;
         }
         maxSum = ___;
 
-        // STEP 2 — SLIDE
+        // STEP 2 — SLIDE: Move the glass one step at a time
         for (int i = ___; i < nums.length; i++) {
-            windowSum += ___;   // add right
-            windowSum -= ___;   // remove left
+            windowSum += ___;   // new number enters from the right → add it
+            windowSum -= ___;   // old number exits from the left → subtract it
 
-            // STEP 3 — TRACK
+            // STEP 3 — TRACK: Is this new window better than our best?
             maxSum = Math.max(___, ___);
         }
 
-        // STEP 4 — RETURN
+        // STEP 4 — RETURN: Convert the best sum to average
         return ___ / ___;
     }
     */

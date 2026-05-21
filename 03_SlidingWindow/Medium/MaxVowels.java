@@ -2,7 +2,7 @@ public class MaxVowels {
 
     /*
      * PROBLEM: Maximum Number of Vowels in a Substring of Given Length (LeetCode #1456)
-     * Given a string s and an integer k, return the max number of vowels in any substring of length k.
+     * Given a string s and an integer k, return the maximum number of vowel letters in any substring of s with length k. Vowel letters in English are 'a', 'e', 'i', 'o', and 'u'.
      *
      * PATTERN: Sliding Window (Fixed)
      *
@@ -69,18 +69,18 @@ public class MaxVowels {
         int vowelCount = 0;
         int maxVowels = 0;
 
-        // STEP 1 — BUILD
+        // STEP 1 — BUILD: Count vowels in the first window of size K
         for (int i = 0; i < ___; i++) {
             if (___) vowelCount++;
         }
         maxVowels = vowelCount;
 
-        // STEP 2 — SLIDE
+        // STEP 2 — SLIDE: Move the window one step at a time
         for (int i = ___; i < s.length(); i++) {
-            if (___) vowelCount++;   // add right
-            if (___) vowelCount--;   // remove left
+            if (___) vowelCount++;   // vowel enters from right → count up
+            if (___) vowelCount--;   // vowel exits from left → count down
 
-            // STEP 3 — TRACK
+            // STEP 3 — TRACK: Is this window better than our best?
             maxVowels = Math.max(___, ___);
         }
 
