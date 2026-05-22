@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "title": "Two Pointers — ROI & Pattern",
+    "patternType": "tp",
+    "category": "Two Pointers",
+    "oneSentence": "Two pointers narrow down the search space in sorted data from opposite ends."
+  },
+  {
+    "id": 2,
+    "title": "Two Pointers — Dry Run & Recall",
+    "patternType": "tp",
+    "category": "Two Pointers",
+    "oneSentence": "Trace existing problems (Two Sum II, Palindrome, 3Sum, Trapping Rain, LinkedList Cycle) step-by-step."
+  },
+  {
+    "id": 3,
+    "title": "Two Pointers — Active Recall Skeletons",
+    "patternType": "tp",
+    "category": "Two Pointers",
+    "oneSentence": "Fill in the blank active recall templates for Two Pointer problems."
+  },
+  {
+    "id": 4,
+    "title": "Sliding Window — ROI & Pattern",
+    "patternType": "sw",
+    "category": "Sliding Window",
+    "oneSentence": "Avoid recalculating overlapping subarray values by sliding a window."
+  },
+  {
+    "id": 5,
+    "title": "Sliding Window — Dry Run & Recall",
+    "patternType": "sw",
+    "category": "Sliding Window",
+    "oneSentence": "Trace Maximum Average Subarray, Max Vowels, and Minimum Window Substring."
+  },
+  {
+    "id": 6,
+    "title": "Sliding Window — Active Recall Skeletons",
+    "patternType": "sw",
+    "category": "Sliding Window",
+    "oneSentence": "Fill in the blank active recall templates for Sliding Window problems."
+  },
+  {
+    "id": 7,
+    "title": "Binary Search — ROI & Pattern",
+    "patternType": "bs",
+    "category": "Binary Search",
+    "oneSentence": "Binary search divides the search interval in half recursively in sorted data."
+  },
+  {
+    "id": 8,
+    "title": "Binary Search — Dry Run & Recall",
+    "patternType": "bs",
+    "category": "Binary Search",
+    "oneSentence": "Trace Binary Search, Search in Rotated Sorted Array, and Median of Two Sorted Arrays."
+  },
+  {
+    "id": 9,
+    "title": "Binary Search — Active Recall Skeletons",
+    "patternType": "bs",
+    "category": "Binary Search",
+    "oneSentence": "Fill in the blank active recall templates for Binary Search problems."
+  }
+]

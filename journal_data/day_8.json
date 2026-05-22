@@ -1,0 +1,164 @@
+{
+  "id": 8,
+  "title": "Binary Search — Dry Run & Recall",
+  "patternType": "bs",
+  "category": "Binary Search",
+  "oneSentence": "Trace Binary Search, Search in Rotated Sorted Array, and Median of Two Sorted Arrays.",
+  "problems": {
+    "binarySearch": {
+      "title": "Binary Search",
+      "patternSubtype": "Standard Binary Search",
+      "description": "Find target in a sorted array using standard halving bounds.",
+      "story": "Opening a dictionary to the middle, checking if word is before or after, and pruning half the pages.",
+      "array": [-1, 0, 3, 5, 9, 12],
+      "target": 9,
+      "code": [
+        "public static int solve(int[] nums, int target) {",
+        "    int left = 0, right = nums.length - 1;",
+        "    while (left <= right) {",
+        "        int mid = left + (right - left) / 2;",
+        "        if (nums[mid] == target) {",
+        "            return mid;",
+        "        } else if (nums[mid] < target) {",
+        "            left = mid + 1;",
+        "        } else {",
+        "            right = mid - 1;",
+        "        }",
+        "    }",
+        "    return -1;",
+        "}"
+      ],
+      "steps": [
+        { "left": 0, "right": 5, "mid": null, "line": 1, "desc": "Init: left pointer at index 0 (val -1), right pointer at index 5 (val 12)." },
+        { "left": 0, "right": 5, "mid": 2, "line": 3, "desc": "Loop check: left <= right (0 <= 5) is true. Compute mid = 0 + (5 - 0) / 2 = index 2 (val 3)." },
+        { "left": 0, "right": 5, "mid": 2, "line": 6, "desc": "Compare nums[mid] (3) with target (9). Since 3 < 9, target must be in the right half. Move left to mid + 1." },
+        { "left": 3, "right": 5, "mid": 2, "line": 7, "desc": "left updated to index 3 (val 5)." },
+        { "left": 3, "right": 5, "mid": 4, "line": 3, "desc": "Loop check: left <= right (3 <= 5) is true. Compute mid = 3 + (5 - 3) / 2 = index 4 (val 9)." },
+        { "left": 3, "right": 5, "mid": 4, "line": 4, "desc": "Compare nums[mid] (9) with target (9). They match! Return mid index 4." }
+      ],
+      "quiz": [
+        {
+          "q": "Why is 'left + (right - left) / 2' preferred over '(left + right) / 2'?",
+          "options": [
+            "It avoids integer overflow in systems where left + right can exceed the maximum integer size.",
+            "It automatically rounds up instead of down.",
+            "It runs in O(1) time while the other runs in O(log N) time."
+          ],
+          "correct": 0,
+          "explain": "If left and right are very large, left + right can overflow past 2^31 - 1, producing a negative number. Writing it as left + (right - left) / 2 avoids this overflow."
+        }
+      ]
+    },
+    "searchInRotatedSortedArray": {
+      "title": "Search in Rotated Sorted Array",
+      "patternSubtype": "Rotated Binary Search",
+      "description": "Find a target in a sorted array that has been rotated.",
+      "story": "Shuffled dictionary: one half is always sorted. Determine which half is sorted, check if target lies within its bounds, and prune.",
+      "array": [4, 5, 6, 7, 0, 1, 2],
+      "target": 0,
+      "code": [
+        "public static int solve(int[] nums, int target) {",
+        "    int left = 0, right = nums.length - 1;",
+        "    while (left <= right) {",
+        "        int mid = left + (right - left) / 2;",
+        "        if (nums[mid] == target) return mid;",
+        "        if (nums[left] <= nums[mid]) {",
+        "            if (target >= nums[left] && target < nums[mid]) {",
+        "                right = mid - 1;",
+        "            } else {",
+        "                left = mid + 1;",
+        "            }",
+        "        } else {",
+        "            if (target > nums[mid] && target <= nums[right]) {",
+        "                left = mid + 1;",
+        "            } else {",
+        "                right = mid - 1;",
+        "            }",
+        "        }",
+        "    }",
+        "    return -1;",
+        "}"
+      ],
+      "steps": [
+        { "left": 0, "right": 6, "mid": null, "line": 1, "desc": "Init: left at index 0 (val 4), right at index 6 (val 2)." },
+        { "left": 0, "right": 6, "mid": 3, "line": 3, "desc": "Loop check: 0 <= 6. Compute mid = 0 + (6-0)/2 = index 3 (val 7)." },
+        { "left": 0, "right": 6, "mid": 3, "line": 5, "desc": "Check sorted half: nums[left] (4) <= nums[mid] (7) is true. Left half [4, 5, 6, 7] is sorted." },
+        { "left": 0, "right": 6, "mid": 3, "line": 6, "desc": "Is target (0) in sorted left half bounds [4...7]? (0 >= 4 && 0 < 7) is false. Target must be in right half. Move left to mid + 1." },
+        { "left": 4, "right": 6, "mid": 3, "line": 9, "desc": "left updated to index 4 (val 0)." },
+        { "left": 4, "right": 6, "mid": 5, "line": 3, "desc": "Loop check: 4 <= 6. Compute mid = 4 + (6-4)/2 = index 5 (val 1)." },
+        { "left": 4, "right": 6, "mid": 5, "line": 5, "desc": "Check sorted half: nums[left] (0) <= nums[mid] (1) is true. Left half [0, 1] is sorted." },
+        { "left": 4, "right": 6, "mid": 5, "line": 6, "desc": "Is target (0) in sorted left half bounds [0...1]? (0 >= 0 && 0 < 1) is true! Target is in this range. Move right to mid - 1." },
+        { "left": 4, "right": 4, "mid": 5, "line": 7, "desc": "right updated to index 4 (val 0)." },
+        { "left": 4, "right": 4, "mid": 4, "line": 3, "desc": "Loop check: 4 <= 4. Compute mid = 4 + (4-4)/2 = index 4 (val 0)." },
+        { "left": 4, "right": 4, "mid": 4, "line": 4, "desc": "nums[mid] (0) == target (0) is true! Match found. Return index 4." }
+      ],
+      "quiz": [
+        {
+          "q": "How do we identify which half of the rotated array is sorted at any step?",
+          "options": [
+            "Compare nums[left] with nums[mid]. If nums[left] <= nums[mid], the left half is sorted. Otherwise, the right half is sorted.",
+            "Compare nums[mid] with nums[right]. If nums[mid] <= nums[right], the left half is sorted.",
+            "The array rotation direction tells us which half is sorted."
+          ],
+          "correct": 0,
+          "explain": "Because the array has only one rotation point, at least one half of the array must be sorted. If nums[left] <= nums[mid], the rotation point is not in the left half, so the left half is sorted."
+        }
+      ]
+    },
+    "medianOfTwoSortedArrays": {
+      "title": "Median of Two Sorted Arrays",
+      "patternSubtype": "Partition Binary Search",
+      "description": "Find the median of two sorted arrays in O(log(min(M, N))) time.",
+      "story": "Comparing partitions of two assembly lines: ensure everything on the left is <= everything on the right.",
+      "array": [1, 3, 8, 9, 15],
+      "nums2": [7, 11, 18, 19, 21, 25],
+      "code": [
+        "public static double solve(int[] nums1, int[] nums2) {",
+        "    if (nums1.length > nums2.length) return solve(nums2, nums1);",
+        "    int m = nums1.length, n = nums2.length;",
+        "    int left = 0, right = m;",
+        "    while (left <= right) {",
+        "        int i = left + (right - left) / 2;",
+        "        int j = (m + n + 1) / 2 - i;",
+        "        int maxLeft1 = (i == 0) ? Integer.MIN_VALUE : nums1[i - 1];",
+        "        int minRight1 = (i == m) ? Integer.MAX_VALUE : nums1[i];",
+        "        int maxLeft2 = (j == 0) ? Integer.MIN_VALUE : nums2[j - 1];",
+        "        int minRight2 = (j == n) ? Integer.MAX_VALUE : nums2[j];",
+        "        if (maxLeft1 <= minRight2 && maxLeft2 <= minRight1) {",
+        "            if ((m + n) % 2 == 0) {",
+        "                return (Math.max(maxLeft1, maxLeft2) + Math.min(minRight1, minRight2)) / 2.0;",
+        "            } else {",
+        "                return Math.max(maxLeft1, maxLeft2);",
+        "            }",
+        "        } else if (maxLeft1 > minRight2) {",
+        "            right = i - 1;",
+        "        } else {",
+        "            left = i + 1;",
+        "        }",
+        "    }",
+        "    return 0.0;",
+        "}"
+      ],
+      "steps": [
+        { "left": 0, "right": 5, "i": null, "j": null, "line": 1, "desc": "Init: Ensure nums1 (len 5) is shorter than nums2 (len 6). Set binary search range [0, 5] on nums1." },
+        { "left": 0, "right": 5, "i": 2, "j": 4, "maxLeft1": 3, "minRight1": 8, "maxLeft2": 19, "minRight2": 21, "line": 5, "desc": "Partition step: i = mid of nums1 = 2. j = (5+6+1)/2 - 2 = 4. Boundary check values: maxLeft1=nums1[1]=3, minRight1=nums1[2]=8. maxLeft2=nums2[3]=19, minRight2=nums2[4]=21." },
+        { "left": 0, "right": 5, "i": 2, "j": 4, "maxLeft1": 3, "minRight1": 8, "maxLeft2": 19, "minRight2": 21, "line": 11, "desc": "Check validity: maxLeft1 <= minRight2 (3 <= 21) is true, but maxLeft2 <= minRight1 (19 <= 8) is false! The partition in nums1 is too far left (we need larger elements from nums1 on the left side). Move left pointer to i + 1." },
+        { "left": 3, "right": 5, "i": 2, "j": 4, "line": 20, "desc": "left pointer updated to index 3." },
+        { "left": 3, "right": 5, "i": 4, "j": 2, "maxLeft1": 9, "minRight1": 15, "maxLeft2": 11, "minRight2": 18, "line": 5, "desc": "Partition step: i = 4. j = (5+6+1)/2 - 4 = 2. Boundary checks: maxLeft1=nums1[3]=9, minRight1=nums1[4]=15. maxLeft2=nums2[1]=11, minRight2=nums2[2]=18." },
+        { "left": 3, "right": 5, "i": 4, "j": 2, "maxLeft1": 9, "minRight1": 15, "maxLeft2": 11, "minRight2": 18, "line": 11, "desc": "Check validity: maxLeft1 <= minRight2 (9 <= 18) is true, and maxLeft2 <= minRight1 (11 <= 15) is true! Valid partition found! Compute median: since total length is odd (5+6 = 11), return max(maxLeft1, maxLeft2) = max(9, 11) = 11.0." }
+      ],
+      "quiz": [
+        {
+          "q": "Why must we run the binary search on the shorter array in Median of Two Sorted Arrays?",
+          "options": [
+            "To ensure the binary search takes O(log(min(M, N))) time and to prevent index out of bounds when calculating j.",
+            "Because the longer array is not guaranteed to be sorted.",
+            "It is a random choice; searching the longer array is equally efficient and safe."
+          ],
+          "correct": 0,
+          "explain": "Searching the shorter array guarantees that partition index j = (m + n + 1) / 2 - i is always a valid index in the longer array, and it minimizes the search space range, yielding O(log(min(M,N))) time complexity."
+        }
+      ]
+    }
+  }
+}

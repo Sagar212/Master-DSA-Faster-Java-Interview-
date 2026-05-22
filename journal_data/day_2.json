@@ -1,0 +1,240 @@
+{
+  "id": 2,
+  "title": "Two Pointers — Dry Run & Recall",
+  "patternType": "tp",
+  "category": "Two Pointers",
+  "oneSentence": "Trace existing problems (Two Sum II, Palindrome, 3Sum, Trapping Rain, LinkedList Cycle) step-by-step.",
+  "problems": {
+    "twoSumII": {
+      "title": "Two Sum II — Sorted Array",
+      "patternSubtype": "Opposite Ends Two-Pointer",
+      "description": "Given a 1-indexed sorted array, find two numbers that sum to a target.",
+      "story": "Shortest + tallest kids. Too short? Pick next taller. Too tall? Pick next shorter.",
+      "array": [2, 7, 11, 15],
+      "target": 9,
+      "code": [
+        "public static int[] solve(int[] nums, int target) {",
+        "    int left = 0, right = nums.length - 1;",
+        "    while (left < right) {",
+        "        int sum = nums[left] + nums[right];",
+        "        if (sum == target) {",
+        "            return new int[]{left + 1, right + 1};",
+        "        } else if (sum < target) {",
+        "            left++;",
+        "        } else {",
+        "            right--;",
+        "        }",
+        "    }",
+        "    return new int[]{-1, -1};",
+        "}"
+      ],
+      "steps": [
+        { "left": 0, "right": 3, "sum": null, "line": 1, "desc": "Init: left pointer at 0 (value 2), right pointer at 3 (value 15)." },
+        { "left": 0, "right": 3, "sum": 17, "line": 3, "desc": "Check sum: nums[left] + nums[right] = 2 + 15 = 17." },
+        { "left": 0, "right": 3, "sum": 17, "line": 7, "desc": "Sum (17) > target (9). It is too tall. We must narrow our right wall. Decrement right." },
+        { "left": 0, "right": 2, "sum": 17, "line": 8, "desc": "right pointer decremented to index 2 (value 11)." },
+        { "left": 0, "right": 2, "sum": 13, "line": 3, "desc": "Check sum: nums[left] + nums[right] = 2 + 11 = 13." },
+        { "left": 0, "right": 2, "sum": 13, "line": 7, "desc": "Sum (13) > target (9). Still too tall. Decrement right." },
+        { "left": 0, "right": 1, "sum": 13, "line": 8, "desc": "right pointer decremented to index 1 (value 7)." },
+        { "left": 0, "right": 1, "sum": 9, "line": 3, "desc": "Check sum: nums[left] + nums[right] = 2 + 7 = 9." },
+        { "left": 0, "right": 1, "sum": 9, "line": 4, "desc": "Sum (9) matches target (9)! Return 1-indexed result: [1, 2]." }
+      ],
+      "quiz": [
+        {
+          "q": "Why can we safely increment left if sum < target in Two Sum II?",
+          "options": [
+            "Because the array is sorted, incrementing left moves it to a larger value, which increases the sum.",
+            "Because the array is sorted, incrementing left decreases the sum.",
+            "It is a random choice and we could also decrement right."
+          ],
+          "correct": 0,
+          "explain": "Since the array is sorted in ascending order, incrementing the left pointer moves it to a larger value, which increases the total sum closer to the target."
+        }
+      ]
+    },
+    "palindrome": {
+      "title": "Valid Palindrome",
+      "patternSubtype": "Opposite Ends Two-Pointer",
+      "description": "Check if a string is a palindrome, skipping non-alphanumeric chars and ignoring case.",
+      "story": "Two friends reading a banner from outside-in, skipping spaces & punctuation.",
+      "array": ["a", ",", " ", "b", "!", " ", "a"],
+      "code": [
+        "public static boolean solve(String s) {",
+        "    int left = 0, right = s.length() - 1;",
+        "    while (left < right) {",
+        "        while (left < right && !Character.isLetterOrDigit(s.charAt(left))) left++;",
+        "        while (left < right && !Character.isLetterOrDigit(s.charAt(right))) right--;",
+        "        if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right)))",
+        "            return false;",
+        "        left++; right--;",
+        "    }",
+        "    return true;",
+        "}"
+      ],
+      "steps": [
+        { "left": 0, "right": 6, "line": 1, "desc": "Init: left at index 0 ('a'), right at index 6 ('a')." },
+        { "left": 0, "right": 6, "line": 3, "desc": "Left character 'a' is valid alphanumeric. No skip needed." },
+        { "left": 0, "right": 6, "line": 4, "desc": "Right character 'a' is valid alphanumeric. No skip needed." },
+        { "left": 0, "right": 6, "line": 5, "desc": "Compare left ('a') & right ('a'). They match! Both step inward." },
+        { "left": 1, "right": 5, "line": 7, "desc": "left increments to 1 (','), right decrements to 5 (' ')." },
+        { "left": 3, "right": 5, "line": 3, "desc": "Left skip: character at index 1 (',') and index 2 (' ') are not valid. left skips to index 3 ('b')." },
+        { "left": 3, "right": 3, "line": 4, "desc": "Right skip: character at index 5 (' ') and index 4 ('!') are not valid. right skips to index 3 ('b')." },
+        { "left": 3, "right": 3, "line": 2, "desc": "Now left (3) is not less than right (3). The loop terminates. Return true." }
+      ],
+      "quiz": [
+        {
+          "q": "Why do we need left < right checks inside the inner character skip loops in Valid Palindrome?",
+          "options": [
+            "To prevent pointers from moving out of bounds when skipping non-alphanumeric characters.",
+            "To speed up the execution to O(log N).",
+            "It has no functional purpose and is optional."
+          ],
+          "correct": 0,
+          "explain": "If a string contains only non-alphanumeric characters (like ' ,,, '), the pointers would continue incrementing or decrementing past the string bounds without the left < right check."
+        }
+      ]
+    },
+    "threeSum": {
+      "title": "3Sum",
+      "patternSubtype": "Opposite Ends Two-Pointer",
+      "description": "Find all unique triplets in an array that sum to zero.",
+      "story": "For each person, find two others whose wealth exactly offsets yours to zero. Opposite-ends style.",
+      "array": [-4, -1, -1, 0, 1, 2],
+      "code": [
+        "public static List<List<Integer>> solve(int[] nums) {",
+        "    List<List<Integer>> res = new ArrayList<>();",
+        "    Arrays.sort(nums);",
+        "    for (int i = 0; i < nums.length - 2; i++) {",
+        "        if (i > 0 && nums[i] == nums[i-1]) continue;",
+        "        int left = i + 1, right = nums.length - 1;",
+        "        while (left < right) {",
+        "            int sum = nums[i] + nums[left] + nums[right];",
+        "            if (sum == 0) {",
+        "                res.add(Arrays.asList(nums[i], nums[left], nums[right]));",
+        "                left++; right--;",
+        "                while (left < right && nums[left] == nums[left-1]) left++;",
+        "                while (left < right && nums[right] == nums[right+1]) right--;",
+        "            } else if (sum < 0) left++;",
+        "            else right--;",
+        "        }",
+        "    }",
+        "    return res;",
+        "}"
+      ],
+      "steps": [
+        { "left": 1, "right": 5, "sum": null, "line": 3, "desc": "Outer i=0 (val -4): Place left at 1 (val -1), right at 5 (val 2)." },
+        { "left": 1, "right": 5, "sum": -3, "line": 7, "desc": "Sum = -4 + (-1) + 2 = -3 < 0. Too small! increment left to seek larger values." },
+        { "left": 2, "right": 5, "sum": -3, "line": 13, "desc": "left moves to index 2 (val -1). Sum is still -3 < 0. Increment left." },
+        { "left": 3, "right": 5, "sum": -2, "line": 13, "desc": "left moves to index 3 (val 0). Sum = -4 + 0 + 2 = -2 < 0. Increment left." },
+        { "left": 4, "right": 5, "sum": -1, "line": 13, "desc": "left moves to 4 (val 1). Sum = -4 + 1 + 2 = -1 < 0. Increment left." },
+        { "left": 5, "right": 5, "sum": null, "line": 6, "desc": "left met right (5 == 5). Inner loop ends for i=0." },
+        { "left": 2, "right": 5, "sum": null, "line": 3, "desc": "Outer i=1 (val -1): Place left at 2 (val -1), right at 5 (val 2)." },
+        { "left": 2, "right": 5, "sum": 0, "line": 7, "desc": "Sum = -1 + (-1) + 2 = 0! MATCH found! Add [-1, -1, 2]. Increment left, decrement right." },
+        { "left": 3, "right": 4, "sum": null, "line": 11, "desc": "left becomes 3 (val 0), right becomes 4 (val 1). No duplicates to skip." },
+        { "left": 3, "right": 4, "sum": 0, "line": 7, "desc": "Sum = -1 + 0 + 1 = 0! MATCH found! Add [-1, 0, 1]. Increment left, decrement right." },
+        { "left": 4, "right": 3, "sum": null, "line": 6, "desc": "left crosses right (4 > 3). Inner loop ends. Return results." }
+      ],
+      "quiz": [
+        {
+          "q": "In 3Sum, why is sorting the array initially a critical step?",
+          "options": [
+            "It allows us to easily skip duplicate elements to avoid duplicate triplets and use the Two-Pointer approach.",
+            "It reduces the time complexity from O(N^2) to O(N log N).",
+            "It is required for Java's Arrays.asList to work."
+          ],
+          "correct": 0,
+          "explain": "Sorting groups duplicates together. This allows us to skip duplicate values for the anchor i and pointers left/right, avoiding duplicate triplets."
+        }
+      ]
+    },
+    "trappingRain": {
+      "title": "Trapping Rain Water",
+      "patternSubtype": "Opposite Ends Two-Pointer",
+      "description": "Given wall heights, compute how much rainwater is trapped between them.",
+      "story": "Bathtub walls. Always process the shorter wall first because it is the bottleneck.",
+      "array": [0, 1, 0, 2],
+      "code": [
+        "public static int solve(int[] height) {",
+        "    int left = 0, right = height.length - 1;",
+        "    int leftMax = 0, rightMax = 0, water = 0;",
+        "    while (left < right) {",
+        "        if (height[left] < height[right]) {",
+        "            if (height[left] >= leftMax) leftMax = height[left];",
+        "            else water += leftMax - height[left];",
+        "            left++;",
+        "        } else {",
+        "            if (height[right] >= rightMax) rightMax = height[right];",
+        "            else water += rightMax - height[right];",
+        "            right--;",
+        "        }",
+        "    }",
+        "    return water;",
+        "}"
+      ],
+      "steps": [
+        { "left": 0, "right": 3, "leftMax": 0, "rightMax": 0, "water": 0, "line": 1, "desc": "Init: left=0 (height 0), right=3 (height 2). leftMax=0, rightMax=0, water=0." },
+        { "left": 0, "right": 3, "leftMax": 0, "rightMax": 0, "water": 0, "line": 4, "desc": "Compare: height[left] (0) < height[right] (2). Left is the bottleneck!" },
+        { "left": 0, "right": 3, "leftMax": 0, "rightMax": 0, "water": 0, "line": 5, "desc": "height[left] (0) >= leftMax (0). Update leftMax to 0." },
+        { "left": 1, "right": 3, "leftMax": 0, "rightMax": 0, "water": 0, "line": 7, "desc": "Move left to index 1." },
+        { "left": 1, "right": 3, "leftMax": 0, "rightMax": 0, "water": 0, "line": 4, "desc": "Compare: height[left] (1) < height[right] (2). Left is still the bottleneck." },
+        { "left": 1, "right": 3, "leftMax": 1, "rightMax": 0, "water": 0, "line": 5, "desc": "height[left] (1) > leftMax (0). Update leftMax to 1." },
+        { "left": 2, "right": 3, "leftMax": 1, "rightMax": 0, "water": 0, "line": 7, "desc": "Move left to index 2." },
+        { "left": 2, "right": 3, "leftMax": 1, "rightMax": 0, "water": 0, "line": 4, "desc": "Compare: height[left] (0) < height[right] (2). Left remains the bottleneck." },
+        { "left": 2, "right": 3, "leftMax": 1, "rightMax": 0, "water": 1, "line": 6, "desc": "height[left] (0) < leftMax (1). Water trapped! water += 1 - 0 = 1 (Total: 1)." },
+        { "left": 3, "right": 3, "leftMax": 1, "rightMax": 0, "water": 1, "line": 3, "desc": "Move left to index 3." },
+        { "left": 3, "right": 3, "leftMax": 1, "rightMax": 0, "water": 1, "line": 3, "desc": "Pointers met (left == right). Loop finishes. Return water (1)." }
+      ],
+      "quiz": [
+        {
+          "q": "What is the critical rule for moving pointers in Trapping Rain Water?",
+          "options": [
+            "Always move the pointer that points to a smaller height first, because it limits the water level.",
+            "Always move both pointers inward at each step.",
+            "Always move the pointer pointing to the taller wall, to search for a new boundary."
+          ],
+          "correct": 0,
+          "explain": "The shorter wall is always the bottleneck for holding water. We process the shorter side and compare it against its maximum boundary."
+        }
+      ]
+    },
+    "linkedListCycle": {
+      "title": "Linked List Cycle",
+      "patternSubtype": "Fast & Slow Pointers",
+      "description": "Determine if a linked list contains a cycle using Floyd's Tortoise and Hare.",
+      "story": "Tortoise (1 step) and Hare (2 steps) run on a circular track. Collide if there is a cycle.",
+      "array": [3, 2, 0, -4],
+      "code": [
+        "public static boolean hasCycle(ListNode head) {",
+        "    if (head == null) return false;",
+        "    ListNode slow = head, fast = head;",
+        "    while (fast != null && fast.next != null) {",
+        "        slow = slow.next;",
+        "        fast = fast.next.next;",
+        "        if (slow == fast) {",
+        "            return true; // Cycle detected!",
+        "        }",
+        "    }",
+        "    return false;",
+        "}"
+      ],
+      "steps": [
+        { "left": 0, "right": 0, "line": 2, "desc": "Init: both slow pointer (slow) and fast pointer (fast) start at head node index 0 (val 3)." },
+        { "left": 1, "right": 2, "line": 4, "desc": "slow moves 1 step to index 1 (val 2). fast moves 2 steps to index 2 (val 0)." },
+        { "left": 2, "right": 1, "line": 5, "desc": "slow moves to index 2 (val 0). fast moves 2 steps: index 2 -> 3 (-4) -> cycles back to index 1 (val 2)!" },
+        { "left": 3, "right": 3, "line": 6, "desc": "slow moves to index 3 (-4). fast moves 2 steps: index 1 -> 2 -> 3 (-4). Collision at node -4! Return true." }
+      ],
+      "quiz": [
+        {
+          "q": "In Floyd's Cycle Detection (Tortoise and Hare), why are the slow and fast pointers guaranteed to meet if there is a cycle?",
+          "options": [
+            "The relative distance between them decreases by exactly 1 at each step once both are in the cycle.",
+            "The fast pointer moves backwards if it detects a cycle.",
+            "The slow pointer stops at the start of the cycle."
+          ],
+          "correct": 0,
+          "explain": "Once both pointers are in the cycle, the fast pointer (speed 2) gains 1 step on the slow pointer (speed 1) at each iteration. Thus, the distance between them decreases by 1 until they meet."
+        }
+      ]
+    }
+  }
+}

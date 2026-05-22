@@ -1,0 +1,94 @@
+{
+  "id": 4,
+  "title": "Sliding Window — ROI & Pattern",
+  "patternType": "sw",
+  "category": "Sliding Window",
+  "oneSentence": "Avoid recalculating overlapping subarray values by sliding a window.",
+  "description": "Trace the sliding window templates (Fixed & Variable length) and learn the core steps of sliding windows.",
+  "roi": {
+    "frequency": "⭐⭐⭐⭐⭐ (Critical for array/string substring problems)",
+    "complexity": "Time: O(N) linear time | Space: O(1) or O(K) for state",
+    "dependsOn": "Two Pointers concept",
+    "signals": "Keywords: 'Contiguous subarray', 'substring', 'max/min size', 'longest/shortest sum'."
+  },
+  "template": {
+    "filename": "SlidingWindow_Pattern_Templates.java",
+    "codeLines": [
+      { "num": 1, "text": "public class SlidingWindow_Pattern_Templates {" },
+      { "num": 2, "text": "    // ========== FIXED WINDOW PATTERN ==========" },
+      { "num": 3, "text": "    public static int solveFixed(int[] nums, int k) {" },
+      { "num": 4, "text": "        int windowSum = 0, maxSum = 0;" },
+      { "num": 5, "text": "        for (int i = 0; i < k; i++) windowSum += nums[i];" },
+      { "num": 6, "text": "        maxSum = windowSum;" },
+      { "num": 7, "text": "        for (int i = k; i < nums.length; i++) {" },
+      { "num": 8, "text": "            windowSum += nums[i];     // Right enters -> add" },
+      { "num": 9, "text": "            windowSum -= nums[i - k]; // Left exits -> subtract" },
+      { "num": 10, "text": "            maxSum = Math.max(maxSum, windowSum);" },
+      { "num": 11, "text": "        }" },
+      { "num": 12, "text": "        return maxSum;" },
+      { "num": 13, "text": "    }" },
+      { "num": 14, "text": "" },
+      { "num": 15, "text": "    // ========== VARIABLE WINDOW PATTERN ==========" },
+      { "num": 16, "text": "    public static int solveVariable(int[] nums, int target) {" },
+      { "num": 17, "text": "        int left = 0, maxLen = 0, currentSum = 0;" },
+      { "num": 18, "text": "        for (int right = 0; right < nums.length; right++) {" },
+      { "num": 19, "text": "            currentSum += nums[right]; // Expand window right" },
+      { "num": 20, "text": "            // Shrink window left while condition is violated" },
+      { "num": 21, "text": "            while (currentSum > target) {" },
+      { "num": 22, "text": "                currentSum -= nums[left];" },
+      { "num": 23, "text": "                left++;" },
+      { "num": 24, "text": "            }" },
+      { "num": 25, "text": "            // Window is guaranteed valid here" },
+      { "num": 26, "text": "            maxLen = Math.max(maxLen, right - left + 1);" },
+      { "num": 27, "text": "        }" },
+      { "num": 28, "text": "        return maxLen;" },
+      { "num": 29, "text": "    }" },
+      { "num": 30, "text": "}" }
+    ],
+    "traceSteps": [
+      { "line": 5, "title": "1. Build Initial Window", "text": "Process elements from 0 to K-1 to establish our first window state." },
+      { "line": 7, "title": "2. Slide Loop", "text": "Loop from index K to the end of the array, introducing one element at a time." },
+      { "line": 8, "title": "3. Expand Window Right", "text": "Add the new incoming element `nums[i]` to our active window tracking." },
+      { "line": 9, "title": "4. Shrink Window Left", "text": "Deduct the outgoing element `nums[i - k]` that is no longer inside the glass." },
+      { "line": 10, "title": "5. Track Maximum State", "text": "Update the best state variable (e.g. maxSum) with the current window value." },
+      { "line": 15, "title": "Variable Window Concept", "text": "In a variable window, we dynamically expand the right boundary and contract the left boundary depending on condition validity." },
+      { "line": 18, "title": "Expand Boundary Loop", "text": "Iterate the right pointer from 0 to the end of the array to expand the window's right edge." },
+      { "line": 19, "title": "Expand State Update", "text": "Add the element at the right pointer to currentSum (or update window state frequency maps)." },
+      { "line": 21, "title": "Shrink Violation Loop", "text": "While the window's state violates constraints (e.g., currentSum exceeds target), shrink the window from the left." },
+      { "line": 22, "title": "Shrink State Update", "text": "Subtract the element at the left pointer from currentSum and advance the left pointer." },
+      { "line": 26, "title": "Valid Window Tracking", "text": "Once the constraints are satisfied, track the optimal window length (right - left + 1)." }
+    ],
+    "sandbox": [
+      {
+        "step": "BUILD",
+        "question": "For a fixed window of size K, how do we initialize our window state?",
+        "options": [
+          "Sum elements from index 0 to K-1",
+          "Start with index 0 and index 1",
+          "Loop through the entire array first"
+        ],
+        "correct": 0
+      },
+      {
+        "step": "SLIDE ADD/REMOVE",
+        "question": "When sliding a fixed window of size K at index `i`, which element is removed?",
+        "options": [
+          "nums[i]",
+          "nums[i - k]",
+          "nums[i - 1]"
+        ],
+        "correct": 1
+      },
+      {
+        "step": "VARIABLE RULE",
+        "question": "Where do you update the tracker for a SHORTEST variable window?",
+        "options": [
+          "Outside the shrink loop",
+          "Inside the shrink loop (while window is valid)",
+          "At the very end of the main function"
+        ],
+        "correct": 1
+      }
+    ]
+  }
+}

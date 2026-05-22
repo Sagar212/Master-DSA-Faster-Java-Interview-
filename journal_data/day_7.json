@@ -1,0 +1,84 @@
+{
+  "id": 7,
+  "title": "Binary Search — ROI & Pattern",
+  "patternType": "bs",
+  "category": "Binary Search",
+  "oneSentence": "Binary search divides the search interval in half recursively in sorted data.",
+  "description": "Master the standard sorted-array Binary Search template twice. First through guided line-by-line tracing, then by reconstructing the core steps.",
+  "roi": {
+    "frequency": "⭐⭐⭐⭐⭐ (Tested in 75% of top tech interviews)",
+    "complexity": "Time: O(log N) | Space: O(1) in-place",
+    "dependsOn": "Sorted Array or Search Space",
+    "signals": "Target search in sorted data, find first/last occurrence, optimization search."
+  },
+  "template": {
+    "filename": "BinarySearch_Template.java",
+    "codeLines": [
+      { "num": 1, "text": "public class BinarySearch_Template {" },
+      { "num": 2, "text": "    public static int search(int[] nums, int target) {" },
+      { "num": 3, "text": "        // STEP 1 — INIT: Define search bounds" },
+      { "num": 4, "text": "        int low = 0;" },
+      { "num": 5, "text": "        int high = nums.length - 1;" },
+      { "num": 6, "text": "" },
+      { "num": 7, "text": "        // STEP 2 — LOOP: Keep searching while bounds are valid" },
+      { "num": 8, "text": "        while (low <= high) {" },
+      { "num": 9, "text": "            // STEP 3 — MID: Calculate middle element (prevent overflow)" },
+      { "num": 10, "text": "            int mid = low + (high - low) / 2;" },
+      { "num": 11, "text": "" },
+      { "num": 12, "text": "            // STEP 4 — CHECK: Evaluate mid and prune half of search space" },
+      { "num": 13, "text": "            if (nums[mid] == target) {" },
+      { "num": 14, "text": "                return mid; // Found it!" },
+      { "num": 15, "text": "            } else if (nums[mid] < target) {" },
+      { "num": 16, "text": "                low = mid + 1; // Prune left half" },
+      { "num": 17, "text": "            } else {" },
+      { "num": 18, "text": "                high = mid - 1; // Prune right half" },
+      { "num": 19, "text": "            }" },
+      { "num": 20, "text": "        }" },
+      { "num": 21, "text": "        // STEP 5 — RETURN" },
+      { "num": 22, "text": "        return -1;" },
+      { "num": 23, "text": "    }" },
+      { "num": 24, "text": "}" }
+    ],
+    "traceSteps": [
+      { "line": 3, "title": "1. Search Space Init", "text": "Set low index to 0 and high index to the last array element." },
+      { "line": 8, "title": "2. Search Space Loop", "text": "Continue searching while search space bounds are valid (low <= high)." },
+      { "line": 10, "title": "3. Midpoint Calculation", "text": "Compute middle index using low + (high - low) / 2 to avoid integer overflow." },
+      { "line": 14, "title": "4. Target Found Match", "text": "If mid matches target, return the middle index." },
+      { "line": 16, "title": "5. Search Right Half", "text": "If mid value is too small, target must lie in the right half (low = mid + 1)." },
+      { "line": 18, "title": "6. Search Left Half", "text": "If mid value is too large, target must lie in the left half (high = mid - 1)." },
+      { "line": 22, "title": "7. Search Fail Fallback", "text": "Return -1 if target is not found in the array." }
+    ],
+    "sandbox": [
+      {
+        "step": "MIDPOINT",
+        "question": "How do you calculate mid to prevent integer overflow?",
+        "options": [
+          "int mid = (low + high) / 2;",
+          "int mid = low + (high - low) / 2;",
+          "int mid = low + high / 2;"
+        ],
+        "correct": 1
+      },
+      {
+        "step": "LOOP CONDITION",
+        "question": "What is the correct loop condition to ensure all elements are checked?",
+        "options": [
+          "while (low < high)",
+          "while (low <= high)",
+          "while (low != high)"
+        ],
+        "correct": 1
+      },
+      {
+        "step": "PRUNING SEARCH",
+        "question": "If nums[mid] is smaller than target, where is the target?",
+        "options": [
+          "In the left half (high = mid - 1)",
+          "In the right half (low = mid + 1)",
+          "Nowhere, return -1"
+        ],
+        "correct": 1
+      }
+    ]
+  }
+}
