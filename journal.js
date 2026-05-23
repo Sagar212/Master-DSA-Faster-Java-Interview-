@@ -77,11 +77,11 @@ function App() {
     }
 
     Promise.all([
-      fetch("journal_data/index.json").then(res => {
+      fetch(`journal_data/index.json?v=${Date.now()}`).then(res => {
         if (!res.ok) throw new Error("Failed to load index.json");
         return res.json();
       }),
-      fetch("journal_data/leetcode_map.json").then(res => {
+      fetch(`journal_data/leetcode_map.json?v=${Date.now()}`).then(res => {
         if (!res.ok) throw new Error("Failed to load leetcode_map.json");
         return res.json();
       })
@@ -139,7 +139,7 @@ function App() {
       setActiveDay(dayNum);
     } else {
       setDayLoading(true);
-      fetch(`journal_data/day_${dayNum}.json`)
+      fetch(`journal_data/day_${dayNum}.json?v=${Date.now()}`)
         .then(res => {
           if (!res.ok) throw new Error("Failed to load day JSON");
           return res.json();
