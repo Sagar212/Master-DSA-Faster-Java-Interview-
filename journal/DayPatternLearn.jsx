@@ -121,24 +121,41 @@ function DayPatternLearn({ dayData, onComplete, isCompleted, onBack }) {
                 {dayData.template.codeLines.map((line, idx) => {
                   const hasStep = dayData.template.traceSteps.some(s => s.line === line.num);
                   const isHighlighted = highlightedLine === line.num;
-                  
+                  const trimmed = line.text.trimStart();
+                  const isFullLineComment = trimmed.startsWith('//');
+
+                  // Split inline trailing comment
+                  let codePart = line.text;
+                  let commentPart = null;
+                  if (!isFullLineComment && line.text.includes('//')) {
+                    const commentIdx = line.text.indexOf('//');
+                    codePart = line.text.slice(0, commentIdx);
+                    commentPart = line.text.slice(commentIdx);
+                  }
+
                   return (
                     <div 
                        key={idx} 
-                       className={`code-line ${isHighlighted ? (dayData.patternType === 'tp' ? 'highlighted' : dayData.patternType === 'sw' ? 'highlighted-sw' : 'highlighted-bs') : ''}`}
+                       className={`code-line ${isFullLineComment ? 'code-comment' : ''} ${isHighlighted ? (dayData.patternType === 'tp' ? 'highlighted' : dayData.patternType === 'sw' ? 'highlighted-sw' : 'highlighted-bs') : ''}`}
                        style={{ cursor: hasStep ? 'pointer' : 'default' }}
                        onClick={() => handleLineClick(line.num)}
                     >
                       <span className="line-number">{line.num}</span>
-                      <span className="code-content" style={{ color: hasStep ? (dayData.patternType === 'tp' ? 'var(--tp-primary)' : dayData.patternType === 'sw' ? 'var(--sw-primary)' : 'var(--bs-primary)') : 'inherit', fontWeight: hasStep ? '600' : 'normal' }}>
-                        {line.text}
-                      </span>
+                      {isFullLineComment ? (
+                        <span className="code-content">{line.text}</span>
+                      ) : (
+                        <span className="code-content" style={{ color: hasStep ? (dayData.patternType === 'tp' ? 'var(--tp-primary)' : dayData.patternType === 'sw' ? 'var(--sw-primary)' : 'var(--bs-primary)') : 'inherit', fontWeight: hasStep ? '600' : 'normal' }}>
+                          {codePart}
+                          {commentPart && <span className="inline-comment">{commentPart}</span>}
+                        </span>
+                      )}
                       {hasStep && !isHighlighted && (
                         <i className="fa-solid fa-circle-question" style={{ opacity: 0.4, fontSize: '10px', alignSelf: 'center', marginLeft: '6px' }}></i>
                       )}
                     </div>
                   );
                 })}
+
               </div>
             </div>
 

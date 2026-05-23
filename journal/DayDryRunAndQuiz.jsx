@@ -543,17 +543,37 @@ function DayDryRunAndQuiz({ dayData, onComplete, isCompleted, onBack }) {
             <div className="editor-body" style={{ fontSize: '13px' }}>
               {activeProb.code.map((line, idx) => {
                 const isCodeLineHighlighted = trace.line === idx;
+                const trimmed = line.trimStart();
+                const isFullLineComment = trimmed.startsWith('//');
+
+                // Split inline trailing comment: e.g. "left++;  // sum too small → ..."
+                let codePart = line;
+                let commentPart = null;
+                if (!isFullLineComment && line.includes('//')) {
+                  const commentIdx = line.indexOf('//');
+                  codePart = line.slice(0, commentIdx);
+                  commentPart = line.slice(commentIdx);
+                }
+
                 return (
-                  <div 
-                    key={idx} 
-                    className={`code-line ${isCodeLineHighlighted ? (dayData.patternType === 'tp' ? 'highlighted' : dayData.patternType === 'sw' ? 'highlighted-sw' : 'highlighted-bs') : ''}`}
+                  <div
+                    key={idx}
+                    className={`code-line ${isFullLineComment ? 'code-comment' : ''} ${isCodeLineHighlighted ? (dayData.patternType === 'tp' ? 'highlighted' : dayData.patternType === 'sw' ? 'highlighted-sw' : 'highlighted-bs') : ''}`}
                   >
                     <span className="line-number">{idx + 1}</span>
-                    <span className="code-content">{line}</span>
+                    {isFullLineComment ? (
+                      <span className="code-content">{line}</span>
+                    ) : (
+                      <span className="code-content">
+                        {codePart}
+                        {commentPart && <span className="inline-comment">{commentPart}</span>}
+                      </span>
+                    )}
                   </div>
                 );
               })}
             </div>
+
 
             {/* Explanation panel */}
             <div className="step-explain-box" style={{ margin: '16px', background: 'rgba(0,0,0,0.3)', border: 'none' }}>

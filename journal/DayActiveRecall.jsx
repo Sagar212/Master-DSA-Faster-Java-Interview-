@@ -288,8 +288,12 @@ function DayActiveRecall({ dayData, onComplete, isCompleted, onBack }) {
 
           <div className="editor-body">
             {parsedTemplate.map((lineSegments, lineIdx) => {
+              // Detect if the entire line is a comment (first text segment starts with //)
+              const firstTextSeg = lineSegments.find(s => s.type === 'text');
+              const isFullLineComment = firstTextSeg && firstTextSeg.value.trimStart().startsWith('//');
+
               return (
-                <div key={lineIdx} className="code-line">
+                <div key={lineIdx} className={`code-line ${isFullLineComment ? 'code-comment' : ''}`}>
                   <span className="line-number">{lineIdx + 1}</span>
                   <span className="code-content">
                     {lineSegments.map((seg, segIdx) => {
@@ -322,6 +326,7 @@ function DayActiveRecall({ dayData, onComplete, isCompleted, onBack }) {
                 </div>
               );
             })}
+
           </div>
         </div>
 
