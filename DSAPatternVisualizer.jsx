@@ -1,14 +1,16 @@
-// ─── MEMORY RECALL TABLE ─────────────────────────────────────────────────────
 function RecallTable() {
   const rows = [
-    { pattern: "Sliding Window", signal: "subarray/substring, contiguous, k-length or constraint", vars: "left, right, windowSum/freqMap, result", tc: "O(n)", color: C.accent },
+    { pattern: "Arrays & HashMap", signal: "unsorted array, instant lookup, trade space for time", vars: "map, complement", tc: "O(n)", color: C.accent },
     { pattern: "Two Pointers", signal: "sorted array, pairs/triplets, in-place, O(1) space", vars: "left, right, result", tc: "O(n)", color: C.green },
     { pattern: "Fast & Slow", signal: "linked list cycle, middle, duplicate detection", vars: "slow, fast", tc: "O(n)", color: C.purple },
+    { pattern: "Sliding Window", signal: "subarray/substring, contiguous, k-length or constraint", vars: "left, right, windowSum/freqMap, result", tc: "O(n)", color: C.accent },
     { pattern: "Binary Search", signal: "sorted, O(log n), minimize/maximize feasible answer", vars: "left, right, mid", tc: "O(log n)", color: C.orange },
+    { pattern: "Mono Stack", signal: "next greater/smaller, span, histogram areas", vars: "stack (indices), result[]", tc: "O(n)", color: C.red },
     { pattern: "BFS", signal: "level order, shortest path (unweighted), neighbor spread", vars: "queue, visited, levelSize", tc: "O(V+E)", color: C.yellow },
     { pattern: "DFS", signal: "path existence, all paths, depth, connected components", vars: "visited, recursion/stack", tc: "O(V+E)", color: C.pink },
-    { pattern: "Mono Stack", signal: "next greater/smaller, span, histogram areas", vars: "stack (indices), result[]", tc: "O(n)", color: C.red },
-    { pattern: "DP", signal: "optimal substructure, overlapping subproblems, count/min/max", vars: "dp[], memo", tc: "O(n²) typ.", color: "#818cf8" },
+    { pattern: "Heap (PQ)", signal: "top K elements, running median, merging K sorted streams", vars: "minHeap/maxHeap", tc: "O(n log k)", color: C.orange },
+    { pattern: "DP", signal: "optimal substructure, overlapping subproblems, count/min/max", vars: "dp[], memo", tc: "O(n² typ.)", color: "#818cf8" },
+    { pattern: "Backtracking", signal: "generate all combinations/permutations/subsets, decision tree", vars: "path, startIdx, result", tc: "O(2ⁿ) typ.", color: C.pink },
   ];
 
   return (
@@ -44,13 +46,14 @@ function RecallTable() {
 
 // ─── APP ─────────────────────────────────────────────────────────────────────
 function App() {
-  const [activePattern, setActivePattern] = useState("sliding");
+  const [activePattern, setActivePattern] = useState("hashmap");
   const [showRecall, setShowRecall] = useState(false);
 
   const activeConfig = PATTERNS.find((p) => p.id === activePattern);
 
   const renderViz = () => {
     switch (activePattern) {
+      case "hashmap": return <window.ArraysHashMapViz />;
       case "sliding": return <window.SlidingWindowViz />;
       case "twoptr": return <window.TwoPointersViz />;
       case "fastslow": return <window.FastSlowViz />;
@@ -58,7 +61,9 @@ function App() {
       case "bfs": return <window.BFSViz />;
       case "dfs": return <window.DFSViz />;
       case "stack": return <window.MonoStackViz />;
+      case "heap": return <window.HeapViz />;
       case "dp": return <window.DPViz />;
+      case "backtrack": return <window.BacktrackViz />;
       default: return null;
     }
   };

@@ -77,7 +77,7 @@ function DayDryRunAndQuiz({ dayData, onComplete, isCompleted, onBack }) {
       <div className="card">
         <div className="dashboard-header" style={{ border: 'none', marginBottom: '0', paddingBottom: '16px' }}>
           <div className="dashboard-title-area">
-            <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: dayData.patternType === 'tp' ? 'var(--tp-primary)' : dayData.patternType === 'sw' ? 'var(--sw-primary)' : 'var(--bs-primary)' }}>
+            <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: (dayData.patternType === 'tp' ? 'var(--tp-primary)' : dayData.patternType === 'sw' ? 'var(--sw-primary)' : dayData.patternType === 'bs' ? 'var(--bs-primary)' : dayData.patternType === 'hashmap' ? 'var(--hm-primary)' : dayData.patternType === 'heap' ? 'var(--hp-primary)' : dayData.patternType === 'backtrack' ? 'var(--bt-primary)' : dayData.patternType === 'tr' ? 'var(--tr-primary)' : 'var(--tp-primary)') }}>
               Day {dayData.id} Curriculum — Visual Dry Runs
             </span>
             <h1 style={{ marginTop: '4px' }}>{dayData.title}</h1>
@@ -142,7 +142,7 @@ function DayDryRunAndQuiz({ dayData, onComplete, isCompleted, onBack }) {
           <div className="leetcode-spec-card">
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <h4 style={{ fontSize: '13px', fontWeight: '800', textTransform: 'uppercase', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <i className="fa-solid fa-vial" style={{ color: dayData.patternType === 'tp' ? 'var(--tp-primary)' : dayData.patternType === 'sw' ? 'var(--sw-primary)' : 'var(--bs-primary)' }}></i>
+                <i className="fa-solid fa-vial" style={{ color: (dayData.patternType === 'tp' ? 'var(--tp-primary)' : dayData.patternType === 'sw' ? 'var(--sw-primary)' : dayData.patternType === 'bs' ? 'var(--bs-primary)' : dayData.patternType === 'hashmap' ? 'var(--hm-primary)' : dayData.patternType === 'heap' ? 'var(--hp-primary)' : dayData.patternType === 'backtrack' ? 'var(--bt-primary)' : dayData.patternType === 'tr' ? 'var(--tr-primary)' : 'var(--tp-primary)') }}></i>
                 Example
               </h4>
               <div style={{
@@ -167,7 +167,7 @@ function DayDryRunAndQuiz({ dayData, onComplete, isCompleted, onBack }) {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <h4 style={{ fontSize: '13px', fontWeight: '800', textTransform: 'uppercase', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <i className="fa-solid fa-list-check" style={{ color: dayData.patternType === 'tp' ? 'var(--tp-primary)' : dayData.patternType === 'sw' ? 'var(--sw-primary)' : 'var(--bs-primary)' }}></i>
+                <i className="fa-solid fa-list-check" style={{ color: (dayData.patternType === 'tp' ? 'var(--tp-primary)' : dayData.patternType === 'sw' ? 'var(--sw-primary)' : dayData.patternType === 'bs' ? 'var(--bs-primary)' : dayData.patternType === 'hashmap' ? 'var(--hm-primary)' : dayData.patternType === 'heap' ? 'var(--hp-primary)' : dayData.patternType === 'backtrack' ? 'var(--bt-primary)' : dayData.patternType === 'tr' ? 'var(--tr-primary)' : 'var(--tp-primary)') }}></i>
                 Constraints
               </h4>
               <ul style={{
@@ -239,6 +239,11 @@ function DayDryRunAndQuiz({ dayData, onComplete, isCompleted, onBack }) {
                           cellClass += " in-range-bs";
                         }
                       }
+                    }
+                    // Highlights for HashMap, Heap, Backtracking
+                    if (dayData.patternType === 'hashmap' || dayData.patternType === 'heap' || dayData.patternType === 'backtrack' || dayData.patternType === 'tr') {
+                      if (trace.left === idx) cellClass = "active-left";
+                      else if (trace.right === idx && trace.right >= 0) cellClass = "active-right";
                     }
 
                     return (
@@ -444,6 +449,44 @@ function DayDryRunAndQuiz({ dayData, onComplete, isCompleted, onBack }) {
                     </div>
                   )}
                 </React.Fragment>
+              ) : (dayData.patternType === 'hashmap' || dayData.patternType === 'heap') ? (
+                <React.Fragment>
+                  <div className="var-badge">
+                    <span className="var-name">current index</span>
+                    <span className="var-value" style={{ color: dayData.patternType === 'hashmap' ? 'var(--hm-primary)' : 'var(--hp-primary)' }}>{trace.left !== undefined && trace.left !== null && trace.left >= 0 ? trace.left : '—'}</span>
+                  </div>
+                  {trace.right !== undefined && trace.right >= 0 && (
+                    <div className="var-badge">
+                      <span className="var-name">found at</span>
+                      <span className="var-value" style={{ color: 'var(--success)' }}>{trace.right}</span>
+                    </div>
+                  )}
+                  {activeProb.target !== undefined && (
+                    <div className="var-badge">
+                      <span className="var-name">target</span>
+                      <span className="var-value" style={{ fontWeight: 'bold' }}>{activeProb.target}</span>
+                    </div>
+                  )}
+                </React.Fragment>
+              ) : (dayData.patternType === 'backtrack') ? (
+                <React.Fragment>
+                  <div className="var-badge">
+                    <span className="var-name">depth / start</span>
+                    <span className="var-value" style={{ color: 'var(--bt-primary)' }}>{trace.left !== undefined && trace.left !== null && trace.left >= 0 ? trace.left : '—'}</span>
+                  </div>
+                  {trace.right !== undefined && trace.right >= 0 && (
+                    <div className="var-badge">
+                      <span className="var-name">chosen element</span>
+                      <span className="var-value" style={{ color: 'var(--success)' }}>{trace.right}</span>
+                    </div>
+                  )}
+                  {activeProb.target !== undefined && (
+                    <div className="var-badge">
+                      <span className="var-name">target</span>
+                      <span className="var-value" style={{ fontWeight: 'bold' }}>{activeProb.target}</span>
+                    </div>
+                  )}
+                </React.Fragment>
               ) : (
                 <React.Fragment>
                   <div className="var-badge">
@@ -558,7 +601,7 @@ function DayDryRunAndQuiz({ dayData, onComplete, isCompleted, onBack }) {
                 return (
                   <div
                     key={idx}
-                    className={`code-line ${isFullLineComment ? 'code-comment' : ''} ${isCodeLineHighlighted ? (dayData.patternType === 'tp' ? 'highlighted' : dayData.patternType === 'sw' ? 'highlighted-sw' : 'highlighted-bs') : ''}`}
+                    className={`code-line ${isFullLineComment ? 'code-comment' : ''} ${isCodeLineHighlighted ? ((dayData.patternType === 'tp' ? 'highlighted' : dayData.patternType === 'sw' ? 'highlighted-sw' : dayData.patternType === 'bs' ? 'highlighted-bs' : 'highlighted-' + dayData.patternType)) : ''}`}
                   >
                     <span className="line-number">{idx + 1}</span>
                     {isFullLineComment ? (
@@ -577,7 +620,7 @@ function DayDryRunAndQuiz({ dayData, onComplete, isCompleted, onBack }) {
 
             {/* Explanation panel */}
             <div className="step-explain-box" style={{ margin: '16px', background: 'rgba(0,0,0,0.3)', border: 'none' }}>
-              <i className="fa-solid fa-circle-play" style={{ color: dayData.patternType === 'tp' ? 'var(--tp-primary)' : dayData.patternType === 'sw' ? 'var(--sw-primary)' : 'var(--bs-primary)' }}></i>
+              <i className="fa-solid fa-circle-play" style={{ color: (dayData.patternType === 'tp' ? 'var(--tp-primary)' : dayData.patternType === 'sw' ? 'var(--sw-primary)' : dayData.patternType === 'bs' ? 'var(--bs-primary)' : dayData.patternType === 'hashmap' ? 'var(--hm-primary)' : dayData.patternType === 'heap' ? 'var(--hp-primary)' : dayData.patternType === 'backtrack' ? 'var(--bt-primary)' : dayData.patternType === 'tr' ? 'var(--tr-primary)' : 'var(--tp-primary)') }}></i>
               <div>
                 <h4 style={{ fontSize: '13px', fontWeight: '700', marginBottom: '2px' }}>Line Step Explanation</h4>
                 <p style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: '1.4' }}>{trace.desc}</p>
@@ -590,7 +633,7 @@ function DayDryRunAndQuiz({ dayData, onComplete, isCompleted, onBack }) {
         {activeProb.quiz && activeProb.quiz.length > 0 && (
           <div className="quiz-panel">
             <h3 style={{ fontSize: '16px', fontWeight: '800', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <i className="fa-solid fa-clipboard-question" style={{ color: dayData.patternType === 'tp' ? 'var(--tp-primary)' : dayData.patternType === 'sw' ? 'var(--sw-primary)' : 'var(--bs-primary)' }}></i> Active Recall Pitfall Quiz
+              <i className="fa-solid fa-clipboard-question" style={{ color: (dayData.patternType === 'tp' ? 'var(--tp-primary)' : dayData.patternType === 'sw' ? 'var(--sw-primary)' : dayData.patternType === 'bs' ? 'var(--bs-primary)' : dayData.patternType === 'hashmap' ? 'var(--hm-primary)' : dayData.patternType === 'heap' ? 'var(--hp-primary)' : dayData.patternType === 'backtrack' ? 'var(--bt-primary)' : dayData.patternType === 'tr' ? 'var(--tr-primary)' : 'var(--tp-primary)') }}></i> Active Recall Pitfall Quiz
             </h3>
 
             {activeProb.quiz.map((item, qIdx) => {

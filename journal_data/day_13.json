@@ -1,0 +1,123 @@
+{
+  "id": 13,
+  "title": "Heap (PQ) \u2014 ROI & Pattern",
+  "patternType": "heap",
+  "category": "Heap (PQ)",
+  "oneSentence": "Always keep the top K items using a priority queue.",
+  "description": "Master the Min-Heap pattern to solve Top K problems.",
+  "roi": {
+    "frequency": "\u2b50\u2b50\u2b50\u2b50",
+    "complexity": "Time: O(N log K)",
+    "dependsOn": "Trees",
+    "signals": "Top K, Kth Largest, Merge K Sorted."
+  },
+  "template": {
+    "filename": "TopK_Template.java",
+    "codeLines": [
+      {
+        "num": 1,
+        "text": "public int findKthLargest(int[] nums, int k) {"
+      },
+      {
+        "num": 2,
+        "text": "    // STEP 1 - INIT: Min-heap to store Top K"
+      },
+      {
+        "num": 3,
+        "text": "    PriorityQueue<Integer> minHeap = new PriorityQueue<>();"
+      },
+      {
+        "num": 4,
+        "text": ""
+      },
+      {
+        "num": 5,
+        "text": "    // STEP 2 - LOOP: Stream elements"
+      },
+      {
+        "num": 6,
+        "text": "    for (int num : nums) {"
+      },
+      {
+        "num": 7,
+        "text": "        minHeap.offer(num);"
+      },
+      {
+        "num": 8,
+        "text": "        // STEP 3 - EJECT: Keep size exactly K"
+      },
+      {
+        "num": 9,
+        "text": "        if (minHeap.size() > k) {"
+      },
+      {
+        "num": 10,
+        "text": "            minHeap.poll();"
+      },
+      {
+        "num": 11,
+        "text": "        }"
+      },
+      {
+        "num": 12,
+        "text": "    }"
+      },
+      {
+        "num": 13,
+        "text": "    // STEP 4 - RETURN: Top is Kth largest"
+      },
+      {
+        "num": 14,
+        "text": "    return minHeap.peek();"
+      },
+      {
+        "num": 15,
+        "text": "}"
+      }
+    ],
+    "traceSteps": [
+      {
+        "line": 3,
+        "title": "Init Heap",
+        "text": "Min-heap keeps the smallest element at the top."
+      },
+      {
+        "line": 7,
+        "title": "Offer",
+        "text": "Add current element to heap."
+      },
+      {
+        "line": 9,
+        "title": "Check Size",
+        "text": "If size exceeds K, we have too many elements."
+      },
+      {
+        "line": 10,
+        "title": "Poll",
+        "text": "Remove the smallest element, keeping the K largest inside."
+      }
+    ],
+    "sandbox": [
+      {
+        "step": "HEAP TYPE",
+        "question": "To find the Kth LARGEST, what type of heap do we use?",
+        "options": [
+          "Max-Heap",
+          "Min-Heap",
+          "Doesn't matter"
+        ],
+        "correct": 1
+      },
+      {
+        "step": "TIME",
+        "question": "What is the time complexity of adding to a heap of size K?",
+        "options": [
+          "O(1)",
+          "O(K)",
+          "O(log K)"
+        ],
+        "correct": 2
+      }
+    ]
+  }
+}

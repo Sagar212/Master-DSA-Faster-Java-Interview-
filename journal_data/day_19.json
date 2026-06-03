@@ -1,0 +1,93 @@
+{
+  "id": 19,
+  "title": "Tree (DFS/BFS) — ROI & Pattern",
+  "patternType": "tr",
+  "category": "Trees",
+  "oneSentence": "Navigate nodes deeply (DFS) or level-by-level (BFS) to solve hierarchical problems.",
+  "description": "Master the foundational recursive DFS template. Most tree problems are just variations of this basic traversal.",
+  "roi": {
+    "frequency": "⭐⭐⭐⭐⭐ (Tested in nearly every interview loop)",
+    "complexity": "Time: O(N) | Space: O(H) where H is tree height",
+    "dependsOn": "Recursion",
+    "signals": "Hierarchical data, paths from root to leaf, level-by-level processing, Lowest Common Ancestor."
+  },
+  "template": {
+    "filename": "Tree_DFS_Template.java",
+    "codeLines": [
+      { "num": 1, "text": "public class Tree_DFS_Template {" },
+      { "num": 2, "text": "    public static int solve(TreeNode root) {" },
+      { "num": 3, "text": "        // STEP 1 — BASE CASE: Empty node means depth is 0" },
+      { "num": 4, "text": "        if (root == null) {" },
+      { "num": 5, "text": "            return 0;" },
+      { "num": 6, "text": "        }" },
+      { "num": 7, "text": "" },
+      { "num": 8, "text": "        // STEP 2 — DIVIDE: Recursively find the depth of the left subtree" },
+      { "num": 9, "text": "        int leftDepth = solve(root.left);" },
+      { "num": 10, "text": "" },
+      { "num": 11, "text": "        // STEP 3 — DIVIDE: Recursively find the depth of the right subtree" },
+      { "num": 12, "text": "        int rightDepth = solve(root.right);" },
+      { "num": 13, "text": "" },
+      { "num": 14, "text": "        // STEP 4 — CONQUER: The depth is 1 (for current node) + max of left/right subtrees" },
+      { "num": 15, "text": "        return 1 + Math.max(leftDepth, rightDepth);" },
+      { "num": 16, "text": "    }" },
+      { "num": 17, "text": "}" }
+    ],
+    "traceSteps": [
+      {
+        "line": 4,
+        "title": "1. Base Case",
+        "text": "Every recursion needs a base case. For a tree, an empty node (null) returns a depth of 0."
+      },
+      {
+        "line": 9,
+        "title": "2. Divide (Left)",
+        "text": "Recursively call the function on the left child to find the depth of the left subtree."
+      },
+      {
+        "line": 12,
+        "title": "3. Divide (Right)",
+        "text": "Recursively call the function on the right child to find the depth of the right subtree."
+      },
+      {
+        "line": 15,
+        "title": "4. Conquer (Merge)",
+        "text": "Combine the results: the depth is 1 (for the current node) plus the maximum depth between its left and right subtrees."
+      }
+    ],
+    "sandbox": [
+      {
+        "step": "BASE",
+        "question": "Why is the base case check (`root == null`) necessary?",
+        "options": [
+          "To prevent infinite recursion and NullPointerException.",
+          "To improve the time complexity to O(1).",
+          "It is not necessary; the compiler automatically checks for nulls.",
+          "To increase the tree height."
+        ],
+        "correct": 0
+      },
+      {
+        "step": "TIME",
+        "question": "Why is the time complexity of this DFS traversal O(N)?",
+        "options": [
+          "Because we visit leaf nodes only.",
+          "Because we visit each node in the tree exactly once.",
+          "Because the tree is perfectly balanced.",
+          "Because we do not visit all nodes."
+        ],
+        "correct": 1
+      },
+      {
+        "step": "SPACE",
+        "question": "What dictates the space complexity O(H) where H is the tree height?",
+        "options": [
+          "The maximum number of leaf nodes.",
+          "The maximum number of nodes at the bottom level.",
+          "The maximum depth of the recursive call stack.",
+          "The total number of nodes N."
+        ],
+        "correct": 2
+      }
+    ]
+  }
+}

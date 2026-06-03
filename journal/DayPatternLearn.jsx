@@ -40,7 +40,7 @@ function DayPatternLearn({ dayData, onComplete, isCompleted, onBack }) {
       <div className="card">
         <div className="dashboard-header" style={{ border: 'none', marginBottom: '0', paddingBottom: '0' }}>
           <div className="dashboard-title-area">
-            <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: dayData.patternType === 'tp' ? 'var(--tp-primary)' : dayData.patternType === 'sw' ? 'var(--sw-primary)' : 'var(--bs-primary)' }}>
+            <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: (dayData.patternType === 'tp' ? 'var(--tp-primary)' : dayData.patternType === 'sw' ? 'var(--sw-primary)' : dayData.patternType === 'bs' ? 'var(--bs-primary)' : dayData.patternType === 'hashmap' ? 'var(--hm-primary)' : dayData.patternType === 'heap' ? 'var(--hp-primary)' : dayData.patternType === 'backtrack' ? 'var(--bt-primary)' : dayData.patternType === 'tr' ? 'var(--tr-primary)' : 'var(--tp-primary)') }}>
               Day {dayData.id} Curriculum — {dayData.category}
             </span>
             <h1 style={{ marginTop: '4px' }}>{dayData.title}</h1>
@@ -82,7 +82,7 @@ function DayPatternLearn({ dayData, onComplete, isCompleted, onBack }) {
 
         {/* Two Pass Learn Controller */}
         <h3 style={{ fontSize: '16px', fontWeight: '800', marginBottom: '12px' }}>
-          <i className="fa-solid fa-repeat" style={{ color: dayData.patternType === 'tp' ? 'var(--tp-primary)' : dayData.patternType === 'sw' ? 'var(--sw-primary)' : 'var(--bs-primary)' }}></i> Learn The Pattern Twice
+          <i className="fa-solid fa-repeat" style={{ color: (dayData.patternType === 'tp' ? 'var(--tp-primary)' : dayData.patternType === 'sw' ? 'var(--sw-primary)' : dayData.patternType === 'bs' ? 'var(--bs-primary)' : dayData.patternType === 'hashmap' ? 'var(--hm-primary)' : dayData.patternType === 'heap' ? 'var(--hp-primary)' : dayData.patternType === 'backtrack' ? 'var(--bt-primary)' : dayData.patternType === 'tr' ? 'var(--tr-primary)' : 'var(--tp-primary)') }}></i> Learn The Pattern Twice
         </h3>
 
         <div className="two-pass-selector">
@@ -136,7 +136,7 @@ function DayPatternLearn({ dayData, onComplete, isCompleted, onBack }) {
                   return (
                     <div 
                        key={idx} 
-                       className={`code-line ${isFullLineComment ? 'code-comment' : ''} ${isHighlighted ? (dayData.patternType === 'tp' ? 'highlighted' : dayData.patternType === 'sw' ? 'highlighted-sw' : 'highlighted-bs') : ''}`}
+                       className={`code-line ${isFullLineComment ? 'code-comment' : ''} ${isHighlighted ? ((dayData.patternType === 'tp' ? 'highlighted' : dayData.patternType === 'sw' ? 'highlighted-sw' : dayData.patternType === 'bs' ? 'highlighted-bs' : 'highlighted-' + dayData.patternType)) : ''}`}
                        style={{ cursor: hasStep ? 'pointer' : 'default' }}
                        onClick={() => handleLineClick(line.num)}
                     >
@@ -144,7 +144,7 @@ function DayPatternLearn({ dayData, onComplete, isCompleted, onBack }) {
                       {isFullLineComment ? (
                         <span className="code-content">{line.text}</span>
                       ) : (
-                        <span className="code-content" style={{ color: hasStep ? (dayData.patternType === 'tp' ? 'var(--tp-primary)' : dayData.patternType === 'sw' ? 'var(--sw-primary)' : 'var(--bs-primary)') : 'inherit', fontWeight: hasStep ? '600' : 'normal' }}>
+                        <span className="code-content" style={{ color: hasStep ? ((dayData.patternType === 'tp' ? 'var(--tp-primary)' : dayData.patternType === 'sw' ? 'var(--sw-primary)' : dayData.patternType === 'bs' ? 'var(--bs-primary)' : dayData.patternType === 'hashmap' ? 'var(--hm-primary)' : dayData.patternType === 'heap' ? 'var(--hp-primary)' : dayData.patternType === 'backtrack' ? 'var(--bt-primary)' : dayData.patternType === 'tr' ? 'var(--tr-primary)' : 'var(--tp-primary)')) : 'inherit', fontWeight: hasStep ? '600' : 'normal' }}>
                           {codePart}
                           {commentPart && <span className="inline-comment">{commentPart}</span>}
                         </span>

@@ -221,14 +221,17 @@ const styles = {
 
 // ─── PATTERN DATA ────────────────────────────────────────────────────────────
 const PATTERNS = [
-  { id: "sliding", label: "Sliding Window", color: C.accent, icon: "⊡" },
+  { id: "hashmap", label: "Arrays & HashMap", color: C.accent, icon: "⚄" },
   { id: "twoptr", label: "Two Pointers", color: C.green, icon: "↔" },
   { id: "fastslow", label: "Fast & Slow", color: C.purple, icon: "⚡" },
+  { id: "sliding", label: "Sliding Window", color: C.accent, icon: "⊡" },
   { id: "binsearch", label: "Binary Search", color: C.orange, icon: "⌖" },
+  { id: "stack", label: "Mono Stack", color: C.red, icon: "▤" },
   { id: "bfs", label: "BFS", color: C.yellow, icon: "◎" },
   { id: "dfs", label: "DFS", color: C.pink, icon: "↯" },
-  { id: "stack", label: "Mono Stack", color: C.red, icon: "▤" },
+  { id: "heap", label: "Heap (PQ)", color: C.orange, icon: "👑" },
   { id: "dp", label: "DP", color: "#818cf8", icon: "◈" },
+  { id: "backtrack", label: "Backtracking", color: C.pink, icon: "↰" },
 ];
 
 // ─── UTILS ───────────────────────────────────────────────────────────────────

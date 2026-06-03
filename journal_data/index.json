@@ -1,65 +1,149 @@
 [
   {
     "id": 1,
-    "title": "Two Pointers — ROI & Pattern",
+    "title": "Two Pointers \u2014 ROI & Pattern",
     "patternType": "tp",
     "category": "Two Pointers",
     "oneSentence": "Two pointers narrow down the search space in sorted data from opposite ends."
   },
   {
     "id": 2,
-    "title": "Two Pointers — Dry Run & Recall",
+    "title": "Two Pointers \u2014 Dry Run & Recall",
     "patternType": "tp",
     "category": "Two Pointers",
     "oneSentence": "Trace existing problems (Two Sum II, Palindrome, 3Sum, Trapping Rain, LinkedList Cycle) step-by-step."
   },
   {
     "id": 3,
-    "title": "Two Pointers — Active Recall Skeletons",
+    "title": "Two Pointers \u2014 Active Recall Skeletons",
     "patternType": "tp",
     "category": "Two Pointers",
     "oneSentence": "Fill in the blank active recall templates for Two Pointer problems."
   },
   {
     "id": 4,
-    "title": "Sliding Window — ROI & Pattern",
+    "title": "Sliding Window \u2014 ROI & Pattern",
     "patternType": "sw",
     "category": "Sliding Window",
     "oneSentence": "Avoid recalculating overlapping subarray values by sliding a window."
   },
   {
     "id": 5,
-    "title": "Sliding Window — Dry Run & Recall",
+    "title": "Sliding Window \u2014 Dry Run & Recall",
     "patternType": "sw",
     "category": "Sliding Window",
     "oneSentence": "Trace Maximum Average Subarray, Max Vowels, and Minimum Window Substring."
   },
   {
     "id": 6,
-    "title": "Sliding Window — Active Recall Skeletons",
+    "title": "Sliding Window \u2014 Active Recall Skeletons",
     "patternType": "sw",
     "category": "Sliding Window",
     "oneSentence": "Fill in the blank active recall templates for Sliding Window problems."
   },
   {
     "id": 7,
-    "title": "Binary Search — ROI & Pattern",
+    "title": "Binary Search \u2014 ROI & Pattern",
     "patternType": "bs",
     "category": "Binary Search",
     "oneSentence": "Binary search divides the search interval in half recursively in sorted data."
   },
   {
     "id": 8,
-    "title": "Binary Search — Dry Run & Recall",
+    "title": "Binary Search \u2014 Dry Run & Recall",
     "patternType": "bs",
     "category": "Binary Search",
     "oneSentence": "Trace Binary Search, Search in Rotated Sorted Array, and Median of Two Sorted Arrays."
   },
   {
     "id": 9,
-    "title": "Binary Search — Active Recall Skeletons",
+    "title": "Binary Search \u2014 Active Recall Skeletons",
     "patternType": "bs",
     "category": "Binary Search",
     "oneSentence": "Fill in the blank active recall templates for Binary Search problems."
+  },
+  {
+    "id": 10,
+    "title": "Arrays & HashMap \u2014 ROI & Pattern",
+    "patternType": "hashmap",
+    "category": "Arrays & HashMap",
+    "oneSentence": "Trade O(N) space for O(N) time using a map for instant lookups."
+  },
+  {
+    "id": 11,
+    "title": "Arrays & HashMap \u2014 Dry Run & Recall",
+    "patternType": "hashmap",
+    "category": "Arrays & HashMap",
+    "oneSentence": "Trace Two Sum and Group Anagrams."
+  },
+  {
+    "id": 12,
+    "title": "Arrays & HashMap \u2014 Active Recall",
+    "patternType": "hashmap",
+    "category": "Arrays & HashMap",
+    "oneSentence": "Fill in the blank active recall templates."
+  },
+  {
+    "id": 13,
+    "title": "Heap (PQ) \u2014 ROI & Pattern",
+    "patternType": "heap",
+    "category": "Heap (PQ)",
+    "oneSentence": "Always keep the top K items using a priority queue."
+  },
+  {
+    "id": 14,
+    "title": "Heap (PQ) \u2014 Dry Run & Recall",
+    "patternType": "heap",
+    "category": "Heap (PQ)",
+    "oneSentence": "Trace Top K Elements and Merge K Sorted Lists."
+  },
+  {
+    "id": 15,
+    "title": "Heap (PQ) \u2014 Active Recall",
+    "patternType": "heap",
+    "category": "Heap (PQ)",
+    "oneSentence": "Fill in the blank active recall templates."
+  },
+  {
+    "id": 16,
+    "title": "Backtracking \u2014 ROI & Pattern",
+    "patternType": "backtrack",
+    "category": "Backtracking",
+    "oneSentence": "Explore all paths, backtrack on dead ends."
+  },
+  {
+    "id": 17,
+    "title": "Backtracking \u2014 Dry Run & Recall",
+    "patternType": "backtrack",
+    "category": "Backtracking",
+    "oneSentence": "Trace Subsets and Permutations."
+  },
+  {
+    "id": 18,
+    "title": "Backtracking \u2014 Active Recall",
+    "patternType": "backtrack",
+    "category": "Backtracking",
+    "oneSentence": "Fill in the blank active recall templates."
+  },
+  {
+    "id": 19,
+    "title": "Trees (DFS/BFS) \u2014 ROI & Pattern",
+    "patternType": "tr",
+    "category": "Trees",
+    "oneSentence": "Navigate nodes deeply (DFS) or level-by-level (BFS) to solve hierarchical problems."
+  },
+  {
+    "id": 20,
+    "title": "Trees (DFS/BFS) \u2014 Dry Run & Recall",
+    "patternType": "tr",
+    "category": "Trees",
+    "oneSentence": "Trace Invert Tree, Level Order Traversal, and Lowest Common Ancestor."
+  },
+  {
+    "id": 21,
+    "title": "Trees (DFS/BFS) \u2014 Active Recall Skeletons",
+    "patternType": "tr",
+    "category": "Trees",
+    "oneSentence": "Fill in the blank active recall templates for Tree problems."
   }
 ]

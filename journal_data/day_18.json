@@ -1,0 +1,259 @@
+{
+  "id": 18,
+  "title": "Backtracking \u2014 Active Recall",
+  "patternType": "backtrack",
+  "category": "Backtracking",
+  "oneSentence": "Reconstruct Subsets, Permutations, Combination Sum, and N-Queens from scratch.",
+  "problems": {
+    "subsets": {
+      "title": "Subsets",
+      "description": "Given an integer array nums of unique elements, return all possible subsets (the power set). The solution must not contain duplicate subsets. Return the solution in any order.",
+      "hints": [
+        {
+          "id": "subsets_1",
+          "text": "What needs to be added to the result at the beginning of the recursion to capture all states?"
+        },
+        {
+          "id": "subsets_2",
+          "text": "How should you iterate to pick the next element, and where should you start?"
+        },
+        {
+          "id": "subsets_3",
+          "text": "How do you choose the current element to add to your subset?"
+        },
+        {
+          "id": "subsets_4",
+          "text": "How do you recursively explore the next choices? (Think about the starting index)"
+        },
+        {
+          "id": "subsets_5",
+          "text": "How do you undo the choice to backtrack?"
+        }
+      ],
+      "template": [
+        "class Solution {",
+        "    public List<List<Integer>> subsets(int[] nums) {",
+        "        List<List<Integer>> result = new ArrayList<>();",
+        "        backtrack(nums, 0, new ArrayList<>(), result);",
+        "        return result;",
+        "    }",
+        "    ",
+        "    private void backtrack(int[] nums, int start, List<Integer> bag, List<List<Integer>> result) {",
+        "        // STEP 1 - SAVE: Current bag state is a valid subset",
+        "        [[result.add(new ArrayList<>(bag));]]",
+        "        ",
+        "        // STEP 2 - LOOP: Try including each remaining item",
+        "        [[for (int i = start; i < nums.length; i++)]] {",
+        "            // STEP 3 - CHOOSE: Add item to the bag",
+        "            [[bag.add(nums[i]);]]",
+        "            // STEP 4 - EXPLORE: Go deeper",
+        "            [[backtrack(nums, i + 1, bag, result);]]",
+        "            // STEP 5 - UNCHOOSE: Remove item and try skipping it",
+        "            [[bag.remove(bag.size() - 1);]]",
+        "        }",
+        "    }",
+        "}"
+      ],
+      "story": "Backtracking: Choose, Explore, Unchoose",
+      "patternSubtype": "Backtracking"
+    },
+    "permutations": {
+      "title": "Permutations",
+      "description": "Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.",
+      "hints": [
+        {
+          "id": "permute_1",
+          "text": "What is the base case condition to check if you have formed a complete permutation?"
+        },
+        {
+          "id": "permute_2",
+          "text": "How do you avoid reusing an element that has already been placed in the current permutation?"
+        },
+        {
+          "id": "permute_3",
+          "text": "How do you mark the current element as chosen?"
+        },
+        {
+          "id": "permute_4",
+          "text": "How do you recursively call the backtracking function with the updated state?"
+        },
+        {
+          "id": "permute_5",
+          "text": "How do you un-choose the current element for the next iterations?"
+        }
+      ],
+      "template": [
+        "class Solution {",
+        "    public List<List<Integer>> permute(int[] nums) {",
+        "        List<List<Integer>> result = new ArrayList<>();",
+        "        boolean[] used = new boolean[nums.length];",
+        "        backtrack(nums, used, new ArrayList<>(), result);",
+        "        return result;",
+        "    }",
+        "    ",
+        "    private void backtrack(int[] nums, boolean[] used, List<Integer> bag, List<List<Integer>> result) {",
+        "        // STEP 1 - SAVE: Check if permutation is complete",
+        "        if ([[bag.size() == nums.length]]) {",
+        "            result.add(new ArrayList<>(bag));",
+        "            return;",
+        "        }",
+        "        ",
+        "        // STEP 2 - LOOP: Try every item",
+        "        for (int i = 0; i < nums.length; i++) {",
+        "            // SKIP used items",
+        "            [[if (used[i]) continue;]]",
+        "            ",
+        "            // STEP 3 - CHOOSE: Mark used and add",
+        "            [[used[i] = true;]]",
+        "            bag.add(nums[i]);",
+        "            ",
+        "            // STEP 4 - EXPLORE",
+        "            [[backtrack(nums, used, bag, result);]]",
+        "            ",
+        "            // STEP 5 - UNCHOOSE",
+        "            bag.remove(bag.size() - 1);",
+        "            [[used[i] = false;]]",
+        "        }",
+        "    }",
+        "}"
+      ],
+      "story": "Backtracking: Choose, Explore, Unchoose",
+      "patternSubtype": "Backtracking"
+    },
+    "combinationSum": {
+      "title": "Combination Sum",
+      "description": "Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target. You may return the combinations in any order.",
+      "hints": [
+        {
+          "id": "combo_1",
+          "text": "What is the base case for an invalid combination when the target goes below 0?"
+        },
+        {
+          "id": "combo_2",
+          "text": "What condition means you have found a valid combination?"
+        },
+        {
+          "id": "combo_3",
+          "text": "Where should the loop start to avoid generating duplicate combinations?"
+        },
+        {
+          "id": "combo_4",
+          "text": "How do you make the recursive call, keeping in mind that the same number can be chosen an unlimited number of times?"
+        }
+      ],
+      "template": [
+        "class Solution {",
+        "    public List<List<Integer>> combinationSum(int[] candidates, int target) {",
+        "        List<List<Integer>> result = new ArrayList<>();",
+        "        backtrack(candidates, target, 0, new ArrayList<>(), result);",
+        "        return result;",
+        "    }",
+        "    ",
+        "    private void backtrack(int[] nums, int target, int start, List<Integer> bag, List<List<Integer>> result) {",
+        "        // INVALID BASE CASE",
+        "        [[if (target < 0) return;]]",
+        "        ",
+        "        // STEP 1 - SAVE: Target reached",
+        "        if ([[target == 0]]) {",
+        "            result.add(new ArrayList<>(bag));",
+        "            return;",
+        "        }",
+        "        ",
+        "        // STEP 2 - LOOP: Allow reusing same element (i = start)",
+        "        for (int i = [[start]]; i < nums.length; i++) {",
+        "            // STEP 3 - CHOOSE",
+        "            bag.add(nums[i]);",
+        "            // STEP 4 - EXPLORE: Pass i (not i+1) to allow unlimited reuse",
+        "            [[backtrack(nums, target - nums[i], i, bag, result);]]",
+        "            // STEP 5 - UNCHOOSE",
+        "            bag.remove(bag.size() - 1);",
+        "        }",
+        "    }",
+        "}"
+      ],
+      "story": "Backtracking: Choose, Explore, Unchoose",
+      "patternSubtype": "Backtracking"
+    },
+    "nQueens": {
+      "title": "N-Queens",
+      "description": "The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other. Given an integer n, return all distinct solutions to the n-queens puzzle.",
+      "hints": [
+        {
+          "id": "nqueens_1",
+          "text": "When do you know you have successfully placed queens in all rows?"
+        },
+        {
+          "id": "nqueens_2",
+          "text": "How do you iterate over all columns in the current row?"
+        },
+        {
+          "id": "nqueens_3",
+          "text": "What check must pass before you can place a queen at (row, col)?"
+        },
+        {
+          "id": "nqueens_4",
+          "text": "How do you place the queen on the board?"
+        },
+        {
+          "id": "nqueens_5",
+          "text": "How do you move to the next row recursively?"
+        },
+        {
+          "id": "nqueens_6",
+          "text": "How do you un-place the queen to backtrack?"
+        }
+      ],
+      "template": [
+        "class Solution {",
+        "    public List<List<String>> solveNQueens(int n) {",
+        "        List<List<String>> result = new ArrayList<>();",
+        "        char[][] board = new char[n][n];",
+        "        for (int i = 0; i < n; i++) {",
+        "            for (int j = 0; j < n; j++) {",
+        "                board[i][j] = '.';",
+        "            }",
+        "        }",
+        "        backtrack(board, 0, result);",
+        "        return result;",
+        "    }",
+        "    ",
+        "    private void backtrack(char[][] board, int row, List<List<String>> result) {",
+        "        // STEP 1 - SAVE: All queens placed successfully",
+        "        [[if (row == board.length)]] {",
+        "            result.add(construct(board));",
+        "            return;",
+        "        }",
+        "        ",
+        "        // STEP 2 - LOOP: Try every column in the current row",
+        "        [[for (int col = 0; col < board.length; col++)]] {",
+        "            // CONSTRAINT CHECK",
+        "            if ([[isSafe(board, row, col)]]) {",
+        "                // STEP 3 - CHOOSE: Place queen",
+        "                [[board[row][col] = 'Q';]]",
+        "                // STEP 4 - EXPLORE: Move to next row",
+        "                [[backtrack(board, row + 1, result);]]",
+        "                // STEP 5 - UNCHOOSE: Remove queen",
+        "                [[board[row][col] = '.';]]",
+        "            }",
+        "        }",
+        "    }",
+        "    ",
+        "    private boolean isSafe(char[][] board, int row, int col) {",
+        "        // Implementation omitted for brevity",
+        "        return true;",
+        "    }",
+        "    ",
+        "    private List<String> construct(char[][] board) {",
+        "        List<String> res = new ArrayList<>();",
+        "        for(int i = 0; i < board.length; i++) {",
+        "            res.add(new String(board[i]));",
+        "        }",
+        "        return res;",
+        "    }",
+        "}"
+      ],
+      "story": "Backtracking: Choose, Explore, Unchoose",
+      "patternSubtype": "Backtracking"
+    }
+  }
+}

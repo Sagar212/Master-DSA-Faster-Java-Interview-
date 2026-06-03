@@ -46,9 +46,9 @@ function DashboardView({ progress, setActiveDay, percent, curriculumIndex, isDay
               onClick={() => !isLocked && setActiveDay(dayNum)}
             >
               <div className="dash-day-header">
-                <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: isLocked ? 'var(--text-muted)' : (day.patternType === 'tp' ? 'var(--tp-primary)' : day.patternType === 'sw' ? 'var(--sw-primary)' : 'var(--bs-primary)') }}>Day {dayNum}</span>
+                <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: isLocked ? 'var(--text-muted)' : (day.patternType === 'tp' ? 'var(--tp-primary)' : day.patternType === 'sw' ? 'var(--sw-primary)' : day.patternType === 'hashmap' ? 'var(--hm-primary)' : day.patternType === 'heap' ? 'var(--hp-primary)' : day.patternType === 'backtrack' ? 'var(--bt-primary)' : day.patternType === 'tr' ? 'var(--tr-primary)' : 'var(--bs-primary)') }}>Day {dayNum}</span>
                 <div className={`dash-day-icon ${isLocked ? 'locked' : day.patternType}`} style={isLocked ? { background: 'rgba(255,255,255,0.03)', color: 'var(--text-muted)' } : {}}>
-                  {isLocked ? <i className="fa-solid fa-lock"></i> : (day.patternType === 'tp' ? <i className="fa-solid fa-arrows-left-right"></i> : day.patternType === 'sw' ? <i className="fa-solid fa-magnifying-glass"></i> : <i className="fa-solid fa-bullseye"></i>)}
+                  {isLocked ? <i className="fa-solid fa-lock"></i> : (day.patternType === 'tp' ? <i className="fa-solid fa-arrows-left-right"></i> : day.patternType === 'sw' ? <i className="fa-solid fa-magnifying-glass"></i> : day.patternType === 'hashmap' ? <i className="fa-solid fa-table-list"></i> : day.patternType === 'heap' ? <i className="fa-solid fa-layer-group"></i> : day.patternType === 'backtrack' ? <i className="fa-solid fa-code-branch"></i> : day.patternType === 'tr' ? <i className="fa-solid fa-network-wired"></i> : <i className="fa-solid fa-bullseye"></i>)}
                 </div>
               </div>
               <div className="dash-day-body">

@@ -1,0 +1,83 @@
+{
+  "id": 16,
+  "title": "Backtracking — ROI & Pattern",
+  "patternType": "backtrack",
+  "category": "Backtracking",
+  "oneSentence": "Explore all paths, choose an option, explore deeper, then backtrack to try the next option.",
+  "description": "Master the Backtracking template twice. First through guided line-by-line tracing of Subsets, then by reconstructing the core steps.",
+  "roi": {
+    "frequency": "⭐⭐⭐⭐ (Tested in 60%+ of top tech interviews)",
+    "complexity": "Time: O(2^N) or O(N!) | Space: O(N) recursion depth",
+    "dependsOn": "Recursion, Trees/Graphs",
+    "signals": "Find 'all possible' ways, combinations, permutations, subsets, paths."
+  },
+  "template": {
+    "filename": "Backtracking_Template.java",
+    "codeLines": [
+      { "num": 1, "text": "public class Subsets {" },
+      { "num": 2, "text": "    public static List<List<Integer>> solve(int[] nums) {" },
+      { "num": 3, "text": "        List<List<Integer>> result = new ArrayList<>();" },
+      { "num": 4, "text": "        backtrack(nums, 0, new ArrayList<>(), result);" },
+      { "num": 5, "text": "        return result;" },
+      { "num": 6, "text": "    }" },
+      { "num": 7, "text": "" },
+      { "num": 8, "text": "    private static void backtrack(int[] nums, int start, List<Integer> bag, List<List<Integer>> result) {" },
+      { "num": 9, "text": "        // STEP 1 — SAVE: Current bag state is a valid subset (even empty bag)" },
+      { "num": 10, "text": "        result.add(new ArrayList<>(bag)); // snapshot the bag" },
+      { "num": 11, "text": "" },
+      { "num": 12, "text": "        // STEP 2 — LOOP: Try including each remaining item" },
+      { "num": 13, "text": "        for (int i = start; i < nums.length; i++) {" },
+      { "num": 14, "text": "" },
+      { "num": 15, "text": "            // STEP 3 — CHOOSE: Add item to the bag" },
+      { "num": 16, "text": "            bag.add(nums[i]);" },
+      { "num": 17, "text": "" },
+      { "num": 18, "text": "            // STEP 4 — EXPLORE: Go deeper (only items AFTER i to avoid duplicates)" },
+      { "num": 19, "text": "            backtrack(nums, i + 1, bag, result);" },
+      { "num": 20, "text": "" },
+      { "num": 21, "text": "            // STEP 5 — UNCHOOSE (BACKTRACK): Remove item and try skipping it" },
+      { "num": 22, "text": "            bag.remove(bag.size() - 1);" },
+      { "num": 23, "text": "        }" },
+      { "num": 24, "text": "    }" },
+      { "num": 25, "text": "}" }
+    ],
+    "traceSteps": [
+      { "line": 9, "title": "STEP 1 — SAVE", "text": "Current bag state is a valid subset (even empty bag)" },
+      { "line": 12, "title": "STEP 2 — LOOP", "text": "Try including each remaining item" },
+      { "line": 15, "title": "STEP 3 — CHOOSE", "text": "Add item to the bag" },
+      { "line": 18, "title": "STEP 4 — EXPLORE", "text": "Go deeper (only items AFTER i to avoid duplicates)" },
+      { "line": 21, "title": "STEP 5 — UNCHOOSE (BACKTRACK)", "text": "Remove item and try skipping it" }
+    ],
+    "sandbox": [
+      {
+        "step": "SAVE",
+        "question": "Why do we add a new ArrayList(bag) instead of just result.add(bag)?",
+        "options": [
+          "Because bag is passed by reference, adding it directly would just add a reference to the same modifying list.",
+          "Java requires it for performance.",
+          "To prevent NullPointerException."
+        ],
+        "correct": 0
+      },
+      {
+        "step": "CHOOSE",
+        "question": "What does the 'choose' step do in backtracking?",
+        "options": [
+          "Selects the correct answer",
+          "Adds the current element to our temporary combination before exploring further",
+          "Removes the element"
+        ],
+        "correct": 1
+      },
+      {
+        "step": "UNCHOOSE",
+        "question": "Why is the 'unchoose' (backtrack) step critical?",
+        "options": [
+          "To free up memory",
+          "To return to the previous state so we can explore other valid choices at this level",
+          "To stop the recursion"
+        ],
+        "correct": 1
+      }
+    ]
+  }
+}

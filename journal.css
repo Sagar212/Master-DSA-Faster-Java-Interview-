@@ -1392,3 +1392,154 @@
     .day-card.active-bs::after {
       background: var(--bs-gradient);
     }
+
+
+/* =========================================
+   RECOVERED STYLES (Hashmap, Heap, Backtrack, WordBank, Tree)
+========================================= */
+/* Theme colors Arrays & HashMap (Cyan/Accent) */
+:root {
+  --hm-primary: #0ea5e9;
+  --hm-glow: rgba(14, 165, 233, 0.15);
+  --hp-primary: #f59e0b;
+  --hp-glow: rgba(245, 158, 11, 0.15);
+  --bt-primary: #ec4899;
+  --bt-glow: rgba(236, 72, 153, 0.15);
+}
+
+.day-card.active-hashmap {
+  background: rgba(14, 165, 233, 0.06);
+  border-color: rgba(14, 165, 233, 0.3);
+  box-shadow: 0 4px 20px rgba(14, 165, 233, 0.08);
+}
+.day-card.active-hashmap::after { background: var(--hm-primary); }
+
+.day-card.active-heap {
+  background: rgba(245, 158, 11, 0.06);
+  border-color: rgba(245, 158, 11, 0.3);
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.08);
+}
+.day-card.active-heap::after { background: var(--hp-primary); }
+
+.day-card.active-backtrack {
+  background: rgba(236, 72, 153, 0.06);
+  border-color: rgba(236, 72, 153, 0.3);
+  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.08);
+}
+.day-card.active-backtrack::after { background: var(--bt-primary); }
+
+.pass-btn.active.hashmap { background: var(--hm-primary); color: white; }
+.pass-btn.active.heap { background: var(--hp-primary); color: white; }
+.pass-btn.active.backtrack { background: var(--bt-primary); color: white; }
+
+.roi-icon-container.hashmap { background: rgba(14, 165, 233, 0.1); color: var(--hm-primary); border: 1px solid rgba(14, 165, 233, 0.2); }
+.roi-icon-container.heap { background: rgba(245, 158, 11, 0.1); color: var(--hp-primary); border: 1px solid rgba(245, 158, 11, 0.2); }
+.roi-icon-container.backtrack { background: rgba(236, 72, 153, 0.1); color: var(--bt-primary); border: 1px solid rgba(236, 72, 153, 0.2); }
+
+.step-explain-box.hashmap i { color: var(--hm-primary); }
+.step-explain-box.heap i { color: var(--hp-primary); }
+.step-explain-box.backtrack i { color: var(--bt-primary); }
+
+.sandbox-step-card.hashmap h4 { color: var(--hm-primary); }
+.sandbox-step-card.heap h4 { color: var(--hp-primary); }
+.sandbox-step-card.backtrack h4 { color: var(--bt-primary); }
+
+.prob-tab.active.hashmap { color: var(--hm-primary); }
+.prob-tab.active.hashmap::after { background: var(--hm-primary); }
+.prob-tab.active.heap { color: var(--hp-primary); }
+.prob-tab.active.heap::after { background: var(--hp-primary); }
+.prob-tab.active.backtrack { color: var(--bt-primary); }
+.prob-tab.active.backtrack::after { background: var(--bt-primary); }
+
+.quiz-option.selected.hashmap { border-color: var(--hm-primary); background: rgba(14, 165, 233, 0.05); }
+.quiz-option.selected.heap { border-color: var(--hp-primary); background: rgba(245, 158, 11, 0.05); }
+.quiz-option.selected.backtrack { border-color: var(--bt-primary); background: rgba(236, 72, 153, 0.05); }
+
+.primary-action-btn.hashmap { background: linear-gradient(135deg, #0ea5e9 0%, #14b8a6 100%); box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3); }
+.primary-action-btn.hashmap:hover { box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4); }
+.primary-action-btn.heap { background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3); }
+.primary-action-btn.heap:hover { box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4); }
+.primary-action-btn.backtrack { background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%); box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3); }
+.primary-action-btn.backtrack:hover { box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4); }
+
+.story-banner.hashmap { background: var(--hm-glow); border-left: 3px solid var(--hm-primary); }
+.story-banner.hashmap i { color: var(--hm-primary); }
+.leetcode-card.hashmap { border-left: 3px solid var(--hm-primary); background: var(--hm-glow); }
+.dash-day-icon.hashmap { background: var(--hm-glow); color: var(--hm-primary); }
+.dash-day-card.hashmap-card .action-link { color: var(--hm-primary); }
+
+.story-banner.heap { background: var(--hp-glow); border-left: 3px solid var(--hp-primary); }
+.story-banner.heap i { color: var(--hp-primary); }
+.leetcode-card.heap { border-left: 3px solid var(--hp-primary); background: var(--hp-glow); }
+.dash-day-icon.heap { background: var(--hp-glow); color: var(--hp-primary); }
+.dash-day-card.heap-card .action-link { color: var(--hp-primary); }
+
+.story-banner.backtrack { background: var(--bt-glow); border-left: 3px solid var(--bt-primary); }
+.story-banner.backtrack i { color: var(--bt-primary); }
+.leetcode-card.backtrack { border-left: 3px solid var(--bt-primary); background: var(--bt-glow); }
+.dash-day-icon.backtrack { background: var(--bt-glow); color: var(--bt-primary); }
+.dash-day-card.backtrack-card .action-link { color: var(--bt-primary); }
+
+/* Active Recall Word Bank & Drag-and-Drop (Polished) */
+.active-recall-container { display: flex; gap: 24px; align-items: flex-start; width: 100%; }
+.active-recall-main { flex: 1; min-width: 0; }
+.word-bank-pane {
+  width: 300px; background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 16px;
+  position: sticky; top: 24px; flex-shrink: 0; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.05);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.word-bank-header {
+  display: flex; justify-content: space-between; align-items: center; font-family: "Outfit", sans-serif;
+  font-weight: 800; font-size: 15px; color: #fff; border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.word-bank-content { display: flex; flex-wrap: wrap; gap: 10px; }
+.draggable-pill {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12); color: #e2e8f0; padding: 8px 12px; border-radius: 8px;
+  font-family: monospace; font-size: 12.5px; cursor: grab; user-select: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.draggable-pill:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border-color: rgba(255, 255, 255, 0.3); color: #fff; box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1); transform: translateY(-2px);
+}
+.draggable-pill:active { cursor: grabbing; transform: scale(0.92) translateY(0); box-shadow: 0 0 0 rgba(0,0,0,0); }
+
+@keyframes pulse-dropzone {
+  0% { border-color: rgba(14, 165, 233, 0.4); background: rgba(14, 165, 233, 0.1); box-shadow: 0 0 0px rgba(14, 165, 233, 0); }
+  50% { border-color: rgba(14, 165, 233, 1); background: rgba(14, 165, 233, 0.25); box-shadow: 0 0 15px rgba(14, 165, 233, 0.4); }
+  100% { border-color: rgba(14, 165, 233, 0.4); background: rgba(14, 165, 233, 0.1); box-shadow: 0 0 0px rgba(14, 165, 233, 0); }
+}
+.skeleton-input.drag-over { border: 2px dashed var(--tp-primary) !important; animation: pulse-dropzone 1.5s infinite ease-in-out !important; color: transparent !important; }
+.word-bank-toggle {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-muted);
+  border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
+}
+.word-bank-toggle:hover { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2); }
+
+/* =========================================
+   TREE (DFS/BFS) PATTERN STYLES (tr)
+========================================= */
+:root {
+  --tr-primary: #10b981;
+  --tr-glow: rgba(16, 185, 129, 0.15);
+  --tr-gradient: linear-gradient(135deg, #047857 0%, #10b981 100%);
+}
+
+.day-card.active-tr::after { background: var(--tr-gradient); }
+.day-num.tr { color: var(--tr-primary); }
+.dash-day-icon.tr { background: var(--tr-glow); color: var(--tr-primary); }
+.dash-day-card.tr-card .action-link { color: var(--tr-primary); }
+.prob-tab.active.tr { color: var(--tr-primary); }
+.prob-tab.active.tr::after { background: var(--tr-primary); }
+.story-banner.tr { background: var(--tr-glow); border-left: 3px solid var(--tr-primary); }
+.story-banner.tr i { color: var(--tr-primary); }
+.leetcode-card.tr { border-left: 3px solid var(--tr-primary); background: var(--tr-glow); }
+.roi-icon-container.tr { background: var(--tr-glow); color: var(--tr-primary); }
+.step-explain-box.tr i { color: var(--tr-primary); }
+.sandbox-step-card.tr h4 { color: var(--tr-primary); }
+.primary-action-btn.tr { background: var(--tr-primary); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); }
+.primary-action-btn.tr:hover { background: #059669; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }

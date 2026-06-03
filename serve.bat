@@ -24,6 +24,8 @@ ping -n 3 127.0.0.1 >nul
 :open_browser
 echo Opening http://localhost:8000/index.html in browser...
 start "" "http://localhost:8000/index.html"
+echo Opening http://localhost:8000/algorithm-story-visualizer.html in browser...
+start "" "http://localhost:8000/algorithm-story-visualizer.html"
 
 echo.
 echo -------------------------------------------------------

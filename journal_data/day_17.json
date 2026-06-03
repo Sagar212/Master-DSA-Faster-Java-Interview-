@@ -1,0 +1,207 @@
+{
+  "id": 17,
+  "title": "Backtracking — Dry Run & Recall",
+  "patternType": "backtrack",
+  "category": "Backtracking",
+  "oneSentence": "Trace Subsets, Permutations, Combination Sum, and N-Queens step-by-step.",
+  "problems": {
+    "subsets": {
+      "title": "Subsets",
+      "patternSubtype": "Combinations / Include-Skip",
+      "description": "Given an integer array of unique elements, return all possible subsets.",
+      "story": "Packing a bag. For each item you have TWO choices: INCLUDE it in the bag or SKIP it.",
+      "array": [1, 2, 3],
+      "code": [
+        "public void backtrack(List<List<Integer>> res, List<Integer> curr, int[] nums, int start) {",
+        "    res.add(new ArrayList<>(curr));",
+        "    for (int i = start; i < nums.length; i++) {",
+        "        curr.add(nums[i]);",
+        "        backtrack(res, curr, nums, i + 1);",
+        "        curr.remove(curr.size() - 1);",
+        "    }",
+        "}"
+      ],
+      "steps": [
+        {"left": 0, "right": -1, "line": 1, "desc": "start=0. Add empty subset [] to res."},
+        {"left": 0, "right": 0, "line": 3, "desc": "i=0. Add nums[0]=1 to curr. curr is [1]."},
+        {"left": 0, "right": 0, "line": 4, "desc": "Recurse with start=1."},
+        {"left": 1, "right": -1, "line": 1, "desc": "start=1. Add [1] to res."},
+        {"left": 1, "right": 1, "line": 3, "desc": "i=1. Add nums[1]=2 to curr. curr is [1, 2]."},
+        {"left": 1, "right": 1, "line": 4, "desc": "Recurse with start=2."},
+        {"left": 2, "right": -1, "line": 1, "desc": "start=2. Add [1, 2] to res."},
+        {"left": 1, "right": 1, "line": 5, "desc": "Backtrack! Remove 2 from curr. curr is [1]."},
+        {"left": 0, "right": 0, "line": 5, "desc": "Backtrack! Remove 1 from curr. curr is []."},
+        {"left": 0, "right": 1, "line": 3, "desc": "i=1. Add nums[1]=2 to curr. curr is [2]."},
+        {"left": 0, "right": 1, "line": 4, "desc": "Recurse with start=2."},
+        {"left": 2, "right": -1, "line": 1, "desc": "start=2. Add [2] to res. Loop doesn't run."}
+      ],
+      "quiz": [
+        {
+          "question": "Why do we pass the `start` index into the recursive calls?",
+          "options": [
+            "To keep track of the remaining budget.",
+            "To prevent combinations of the same subset in a different order (e.g., generating [2,1] after [1,2]).",
+            "To ensure we pick the maximum element.",
+            "To keep track of the recursion depth."
+          ],
+          "answer": 1,
+          "explanation": "The `start` index ensures we only iterate forward through the array, which generates combinations instead of permutations and avoids duplicates."
+        }
+      ]
+    },
+    "permutations": {
+      "title": "Permutations",
+      "patternSubtype": "Arrangements / Order Matters",
+      "description": "Given an array of distinct integers, return all the possible permutations.",
+      "story": "Arranging books on a shelf. Try every possible order using a 'used' array to track placed books.",
+      "array": [1, 2, 3],
+      "code": [
+        "public void backtrack(List<List<Integer>> res, List<Integer> curr, int[] nums, boolean[] used) {",
+        "    if (curr.size() == nums.length) {",
+        "        res.add(new ArrayList<>(curr));",
+        "        return;",
+        "    }",
+        "    for (int i = 0; i < nums.length; i++) {",
+        "        if (used[i]) continue;",
+        "        used[i] = true;",
+        "        curr.add(nums[i]);",
+        "        backtrack(res, curr, nums, used);",
+        "        curr.remove(curr.size() - 1);",
+        "        used[i] = false;",
+        "    }",
+        "}"
+      ],
+      "steps": [
+        {"left": 0, "right": 0, "line": 7, "desc": "depth=0, i=0. Choose 1, mark used[0]=true."},
+        {"left": 0, "right": 0, "line": 8, "desc": "Add 1 to curr. curr is [1]."},
+        {"left": 0, "right": 0, "line": 9, "desc": "Recurse deeper."},
+        {"left": 1, "right": 1, "line": 6, "desc": "depth=1. Loop starts at 0, used[0] is true, so i=1. used[1]=false."},
+        {"left": 1, "right": 1, "line": 7, "desc": "Choose 2, mark used[1]=true."},
+        {"left": 1, "right": 1, "line": 8, "desc": "Add 2 to curr. curr is [1, 2]."},
+        {"left": 1, "right": 1, "line": 9, "desc": "Recurse deeper."},
+        {"left": 2, "right": -1, "line": 2, "desc": "depth=2. curr size == 2. Add [1, 2] to res and return."},
+        {"left": 1, "right": 1, "line": 10, "desc": "Backtrack! Remove 2 from curr."},
+        {"left": 1, "right": 1, "line": 11, "desc": "Unmark used[1]=false."},
+        {"left": 0, "right": 0, "line": 10, "desc": "Backtrack! Remove 1 from curr."},
+        {"left": 0, "right": 0, "line": 11, "desc": "Unmark used[0]=false."},
+        {"left": 0, "right": 1, "line": 7, "desc": "depth=0, i=1. Choose 2, mark used[1]=true."},
+        {"left": 0, "right": 1, "line": 8, "desc": "Add 2 to curr. curr is [2]."},
+        {"left": 0, "right": 1, "line": 9, "desc": "Recurse deeper (will find [2, 1])."}
+      ],
+      "quiz": [
+        {
+          "question": "What is the primary purpose of the `used` array in generating permutations?",
+          "options": [
+            "To sort the elements before choosing them.",
+            "To track which elements have already been placed in the current permutation so we don't reuse them.",
+            "To sum up the values of the chosen elements.",
+            "To track permutations we've already generated."
+          ],
+          "answer": 1,
+          "explanation": "Since a permutation uses every element exactly once, the `used` array ensures we don't pick an element that's already in the `curr` list."
+        }
+      ]
+    },
+    "combinationSum": {
+      "title": "Combination Sum",
+      "patternSubtype": "Unlimited Choices",
+      "description": "Find all unique combinations where chosen numbers sum to target. You can use numbers unlimited times.",
+      "story": "Buying items with exact change. You can buy the same item multiple times until you exceed your budget.",
+      "array": [2, 3, 6, 7],
+      "code": [
+        "public void backtrack(List<List<Integer>> res, List<Integer> curr, int[] nums, int remain, int start) {",
+        "    if (remain < 0) return;",
+        "    if (remain == 0) {",
+        "        res.add(new ArrayList<>(curr));",
+        "        return;",
+        "    }",
+        "    for (int i = start; i < nums.length; i++) {",
+        "        curr.add(nums[i]);",
+        "        backtrack(res, curr, nums, remain - nums[i], i);",
+        "        curr.remove(curr.size() - 1);",
+        "    }",
+        "}"
+      ],
+      "steps": [
+        {"left": 0, "right": 0, "line": 7, "desc": "start=0, i=0. Add 2 to curr. remain=7."},
+        {"left": 0, "right": 0, "line": 8, "desc": "Recurse with remain=5, start=0 (reusing 2)."},
+        {"left": 0, "right": 0, "line": 7, "desc": "Add 2 to curr. curr=[2, 2]."},
+        {"left": 0, "right": 0, "line": 8, "desc": "Recurse with remain=3, start=0."},
+        {"left": 0, "right": 0, "line": 7, "desc": "Add 2 to curr. curr=[2, 2, 2]."},
+        {"left": 0, "right": 0, "line": 8, "desc": "Recurse with remain=1, start=0."},
+        {"left": 0, "right": 0, "line": 7, "desc": "Add 2 to curr. curr=[2, 2, 2, 2]."},
+        {"left": 0, "right": 0, "line": 8, "desc": "Recurse with remain=-1, start=0."},
+        {"left": 0, "right": -1, "line": 1, "desc": "remain < 0, return."},
+        {"left": 0, "right": 0, "line": 9, "desc": "Backtrack! Remove 2. curr=[2, 2, 2]."},
+        {"left": 0, "right": 1, "line": 7, "desc": "i=1. Add 3 to curr. curr=[2, 2, 2, 3]."},
+        {"left": 0, "right": 1, "line": 8, "desc": "Recurse with remain=1-3=-2. Will return."},
+        {"left": 0, "right": 1, "line": 9, "desc": "Backtrack! Remove 3. Then eventually backtrack 2 again."},
+        {"left": 0, "right": 1, "line": 7, "desc": "After backtracking to [2, 2], i=1. Add 3. curr=[2, 2, 3]."},
+        {"left": 0, "right": 1, "line": 8, "desc": "Recurse with remain=0, start=1."},
+        {"left": 0, "right": 1, "line": 3, "desc": "remain==0! Add [2, 2, 3] to res."}
+      ],
+      "quiz": [
+        {
+          "question": "Why do we pass `i` instead of `i + 1` into the recursive `backtrack` call?",
+          "options": [
+            "To reset the search from the beginning of the array.",
+            "To skip the current element in the next level.",
+            "Because we are allowed to use the same element an unlimited number of times.",
+            "To ensure we don't exceed the target value."
+          ],
+          "answer": 2,
+          "explanation": "Passing `i` allows the recursion to consider picking the same element again in the next step, supporting unlimited reuse."
+        }
+      ]
+    },
+    "nQueens": {
+      "title": "N-Queens",
+      "patternSubtype": "Board / Constraints",
+      "description": "Place N queens on an NxN board so none attack each other.",
+      "story": "Seating royals. Check row, column, and diagonals before placing.",
+      "array": [0, 1, 2, 3],
+      "code": [
+        "public void backtrack(int row, char[][] board) {",
+        "    if (row == board.length) {",
+        "        res.add(construct(board));",
+        "        return;",
+        "    }",
+        "    for (int col = 0; col < board.length; col++) {",
+        "        if (isSafe(board, row, col)) {",
+        "            board[row][col] = 'Q';",
+        "            backtrack(row + 1, board);",
+        "            board[row][col] = '.';",
+        "        }",
+        "    }",
+        "}"
+      ],
+      "steps": [
+        {"left": 0, "right": 0, "line": 6, "desc": "row=0, col=0. isSafe is true."},
+        {"left": 0, "right": 0, "line": 7, "desc": "Place 'Q' at (0, 0)."},
+        {"left": 0, "right": 0, "line": 8, "desc": "Recurse to row=1."},
+        {"left": 1, "right": 0, "line": 6, "desc": "row=1, col=0. isSafe is false (same col)."},
+        {"left": 1, "right": 1, "line": 6, "desc": "row=1, col=1. isSafe is false (diagonal)."},
+        {"left": 1, "right": 2, "line": 6, "desc": "row=1, col=2. isSafe is true."},
+        {"left": 1, "right": 2, "line": 7, "desc": "Place 'Q' at (1, 2)."},
+        {"left": 1, "right": 2, "line": 8, "desc": "Recurse to row=2."},
+        {"left": 2, "right": -1, "line": 6, "desc": "row=2. No col is safe. (0, 1, 2, 3 all attacked)."},
+        {"left": 1, "right": 2, "line": 9, "desc": "Backtrack row 2! Remove 'Q' at (1, 2)."},
+        {"left": 1, "right": 3, "line": 7, "desc": "Try col=3. Place 'Q' at (1, 3)."},
+        {"left": 1, "right": 3, "line": 8, "desc": "Recurse to row=2."}
+      ],
+      "quiz": [
+        {
+          "question": "How does `isSafe` typically check for diagonal attacks from previously placed queens?",
+          "options": [
+            "It checks the current row and column only.",
+            "It iterates upwards row by row, checking if a 'Q' exists in (col - distance) or (col + distance).",
+            "It iterates across the board right to left.",
+            "It recursively calls the main backtrack function."
+          ],
+          "answer": 1,
+          "explanation": "Since we place queens row by row from top to bottom, `isSafe` only needs to check the upper left and upper right diagonals (and the column directly above)."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "id": 14,
+  "title": "Heap (PQ) \u2014 Dry Run & Recall",
+  "patternType": "heap",
+  "category": "Heap (PQ)",
+  "oneSentence": "Trace Top K Elements and Merge K Sorted Lists.",
+  "problems": {
+    "topK": {
+      "title": "Top K Elements \u2014 Dry Run",
+      "patternSubtype": "Min-Heap",
+      "story": "VIP bouncer throws out the smallest.",
+      "description": "Trace the Min-Heap keeping the Top K elements.",
+      "code": [
+        "public int findKthLargest(int[] nums, int k) {",
+        "    PriorityQueue<Integer> minHeap = new PriorityQueue<>();",
+        "    for (int num : nums) {",
+        "        minHeap.offer(num);",
+        "        if (minHeap.size() > k) {",
+        "            minHeap.poll();",
+        "        }",
+        "    }",
+        "    return minHeap.peek();",
+        "}"
+      ],
+      "array": [
+        3,
+        2,
+        1,
+        5,
+        6,
+        4
+      ],
+      "target": 2,
+      "steps": [
+        {
+          "line": 1,
+          "desc": "Initialize Min-Heap.",
+          "left": -1,
+          "right": -1
+        },
+        {
+          "line": 3,
+          "desc": "Offer 3 to heap.",
+          "left": 0,
+          "right": -1
+        },
+        {
+          "line": 3,
+          "desc": "Offer 2 to heap.",
+          "left": 1,
+          "right": -1
+        },
+        {
+          "line": 3,
+          "desc": "Offer 1 to heap. Size is 3 > 2.",
+          "left": 2,
+          "right": -1
+        },
+        {
+          "line": 5,
+          "desc": "Poll from heap (removes 1).",
+          "left": 2,
+          "right": -1
+        }
+      ]
+    }
+  }
+}

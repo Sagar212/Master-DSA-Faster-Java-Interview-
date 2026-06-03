@@ -1,0 +1,357 @@
+{
+  "id": 11,
+  "title": "Arrays & HashMap — Dry Run & Recall",
+  "patternType": "hashmap",
+  "category": "Arrays & HashMap",
+  "oneSentence": "Trace Two Sum, Group Anagrams, Valid Sudoku, and Subarray Sum Equals K step-by-step.",
+  "problems": {
+    "twoSum": {
+      "title": "Two Sum",
+      "patternSubtype": "HashMap Complement Lookup",
+      "description": "Find two numbers that add up to target. Return their indices.",
+      "story": "Guest book at a party. Check if your dance partner already signed in, if not, sign yourself.",
+      "array": [2, 7, 11, 15],
+      "target": 9,
+      "code": [
+        "public static int[] solve(int[] nums, int target) {",
+        "    // STEP 1 — INIT: Create guest book (HashMap)",
+        "    Map<Integer, Integer> guestBook = new HashMap<>();",
+        "",
+        "    // STEP 2 — LOOP: Go through each guest at the party",
+        "    for (int i = 0; i < nums.length; i++) {",
+        "        int need = target - nums[i];",
+        "",
+        "        // STEP 3 — CHECK: Has my dance partner already signed in?",
+        "        if (guestBook.containsKey(need)) {",
+        "            return new int[] { guestBook.get(need), i };",
+        "        }",
+        "",
+        "        // STEP 4 — STORE: Sign myself into the guest book",
+        "        guestBook.put(nums[i], i);",
+        "    }",
+        "",
+        "    return new int[] {};",
+        "}"
+      ],
+      "steps": [
+        {
+          "left": -1,
+          "right": -1,
+          "line": 1,
+          "desc": "Init: Create empty HashMap (guest book). guestBook = {}."
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 5,
+          "desc": "i=0, nums[0]=2. need = 9 - 2 = 7."
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 6,
+          "desc": "Check guestBook for 7 → NOT found. No dance partner yet."
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 10,
+          "desc": "Store nums[0]=2 → index 0 in guestBook. guestBook = {2:0}."
+        },
+        {
+          "left": 1,
+          "right": -1,
+          "line": 5,
+          "desc": "i=1, nums[1]=7. need = 9 - 7 = 2."
+        },
+        {
+          "left": 1,
+          "right": 0,
+          "line": 7,
+          "desc": "Check guestBook for 2 → FOUND at index 0! Dance partner found! Return [0, 1]."
+        }
+      ],
+      "quiz": [
+        {
+          "q": "Why do we store AFTER checking in Two Sum?",
+          "options": [
+            "To prevent matching a number with itself (e.g., target=4, nums=[2,2] would wrongly match index 0 with index 0)",
+            "To save memory by only storing what's needed",
+            "Java HashMap requires sequential operations"
+          ],
+          "correct": 0,
+          "explain": "If we store first, then check, a single element could match itself as its own complement. By checking first, we ensure the complement was seen at a different index."
+        }
+      ]
+    },
+    "groupAnagrams": {
+      "title": "Group Anagrams",
+      "patternSubtype": "HashMap Fingerprint Grouping",
+      "description": "Group words that are anagrams of each other using sorted-key fingerprinting.",
+      "story": "Filing cabinet. Sort each word to create a fingerprint (key). File the word into the matching drawer.",
+      "array": ["eat", "tea", "tan", "ate", "nat", "bat"],
+      "code": [
+        "public static List<List<String>> solve(String[] strs) {",
+        "    // STEP 1 — INIT: Create the filing cabinet (HashMap)",
+        "    Map<String, List<String>> groups = new HashMap<>();",
+        "",
+        "    // STEP 2 — LOOP: Go through each word in the pile",
+        "    for (String word : strs) {",
+        "",
+        "        // STEP 3 — FINGERPRINT: Sort the letters to create a unique key",
+        "        char[] chars = word.toCharArray();",
+        "        Arrays.sort(chars);",
+        "        String fingerprint = new String(chars);",
+        "",
+        "        // STEP 4 — STORE: File into the correct drawer",
+        "        if (!groups.containsKey(fingerprint)) {",
+        "            groups.put(fingerprint, new ArrayList<>());",
+        "        }",
+        "        groups.get(fingerprint).add(word);",
+        "    }",
+        "",
+        "    // STEP 5 — RETURN: Return all drawers as a list of lists",
+        "    return new ArrayList<>(groups.values());",
+        "}"
+      ],
+      "steps": [
+        {
+          "left": -1,
+          "right": -1,
+          "line": 1,
+          "desc": "Init: Create empty HashMap (filing cabinet). groups = {}."
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 7,
+          "desc": "word=\"eat\". Sort letters → fingerprint = \"aet\"."
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 13,
+          "desc": "\"aet\" NOT in map → create new drawer. Add \"eat\". groups = {\"aet\": [\"eat\"]}."
+        },
+        {
+          "left": 1,
+          "right": -1,
+          "line": 7,
+          "desc": "word=\"tea\". Sort letters → fingerprint = \"aet\"."
+        },
+        {
+          "left": 1,
+          "right": -1,
+          "line": 15,
+          "desc": "\"aet\" ALREADY in map! Add \"tea\" to same drawer. groups = {\"aet\": [\"eat\", \"tea\"]}."
+        },
+        {
+          "left": 2,
+          "right": -1,
+          "line": 7,
+          "desc": "word=\"tan\". Sort letters → fingerprint = \"ant\"."
+        },
+        {
+          "left": 2,
+          "right": -1,
+          "line": 13,
+          "desc": "\"ant\" NOT in map → create new drawer. Add \"tan\". groups = {\"aet\": [\"eat\", \"tea\"], \"ant\": [\"tan\"]}."
+        },
+        {
+          "left": 3,
+          "right": -1,
+          "line": 7,
+          "desc": "word=\"ate\". Sort letters → fingerprint = \"aet\"."
+        },
+        {
+          "left": 3,
+          "right": -1,
+          "line": 15,
+          "desc": "\"aet\" ALREADY in map! Add \"ate\". Result: {\"aet\": [\"eat\", \"tea\", \"ate\"], \"ant\": [\"tan\"]}."
+        }
+      ],
+      "quiz": [
+        {
+          "q": "Why do we sort each word's characters before using it as a HashMap key?",
+          "options": [
+            "Anagrams have the same characters in different order — sorting normalizes them to the same key",
+            "Sorting makes the words alphabetically ordered in the output",
+            "HashMap requires sorted keys to work correctly"
+          ],
+          "correct": 0,
+          "explain": "Anagrams contain the exact same characters, just rearranged. Sorting each word gives all anagrams the same 'fingerprint', allowing us to group them under one HashMap key."
+        }
+      ]
+    },
+    "validSudoku": {
+      "title": "Valid Sudoku",
+      "patternSubtype": "HashSet Duplicate Detection",
+      "description": "Determine if a 9×9 Sudoku board is valid using HashSets for rows, columns, and boxes.",
+      "story": "Hotel check-in. 3 guest books (row, col, box). If a name appears in ANY book already → invalid!",
+      "array": [5, 3, ".", ".", 7, ".", ".", ".", "."],
+      "code": [
+        "public static boolean solve(char[][] board) {",
+        "    // STEP 1 — INIT: Create 3 sets of guest books",
+        "    Set<Character>[] rows = new HashSet[9];",
+        "    Set<Character>[] cols = new HashSet[9];",
+        "    Set<Character>[] boxes = new HashSet[9];",
+        "    for (int i = 0; i < 9; i++) {",
+        "        rows[i] = new HashSet<>();",
+        "        cols[i] = new HashSet<>();",
+        "        boxes[i] = new HashSet<>();",
+        "    }",
+        "",
+        "    // STEP 2 — LOOP: Check in each guest (cell)",
+        "    for (int row = 0; row < 9; row++) {",
+        "        for (int col = 0; col < 9; col++) {",
+        "            char num = board[row][col];",
+        "",
+        "            // STEP 3 — SKIP: Empty cells",
+        "            if (num == '.') continue;",
+        "",
+        "            // STEP 4 — BOX INDEX",
+        "            int boxIndex = (row / 3) * 3 + (col / 3);",
+        "",
+        "            // STEP 5 — CHECK: Duplicate in any guest book?",
+        "            if (rows[row].contains(num) || cols[col].contains(num) || boxes[boxIndex].contains(num)) {",
+        "                return false;",
+        "            }",
+        "",
+        "            // STEP 6 — STORE: Register in all 3 books",
+        "            rows[row].add(num);",
+        "            cols[col].add(num);",
+        "            boxes[boxIndex].add(num);",
+        "        }",
+        "    }",
+        "",
+        "    // STEP 7 — RETURN: No duplicates",
+        "    return true;",
+        "}"
+      ],
+      "steps": [
+        {
+          "left": -1,
+          "right": -1,
+          "line": 1,
+          "desc": "Init: Create 3 arrays of 9 HashSets each — rows[], cols[], boxes[]. All empty."
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 21,
+          "desc": "Cell (0,0)='5'. boxIndex = (0/3)*3 + (0/3) = 0. Check rows[0], cols[0], boxes[0] — all empty. Add '5' to all three."
+        },
+        {
+          "left": 1,
+          "right": -1,
+          "line": 21,
+          "desc": "Cell (0,1)='3'. boxIndex = (0/3)*3 + (1/3) = 0. Check rows[0], cols[1], boxes[0] — no duplicate. Add '3' to all three."
+        },
+        {
+          "left": 2,
+          "right": -1,
+          "line": 16,
+          "desc": "Cell (0,2)='.'. Skip empty cell — continue to next."
+        },
+        {
+          "left": 4,
+          "right": -1,
+          "line": 21,
+          "desc": "Cell (0,4)='7'. boxIndex = (0/3)*3 + (4/3) = 1. Check rows[0], cols[4], boxes[1] — no duplicate. Add '7' to all three."
+        }
+      ],
+      "quiz": [
+        {
+          "q": "What is the formula to determine which 3×3 box a cell at (row, col) belongs to?",
+          "options": [
+            "row * 3 + col",
+            "(row / 3) * 3 + (col / 3)",
+            "row % 3 + col % 3"
+          ],
+          "correct": 1,
+          "explain": "Integer division row/3 gives the box row (0,1,2) and col/3 gives the box column. Multiplying box-row by 3 and adding box-column maps all 9 boxes to unique indices 0-8."
+        }
+      ]
+    },
+    "subarraySum": {
+      "title": "Subarray Sum Equals K",
+      "patternSubtype": "HashMap Prefix Sum",
+      "description": "Count continuous subarrays whose sum equals K using prefix sum + HashMap.",
+      "story": "Walking a road tracking distance. At each point, check: 'Was there a past milestone where the gap to here = K?'",
+      "array": [1, 1, 1],
+      "target": 2,
+      "code": [
+        "public static int solve(int[] nums, int k) {",
+        "    int count = 0;",
+        "    int runningSum = 0;",
+        "",
+        "    // STEP 1 — INIT: Create logbook of prefix sums",
+        "    Map<Integer, Integer> logbook = new HashMap<>();",
+        "",
+        "    // STEP 2 — SEED: Distance 0 happened 1 time",
+        "    logbook.put(0, 1);",
+        "",
+        "    // STEP 3 — LOOP: Walk the road",
+        "    for (int num : nums) {",
+        "        runningSum += num;",
+        "",
+        "        // STEP 4 — CHECK: Gap = runningSum - k. In logbook?",
+        "        if (logbook.containsKey(runningSum - k)) {",
+        "            count += logbook.get(runningSum - k);",
+        "        }",
+        "",
+        "        // STEP 5 — STORE: Record this milestone",
+        "        logbook.put(runningSum, logbook.getOrDefault(runningSum, 0) + 1);",
+        "    }",
+        "",
+        "    // STEP 6 — RETURN",
+        "    return count;",
+        "}"
+      ],
+      "steps": [
+        {
+          "left": -1,
+          "right": -1,
+          "line": 4,
+          "desc": "Init: Create logbook HashMap. Seed with {0: 1} — distance 0 happened once."
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 11,
+          "desc": "num=1, runningSum = 0+1 = 1. Check logbook for 1-2 = -1 → NOT found. count stays 0. Store: logbook = {0:1, 1:1}."
+        },
+        {
+          "left": 1,
+          "right": -1,
+          "line": 14,
+          "desc": "num=1, runningSum = 1+1 = 2. Check logbook for 2-2 = 0 → FOUND (1 time)! count = 0+1 = 1. Store: logbook = {0:1, 1:1, 2:1}."
+        },
+        {
+          "left": 2,
+          "right": -1,
+          "line": 14,
+          "desc": "num=1, runningSum = 2+1 = 3. Check logbook for 3-2 = 1 → FOUND (1 time)! count = 1+1 = 2. Store: logbook = {0:1, 1:1, 2:1, 3:1}."
+        },
+        {
+          "left": 2,
+          "right": -1,
+          "line": 20,
+          "desc": "Loop complete. Return count = 2. Two subarrays sum to K=2: [1,1] starting at index 0 and [1,1] starting at index 1."
+        }
+      ],
+      "quiz": [
+        {
+          "q": "Why must we seed the logbook with (0, 1) before starting the loop?",
+          "options": [
+            "So that subarrays starting from index 0 whose sum equals K are counted (runningSum - K = 0 must exist)",
+            "To prevent NullPointerException",
+            "HashMap requires at least one entry to function"
+          ],
+          "correct": 0,
+          "explain": "If the running sum at some index equals exactly K, then runningSum - K = 0. Without seeding 0 in the map, we'd miss subarrays that start at the very beginning of the array."
+        }
+      ]
+    }
+  }
+}

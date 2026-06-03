@@ -1,0 +1,161 @@
+{
+  "id": 21,
+  "title": "Tree (DFS/BFS) — Active Recall",
+  "patternType": "tr",
+  "category": "Trees",
+  "oneSentence": "Reconstruct Max Depth, Invert Tree, Level Order, and LCA from scratch.",
+  "problems": {
+    "maxDepth": {
+      "title": "Maximum Depth of Binary Tree",
+      "description": "Given the root of a binary tree, return its maximum depth.",
+      "story": "Find the deepest node in the tree.",
+      "patternSubtype": "DFS",
+      "hints": [
+        {
+          "id": "1",
+          "text": "Base case is an empty node returning 0."
+        },
+        {
+          "id": "2",
+          "text": "Recursively find the depth of left and right subtrees."
+        }
+      ],
+      "template": [
+        "class Solution {",
+        "    public int maxDepth(TreeNode root) {",
+        "        // STEP 1 - BASE CASE",
+        "        [[if (root == null) return 0;]]",
+        "        ",
+        "        // STEP 2 - DIVIDE",
+        "        int left = [[maxDepth(root.left);]]",
+        "        int right = [[maxDepth(root.right);]]",
+        "        ",
+        "        // STEP 3 - CONQUER",
+        "        return [[1 + Math.max(left, right);]]",
+        "    }",
+        "}"
+      ]
+    },
+    "invertTree": {
+      "title": "Invert Binary Tree",
+      "description": "Given the root of a binary tree, invert the tree, and return its root.",
+      "story": "Swap left and right children for all nodes.",
+      "patternSubtype": "DFS",
+      "hints": [
+        {
+          "id": "1",
+          "text": "Base case is an empty node."
+        },
+        {
+          "id": "2",
+          "text": "Swap the left and right pointers."
+        },
+        {
+          "id": "3",
+          "text": "Recursively invert the left and right subtrees."
+        }
+      ],
+      "template": [
+        "class Solution {",
+        "    public TreeNode invertTree(TreeNode root) {",
+        "        // STEP 1 - BASE CASE",
+        "        [[if (root == null) return null;]]",
+        "        ",
+        "        // STEP 2 - SWAP",
+        "        TreeNode temp = [[root.left;]]",
+        "        [[root.left = root.right;]]",
+        "        [[root.right = temp;]]",
+        "        ",
+        "        // STEP 3 - RECURSE",
+        "        [[invertTree(root.left);]]",
+        "        [[invertTree(root.right);]]",
+        "        ",
+        "        return root;",
+        "    }",
+        "}"
+      ]
+    },
+    "levelOrder": {
+      "title": "Binary Tree Level Order Traversal",
+      "description": "Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).",
+      "story": "Traverse the tree layer by layer using a Queue.",
+      "patternSubtype": "BFS",
+      "hints": [
+        {
+          "id": "1",
+          "text": "Use a Queue initialized with the root node."
+        },
+        {
+          "id": "2",
+          "text": "Process nodes level by level using a for loop based on queue size."
+        }
+      ],
+      "template": [
+        "class Solution {",
+        "    public List<List<Integer>> levelOrder(TreeNode root) {",
+        "        List<List<Integer>> res = new ArrayList<>();",
+        "        if (root == null) return res;",
+        "        ",
+        "        // STEP 1 - INITIALIZE QUEUE",
+        "        Queue<TreeNode> q = [[new LinkedList<>();]]",
+        "        [[q.offer(root);]]",
+        "        ",
+        "        // STEP 2 - BFS LOOP",
+        "        while ([[!q.isEmpty()]]) {",
+        "            int size = [[q.size();]]",
+        "            List<Integer> level = new ArrayList<>();",
+        "            ",
+        "            // STEP 3 - PROCESS LEVEL",
+        "            for (int i = 0; i < size; i++) {",
+        "                TreeNode curr = [[q.poll();]]",
+        "                [[level.add(curr.val);]]",
+        "                ",
+        "                // STEP 4 - ADD CHILDREN",
+        "                if ([[curr.left != null]]) [[q.offer(curr.left);]]",
+        "                if ([[curr.right != null]]) [[q.offer(curr.right);]]",
+        "            }",
+        "            [[res.add(level);]]",
+        "        }",
+        "        return res;",
+        "    }",
+        "}"
+      ]
+    },
+    "lca": {
+      "title": "Lowest Common Ancestor of a Binary Search Tree",
+      "description": "Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.",
+      "story": "Use the BST property to find the split point.",
+      "patternSubtype": "DFS",
+      "hints": [
+        {
+          "id": "1",
+          "text": "If both p and q are greater than root, LCA is in right subtree."
+        },
+        {
+          "id": "2",
+          "text": "If both p and q are less than root, LCA is in left subtree."
+        },
+        {
+          "id": "3",
+          "text": "Otherwise, the current root is the LCA."
+        }
+      ],
+      "template": [
+        "class Solution {",
+        "    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {",
+        "        // STEP 1 - SEARCH RIGHT",
+        "        if ([[p.val > root.val && q.val > root.val]]) {",
+        "            return [[lowestCommonAncestor(root.right, p, q);]]",
+        "        }",
+        "        // STEP 2 - SEARCH LEFT",
+        "        if ([[p.val < root.val && q.val < root.val]]) {",
+        "            return [[lowestCommonAncestor(root.left, p, q);]]",
+        "        }",
+        "        // STEP 3 - FOUND SPLIT POINT",
+        "        return [[root;]]",
+        "    }",
+        "}"
+      ]
+    }
+  }
+}

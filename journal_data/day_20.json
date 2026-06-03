@@ -1,0 +1,209 @@
+{
+  "id": 20,
+  "title": "Tree (DFS/BFS) — Dry Run & Recall",
+  "patternType": "tr",
+  "category": "Trees",
+  "oneSentence": "Trace Invert Tree, Level Order Traversal, and Lowest Common Ancestor step-by-step.",
+  "problems": {
+    "invertTree": {
+      "title": "Invert Binary Tree",
+      "patternSubtype": "DFS Modification",
+      "description": "Given the root of a binary tree, invert the tree, and return its root.",
+      "story": "Mirror. For every node, swap its left and right child.",
+      "array": [
+        "root",
+        "left",
+        "right"
+      ],
+      "target": null,
+      "code": [
+        "public TreeNode invertTree(TreeNode root) {",
+        "    if (root == null) return null;",
+        "    TreeNode temp = root.left;",
+        "    root.left = root.right;",
+        "    root.right = temp;",
+        "    invertTree(root.left);",
+        "    invertTree(root.right);",
+        "    return root;",
+        "}"
+      ],
+      "steps": [
+        {
+          "left": 0,
+          "right": -1,
+          "line": 1,
+          "desc": "Check base case"
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 2,
+          "desc": "Store left child in temp"
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 3,
+          "desc": "Assign right child to left"
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 4,
+          "desc": "Assign temp (original left) to right"
+        }
+      ],
+      "quiz": [
+        {
+          "q": "Why do we use a temp variable?",
+          "options": [
+            "To avoid losing the left child reference when we overwrite it",
+            "For performance",
+            "Java requires it"
+          ],
+          "correct": 0,
+          "explain": "Standard swap operation requires a temporary holding variable."
+        }
+      ]
+    },
+    "levelOrder": {
+      "title": "Binary Tree Level Order Traversal",
+      "patternSubtype": "BFS",
+      "description": "Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).",
+      "story": "Queue it up. Process nodes level by level using a queue.",
+      "array": [
+        3,
+        9,
+        20,
+        "null",
+        "null",
+        15,
+        7
+      ],
+      "target": null,
+      "code": [
+        "public List<List<Integer>> levelOrder(TreeNode root) {",
+        "    List<List<Integer>> result = new ArrayList<>();",
+        "    if (root == null) return result;",
+        "    Queue<TreeNode> queue = new LinkedList<>();",
+        "    queue.offer(root);",
+        "    while (!queue.isEmpty()) {",
+        "        int levelSize = queue.size();",
+        "        List<Integer> currentLevel = new ArrayList<>();",
+        "        for (int i = 0; i < levelSize; i++) {",
+        "            TreeNode node = queue.poll();",
+        "            currentLevel.add(node.val);",
+        "            if (node.left != null) queue.offer(node.left);",
+        "            if (node.right != null) queue.offer(node.right);",
+        "        }",
+        "        result.add(currentLevel);",
+        "    }",
+        "    return result;",
+        "}"
+      ],
+      "steps": [
+        {
+          "left": 0,
+          "right": -1,
+          "line": 2,
+          "desc": "Check if root is null"
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 3,
+          "desc": "Initialize Queue and add root"
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 6,
+          "desc": "Get current level size"
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 9,
+          "desc": "Process node and add to current level"
+        }
+      ],
+      "quiz": [
+        {
+          "q": "Why do we use a Queue for BFS?",
+          "options": [
+            "It processes nodes in Last-In-First-Out order",
+            "It processes nodes in First-In-First-Out order, preserving level sequence",
+            "It uses less memory than a Stack"
+          ],
+          "correct": 1,
+          "explain": "A Queue operates FIFO, which ensures nodes are processed level by level in the order they were discovered."
+        }
+      ]
+    },
+    "lca": {
+      "title": "Lowest Common Ancestor of a BST",
+      "patternSubtype": "BST Traversal",
+      "description": "Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.",
+      "story": "Split point. Find where p and q split paths, or one is the ancestor of the other.",
+      "array": [
+        6,
+        2,
+        8,
+        0,
+        4,
+        7,
+        9
+      ],
+      "target": null,
+      "code": [
+        "public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {",
+        "    if (p.val < root.val && q.val < root.val) {",
+        "        return lowestCommonAncestor(root.left, p, q);",
+        "    } else if (p.val > root.val && q.val > root.val) {",
+        "        return lowestCommonAncestor(root.right, p, q);",
+        "    } else {",
+        "        return root;",
+        "    }",
+        "}"
+      ],
+      "steps": [
+        {
+          "left": 0,
+          "right": -1,
+          "line": 1,
+          "desc": "Check if both p and q are in the left subtree"
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 3,
+          "desc": "Check if both p and q are in the right subtree"
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 5,
+          "desc": "Split point found, or one is root"
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 6,
+          "desc": "Return the current root as LCA"
+        }
+      ],
+      "quiz": [
+        {
+          "q": "How does the BST property help find the LCA?",
+          "options": [
+            "It guarantees the tree is balanced",
+            "It allows us to decide whether to search left or right by comparing values",
+            "It makes the nodes ordered by height"
+          ],
+          "correct": 1,
+          "explain": "In a BST, left children are smaller and right children are larger. This lets us easily trace the path down to p and q."
+        }
+      ]
+    }
+  }
+}
