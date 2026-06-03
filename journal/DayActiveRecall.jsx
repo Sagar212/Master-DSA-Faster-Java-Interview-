@@ -288,7 +288,8 @@ function DayActiveRecall({ dayData, onComplete, isCompleted, onBack }) {
           )}
 
           {/* Interactive Code Editor with Blanks */}
-          <div className="editor-wrapper">
+          <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+            <div className="editor-wrapper" style={{ flex: 1, minWidth: 0 }}>
             <div className="editor-header">
               <div className="editor-dots">
                 <div className="editor-dot dot-red"></div>
@@ -377,6 +378,33 @@ function DayActiveRecall({ dayData, onComplete, isCompleted, onBack }) {
             </div>
           </div>
 
+          
+            {showWordBank && (
+        <div className="word-bank-pane">
+          <div className="word-bank-header">
+            <span><i className="fa-solid fa-layer-group" style={{ marginRight: '6px', color: 'var(--text-muted)' }}></i> Word Bank</span>
+            <button className="word-bank-toggle" onClick={() => setShowWordBank(false)}>Hide</button>
+          </div>
+          <div style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: '1.4' }}>
+            Drag and drop these snippets into the blanks to save typing time.
+          </div>
+          <div className="word-bank-content">
+            {shuffledAnswers.map((ans, idx) => (
+              <div 
+                key={idx} 
+                className="draggable-pill"
+                draggable={true}
+                onDragStart={(e) => {
+                  e.dataTransfer.setData('text/plain', ans);
+                }}
+              >
+                {ans}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+          </div>
           {/* Skeleton Controls */}
           <div className="skeleton-controls">
             <button 
@@ -424,31 +452,7 @@ function DayActiveRecall({ dayData, onComplete, isCompleted, onBack }) {
         </div>
       </div>
 
-      {showWordBank && (
-        <div className="word-bank-pane">
-          <div className="word-bank-header">
-            <span><i className="fa-solid fa-layer-group" style={{ marginRight: '6px', color: 'var(--text-muted)' }}></i> Word Bank</span>
-            <button className="word-bank-toggle" onClick={() => setShowWordBank(false)}>Hide</button>
-          </div>
-          <div style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: '1.4' }}>
-            Drag and drop these snippets into the blanks to save typing time.
-          </div>
-          <div className="word-bank-content">
-            {shuffledAnswers.map((ans, idx) => (
-              <div 
-                key={idx} 
-                className="draggable-pill"
-                draggable={true}
-                onDragStart={(e) => {
-                  e.dataTransfer.setData('text/plain', ans);
-                }}
-              >
-                {ans}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      
     </div>
   );
 }
