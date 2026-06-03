@@ -1,0 +1,216 @@
+{
+  "id": 23,
+  "title": "Stack \u2014 Dry Run & Recall",
+  "patternType": "st",
+  "category": "Stack",
+  "problems": {
+    "validParentheses": {
+      "title": "Valid Parentheses",
+      "patternSubtype": "Stack Parsing",
+      "description": "Determine if input string is valid.",
+      "story": "Track expected closing brackets.",
+      "array": [
+        "(",
+        "[",
+        "]",
+        ")"
+      ],
+      "code": [
+        "public boolean isValid(String s) {",
+        "    Stack<Character> stack = new Stack<>();",
+        "    for (char c : s.toCharArray()) {",
+        "        if (c == '(') stack.push(')');",
+        "        else if (c == '{') stack.push('}');",
+        "        else if (c == '[') stack.push(']');",
+        "        else if (stack.isEmpty() || stack.pop() != c) return false;",
+        "    }",
+        "    return stack.isEmpty();",
+        "}"
+      ],
+      "steps": [
+        {
+          "left": -1,
+          "right": -1,
+          "line": 1,
+          "desc": "Init empty stack to track expected closing brackets."
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 3,
+          "desc": "c = '('. It is an open bracket, push expected ')' to stack. Stack: [')']"
+        },
+        {
+          "left": 1,
+          "right": -1,
+          "line": 5,
+          "desc": "c = '['. It is an open bracket, push expected ']' to stack. Stack: [')', ']']"
+        },
+        {
+          "left": 2,
+          "right": -1,
+          "line": 6,
+          "desc": "c = ']'. It is a closing bracket. Pop from stack (']') and compare. Matches! Stack: [')']"
+        },
+        {
+          "left": 3,
+          "right": -1,
+          "line": 6,
+          "desc": "c = ')'. It is a closing bracket. Pop from stack (')') and compare. Matches! Stack: []"
+        },
+        {
+          "left": -1,
+          "right": -1,
+          "line": 8,
+          "desc": "Loop ends. Return stack.isEmpty() -> true."
+        }
+      ],
+      "quiz": [
+        {
+          "q": "Why do we push the closing bracket instead of the open bracket?",
+          "options": [
+            "It makes the comparison step easier later",
+            "It saves memory",
+            "Java requires it"
+          ],
+          "correct": 0,
+          "explain": "Pushing the closing bracket means when we encounter a closing bracket in the string, we can simply pop and check for exact equality without needing an extra mapping logic."
+        }
+      ]
+    },
+    "dailyTemperatures": {
+      "title": "Daily Temperatures",
+      "patternSubtype": "Monotonic Stack",
+      "description": "Find next warmer temperature.",
+      "story": "Keep track of unresolved days.",
+      "array": [
+        73,
+        74,
+        75,
+        71,
+        69,
+        72,
+        76,
+        73
+      ],
+      "code": [
+        "public int[] dailyTemperatures(int[] temperatures) {",
+        "    int[] res = new int[temperatures.length];",
+        "    Stack<Integer> stack = new Stack<>();",
+        "    for (int i = 0; i < temperatures.length; i++) {",
+        "        while (!stack.isEmpty() && temperatures[i] > temperatures[stack.peek()]) {",
+        "            int prev = stack.pop();",
+        "            res[prev] = i - prev;",
+        "        }",
+        "        stack.push(i);",
+        "    }",
+        "    return res;",
+        "}"
+      ],
+      "steps": [
+        {
+          "left": -1,
+          "right": -1,
+          "line": 2,
+          "desc": "Init stack to hold indices of days waiting for a warmer temp."
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 8,
+          "desc": "i=0, temp=73. Stack is empty. Push index 0. Stack: [0]"
+        },
+        {
+          "left": 1,
+          "right": -1,
+          "line": 4,
+          "desc": "i=1, temp=74. 74 > temps[0] (73). We found a warmer day!"
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "line": 6,
+          "desc": "Pop 0. res[0] = 1 - 0 = 1. Stack: []"
+        },
+        {
+          "left": 1,
+          "right": -1,
+          "line": 8,
+          "desc": "Push index 1. Stack: [1]"
+        },
+        {
+          "left": 2,
+          "right": -1,
+          "line": 4,
+          "desc": "i=2, temp=75. 75 > temps[1] (74). Warmer day!"
+        },
+        {
+          "left": 1,
+          "right": 2,
+          "line": 6,
+          "desc": "Pop 1. res[1] = 2 - 1 = 1. Stack: []"
+        },
+        {
+          "left": 2,
+          "right": -1,
+          "line": 8,
+          "desc": "Push index 2. Stack: [2]"
+        },
+        {
+          "left": 3,
+          "right": -1,
+          "line": 8,
+          "desc": "i=3, temp=71. 71 is NOT > 75. Just push index 3. Stack: [2, 3]"
+        },
+        {
+          "left": 4,
+          "right": -1,
+          "line": 8,
+          "desc": "i=4, temp=69. 69 is NOT > 71. Push index 4. Stack: [2, 3, 4]"
+        },
+        {
+          "left": 5,
+          "right": -1,
+          "line": 4,
+          "desc": "i=5, temp=72. 72 > temps[4] (69)!"
+        },
+        {
+          "left": 4,
+          "right": 5,
+          "line": 6,
+          "desc": "Pop 4. res[4] = 5 - 4 = 1. Stack: [2, 3]"
+        },
+        {
+          "left": 5,
+          "right": -1,
+          "line": 4,
+          "desc": "Still at i=5. 72 > temps[3] (71)!"
+        },
+        {
+          "left": 3,
+          "right": 5,
+          "line": 6,
+          "desc": "Pop 3. res[3] = 5 - 3 = 2. Stack: [2]"
+        },
+        {
+          "left": 5,
+          "right": -1,
+          "line": 8,
+          "desc": "72 is NOT > 75. Push index 5. Stack: [2, 5]"
+        }
+      ],
+      "quiz": [
+        {
+          "q": "Why do we store indices in the stack instead of the temperatures themselves?",
+          "options": [
+            "Because we need the index to calculate the distance (days waited) to the next warmer temperature.",
+            "To save memory.",
+            "Because temperatures can be negative."
+          ],
+          "correct": 0,
+          "explain": "The problem asks for the NUMBER OF DAYS you have to wait. By storing the index, we can compute the difference `i - prev` to get the days. We can always look up the temperature using `temperatures[index]`."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "id": 22,
+  "title": "Stack \u2014 ROI & Pattern",
+  "patternType": "st",
+  "category": "Stack",
+  "oneSentence": "Use a LIFO structure to parse expressions or track previous states.",
+  "description": "Master the Stack pattern. Use it to reverse strings, evaluate expressions, or track state history.",
+  "roi": {
+    "frequency": "\u2b50\u2b50\u2b50\u2b50\u2b50",
+    "complexity": "Time: O(N) | Space: O(N)",
+    "dependsOn": "None",
+    "signals": "LIFO requirements, parsing nested structures (parentheses), tracking recent elements (Next Greater Element)."
+  },
+  "template": {
+    "filename": "Stack_Template.java",
+    "codeLines": [
+      {
+        "num": 1,
+        "text": "public class Stack_Template {"
+      },
+      {
+        "num": 2,
+        "text": "    public boolean solve(String s) {"
+      },
+      {
+        "num": 3,
+        "text": "        Stack<Character> stack = new Stack<>();"
+      },
+      {
+        "num": 4,
+        "text": "        for (char c : s.toCharArray()) {"
+      },
+      {
+        "num": 5,
+        "text": "            if (c == '(') stack.push(')');"
+      },
+      {
+        "num": 6,
+        "text": "            else if (stack.isEmpty() || stack.pop() != c) return false;"
+      },
+      {
+        "num": 7,
+        "text": "        }"
+      },
+      {
+        "num": 8,
+        "text": "        return stack.isEmpty();"
+      },
+      {
+        "num": 9,
+        "text": "    }"
+      },
+      {
+        "num": 10,
+        "text": "}"
+      }
+    ],
+    "traceSteps": [
+      {
+        "line": 3,
+        "title": "Init Stack",
+        "text": "Create an empty stack to track closing brackets."
+      }
+    ],
+    "sandbox": [
+      {
+        "step": "INIT",
+        "question": "Why use a stack?",
+        "options": [
+          "LIFO matches nested pairs",
+          "FIFO is faster"
+        ],
+        "correct": 0
+      }
+    ]
+  }
+}

@@ -1,0 +1,221 @@
+{
+  "id": 26,
+  "title": "Linked List \u2014 Dry Run & Recall",
+  "patternType": "ll",
+  "category": "Linked List",
+  "problems": {
+    "reverseList": {
+      "title": "Reverse Linked List",
+      "patternSubtype": "Pointer Manipulation",
+      "description": "Reverse a linked list.",
+      "story": "Turn the arrows around one by one.",
+      "array": [
+        1,
+        2,
+        3
+      ],
+      "code": [
+        "public ListNode reverseList(ListNode head) {",
+        "    ListNode prev = null;",
+        "    ListNode curr = head;",
+        "    while (curr != null) {",
+        "        ListNode nextTemp = curr.next;",
+        "        curr.next = prev;",
+        "        prev = curr;",
+        "        curr = nextTemp;",
+        "    }",
+        "    return prev;",
+        "}"
+      ],
+      "steps": [
+        {
+          "left": -1,
+          "right": -1,
+          "line": 1,
+          "desc": "Init prev = null, curr = node(1)."
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 4,
+          "desc": "curr is node(1). Save nextTemp = node(2)."
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 5,
+          "desc": "Reverse! node(1).next points to null."
+        },
+        {
+          "left": 0,
+          "right": -1,
+          "line": 6,
+          "desc": "Move prev = node(1)."
+        },
+        {
+          "left": -1,
+          "right": -1,
+          "line": 7,
+          "desc": "Move curr = node(2)."
+        },
+        {
+          "left": 1,
+          "right": -1,
+          "line": 4,
+          "desc": "curr is node(2). Save nextTemp = node(3)."
+        },
+        {
+          "left": 1,
+          "right": 0,
+          "line": 5,
+          "desc": "Reverse! node(2).next points to node(1)."
+        },
+        {
+          "left": 1,
+          "right": -1,
+          "line": 6,
+          "desc": "Move prev = node(2)."
+        },
+        {
+          "left": -1,
+          "right": -1,
+          "line": 7,
+          "desc": "Move curr = node(3)."
+        },
+        {
+          "left": 2,
+          "right": -1,
+          "line": 4,
+          "desc": "curr is node(3). Save nextTemp = null."
+        },
+        {
+          "left": 2,
+          "right": 1,
+          "line": 5,
+          "desc": "Reverse! node(3).next points to node(2)."
+        },
+        {
+          "left": 2,
+          "right": -1,
+          "line": 6,
+          "desc": "Move prev = node(3)."
+        },
+        {
+          "left": -1,
+          "right": -1,
+          "line": 7,
+          "desc": "Move curr = null. Loop ends."
+        },
+        {
+          "left": 2,
+          "right": -1,
+          "line": 9,
+          "desc": "Return prev, which is node(3) (the new head)."
+        }
+      ],
+      "quiz": [
+        {
+          "q": "What happens if we forget to update curr to nextTemp?",
+          "options": [
+            "Infinite loop",
+            "NullPointerException",
+            "The list remains unchanged"
+          ],
+          "correct": 0,
+          "explain": "If we don't advance `curr = nextTemp`, `curr` will never become null, and the while loop will run forever."
+        }
+      ]
+    },
+    "mergeTwoLists": {
+      "title": "Merge Two Sorted Lists",
+      "patternSubtype": "Dummy Node Pattern",
+      "description": "Merge two sorted lists.",
+      "story": "Zip them together.",
+      "array": [
+        1,
+        2,
+        4
+      ],
+      "code": [
+        "public ListNode mergeTwoLists(ListNode list1, ListNode list2) {",
+        "    ListNode dummy = new ListNode(-1);",
+        "    ListNode current = dummy;",
+        "    while (list1 != null && list2 != null) {",
+        "        if (list1.val <= list2.val) {",
+        "            current.next = list1;",
+        "            list1 = list1.next;",
+        "        } else {",
+        "            current.next = list2;",
+        "            list2 = list2.next;",
+        "        }",
+        "        current = current.next;",
+        "    }",
+        "    current.next = list1 != null ? list1 : list2;",
+        "    return dummy.next;",
+        "}"
+      ],
+      "steps": [
+        {
+          "left": -1,
+          "right": -1,
+          "line": 1,
+          "desc": "Create a dummy node to act as the head of the new merged list."
+        },
+        {
+          "left": 0,
+          "right": 0,
+          "line": 4,
+          "desc": "Compare list1 (1) and list2 (1). They are equal. Append list1."
+        },
+        {
+          "left": 0,
+          "right": 0,
+          "line": 6,
+          "desc": "Advance list1 to next node (2)."
+        },
+        {
+          "left": 1,
+          "right": 0,
+          "line": 4,
+          "desc": "Compare list1 (2) and list2 (1). list2 is smaller. Append list2."
+        },
+        {
+          "left": 1,
+          "right": 0,
+          "line": 9,
+          "desc": "Advance list2 to next node (3)."
+        },
+        {
+          "left": 1,
+          "right": 1,
+          "line": 4,
+          "desc": "Compare list1 (2) and list2 (3). list1 is smaller. Append list1."
+        },
+        {
+          "left": 1,
+          "right": 1,
+          "line": 6,
+          "desc": "Advance list1 to next node (4)."
+        },
+        {
+          "left": -1,
+          "right": -1,
+          "line": 13,
+          "desc": "Loop continues... finally, attach any remaining nodes from the non-empty list."
+        }
+      ],
+      "quiz": [
+        {
+          "q": "What is the purpose of the dummy node?",
+          "options": [
+            "It simplifies edge cases when inserting the very first node, avoiding a lot of null checks.",
+            "It reduces time complexity to O(log N).",
+            "It prevents garbage collection."
+          ],
+          "correct": 0,
+          "explain": "Without a dummy node, we would need special if-logic to initialize the head of the merged list on the first iteration. A dummy node gives `current` an initial object to point `next` to immediately."
+        }
+      ]
+    }
+  }
+}

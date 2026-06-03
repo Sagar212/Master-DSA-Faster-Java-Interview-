@@ -1,0 +1,44 @@
+{
+  "id": 24,
+  "title": "Stack \u2014 Active Recall Skeletons",
+  "patternType": "st",
+  "category": "Stack",
+  "problems": {
+    "validParentheses": {
+      "title": "Valid Parentheses",
+      "patternSubtype": "Stack Parsing",
+      "story": "Track expected closing brackets.",
+      "template": [
+        "public boolean isValid(String s) {",
+        "    Stack<Character> stack = new [[Stack<>()]];",
+        "    for (char c : s.toCharArray()) {",
+        "        if (c == '(') stack.push([[')']]);",
+        "        else if (c == '{') stack.push([['}']]);",
+        "        else if (c == '[') stack.push([[']']]);",
+        "        else if ([[stack.isEmpty()]] || stack.pop() != [[c]]) return false;",
+        "    }",
+        "    return [[stack.isEmpty()]];",
+        "}"
+      ]
+    },
+    "dailyTemperatures": {
+      "title": "Daily Temperatures",
+      "patternSubtype": "Monotonic Stack",
+      "story": "Keep track of unresolved days using their indices.",
+      "template": [
+        "public int[] dailyTemperatures(int[] temperatures) {",
+        "    int[] res = new int[temperatures.length];",
+        "    Stack<Integer> stack = new Stack<>();",
+        "    for (int i = 0; i < temperatures.length; i++) {",
+        "        while (!stack.isEmpty() && temperatures[i] > temperatures[[[stack.peek()]]]) {",
+        "            int prev = [[stack.pop()]];",
+        "            res[prev] = [[i - prev]];",
+        "        }",
+        "        stack.push([[i]]);",
+        "    }",
+        "    return [[res]];",
+        "}"
+      ]
+    }
+  }
+}

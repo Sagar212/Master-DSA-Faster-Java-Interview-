@@ -1,0 +1,115 @@
+{
+  "id": 25,
+  "title": "Linked List \u2014 ROI & Pattern",
+  "patternType": "ll",
+  "category": "Linked List",
+  "oneSentence": "Manipulate node pointers directly to reverse or merge structures.",
+  "description": "Master pointer manipulation. Tracing the Reverse Linked List pattern is essential.",
+  "roi": {
+    "frequency": "\u2b50\u2b50\u2b50\u2b50\u2b50",
+    "complexity": "Time: O(N) | Space: O(1)",
+    "dependsOn": "Pointers",
+    "signals": "Node connections, reversing flow, merging lists, cycle detection."
+  },
+  "template": {
+    "filename": "ReverseLinkedList.java",
+    "codeLines": [
+      {
+        "num": 1,
+        "text": "public class ReverseLinkedList {"
+      },
+      {
+        "num": 2,
+        "text": "    public ListNode reverseList(ListNode head) {"
+      },
+      {
+        "num": 3,
+        "text": "        ListNode prev = null;"
+      },
+      {
+        "num": 4,
+        "text": "        ListNode curr = head;"
+      },
+      {
+        "num": 5,
+        "text": "        while (curr != null) {"
+      },
+      {
+        "num": 6,
+        "text": "            ListNode nextTemp = curr.next; // 1. SAVE the rest of the list"
+      },
+      {
+        "num": 7,
+        "text": "            curr.next = prev;              // 2. REVERSE the pointer"
+      },
+      {
+        "num": 8,
+        "text": "            prev = curr;                   // 3. MOVE prev forward"
+      },
+      {
+        "num": 9,
+        "text": "            curr = nextTemp;               // 4. MOVE curr forward"
+      },
+      {
+        "num": 10,
+        "text": "        }"
+      },
+      {
+        "num": 11,
+        "text": "        return prev;"
+      },
+      {
+        "num": 12,
+        "text": "    }"
+      },
+      {
+        "num": 13,
+        "text": "}"
+      }
+    ],
+    "traceSteps": [
+      {
+        "line": 3,
+        "title": "Init Pointers",
+        "text": "Create 'prev' initialized to null, and 'curr' initialized to head."
+      },
+      {
+        "line": 6,
+        "title": "Save Next",
+        "text": "Temporarily save curr.next so we don't lose the rest of the list when we rewrite the pointer."
+      },
+      {
+        "line": 7,
+        "title": "Reverse Arrow",
+        "text": "Point curr's next arrow backwards towards prev."
+      },
+      {
+        "line": 8,
+        "title": "Advance Prev",
+        "text": "Slide the prev pointer forward to where curr is currently sitting."
+      },
+      {
+        "line": 9,
+        "title": "Advance Curr",
+        "text": "Slide the curr pointer forward to the saved nextTemp node."
+      },
+      {
+        "line": 11,
+        "title": "Return",
+        "text": "When curr reaches null, prev will be sitting on the new head of the reversed list."
+      }
+    ],
+    "sandbox": [
+      {
+        "step": "INIT",
+        "question": "Why do we need to save curr.next in a temporary variable?",
+        "options": [
+          "Because in the very next step, we overwrite curr.next to point backwards. If we didn't save it, we would lose access to the rest of the list.",
+          "To make the algorithm run in O(1) time.",
+          "It is required by Java garbage collection."
+        ],
+        "correct": 0
+      }
+    ]
+  }
+}

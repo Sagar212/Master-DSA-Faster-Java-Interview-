@@ -145,5 +145,47 @@
     "patternType": "tr",
     "category": "Trees",
     "oneSentence": "Fill in the blank active recall templates for Tree problems."
+  },
+  {
+    "id": 22,
+    "title": "Stack \u2014 ROI & Pattern",
+    "patternType": "st",
+    "category": "Stack",
+    "oneSentence": "Use a LIFO structure to parse expressions or track previous states."
+  },
+  {
+    "id": 23,
+    "title": "Stack \u2014 Dry Run & Recall",
+    "patternType": "st",
+    "category": "Stack",
+    "oneSentence": "Trace Valid Parentheses and Daily Temperatures."
+  },
+  {
+    "id": 24,
+    "title": "Stack \u2014 Active Recall Skeletons",
+    "patternType": "st",
+    "category": "Stack",
+    "oneSentence": "Fill in the blank templates for Stack problems."
+  },
+  {
+    "id": 25,
+    "title": "Linked List \u2014 ROI & Pattern",
+    "patternType": "ll",
+    "category": "Linked List",
+    "oneSentence": "Manipulate node pointers directly to reverse or merge structures."
+  },
+  {
+    "id": 26,
+    "title": "Linked List \u2014 Dry Run & Recall",
+    "patternType": "ll",
+    "category": "Linked List",
+    "oneSentence": "Trace Reverse Linked List and Merge Two Sorted Lists."
+  },
+  {
+    "id": 27,
+    "title": "Linked List \u2014 Active Recall Skeletons",
+    "patternType": "ll",
+    "category": "Linked List",
+    "oneSentence": "Fill in the blank templates for Linked List problems."
   }
 ]

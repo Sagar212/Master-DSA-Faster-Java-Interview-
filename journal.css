@@ -1547,3 +1547,41 @@
 .day-num.hashmap { color: var(--hm-primary); }
 .day-num.heap { color: var(--hp-primary); }
 .day-num.backtrack { color: var(--bt-primary); }
+
+/* Phase 1 New Themes */
+:root {
+  --st-primary: #6366f1;
+  --st-glow: rgba(99, 102, 241, 0.1);
+  --ll-primary: #14b8a6;
+  --ll-glow: rgba(20, 184, 166, 0.1);
+}
+.day-num.st { color: var(--st-primary); }
+.day-num.ll { color: var(--ll-primary); }
+.dash-day-icon.st { background: var(--st-glow); color: var(--st-primary); }
+.dash-day-icon.ll { background: var(--ll-glow); color: var(--ll-primary); }
+.dash-day-card.st-card .action-link { color: var(--st-primary); }
+.dash-day-card.ll-card .action-link { color: var(--ll-primary); }
+.day-card.active-st { background: rgba(99, 102, 241, 0.06); border-color: rgba(99, 102, 241, 0.3); box-shadow: 0 4px 20px rgba(99, 102, 241, 0.08); }
+.day-card.active-st::after { background: var(--st-primary); }
+.day-card.active-ll { background: rgba(20, 184, 166, 0.06); border-color: rgba(20, 184, 166, 0.3); box-shadow: 0 4px 20px rgba(20, 184, 166, 0.08); }
+.day-card.active-ll::after { background: var(--ll-primary); }
+.pass-btn.active.st { background: var(--st-primary); color: white; }
+.pass-btn.active.ll { background: var(--ll-primary); color: white; }
+.roi-icon-container.st { background: var(--st-glow); color: var(--st-primary); border: 1px solid rgba(99, 102, 241, 0.2); }
+.roi-icon-container.ll { background: var(--ll-glow); color: var(--ll-primary); border: 1px solid rgba(20, 184, 166, 0.2); }
+.step-explain-box.st i { color: var(--st-primary); }
+.step-explain-box.ll i { color: var(--ll-primary); }
+.sandbox-step-card.st h4 { color: var(--st-primary); }
+.sandbox-step-card.ll h4 { color: var(--ll-primary); }
+.prob-tab.active.st { color: var(--st-primary); }
+.prob-tab.active.st::after { background: var(--st-primary); }
+.prob-tab.active.ll { color: var(--ll-primary); }
+.prob-tab.active.ll::after { background: var(--ll-primary); }
+.quiz-option.selected.st { border-color: var(--st-primary); background: var(--st-glow); }
+.quiz-option.selected.ll { border-color: var(--ll-primary); background: var(--ll-glow); }
+.story-banner.st { background: var(--st-glow); border-left: 3px solid var(--st-primary); }
+.story-banner.st i { color: var(--st-primary); }
+.leetcode-card.st { border-left: 3px solid var(--st-primary); background: var(--st-glow); }
+.story-banner.ll { background: var(--ll-glow); border-left: 3px solid var(--ll-primary); }
+.story-banner.ll i { color: var(--ll-primary); }
+.leetcode-card.ll { border-left: 3px solid var(--ll-primary); background: var(--ll-glow); }

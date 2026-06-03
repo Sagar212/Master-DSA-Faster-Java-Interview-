@@ -1,0 +1,49 @@
+{
+  "id": 27,
+  "title": "Linked List \u2014 Active Recall Skeletons",
+  "patternType": "ll",
+  "category": "Linked List",
+  "problems": {
+    "reverseList": {
+      "title": "Reverse Linked List",
+      "patternSubtype": "Pointer Manipulation",
+      "story": "Turn the arrows around one by one.",
+      "template": [
+        "public ListNode reverseList(ListNode head) {",
+        "    ListNode prev = [[null]];",
+        "    ListNode curr = [[head]];",
+        "    while ([[curr != null]]) {",
+        "        ListNode nextTemp = [[curr.next]];",
+        "        curr.next = [[prev]];",
+        "        prev = [[curr]];",
+        "        curr = [[nextTemp]];",
+        "    }",
+        "    return [[prev]];",
+        "}"
+      ]
+    },
+    "mergeTwoLists": {
+      "title": "Merge Two Sorted Lists",
+      "patternSubtype": "Dummy Node Pattern",
+      "story": "Zip them together using a dummy head.",
+      "template": [
+        "public ListNode mergeTwoLists(ListNode list1, ListNode list2) {",
+        "    ListNode dummy = new ListNode([[-1]]);",
+        "    ListNode current = [[dummy]];",
+        "    while (list1 != null && [[list2 != null]]) {",
+        "        if ([[list1.val <= list2.val]]) {",
+        "            current.next = [[list1]];",
+        "            list1 = [[list1.next]];",
+        "        } else {",
+        "            current.next = [[list2]];",
+        "            list2 = [[list2.next]];",
+        "        }",
+        "        current = [[current.next]];",
+        "    }",
+        "    current.next = [[list1 != null ? list1 : list2]];",
+        "    return [[dummy.next]];",
+        "}"
+      ]
+    }
+  }
+}

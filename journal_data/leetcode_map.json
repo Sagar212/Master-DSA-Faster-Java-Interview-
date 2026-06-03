@@ -380,5 +380,83 @@
       "p != q",
       "p and q will exist in the BST."
     ]
+  },
+  "topK": {
+    "id": "347",
+    "title": "Top K Frequent Elements",
+    "url": "https://leetcode.com/problems/top-k-frequent-elements/",
+    "desc": "Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.",
+    "example": {
+      "input": "nums = [1,1,1,2,2,3], k = 2",
+      "output": "[1,2]",
+      "explanation": "1 occurs 3 times and 2 occurs 2 times, so they are the top 2 frequent elements."
+    },
+    "constraints": [
+      "1 <= nums.length <= 10^5",
+      "-10^4 <= nums[i] <= 10^4",
+      "k is in the range [1, the number of unique elements in the array].",
+      "It is guaranteed that the answer is unique."
+    ]
+  },
+  "validParentheses": {
+    "id": "20",
+    "title": "Valid Parentheses",
+    "url": "https://leetcode.com/problems/valid-parentheses/",
+    "desc": "Given a string s containing just the characters \"(\", \")\", \"{\", \"}\", \"[\" and \"]\", determine if the input string is valid.",
+    "example": {
+      "input": "s = \"()[]{}\"",
+      "output": "true",
+      "explanation": "The string contains valid matching brackets in correct order."
+    },
+    "constraints": [
+      "1 <= s.length <= 10^4",
+      "s consists of parentheses only."
+    ]
+  },
+  "dailyTemperatures": {
+    "id": "739",
+    "title": "Daily Temperatures",
+    "url": "https://leetcode.com/problems/daily-temperatures/",
+    "desc": "Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for which this is possible, keep answer[i] == 0 instead.",
+    "example": {
+      "input": "temperatures = [73,74,75,71,69,72,76,73]",
+      "output": "[1,1,4,2,1,1,0,0]",
+      "explanation": "For 73, the next warmer is 74 (1 day). For 75, the next warmer is 76 (4 days)."
+    },
+    "constraints": [
+      "1 <= temperatures.length <= 10^5",
+      "30 <= temperatures[i] <= 100"
+    ]
+  },
+  "reverseList": {
+    "id": "206",
+    "title": "Reverse Linked List",
+    "url": "https://leetcode.com/problems/reverse-linked-list/",
+    "desc": "Given the head of a singly linked list, reverse the list, and return the reversed list.",
+    "example": {
+      "input": "head = [1,2,3,4,5]",
+      "output": "[5,4,3,2,1]",
+      "explanation": "The linked list pointers are reversed."
+    },
+    "constraints": [
+      "The number of nodes in the list is the range [0, 5000].",
+      "-5000 <= Node.val <= 5000"
+    ]
+  },
+  "mergeTwoLists": {
+    "id": "21",
+    "title": "Merge Two Sorted Lists",
+    "url": "https://leetcode.com/problems/merge-two-sorted-lists/",
+    "desc": "You are given the heads of two sorted linked lists list1 and list2. Merge the two lists in a one sorted list. The list should be made by splicing together the nodes of the first two lists. Return the head of the merged linked list.",
+    "example": {
+      "input": "list1 = [1,2,4], list2 = [1,3,4]",
+      "output": "[1,1,2,3,4,4]",
+      "explanation": "Nodes are merged in sorted order."
+    },
+    "constraints": [
+      "The number of nodes in both lists is in the range [0, 50].",
+      "-100 <= Node.val <= 100",
+      "Both list1 and list2 are sorted in non-decreasing order."
+    ]
   }
 }
