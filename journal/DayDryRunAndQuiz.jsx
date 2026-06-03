@@ -8,7 +8,7 @@ function DayDryRunAndQuiz({ dayData, onComplete, isCompleted, onBack }) {
   const [completedTabs, setCompletedTabs] = useState([]);
 
   const activeProb = dayData.problems[activeTab];
-  const trace = activeProb.steps[stepIdx];
+  const trace = activeProb.steps[stepIdx] || activeProb.steps[0];
 
   // Reset step index when problem changes
   useEffect(() => {
@@ -94,7 +94,7 @@ function DayDryRunAndQuiz({ dayData, onComplete, isCompleted, onBack }) {
               <button 
                 key={key} 
                 className={`prob-tab ${activeTab === key ? `active ${dayData.patternType}` : ''}`}
-                onClick={() => setActiveTab(key)}
+                onClick={() => { setActiveTab(key); setStepIdx(0); }}
               >
                 {isTabComplete && <i className="fa-solid fa-circle-check" style={{ color: 'var(--success)', marginRight: '8px' }}></i>}
                 {dayData.problems[key].title}

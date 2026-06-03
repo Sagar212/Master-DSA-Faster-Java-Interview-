@@ -215,12 +215,12 @@ function DayPatternLearn({ dayData, onComplete, isCompleted, onBack }) {
         {/* Complete Day action */}
         <div className="day-complete-section">
           <div style={{ color: 'var(--text-muted)', fontSize: '13px' }}>
-            {!sandboxCorrect && activePass === 2 ? "💡 Complete the Pass 2 Reconstruction challenge to unlock day completion." : ""}
+            {!sandboxCorrect ? "💡 Complete both learning passes and the reconstruction challenge to unlock day completion." : ""}
           </div>
           <button 
             className="day-complete-btn" 
             onClick={onComplete}
-            disabled={!isCompleted && activePass === 2 && !sandboxCorrect}
+            disabled={!isCompleted && !sandboxCorrect}
           >
             <i className="fa-solid fa-graduation-cap"></i> Mark Day {dayData.id} Complete
           </button>

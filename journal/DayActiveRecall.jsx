@@ -132,6 +132,17 @@ function DayActiveRecall({ dayData, onComplete, isCompleted, onBack }) {
     
     setValidation({ ...validation, [activeTab]: results });
     setChecked({ ...checked, [activeTab]: true });
+    
+    setCompletedTabsAR(prev => {
+      const newSet = [...prev];
+      if (!newSet.includes(activeTab)) newSet.push(activeTab);
+      return newSet;
+    });
+    
+    const currentIdx = pKeys.indexOf(activeTab);
+    if (currentIdx < pKeys.length - 1) {
+      setActiveTab(pKeys[currentIdx + 1]);
+    }
   };
 
   // Check if all problems on this day are validated as correct
