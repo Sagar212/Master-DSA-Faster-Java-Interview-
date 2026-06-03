@@ -1543,3 +1543,7 @@
 .sandbox-step-card.tr h4 { color: var(--tr-primary); }
 .primary-action-btn.tr { background: var(--tr-primary); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); }
 .primary-action-btn.tr:hover { background: #059669; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
+
+.day-num.hashmap { color: var(--hm-primary); }
+.day-num.heap { color: var(--hp-primary); }
+.day-num.backtrack { color: var(--bt-primary); }
