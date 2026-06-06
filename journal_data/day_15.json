@@ -21,6 +21,48 @@
         "    return minHeap.[[peek]]();",
         "}"
       ]
+    },
+    "mergeKLists": {
+      "title": "Merge K Sorted Lists",
+      "template": [
+        "public ListNode solve(ListNode[] lists) {",
+        "    PriorityQueue<ListNode> pq = new [[PriorityQueue<>]]((a, b) -> a.val - b.val);",
+        "    for (ListNode head : lists) {",
+        "        if (head != null) pq.[[offer]](head);",
+        "    }",
+        "    ListNode dummy = new ListNode(0);",
+        "    ListNode curr = dummy;",
+        "    while (!pq.[[isEmpty]]()) {",
+        "        ListNode node = pq.[[poll]]();",
+        "        curr.next = node;",
+        "        curr = curr.next;",
+        "        if (node.next != null) pq.offer(node.[[next]]);",
+        "    }",
+        "    return dummy.next;",
+        "}"
+      ]
+    },
+    "findMedian": {
+      "title": "Find Median from Data Stream",
+      "template": [
+        "class MedianFinder {",
+        "    PriorityQueue<Integer> small = new PriorityQueue<>((a, b) -> [[b - a]]); // Max-Heap",
+        "    PriorityQueue<Integer> large = new PriorityQueue<>(); // Min-Heap",
+        "    ",
+        "    public void addNum(int num) {",
+        "        small.[[offer]](num);",
+        "        large.offer(small.[[poll]]());",
+        "        if (small.size() < large.size()) {",
+        "            small.offer(large.[[poll]]());",
+        "        }",
+        "    }",
+        "    ",
+        "    public double findMedian() {",
+        "        if (small.size() > large.size()) return small.[[peek]]();",
+        "        return (small.peek() + large.peek()) / [[2.0]];",
+        "    }",
+        "}"
+      ]
     }
   }
 }

@@ -1,0 +1,61 @@
+{
+  "id": 31,
+  "title": "1D DP — ROI & Pattern",
+  "patternType": "dp",
+  "category": "1D Dynamic Programming",
+  "oneSentence": "Trade memory for time by saving solutions to overlapping subproblems.",
+  "description": "Master the 1D DP template using Climbing Stairs. Learn top-down memoization and bottom-up tabulation.",
+  "roi": {
+    "frequency": "⭐⭐⭐⭐ (Very common in onsites)",
+    "complexity": "Time: O(N) | Space: O(N) or O(1)",
+    "dependsOn": "Recursion, HashMaps",
+    "signals": "Maximize/minimize, 'number of ways', overlapping subproblems."
+  },
+  "template": {
+    "filename": "ClimbingStairs.java",
+    "codeLines": [
+      { "num": 1, "text": "public class ClimbingStairs {" },
+      { "num": 2, "text": "    public int climbStairs(int n) {" },
+      { "num": 3, "text": "        if (n == 1) return 1;" },
+      { "num": 4, "text": "        int first = 1;" },
+      { "num": 5, "text": "        int second = 2;" },
+      { "num": 6, "text": "        for (int i = 3; i <= n; i++) {" },
+      { "num": 7, "text": "            int third = first + second;" },
+      { "num": 8, "text": "            first = second;" },
+      { "num": 9, "text": "            second = third;" },
+      { "num": 10, "text": "        }" },
+      { "num": 11, "text": "        return second;" },
+      { "num": 12, "text": "    }" },
+      { "num": 13, "text": "}" }
+    ],
+    "traceSteps": [
+      { "line": 3, "title": "Base Case", "text": "If there is only 1 step, there's only 1 way to climb." },
+      { "line": 4, "title": "Init Pointers", "text": "Initialize variables for n=1 and n=2 ways." },
+      { "line": 6, "title": "Iterate", "text": "Compute ways for step 3 up to step n iteratively." },
+      { "line": 7, "title": "Transition", "text": "Ways to get to step i is the sum of ways to get to (i-1) and (i-2)." },
+      { "line": 8, "title": "Shift State", "text": "Shift the window forward to prepare for the next iteration." }
+    ],
+    "sandbox": [
+      {
+        "step": "TRANSITION",
+        "question": "Why is the space complexity O(1) in this implementation?",
+        "options": [
+          "Because we only store the previous two states instead of an array of size N.",
+          "Because DP always takes O(1) space.",
+          "Because Java optimizes the memory."
+        ],
+        "correct": 0
+      }
+    ]
+  },
+  "followUps": [
+    {
+      "q": "What if you can take 1, 2, or 3 steps?",
+      "a": "The transition becomes `dp[i] = dp[i-1] + dp[i-2] + dp[i-3]`. You would need to keep track of the last three states instead of two."
+    },
+    {
+      "q": "Min Cost Climbing Stairs?",
+      "a": "Similar structure, but instead of adding ways, the state transition minimizes cost: `dp[i] = cost[i] + Math.min(dp[i-1], dp[i-2]`."
+    }
+  ]
+}

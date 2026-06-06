@@ -1,12 +1,12 @@
 {
   "id": 19,
-  "title": "Tree (DFS/BFS) — ROI & Pattern",
+  "title": "Tree (DFS/BFS) \u2014 ROI & Pattern",
   "patternType": "tr",
   "category": "Trees",
   "oneSentence": "Navigate nodes deeply (DFS) or level-by-level (BFS) to solve hierarchical problems.",
   "description": "Master the foundational recursive DFS template. Most tree problems are just variations of this basic traversal.",
   "roi": {
-    "frequency": "⭐⭐⭐⭐⭐ (Tested in nearly every interview loop)",
+    "frequency": "\u2b50\u2b50\u2b50\u2b50\u2b50 (Tested in nearly every interview loop)",
     "complexity": "Time: O(N) | Space: O(H) where H is tree height",
     "dependsOn": "Recursion",
     "signals": "Hierarchical data, paths from root to leaf, level-by-level processing, Lowest Common Ancestor."
@@ -14,23 +14,74 @@
   "template": {
     "filename": "Tree_DFS_Template.java",
     "codeLines": [
-      { "num": 1, "text": "public class Tree_DFS_Template {" },
-      { "num": 2, "text": "    public static int solve(TreeNode root) {" },
-      { "num": 3, "text": "        // STEP 1 — BASE CASE: Empty node means depth is 0" },
-      { "num": 4, "text": "        if (root == null) {" },
-      { "num": 5, "text": "            return 0;" },
-      { "num": 6, "text": "        }" },
-      { "num": 7, "text": "" },
-      { "num": 8, "text": "        // STEP 2 — DIVIDE: Recursively find the depth of the left subtree" },
-      { "num": 9, "text": "        int leftDepth = solve(root.left);" },
-      { "num": 10, "text": "" },
-      { "num": 11, "text": "        // STEP 3 — DIVIDE: Recursively find the depth of the right subtree" },
-      { "num": 12, "text": "        int rightDepth = solve(root.right);" },
-      { "num": 13, "text": "" },
-      { "num": 14, "text": "        // STEP 4 — CONQUER: The depth is 1 (for current node) + max of left/right subtrees" },
-      { "num": 15, "text": "        return 1 + Math.max(leftDepth, rightDepth);" },
-      { "num": 16, "text": "    }" },
-      { "num": 17, "text": "}" }
+      {
+        "num": 1,
+        "text": "public class Tree_DFS_Template {"
+      },
+      {
+        "num": 2,
+        "text": "    public static int solve(TreeNode root) {"
+      },
+      {
+        "num": 3,
+        "text": "        // STEP 1 \u2014 BASE CASE: Empty node means depth is 0"
+      },
+      {
+        "num": 4,
+        "text": "        if (root == null) {"
+      },
+      {
+        "num": 5,
+        "text": "            return 0;"
+      },
+      {
+        "num": 6,
+        "text": "        }"
+      },
+      {
+        "num": 7,
+        "text": ""
+      },
+      {
+        "num": 8,
+        "text": "        // STEP 2 \u2014 DIVIDE: Recursively find the depth of the left subtree"
+      },
+      {
+        "num": 9,
+        "text": "        int leftDepth = solve(root.left);"
+      },
+      {
+        "num": 10,
+        "text": ""
+      },
+      {
+        "num": 11,
+        "text": "        // STEP 3 \u2014 DIVIDE: Recursively find the depth of the right subtree"
+      },
+      {
+        "num": 12,
+        "text": "        int rightDepth = solve(root.right);"
+      },
+      {
+        "num": 13,
+        "text": ""
+      },
+      {
+        "num": 14,
+        "text": "        // STEP 4 \u2014 CONQUER: The depth is 1 (for current node) + max of left/right subtrees"
+      },
+      {
+        "num": 15,
+        "text": "        return 1 + Math.max(leftDepth, rightDepth);"
+      },
+      {
+        "num": 16,
+        "text": "    }"
+      },
+      {
+        "num": 17,
+        "text": "}"
+      }
     ],
     "traceSteps": [
       {
@@ -89,5 +140,27 @@
         "correct": 2
       }
     ]
-  }
+  },
+  "followUps": [
+    {
+      "q": "Can you do this iteratively instead of recursively?",
+      "a": "Yes, use an explicit `Stack` for DFS or a `Queue` for BFS. Iterative approaches prevent StackOverflowErrors on very deep trees."
+    },
+    {
+      "q": "What if it's an N-ary tree instead of binary?",
+      "a": "Instead of `node.left` and `node.right`, iterate through `node.children` in a `for` loop during traversal."
+    },
+    {
+      "q": "How would you find LCA if parent pointers are available?",
+      "a": "Treat it like finding the intersection of two Linked Lists. Traverse from both nodes up to the root to get their depths, equalize depths, then move up together until they meet."
+    },
+    {
+      "q": "DFS vs BFS \u2014 when to use which for tree problems?",
+      "a": "Use BFS (Level Order) when searching for the shortest path or level-specific data. Use DFS for deep path logic, full traversals, or when memory is a concern (O(H) vs O(W))."
+    },
+    {
+      "q": "What if the tree is too large to fit on one machine?",
+      "a": "You must distribute the graph/tree across machines and use distributed algorithms (like Pregel/MapReduce), or store it in a Graph Database and query it iteratively."
+    }
+  ]
 }

@@ -187,5 +187,77 @@
     "patternType": "ll",
     "category": "Linked List",
     "oneSentence": "Fill in the blank templates for Linked List problems."
+  },
+  {
+    "id": 28,
+    "title": "Graphs \u2014 ROI & Pattern",
+    "patternType": "gr",
+    "category": "Graphs"
+  },
+  {
+    "id": 29,
+    "title": "Graphs \u2014 Dry Run & Quiz",
+    "patternType": "gr",
+    "category": "Graphs"
+  },
+  {
+    "id": 30,
+    "title": "Graphs \u2014 Active Recall",
+    "patternType": "gr",
+    "category": "Graphs"
+  },
+  {
+    "id": 31,
+    "title": "1D DP \u2014 ROI & Pattern",
+    "patternType": "dp",
+    "category": "1D Dynamic Programming"
+  },
+  {
+    "id": 32,
+    "title": "1D DP \u2014 Dry Run & Quiz",
+    "patternType": "dp",
+    "category": "1D Dynamic Programming"
+  },
+  {
+    "id": 33,
+    "title": "1D DP \u2014 Active Recall",
+    "patternType": "dp",
+    "category": "1D Dynamic Programming"
+  },
+  {
+    "id": 34,
+    "title": "Intervals \u2014 ROI & Pattern",
+    "patternType": "iv",
+    "category": "Intervals"
+  },
+  {
+    "id": 35,
+    "title": "Intervals \u2014 Dry Run & Quiz",
+    "patternType": "iv",
+    "category": "Intervals"
+  },
+  {
+    "id": 36,
+    "title": "Intervals \u2014 Active Recall",
+    "patternType": "iv",
+    "category": "Intervals"
+  },
+  {
+    "id": 37,
+    "title": "Greedy \u2014 ROI & Pattern",
+    "patternType": "gd",
+    "category": "Greedy"
+  },
+  {
+    "id": 38,
+    "title": "Greedy \u2014 Dry Run & Quiz",
+    "patternType": "gd",
+    "category": "Greedy"
+  },
+  {
+    "id": 39,
+    "title": "Greedy \u2014 Active Recall",
+    "patternType": "gd",
+    "category": "Greedy"
   }
 ]

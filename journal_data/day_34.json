@@ -1,0 +1,202 @@
+{
+  "id": 34,
+  "title": "Intervals — ROI & Pattern",
+  "patternType": "iv",
+  "category": "Intervals",
+  "oneSentence": "Sort by start time to merge overlapping ranges efficiently.",
+  "description": "Master the Interval pattern. Always sort first, then compare `current.end` with `next.start`.",
+  "roi": {
+    "frequency": "⭐⭐⭐⭐",
+    "complexity": "Time: O(N log N) | Space: O(N)",
+    "dependsOn": "Sorting, Arrays",
+    "signals": "Schedules, overlapping times, ranges."
+  },
+  "template": {
+    "filename": "MergeIntervals_Pattern_Template.java",
+    "codeLines": [
+      {
+        "num": 1,
+        "text": "public class MergeIntervals_Pattern_Template {"
+      },
+      {
+        "num": 2,
+        "text": "    public static int[][] solve(int[][] intervals) {"
+      },
+      {
+        "num": 3,
+        "text": "        if (intervals.length <= 1) return intervals;"
+      },
+      {
+        "num": 4,
+        "text": "        "
+      },
+      {
+        "num": 5,
+        "text": "        // STEP 1 — SORT: Sort intervals by start time"
+      },
+      {
+        "num": 6,
+        "text": "        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));"
+      },
+      {
+        "num": 7,
+        "text": "        "
+      },
+      {
+        "num": 8,
+        "text": "        List<int[]> merged = new ArrayList<>();"
+      },
+      {
+        "num": 9,
+        "text": "        int[] currentInterval = intervals[0];"
+      },
+      {
+        "num": 10,
+        "text": "        merged.add(currentInterval);"
+      },
+      {
+        "num": 11,
+        "text": "        "
+      },
+      {
+        "num": 12,
+        "text": "        // STEP 2 — LOOP: Iterate through the remaining intervals"
+      },
+      {
+        "num": 13,
+        "text": "        for (int[] nextInterval : intervals) {"
+      },
+      {
+        "num": 14,
+        "text": "            int currentEnd = currentInterval[1];"
+      },
+      {
+        "num": 15,
+        "text": "            int nextStart = nextInterval[0];"
+      },
+      {
+        "num": 16,
+        "text": "            int nextEnd = nextInterval[1];"
+      },
+      {
+        "num": 17,
+        "text": "            "
+      },
+      {
+        "num": 18,
+        "text": "            // STEP 3 — CHECK OVERLAP: If they overlap, merge them"
+      },
+      {
+        "num": 19,
+        "text": "            if (currentEnd >= nextStart) {"
+      },
+      {
+        "num": 20,
+        "text": "                currentInterval[1] = Math.max(currentEnd, nextEnd);"
+      },
+      {
+        "num": 21,
+        "text": "            } else {"
+      },
+      {
+        "num": 22,
+        "text": "                // STEP 4 — NO OVERLAP: Add next interval to the list and update current"
+      },
+      {
+        "num": 23,
+        "text": "                currentInterval = nextInterval;"
+      },
+      {
+        "num": 24,
+        "text": "                merged.add(currentInterval);"
+      },
+      {
+        "num": 25,
+        "text": "            }"
+      },
+      {
+        "num": 26,
+        "text": "        }"
+      },
+      {
+        "num": 27,
+        "text": "        "
+      },
+      {
+        "num": 28,
+        "text": "        // STEP 5 — RETURN: Convert list to 2D array"
+      },
+      {
+        "num": 29,
+        "text": "        return merged.toArray(new int[merged.size()][]);"
+      },
+      {
+        "num": 30,
+        "text": "    }"
+      },
+      {
+        "num": 31,
+        "text": "}"
+      }
+    ],
+    "traceSteps": [
+      {
+        "line": 6,
+        "title": "1. Sort Intervals",
+        "text": "Sort the intervals based on their start times to ensure overlaps are adjacent."
+      },
+      {
+        "line": 9,
+        "title": "2. Initialize Current",
+        "text": "Take the first interval and add it to our merged list. Because it's stored by reference, updating it later affects the list."
+      },
+      {
+        "line": 13,
+        "title": "3. Iterate",
+        "text": "Loop through the remaining intervals to check for overlap with the current interval."
+      },
+      {
+        "line": 19,
+        "title": "4. Check Overlap",
+        "text": "If currentEnd >= nextStart, the intervals overlap. Merge by taking the max end time."
+      },
+      {
+        "line": 21,
+        "title": "5. No Overlap",
+        "text": "If they don't overlap, the current interval is complete. Move on to the next interval and add it to the merged list."
+      }
+    ],
+    "sandbox": [
+      {
+        "step": "SORT",
+        "question": "Why do we sort intervals by start time?",
+        "options": [
+          "To ensure overlapping intervals are adjacent to each other.",
+          "To reduce the time complexity of merging to O(N).",
+          "It's a requirement of the List data structure."
+        ],
+        "correct": 0
+      },
+      {
+        "step": "CHECK OVERLAP",
+        "question": "What is the condition for two intervals (current and next) to overlap?",
+        "options": [
+          "current.end == next.start",
+          "current.end >= next.start",
+          "current.start >= next.end"
+        ],
+        "correct": 1
+      }
+    ]
+  },
+  "followUps": [
+    {
+      "q": "What if intervals are already sorted?",
+      "a": "The time complexity reduces from O(N log N) to O(N) because the sorting step is skipped."
+    },
+    {
+      "q": "How to handle finding the intersection instead of union?",
+      "a": "You check for overlap by `Math.max(start1, start2) <= Math.min(end1, end2)`. The intersection is `[Math.max(start1, start2), Math.min(end1, end2)]`."
+    }
+  ]
+}

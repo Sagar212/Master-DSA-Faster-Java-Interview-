@@ -1,0 +1,85 @@
+{
+  "day": 29,
+  "patternType": "gr",
+  "category": "Graphs",
+  "title": "Graphs — Dry Run & Quiz",
+  "oneSentence": "Trace Number of Islands, Course Schedule, and Rotting Oranges.",
+  "problems": [
+    {
+      "name": "Number of Islands",
+      "code": "class Solution {\n    public int numIslands(char[][] grid) {\n        if (grid == null || grid.length == 0) return 0;\n        int numIslands = 0;\n        for (int i = 0; i < grid.length; i++) {\n            for (int j = 0; j < grid[0].length; j++) {\n                if (grid[i][j] == '1') {\n                    numIslands++;\n                    dfs(grid, i, j);\n                }\n            }\n        }\n        return numIslands;\n    }\n    \n    private void dfs(char[][] grid, int i, int j) {\n        if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] == '0') return;\n        grid[i][j] = '0';\n        dfs(grid, i + 1, j);\n        dfs(grid, i - 1, j);\n        dfs(grid, i, j + 1);\n        dfs(grid, i, j - 1);\n    }\n}",
+      "steps": [
+        "Initialize `numIslands = 0`.",
+        "Loop through `i` from 0 to rows - 1.",
+        "Loop through `j` from 0 to cols - 1.",
+        "If `grid[i][j] == '1'`, increment `numIslands` and call `dfs(i, j)`.",
+        "In `dfs`, if out of bounds or `grid[i][j] == '0'`, return.",
+        "Set `grid[i][j] = '0'`.",
+        "Call `dfs` on (i+1, j), (i-1, j), (i, j+1), (i, j-1)."
+      ],
+      "quiz": [
+        {
+          "q": "Why modify the grid in place instead of a `visited` boolean matrix?",
+          "options": [
+            "It is required by Java.",
+            "To save O(M*N) space.",
+            "It makes the DFS faster."
+          ],
+          "correct": 1,
+          "explain": "Modifying the grid avoids allocating an extra O(M*N) boolean matrix for visited states."
+        }
+      ]
+    },
+    {
+      "name": "Course Schedule",
+      "code": "class Solution {\n    public boolean canFinish(int numCourses, int[][] prerequisites) {\n        List<List<Integer>> adj = new ArrayList<>();\n        for (int i = 0; i < numCourses; i++) adj.add(new ArrayList<>());\n        int[] indegree = new int[numCourses];\n        for (int[] pre : prerequisites) {\n            adj.get(pre[1]).add(pre[0]);\n            indegree[pre[0]]++;\n        }\n        Queue<Integer> q = new LinkedList<>();\n        for (int i = 0; i < numCourses; i++) {\n            if (indegree[i] == 0) q.offer(i);\n        }\n        int count = 0;\n        while (!q.isEmpty()) {\n            int curr = q.poll();\n            count++;\n            for (int next : adj.get(curr)) {\n                indegree[next]--;\n                if (indegree[next] == 0) q.offer(next);\n            }\n        }\n        return count == numCourses;\n    }\n}",
+      "steps": [
+        "Build an adjacency list `adj` and an `indegree` array.",
+        "Populate `adj` and increment `indegree` for each dependent course.",
+        "Add all courses with `indegree == 0` to a queue `q`.",
+        "While `q` is not empty, poll `curr` and increment `count`.",
+        "For each neighbor `next` of `curr`, decrement `indegree[next]`.",
+        "If `indegree[next] == 0`, add `next` to `q`.",
+        "Return true if `count == numCourses`."
+      ],
+      "quiz": [
+        {
+          "q": "What algorithm is used here?",
+          "options": [
+            "Dijkstra's Algorithm",
+            "Kahn's Algorithm (Topological Sort)",
+            "Floyd-Warshall"
+          ],
+          "correct": 1,
+          "explain": "This is Kahn's algorithm for Topological Sorting using BFS and indegrees."
+        }
+      ]
+    },
+    {
+      "name": "Rotting Oranges",
+      "code": "class Solution {\n    public int orangesRotting(int[][] grid) {\n        Queue<int[]> q = new LinkedList<>();\n        int fresh = 0;\n        for (int i = 0; i < grid.length; i++) {\n            for (int j = 0; j < grid[0].length; j++) {\n                if (grid[i][j] == 2) q.offer(new int[]{i, j});\n                else if (grid[i][j] == 1) fresh++;\n            }\n        }\n        if (fresh == 0) return 0;\n        int minutes = 0;\n        int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n        while (!q.isEmpty()) {\n            int size = q.size();\n            boolean rotted = false;\n            for (int i = 0; i < size; i++) {\n                int[] curr = q.poll();\n                for (int[] d : dirs) {\n                    int r = curr[0] + d[0], c = curr[1] + d[1];\n                    if (r >= 0 && r < grid.length && c >= 0 && c < grid[0].length && grid[r][c] == 1) {\n                        grid[r][c] = 2;\n                        q.offer(new int[]{r, c});\n                        fresh--;\n                        rotted = true;\n                    }\n                }\n            }\n            if (rotted) minutes++;\n        }\n        return fresh == 0 ? minutes : -1;\n    }\n}",
+      "steps": [
+        "Initialize queue `q` with all initially rotten oranges (2) and count `fresh` oranges.",
+        "If `fresh == 0`, return 0.",
+        "Initialize `minutes = 0` and direction array `dirs`.",
+        "While `q` is not empty, iterate through the current level (size of `q`).",
+        "For each polled cell, check 4 directions.",
+        "If a fresh orange is found, rot it (set to 2), add to `q`, decrement `fresh`, set `rotted = true`.",
+        "If `rotted` is true after checking the level, increment `minutes`.",
+        "Return `minutes` if `fresh == 0`, else -1."
+      ],
+      "quiz": [
+        {
+          "q": "Why is BFS used instead of DFS?",
+          "options": [
+            "BFS is easier to code.",
+            "DFS cannot be used for grids.",
+            "BFS naturally tracks the shortest time (levels) for the rot to spread."
+          ],
+          "correct": 2,
+          "explain": "The problem asks for the minimum time for all oranges to rot, which is equivalent to finding the shortest path from multiple sources simultaneously."
+        }
+      ]
+    }
+  ]
+}

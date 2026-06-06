@@ -1,66 +1,132 @@
 {
   "id": 10,
-  "title": "Arrays & HashMap — ROI & Pattern",
+  "title": "Arrays & HashMap \u2014 ROI & Pattern",
   "patternType": "hashmap",
   "category": "Arrays & HashMap",
-  "oneSentence": "Trade O(N) space for O(1) lookups — use a HashMap to avoid nested loops.",
+  "oneSentence": "Trade O(N) space for O(1) lookups \u2014 use a HashMap to avoid nested loops.",
   "description": "Master the HashMap lookup pattern twice. First through guided line-by-line tracing of Two Sum, then by reconstructing the core steps.",
   "roi": {
-    "frequency": "⭐⭐⭐⭐⭐ (Tested in 80%+ of top tech interviews)",
-    "complexity": "Time: O(N) | Space: O(N) — one-pass with HashMap",
-    "dependsOn": "None — foundational pattern",
+    "frequency": "\u2b50\u2b50\u2b50\u2b50\u2b50 (Tested in 80%+ of top tech interviews)",
+    "complexity": "Time: O(N) | Space: O(N) \u2014 one-pass with HashMap",
+    "dependsOn": "None \u2014 foundational pattern",
     "signals": "Unsorted array pair finding, complement lookup, frequency counting, grouping by property."
   },
   "template": {
     "filename": "TwoSum_HashMap_Template.java",
     "codeLines": [
-      { "num": 1, "text": "public class TwoSum {" },
-      { "num": 2, "text": "    public static int[] solve(int[] nums, int target) {" },
-      { "num": 3, "text": "        // STEP 1 — INIT: Create the guest book (HashMap) to remember who's arrived" },
-      { "num": 4, "text": "        Map<Integer, Integer> seen = new HashMap<>(); // KEY = number, VALUE = index" },
-      { "num": 5, "text": "" },
-      { "num": 6, "text": "        // STEP 2 — LOOP: Walk through each person at the party" },
-      { "num": 7, "text": "        for (int i = 0; i < nums.length; i++) {" },
-      { "num": 8, "text": "" },
-      { "num": 9, "text": "            // STEP 3 — CHECK: \"What partner do I NEED? Is that partner already in the guest book?\"" },
-      { "num": 10, "text": "            int need = target - nums[i];" },
-      { "num": 11, "text": "            if (seen.containsKey(need)) {" },
-      { "num": 12, "text": "                return new int[] { seen.get(need), i }; // partner found → return both indices" },
-      { "num": 13, "text": "            }" },
-      { "num": 14, "text": "" },
-      { "num": 15, "text": "            // STEP 4 — STORE: \"No partner yet → sign the guest book so someone can find me later\"" },
-      { "num": 16, "text": "            seen.put(nums[i], i); // store AFTER checking → prevents self-matching" },
-      { "num": 17, "text": "        }" },
-      { "num": 18, "text": "" },
-      { "num": 19, "text": "        // STEP 5 — RETURN: No pair found" },
-      { "num": 20, "text": "        return new int[0];" },
-      { "num": 21, "text": "    }" },
-      { "num": 22, "text": "}" }
+      {
+        "num": 1,
+        "text": "public class TwoSum {"
+      },
+      {
+        "num": 2,
+        "text": "    public static int[] solve(int[] nums, int target) {"
+      },
+      {
+        "num": 3,
+        "text": "        // STEP 1 \u2014 INIT: Create the guest book (HashMap) to remember who's arrived"
+      },
+      {
+        "num": 4,
+        "text": "        Map<Integer, Integer> seen = new HashMap<>(); // KEY = number, VALUE = index"
+      },
+      {
+        "num": 5,
+        "text": ""
+      },
+      {
+        "num": 6,
+        "text": "        // STEP 2 \u2014 LOOP: Walk through each person at the party"
+      },
+      {
+        "num": 7,
+        "text": "        for (int i = 0; i < nums.length; i++) {"
+      },
+      {
+        "num": 8,
+        "text": ""
+      },
+      {
+        "num": 9,
+        "text": "            // STEP 3 \u2014 CHECK: \"What partner do I NEED? Is that partner already in the guest book?\""
+      },
+      {
+        "num": 10,
+        "text": "            int need = target - nums[i];"
+      },
+      {
+        "num": 11,
+        "text": "            if (seen.containsKey(need)) {"
+      },
+      {
+        "num": 12,
+        "text": "                return new int[] { seen.get(need), i }; // partner found \u2192 return both indices"
+      },
+      {
+        "num": 13,
+        "text": "            }"
+      },
+      {
+        "num": 14,
+        "text": ""
+      },
+      {
+        "num": 15,
+        "text": "            // STEP 4 \u2014 STORE: \"No partner yet \u2192 sign the guest book so someone can find me later\""
+      },
+      {
+        "num": 16,
+        "text": "            seen.put(nums[i], i); // store AFTER checking \u2192 prevents self-matching"
+      },
+      {
+        "num": 17,
+        "text": "        }"
+      },
+      {
+        "num": 18,
+        "text": ""
+      },
+      {
+        "num": 19,
+        "text": "        // STEP 5 \u2014 RETURN: No pair found"
+      },
+      {
+        "num": 20,
+        "text": "        return new int[0];"
+      },
+      {
+        "num": 21,
+        "text": "    }"
+      },
+      {
+        "num": 22,
+        "text": "}"
+      }
     ],
     "traceSteps": [
       {
         "line": 3,
-        "title": "1. INIT — Create the Guest Book",
-        "text": "Create an empty HashMap called 'seen'. The KEY stores the number we've visited, and the VALUE stores its index. This is our 'guest book' — O(1) lookup to check if a complement has already arrived."
+        "title": "1. INIT \u2014 Create the Guest Book",
+        "text": "Create an empty HashMap called 'seen'. The KEY stores the number we've visited, and the VALUE stores its index. This is our 'guest book' \u2014 O(1) lookup to check if a complement has already arrived."
       },
       {
         "line": 6,
-        "title": "2. LOOP — Walk Through Each Element",
-        "text": "Iterate through the array with index i from 0 to nums.length - 1. Each element is a 'person at the party' — we check if their complement is already in the guest book before signing in."
+        "title": "2. LOOP \u2014 Walk Through Each Element",
+        "text": "Iterate through the array with index i from 0 to nums.length - 1. Each element is a 'person at the party' \u2014 we check if their complement is already in the guest book before signing in."
       },
       {
         "line": 9,
-        "title": "3. CHECK — Compute Complement & Lookup",
-        "text": "Calculate 'need = target - nums[i]' — this is the complement. Then check if 'need' already exists in the HashMap. If it does, we found our pair: return the stored index and current index i. The HashMap gives us O(1) lookup instead of a nested O(N) scan."
+        "title": "3. CHECK \u2014 Compute Complement & Lookup",
+        "text": "Calculate 'need = target - nums[i]' \u2014 this is the complement. Then check if 'need' already exists in the HashMap. If it does, we found our pair: return the stored index and current index i. The HashMap gives us O(1) lookup instead of a nested O(N) scan."
       },
       {
         "line": 15,
-        "title": "4. STORE — Sign the Guest Book",
+        "title": "4. STORE \u2014 Sign the Guest Book",
         "text": "If no complement was found, store the current number and its index in the HashMap: seen.put(nums[i], i). We store AFTER checking to prevent a number from matching with itself (e.g., target=6, nums[i]=3 would falsely match)."
       },
       {
         "line": 19,
-        "title": "5. RETURN — No Pair Found",
+        "title": "5. RETURN \u2014 No Pair Found",
         "text": "If the loop completes without finding a valid pair, return an empty array. This handles the edge case where no two numbers in the array sum to the target."
       }
     ],
@@ -96,5 +162,27 @@
         "correct": 1
       }
     ]
-  }
+  },
+  "followUps": [
+    {
+      "q": "What if the data is too large to fit in memory (streaming data)?",
+      "a": "For exact lookups, you might need distributed caching (Redis) or database indexes. For probabilistic existence checks, use a Bloom Filter."
+    },
+    {
+      "q": "How does Java's HashMap handle collisions?",
+      "a": "It uses chaining (LinkedLists). If a bucket gets more than 8 items, Java automatically converts the LinkedList to a Red-Black Tree to degrade gracefully from O(1) to O(log N) instead of O(N)."
+    },
+    {
+      "q": "If data is constantly changing, how to keep the map updated efficiently?",
+      "a": "Use a `ConcurrentHashMap` in multithreaded environments to prevent locking the entire map during updates."
+    },
+    {
+      "q": "Can you solve this with O(1) space instead of using a HashMap?",
+      "a": "Usually requires sorting the input first (which takes O(N log N) time), then using Two Pointers. You trade O(N) space for O(N log N) time."
+    },
+    {
+      "q": "What happens when the load factor is exceeded?",
+      "a": "The HashMap undergoes 'rehashing'. It creates a new array double the size and redistributes all existing entries. This is an O(N) operation but amortizes to O(1) over time."
+    }
+  ]
 }

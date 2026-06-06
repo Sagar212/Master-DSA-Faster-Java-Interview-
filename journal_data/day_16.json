@@ -1,12 +1,12 @@
 {
   "id": 16,
-  "title": "Backtracking — ROI & Pattern",
+  "title": "Backtracking \u2014 ROI & Pattern",
   "patternType": "backtrack",
   "category": "Backtracking",
   "oneSentence": "Explore all paths, choose an option, explore deeper, then backtrack to try the next option.",
   "description": "Master the Backtracking template twice. First through guided line-by-line tracing of Subsets, then by reconstructing the core steps.",
   "roi": {
-    "frequency": "⭐⭐⭐⭐ (Tested in 60%+ of top tech interviews)",
+    "frequency": "\u2b50\u2b50\u2b50\u2b50 (Tested in 60%+ of top tech interviews)",
     "complexity": "Time: O(2^N) or O(N!) | Space: O(N) recursion depth",
     "dependsOn": "Recursion, Trees/Graphs",
     "signals": "Find 'all possible' ways, combinations, permutations, subsets, paths."
@@ -14,38 +14,133 @@
   "template": {
     "filename": "Backtracking_Template.java",
     "codeLines": [
-      { "num": 1, "text": "public class Subsets {" },
-      { "num": 2, "text": "    public static List<List<Integer>> solve(int[] nums) {" },
-      { "num": 3, "text": "        List<List<Integer>> result = new ArrayList<>();" },
-      { "num": 4, "text": "        backtrack(nums, 0, new ArrayList<>(), result);" },
-      { "num": 5, "text": "        return result;" },
-      { "num": 6, "text": "    }" },
-      { "num": 7, "text": "" },
-      { "num": 8, "text": "    private static void backtrack(int[] nums, int start, List<Integer> bag, List<List<Integer>> result) {" },
-      { "num": 9, "text": "        // STEP 1 — SAVE: Current bag state is a valid subset (even empty bag)" },
-      { "num": 10, "text": "        result.add(new ArrayList<>(bag)); // snapshot the bag" },
-      { "num": 11, "text": "" },
-      { "num": 12, "text": "        // STEP 2 — LOOP: Try including each remaining item" },
-      { "num": 13, "text": "        for (int i = start; i < nums.length; i++) {" },
-      { "num": 14, "text": "" },
-      { "num": 15, "text": "            // STEP 3 — CHOOSE: Add item to the bag" },
-      { "num": 16, "text": "            bag.add(nums[i]);" },
-      { "num": 17, "text": "" },
-      { "num": 18, "text": "            // STEP 4 — EXPLORE: Go deeper (only items AFTER i to avoid duplicates)" },
-      { "num": 19, "text": "            backtrack(nums, i + 1, bag, result);" },
-      { "num": 20, "text": "" },
-      { "num": 21, "text": "            // STEP 5 — UNCHOOSE (BACKTRACK): Remove item and try skipping it" },
-      { "num": 22, "text": "            bag.remove(bag.size() - 1);" },
-      { "num": 23, "text": "        }" },
-      { "num": 24, "text": "    }" },
-      { "num": 25, "text": "}" }
+      {
+        "num": 1,
+        "text": "public class Subsets {"
+      },
+      {
+        "num": 2,
+        "text": "    public static List<List<Integer>> solve(int[] nums) {"
+      },
+      {
+        "num": 3,
+        "text": "        List<List<Integer>> result = new ArrayList<>();"
+      },
+      {
+        "num": 4,
+        "text": "        backtrack(nums, 0, new ArrayList<>(), result);"
+      },
+      {
+        "num": 5,
+        "text": "        return result;"
+      },
+      {
+        "num": 6,
+        "text": "    }"
+      },
+      {
+        "num": 7,
+        "text": ""
+      },
+      {
+        "num": 8,
+        "text": "    private static void backtrack(int[] nums, int start, List<Integer> bag, List<List<Integer>> result) {"
+      },
+      {
+        "num": 9,
+        "text": "        // STEP 1 \u2014 SAVE: Current bag state is a valid subset (even empty bag)"
+      },
+      {
+        "num": 10,
+        "text": "        result.add(new ArrayList<>(bag)); // snapshot the bag"
+      },
+      {
+        "num": 11,
+        "text": ""
+      },
+      {
+        "num": 12,
+        "text": "        // STEP 2 \u2014 LOOP: Try including each remaining item"
+      },
+      {
+        "num": 13,
+        "text": "        for (int i = start; i < nums.length; i++) {"
+      },
+      {
+        "num": 14,
+        "text": ""
+      },
+      {
+        "num": 15,
+        "text": "            // STEP 3 \u2014 CHOOSE: Add item to the bag"
+      },
+      {
+        "num": 16,
+        "text": "            bag.add(nums[i]);"
+      },
+      {
+        "num": 17,
+        "text": ""
+      },
+      {
+        "num": 18,
+        "text": "            // STEP 4 \u2014 EXPLORE: Go deeper (only items AFTER i to avoid duplicates)"
+      },
+      {
+        "num": 19,
+        "text": "            backtrack(nums, i + 1, bag, result);"
+      },
+      {
+        "num": 20,
+        "text": ""
+      },
+      {
+        "num": 21,
+        "text": "            // STEP 5 \u2014 UNCHOOSE (BACKTRACK): Remove item and try skipping it"
+      },
+      {
+        "num": 22,
+        "text": "            bag.remove(bag.size() - 1);"
+      },
+      {
+        "num": 23,
+        "text": "        }"
+      },
+      {
+        "num": 24,
+        "text": "    }"
+      },
+      {
+        "num": 25,
+        "text": "}"
+      }
     ],
     "traceSteps": [
-      { "line": 9, "title": "STEP 1 — SAVE", "text": "Current bag state is a valid subset (even empty bag)" },
-      { "line": 12, "title": "STEP 2 — LOOP", "text": "Try including each remaining item" },
-      { "line": 15, "title": "STEP 3 — CHOOSE", "text": "Add item to the bag" },
-      { "line": 18, "title": "STEP 4 — EXPLORE", "text": "Go deeper (only items AFTER i to avoid duplicates)" },
-      { "line": 21, "title": "STEP 5 — UNCHOOSE (BACKTRACK)", "text": "Remove item and try skipping it" }
+      {
+        "line": 9,
+        "title": "STEP 1 \u2014 SAVE",
+        "text": "Current bag state is a valid subset (even empty bag)"
+      },
+      {
+        "line": 12,
+        "title": "STEP 2 \u2014 LOOP",
+        "text": "Try including each remaining item"
+      },
+      {
+        "line": 15,
+        "title": "STEP 3 \u2014 CHOOSE",
+        "text": "Add item to the bag"
+      },
+      {
+        "line": 18,
+        "title": "STEP 4 \u2014 EXPLORE",
+        "text": "Go deeper (only items AFTER i to avoid duplicates)"
+      },
+      {
+        "line": 21,
+        "title": "STEP 5 \u2014 UNCHOOSE (BACKTRACK)",
+        "text": "Remove item and try skipping it"
+      }
     ],
     "sandbox": [
       {
@@ -79,5 +174,27 @@
         "correct": 1
       }
     ]
-  }
+  },
+  "followUps": [
+    {
+      "q": "How can we prune the search space to make it faster?",
+      "a": "Sort the input first to easily skip duplicates, or maintain 'visited' arrays/sets. If a partial solution already violates constraints, `return` immediately (backtrack) rather than exploring its children."
+    },
+    {
+      "q": "Can you reduce space by using bitmasks instead of storing full state?",
+      "a": "Yes, if the set of items is small (<= 32 or 64), a single integer can represent a subset where the i-th bit indicates inclusion. This allows O(1) state copying and minimal memory."
+    },
+    {
+      "q": "Can this backtracking problem be converted to Dynamic Programming?",
+      "a": "If the problem asks for the *number of ways* or *optimal value* rather than listing all combinations, AND there are overlapping subproblems, it can be optimized with DP/Memoization."
+    },
+    {
+      "q": "What's the time complexity of your backtracking solution?",
+      "a": "Typically O(2^N) for subsets/combinations, or O(N!) for permutations. It represents generating the entire state space."
+    },
+    {
+      "q": "How would you handle duplicates in the input?",
+      "a": "Sort the input array first. During the loop, if `i > start_index` and `nums[i] == nums[i-1]`, use `continue` to skip the duplicate branch."
+    }
+  ]
 }

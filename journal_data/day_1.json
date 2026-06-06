@@ -1,12 +1,12 @@
 {
   "id": 1,
-  "title": "Two Pointers — ROI & Pattern",
+  "title": "Two Pointers \u2014 ROI & Pattern",
   "patternType": "tp",
   "category": "Two Pointers",
   "oneSentence": "Two pointers narrow down the search space in sorted data from opposite ends.",
   "description": "Focus on understanding the template twice. First through guided line-by-line tracing, then by reconstructing the core steps.",
   "roi": {
-    "frequency": "⭐⭐⭐⭐⭐ (Tested in 80% of top tech interviews)",
+    "frequency": "\u2b50\u2b50\u2b50\u2b50\u2b50 (Tested in 80% of top tech interviews)",
     "complexity": "Time: O(N) | Space: O(1) in-place",
     "dependsOn": "Arrays (Sorted or Symmetric)",
     "signals": "Finding pairs/triplets in sorted lists, reversing arrays, checking symmetry."
@@ -14,36 +14,126 @@
   "template": {
     "filename": "TwoPointer_Pattern_Template.java",
     "codeLines": [
-      { "num": 1, "text": "public class TwoPointer_Pattern_Template {" },
-      { "num": 2, "text": "    public static int solve(int[] nums) {" },
-      { "num": 3, "text": "        // STEP 1 — INIT: Place pointers at opposite ends" },
-      { "num": 4, "text": "        int left = 0;" },
-      { "num": 5, "text": "        int right = nums.length - 1;" },
-      { "num": 6, "text": "" },
-      { "num": 7, "text": "        // STEP 2 — LOOP: Narrow inward until they meet" },
-      { "num": 8, "text": "        while (left < right) {" },
-      { "num": 9, "text": "            // STEP 3 — CHECK: Evaluate condition and decide pointer step" },
-      { "num": 10, "text": "            int sum = nums[left] + nums[right];" },
-      { "num": 11, "text": "            if (sum == target) {" },
-      { "num": 12, "text": "                return ...; // MATCH found!" },
-      { "num": 13, "text": "            } else if (sum < target) {" },
-      { "num": 14, "text": "                left++;  // Too small -> need larger -> move left up" },
-      { "num": 15, "text": "            } else {" },
-      { "num": 16, "text": "                right--; // Too big -> need smaller -> move right down" },
-      { "num": 17, "text": "            }" },
-      { "num": 18, "text": "        }" },
-      { "num": 19, "text": "        // STEP 4 — RETURN" },
-      { "num": 20, "text": "        return -1;" },
-      { "num": 21, "text": "    }" },
-      { "num": 22, "text": "}" }
+      {
+        "num": 1,
+        "text": "public class TwoPointer_Pattern_Template {"
+      },
+      {
+        "num": 2,
+        "text": "    public static int solve(int[] nums) {"
+      },
+      {
+        "num": 3,
+        "text": "        // STEP 1 \u2014 INIT: Place pointers at opposite ends"
+      },
+      {
+        "num": 4,
+        "text": "        int left = 0;"
+      },
+      {
+        "num": 5,
+        "text": "        int right = nums.length - 1;"
+      },
+      {
+        "num": 6,
+        "text": ""
+      },
+      {
+        "num": 7,
+        "text": "        // STEP 2 \u2014 LOOP: Narrow inward until they meet"
+      },
+      {
+        "num": 8,
+        "text": "        while (left < right) {"
+      },
+      {
+        "num": 9,
+        "text": "            // STEP 3 \u2014 CHECK: Evaluate condition and decide pointer step"
+      },
+      {
+        "num": 10,
+        "text": "            int sum = nums[left] + nums[right];"
+      },
+      {
+        "num": 11,
+        "text": "            if (sum == target) {"
+      },
+      {
+        "num": 12,
+        "text": "                return ...; // MATCH found!"
+      },
+      {
+        "num": 13,
+        "text": "            } else if (sum < target) {"
+      },
+      {
+        "num": 14,
+        "text": "                left++;  // Too small -> need larger -> move left up"
+      },
+      {
+        "num": 15,
+        "text": "            } else {"
+      },
+      {
+        "num": 16,
+        "text": "                right--; // Too big -> need smaller -> move right down"
+      },
+      {
+        "num": 17,
+        "text": "            }"
+      },
+      {
+        "num": 18,
+        "text": "        }"
+      },
+      {
+        "num": 19,
+        "text": "        // STEP 4 \u2014 RETURN"
+      },
+      {
+        "num": 20,
+        "text": "        return -1;"
+      },
+      {
+        "num": 21,
+        "text": "    }"
+      },
+      {
+        "num": 22,
+        "text": "}"
+      }
     ],
     "traceSteps": [
-      { "line": 3, "title": "1. Pointer Initialization", "text": "Place one pointer at index 0 and the other at the very end of the array." },
-      { "line": 8, "title": "2. Loop Inward", "text": "Continue the search while left < right. Once they cross, all pairs are exhausted." },
-      { "line": 10, "title": "3. Evaluate State", "text": "Evaluate the current sum or criteria. We compare the combination at left and right." },
-      { "line": 13, "title": "4. Move Pointer (left++)", "text": "Because the data is sorted, incrementing left increases the sum for the next check." },
-      { "line": 15, "title": "5. Move Pointer (right--)", "text": "Decrementing right decreases the sum for the next check." },
-      { "line": 20, "title": "6. Fallback Return", "text": "If the pointers cross and no matches are found, return the fallback indicator (e.g. -1)." }
+      {
+        "line": 3,
+        "title": "1. Pointer Initialization",
+        "text": "Place one pointer at index 0 and the other at the very end of the array."
+      },
+      {
+        "line": 8,
+        "title": "2. Loop Inward",
+        "text": "Continue the search while left < right. Once they cross, all pairs are exhausted."
+      },
+      {
+        "line": 10,
+        "title": "3. Evaluate State",
+        "text": "Evaluate the current sum or criteria. We compare the combination at left and right."
+      },
+      {
+        "line": 13,
+        "title": "4. Move Pointer (left++)",
+        "text": "Because the data is sorted, incrementing left increases the sum for the next check."
+      },
+      {
+        "line": 15,
+        "title": "5. Move Pointer (right--)",
+        "text": "Decrementing right decreases the sum for the next check."
+      },
+      {
+        "line": 20,
+        "title": "6. Fallback Return",
+        "text": "If the pointers cross and no matches are found, return the fallback indicator (e.g. -1)."
+      }
     ],
     "sandbox": [
       {
@@ -77,5 +167,27 @@
         "correct": 1
       }
     ]
-  }
+  },
+  "followUps": [
+    {
+      "q": "What if the array is not sorted? Can you still use two pointers if you sort first?",
+      "a": "Yes, but sorting takes O(N log N). If the optimal solution is O(N) (like using a HashMap for Two Sum), sorting makes it slower. It's a trade-off between O(1) space (sorting) and O(N) space (HashMap)."
+    },
+    {
+      "q": "How would you solve this for triplets (3Sum) instead of pairs?",
+      "a": "Sort the array first. Iterate with a fixed pointer `i`, and then use Two Pointers (`left` and `right`) for the remaining array to find pairs that sum to `-nums[i]`."
+    },
+    {
+      "q": "Can you solve this without extra space (O(1) space)?",
+      "a": "Yes, Two Pointers inherently uses O(1) space, making it highly memory efficient compared to Hash-based solutions."
+    },
+    {
+      "q": "What if pointers move same direction at different speeds?",
+      "a": "That's the Fast/Slow Pointer pattern (Floyd's Cycle Finding), used for detecting cycles in Linked Lists or finding the middle element."
+    },
+    {
+      "q": "What if the array contains duplicates?",
+      "a": "You must skip over duplicates by checking `while(left < right && nums[left] == nums[left+1]) left++;` to avoid duplicate results."
+    }
+  ]
 }

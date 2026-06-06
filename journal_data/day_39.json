@@ -1,0 +1,67 @@
+{
+  "id": 39,
+  "title": "Greedy \u2014 Active Recall",
+  "patternType": "gd",
+  "category": "Greedy",
+  "oneSentence": "Fill in the blanks for Greedy choices.",
+  "problems": {
+    "jumpGame": {
+      "title": "Jump Game \u2014 Active Recall",
+      "patternSubtype": "Max Reach",
+      "story": "Keep track of the furthest you can go. If you reach an unreachable spot, stop.",
+      "template": [
+        "public boolean canJump(int[] nums) {",
+        "    int maxReach = [[0]];",
+        "    for (int i = 0; i < nums.length; i++) {",
+        "        if (i > [[maxReach]]) return [[false]];",
+        "        maxReach = Math.max([[maxReach]], [[i + nums[i]]]);",
+        "    }",
+        "    return [[true]];",
+        "}"
+      ]
+    },
+    "gasStation": {
+      "title": "Gas Station \u2014 Active Recall",
+      "patternSubtype": "Global vs Local",
+      "story": "If total gas < total cost, impossible. Otherwise, the local failing point means start after it.",
+      "template": [
+        "public int canCompleteCircuit(int[] gas, int[] cost) {",
+        "    int totalGas = [[0]], currentGas = [[0]], startIndex = [[0]];",
+        "    for (int i = 0; i < gas.length; i++) {",
+        "        int net = [[gas[i] - cost[i]]];",
+        "        totalGas += [[net]];",
+        "        currentGas += [[net]];",
+        "        if ([[currentGas < 0]]) {",
+        "            startIndex = [[i + 1]];",
+        "            currentGas = [[0]];",
+        "        }",
+        "    }",
+        "    return [[totalGas >= 0]] ? [[startIndex]] : [[-1]];",
+        "}"
+      ]
+    },
+    "partitionLabels": {
+      "title": "Partition Labels \u2014 Active Recall",
+      "patternSubtype": "Last Occurrence",
+      "story": "Record the last occurrence of each character. Extend the partition end if needed.",
+      "template": [
+        "public List<Integer> partitionLabels(String s) {",
+        "    int[] last = new int[[[26]]];",
+        "    for (int i = 0; i < s.length(); i++)",
+        "        last[[[s.charAt(i) - 'a']]] = [[i]];",
+        "    ",
+        "    List<Integer> res = new ArrayList<>();",
+        "    int start = [[0]], end = [[0]];",
+        "    for (int i = 0; i < s.length(); i++) {",
+        "        end = Math.max([[end]], [[last[s.charAt(i) - 'a']]]);",
+        "        if ([[i == end]]) {",
+        "            res.add([[end - start + 1]]);",
+        "            start = [[i + 1]];",
+        "        }",
+        "    }",
+        "    return [[res]];",
+        "}"
+      ]
+    }
+  }
+}

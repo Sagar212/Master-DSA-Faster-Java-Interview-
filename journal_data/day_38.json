@@ -1,0 +1,130 @@
+{
+  "id": 38,
+  "title": "Greedy \u2014 Dry Run & Quiz",
+  "patternType": "gd",
+  "category": "Greedy",
+  "oneSentence": "Trace Jump Game, Gas Station, and Partition Labels.",
+  "problems": {
+    "jumpGame": {
+      "title": "Jump Game",
+      "patternSubtype": "Max Reach",
+      "description": "Determine if you can reach the last index.",
+      "story": "Keep track of the furthest you can go. If you reach an unreachable spot, stop.",
+      "array": [2, 3, 1, 1, 4],
+      "code": [
+        "public boolean canJump(int[] nums) {",
+        "    int maxReach = 0;",
+        "    for (int i = 0; i < nums.length; i++) {",
+        "        if (i > maxReach) return false;",
+        "        maxReach = Math.max(maxReach, i + nums[i]);",
+        "    }",
+        "    return true;",
+        "}"
+      ],
+      "steps": [
+        { "i": 0, "nums[i]": 2, "maxReach": 2, "line": 5, "desc": "i=0 <= maxReach(0). Update maxReach = max(0, 0+2) = 2." },
+        { "i": 1, "nums[i]": 3, "maxReach": 4, "line": 5, "desc": "i=1 <= maxReach(2). Update maxReach = max(2, 1+3) = 4." },
+        { "i": 2, "nums[i]": 1, "maxReach": 4, "line": 5, "desc": "i=2 <= maxReach(4). Update maxReach = max(4, 2+1) = 4." },
+        { "i": 3, "nums[i]": 1, "maxReach": 4, "line": 5, "desc": "i=3 <= maxReach(4). Update maxReach = max(4, 3+1) = 4." },
+        { "i": 4, "nums[i]": 4, "maxReach": 8, "line": 5, "desc": "i=4 <= maxReach(4). Update maxReach = max(4, 4+4) = 8." },
+        { "i": null, "nums[i]": null, "maxReach": 8, "line": 7, "desc": "Loop completes. Return true." }
+      ],
+      "quiz": [
+        {
+          "q": "What happens if there's a 0 in the array?",
+          "options": [
+            "We automatically fail.",
+            "We only fail if our maxReach is exactly at the index of the 0.",
+            "We skip the 0."
+          ],
+          "correct": 1,
+          "explain": "A 0 only stops us if our maximum reach doesn't allow us to jump past it."
+        }
+      ]
+    },
+    "gasStation": {
+      "title": "Gas Station",
+      "patternSubtype": "Global vs Local",
+      "description": "Find the starting gas station to complete the circuit.",
+      "story": "If total gas < total cost, impossible. Otherwise, the local failing point means start after it.",
+      "array": [1, 2, 3, 4, 5],
+      "code": [
+        "public int canCompleteCircuit(int[] gas, int[] cost) {",
+        "    int totalGas = 0, currentGas = 0, startIndex = 0;",
+        "    for (int i = 0; i < gas.length; i++) {",
+        "        int net = gas[i] - cost[i];",
+        "        totalGas += net;",
+        "        currentGas += net;",
+        "        if (currentGas < 0) {",
+        "            startIndex = i + 1;",
+        "            currentGas = 0;",
+        "        }",
+        "    }",
+        "    return totalGas >= 0 ? startIndex : -1;",
+        "}"
+      ],
+      "steps": [
+        { "i": 0, "net": -2, "currentGas": -2, "totalGas": -2, "line": 7, "desc": "Gas runs out. Start index becomes 1, current gas reset to 0." },
+        { "i": 1, "net": -2, "currentGas": -2, "totalGas": -4, "line": 7, "desc": "Gas runs out. Start index becomes 2, current gas reset to 0." },
+        { "i": 2, "net": -2, "currentGas": -2, "totalGas": -6, "line": 7, "desc": "Gas runs out. Start index becomes 3, current gas reset to 0." },
+        { "i": 3, "net": 3, "currentGas": 3, "totalGas": -3, "line": 5, "desc": "Current gas positive. Keep going." },
+        { "i": 4, "net": 3, "currentGas": 6, "totalGas": 0, "line": 5, "desc": "Current gas positive. Keep going." },
+        { "i": null, "net": null, "currentGas": 6, "totalGas": 0, "line": 12, "desc": "Total gas >= 0. Return startIndex (3)." }
+      ],
+      "quiz": [
+        {
+          "q": "Why do we reset the startIndex to i + 1 when currentGas drops below 0?",
+          "options": [
+            "Because any station between the previous start and i would also run out of gas before passing i.",
+            "Because we want to randomly pick a new station.",
+            "Because gas stations are ordered by cost."
+          ],
+          "correct": 0,
+          "explain": "If you can't reach i from a start point, you can't reach i from any point in between. So start at i + 1."
+        }
+      ]
+    },
+    "partitionLabels": {
+      "title": "Partition Labels",
+      "patternSubtype": "Last Occurrence",
+      "description": "Partition a string so that each letter appears in at most one part.",
+      "story": "Record the last occurrence of each character. Extend the partition end if needed.",
+      "array": ["a", "b", "a", "b", "c", "b", "a", "c", "a", "d", "e", "f", "e", "g", "d", "e", "h", "i", "j", "h", "k", "l", "i", "j"],
+      "code": [
+        "public List<Integer> partitionLabels(String s) {",
+        "    int[] last = new int[26];",
+        "    for (int i = 0; i < s.length(); i++)",
+        "        last[s.charAt(i) - 'a'] = i;",
+        "    ",
+        "    List<Integer> res = new ArrayList<>();",
+        "    int start = 0, end = 0;",
+        "    for (int i = 0; i < s.length(); i++) {",
+        "        end = Math.max(end, last[s.charAt(i) - 'a']);",
+        "        if (i == end) {",
+        "            res.add(end - start + 1);",
+        "            start = i + 1;",
+        "        }",
+        "    }",
+        "    return res;",
+        "}"
+      ],
+      "steps": [
+        { "i": 0, "char": "a", "end": 8, "line": 9, "desc": "Update end to max(0, last['a']=8)." },
+        { "i": 1, "char": "b", "end": 8, "line": 9, "desc": "Update end to max(8, last['b']=5)." },
+        { "i": 8, "char": "a", "end": 8, "line": 10, "desc": "Reached end of partition! Add length 9 to result. start = 9." }
+      ],
+      "quiz": [
+        {
+          "q": "Why do we precompute the last occurrence of each character?",
+          "options": [
+            "To know the minimum span needed if we include a character in the current partition.",
+            "To count the frequency of characters.",
+            "To find the shortest string."
+          ],
+          "correct": 0,
+          "explain": "A partition containing a character must encompass its first and last occurrences."
+        }
+      ]
+    }
+  }
+}

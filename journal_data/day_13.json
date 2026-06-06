@@ -119,5 +119,27 @@
         "correct": 2
       }
     ]
-  }
+  },
+  "followUps": [
+    {
+      "q": "What if you need top K from trillions of numbers in a stream?",
+      "a": "Maintain a Min-Heap of exactly size K. For each new number, if it's larger than the heap's minimum (root), pop the root and push the new number. Space is strictly O(K)."
+    },
+    {
+      "q": "How would you implement decrease-key or remove-arbitrary-element efficiently?",
+      "a": "Standard PriorityQueue takes O(N) to find and remove an arbitrary element. You can maintain a separate HashMap mapping elements to their heap indices to achieve O(log N) removal, or use Java's TreeSet."
+    },
+    {
+      "q": "How to merge M sorted lists optimally using a heap?",
+      "a": "Insert the head of each list into a Min-Heap. Pop the smallest, append to result, and insert the next element from the popped node's list. Time: O(N log M)."
+    },
+    {
+      "q": "Min-Heap vs Max-Heap \u2014 when to use which?",
+      "a": "Use a Min-Heap to find the Top K LARGEST elements (it evicts the smallest). Use a Max-Heap to find the Top K SMALLEST elements."
+    },
+    {
+      "q": "What's the time complexity of building a heap from N elements?",
+      "a": "Inserting N elements one by one takes O(N log N). But using heapify (bottom-up), it takes exactly O(N) time."
+    }
+  ]
 }

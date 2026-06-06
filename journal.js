@@ -228,7 +228,22 @@ function App() {
       <div className="app-container">
         {/* Sidebar Navigation */}
         <aside className="sidebar">
-          <div className="sidebar-title">Mastery Timeline</div>
+          <div className="sidebar-title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            Mastery Timeline
+            <button 
+              onClick={() => setActiveDay('java')}
+              style={{
+                background: activeDay === 'java' ? 'rgba(56, 189, 248, 0.2)' : 'rgba(56, 189, 248, 0.1)',
+                border: '1px solid rgba(56, 189, 248, 0.2)',
+                color: '#38bdf8', padding: '4px 8px', borderRadius: '4px',
+                fontSize: '11px', fontWeight: 'bold', cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+              title="Java Reference Cheat Sheet"
+            >
+              <i className="fa-brands fa-java" style={{ marginRight: '4px' }}></i>Java
+            </button>
+          </div>
           
           {curriculumIndex.map(day => {
             const dayNum = day.id;
@@ -286,6 +301,8 @@ function App() {
               curriculumIndex={curriculumIndex}
               isDayLocked={(day) => isDayLocked(day, curriculumIndex, progress)}
             />
+          ) : activeDay === 'java' ? (
+            <window.JavaBuildingBlocks onBack={() => setActiveDay(null)} />
           ) : (
             getDayComponent(
               loadedDays[activeDay],

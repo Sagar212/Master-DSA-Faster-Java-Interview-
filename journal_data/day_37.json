@@ -1,0 +1,118 @@
+{
+  "id": 37,
+  "title": "Greedy \u2014 ROI & Pattern",
+  "patternType": "gd",
+  "category": "Greedy",
+  "oneSentence": "Make the locally optimal choice at each step without looking back.",
+  "description": "Master the Greedy pattern. Focus on proving why local optimization leads to global optimization.",
+  "roi": {
+    "frequency": "\u2b50\u2b50\u2b50",
+    "complexity": "Time: O(N) | Space: O(1)",
+    "dependsOn": "Arrays",
+    "signals": "Max/min without overlap, 'is it possible to reach', greedy choice property."
+  },
+  "template": {
+    "filename": "JumpGame_Template.java",
+    "codeLines": [
+      {
+        "num": 1,
+        "text": "public class Greedy_Pattern_Template {"
+      },
+      {
+        "num": 2,
+        "text": "    public static boolean solve(int[] nums) {"
+      },
+      {
+        "num": 3,
+        "text": "        int maxReach = 0;"
+      },
+      {
+        "num": 4,
+        "text": "        for (int i = 0; i < nums.length; i++) {"
+      },
+      {
+        "num": 5,
+        "text": "            if (i > maxReach) return false;"
+      },
+      {
+        "num": 6,
+        "text": "            maxReach = Math.max(maxReach, i + nums[i]);"
+      },
+      {
+        "num": 7,
+        "text": "        }"
+      },
+      {
+        "num": 8,
+        "text": "        return true;"
+      },
+      {
+        "num": 9,
+        "text": "    }"
+      },
+      {
+        "num": 10,
+        "text": "}"
+      }
+    ],
+    "traceSteps": [
+      {
+        "line": 3,
+        "title": "1. Initialize State",
+        "text": "Track the maximum reachable index."
+      },
+      {
+        "line": 4,
+        "title": "2. Iterate",
+        "text": "Go through each element one by one."
+      },
+      {
+        "line": 5,
+        "title": "3. Feasibility Check",
+        "text": "If the current index is beyond our max reach, we can't proceed."
+      },
+      {
+        "line": 6,
+        "title": "4. Greedy Choice",
+        "text": "Update max reach to be the furthest we can go from current index."
+      },
+      {
+        "line": 8,
+        "title": "5. Return",
+        "text": "If we complete the loop without failing, the end is reachable."
+      }
+    ],
+    "sandbox": [
+      {
+        "step": "INIT",
+        "question": "What state do we track in Jump Game?",
+        "options": [
+          "The maximum reachable index.",
+          "The number of jumps taken.",
+          "The sum of all elements seen."
+        ],
+        "correct": 0
+      },
+      {
+        "step": "CHECK",
+        "question": "When do we know we failed?",
+        "options": [
+          "When maxReach reaches nums.length.",
+          "When the current index is greater than maxReach.",
+          "When nums[i] is 0."
+        ],
+        "correct": 1
+      }
+    ]
+  },
+  "followUps": [
+    {
+      "q": "How does this differ from Dynamic Programming?",
+      "a": "Greedy makes the best local choice without exploring all options. DP explores all choices and picks the best global one."
+    },
+    {
+      "q": "How do you prove a greedy strategy works?",
+      "a": "Often using proof by contradiction or by showing that any optimal solution can be transformed into the greedy solution without losing optimality."
+    }
+  ]
+}

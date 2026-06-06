@@ -212,6 +212,23 @@ function DayPatternLearn({ dayData, onComplete, isCompleted, onBack }) {
           </div>
         )}
 
+        {/* Interview Follow Ups */}
+        {dayData.followUps && dayData.followUps.length > 0 && (
+          <div className="follow-ups-section card" style={{ marginTop: '24px', borderLeft: `4px solid var(--${dayData.patternType}-primary, var(--tp-primary))` }}>
+            <h3 style={{ fontSize: '16px', fontWeight: '800', marginBottom: '16px' }}>
+              <i className="fa-solid fa-crosshairs" style={{ color: `var(--${dayData.patternType}-primary, var(--tp-primary))` }}></i> 🎯 Interview Follow-Ups
+            </h3>
+            <div style={{ display: 'grid', gap: '16px' }}>
+              {dayData.followUps.map((fu, idx) => (
+                <div key={idx} style={{ background: 'rgba(255,255,255,0.03)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ fontWeight: '700', fontSize: '14px', marginBottom: '8px', color: '#e2e8f0' }}>Q: {fu.q}</div>
+                  <div style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: '1.5' }}><strong>A:</strong> {fu.a}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Complete Day action */}
         <div className="day-complete-section">
           <div style={{ color: 'var(--text-muted)', fontSize: '13px' }}>

@@ -458,5 +458,65 @@
       "-100 <= Node.val <= 100",
       "Both list1 and list2 are sorted in non-decreasing order."
     ]
+  },
+  "numIslands": {
+    "name": "Number of Islands",
+    "difficulty": "Medium",
+    "link": "https://leetcode.com/problems/number-of-islands/"
+  },
+  "courseSchedule": {
+    "name": "Course Schedule",
+    "difficulty": "Medium",
+    "link": "https://leetcode.com/problems/course-schedule/"
+  },
+  "rottingOranges": {
+    "name": "Rotting Oranges",
+    "difficulty": "Medium",
+    "link": "https://leetcode.com/problems/rotting-oranges/"
+  },
+  "climbStairs": {
+    "name": "Climbing Stairs",
+    "difficulty": "Easy",
+    "link": "https://leetcode.com/problems/climbing-stairs/"
+  },
+  "coinChange": {
+    "name": "Coin Change",
+    "difficulty": "Medium",
+    "link": "https://leetcode.com/problems/coin-change/"
+  },
+  "houseRobber": {
+    "name": "House Robber",
+    "difficulty": "Medium",
+    "link": "https://leetcode.com/problems/house-robber/"
+  },
+  "mergeIntervals": {
+    "name": "Merge Intervals",
+    "difficulty": "Medium",
+    "link": "https://leetcode.com/problems/merge-intervals/"
+  },
+  "insertInterval": {
+    "name": "Insert Interval",
+    "difficulty": "Medium",
+    "link": "https://leetcode.com/problems/insert-interval/"
+  },
+  "meetingRoomsII": {
+    "name": "Meeting Rooms II",
+    "difficulty": "Medium",
+    "link": "https://leetcode.com/problems/meeting-rooms-ii/"
+  },
+  "jumpGame": {
+    "name": "Jump Game",
+    "difficulty": "Medium",
+    "link": "https://leetcode.com/problems/jump-game/"
+  },
+  "gasStation": {
+    "name": "Gas Station",
+    "difficulty": "Medium",
+    "link": "https://leetcode.com/problems/gas-station/"
+  },
+  "partitionLabels": {
+    "name": "Partition Labels",
+    "difficulty": "Medium",
+    "link": "https://leetcode.com/problems/partition-labels/"
   }
 }

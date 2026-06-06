@@ -217,5 +217,6 @@
         }
       ]
     }
-  }
+  },
+  "oneSentence": "Trace Reverse Linked List and Merge Two Sorted Lists."
 }

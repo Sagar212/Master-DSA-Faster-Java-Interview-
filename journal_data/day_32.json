@@ -1,0 +1,119 @@
+{
+  "id": 32,
+  "title": "1D DP \u2014 Dry Run & Quiz",
+  "patternType": "dp",
+  "category": "1D Dynamic Programming",
+  "oneSentence": "Trace Climbing Stairs, Coin Change, and House Robber.",
+  "problems": {
+    "climbStairs": {
+      "title": "Climbing Stairs",
+      "patternSubtype": "Fibonacci DP",
+      "description": "Find the number of ways to climb to the top.",
+      "story": "Each step builds upon the previous two.",
+      "array": [1, 2, 3, 4],
+      "code": [
+        "public int climbStairs(int n) {",
+        "    if (n == 1) return 1;",
+        "    int first = 1;",
+        "    int second = 2;",
+        "    for (int i = 3; i <= n; i++) {",
+        "        int third = first + second;",
+        "        first = second;",
+        "        second = third;",
+        "    }",
+        "    return second;",
+        "}"
+      ],
+      "steps": [
+        { "left": -1, "right": -1, "line": 3, "desc": "Initialize first = 1." },
+        { "left": -1, "right": -1, "line": 4, "desc": "Initialize second = 2." },
+        { "left": -1, "right": -1, "line": 6, "desc": "Loop starts. Compute third = first + second." }
+      ],
+      "quiz": [
+        {
+          "q": "What is the relation between Climbing Stairs and Fibonacci sequence?",
+          "options": [
+            "They are identical recurrence relations: f(n) = f(n-1) + f(n-2).",
+            "They share no relation.",
+            "Climbing Stairs uses multiplication."
+          ],
+          "correct": 0,
+          "explain": "Both problems rely on summing the results of the two immediately preceding states."
+        }
+      ]
+    },
+    "coinChange": {
+      "title": "Coin Change",
+      "patternSubtype": "Unbounded Knapsack",
+      "description": "Find minimum coins to make up an amount.",
+      "story": "Build the smallest wallet for each amount.",
+      "array": [1, 2, 5],
+      "code": [
+        "public int coinChange(int[] coins, int amount) {",
+        "    int[] dp = new int[amount + 1];",
+        "    Arrays.fill(dp, amount + 1);",
+        "    dp[0] = 0;",
+        "    for (int i = 1; i <= amount; i++) {",
+        "        for (int coin : coins) {",
+        "            if (i - coin >= 0) {",
+        "                dp[i] = Math.min(dp[i], dp[i - coin] + 1);",
+        "            }",
+        "        }",
+        "    }",
+        "    return dp[amount] > amount ? -1 : dp[amount];",
+        "}"
+      ],
+      "steps": [
+        { "left": -1, "right": -1, "line": 2, "desc": "Create dp array of size amount + 1." },
+        { "left": -1, "right": -1, "line": 3, "desc": "Fill dp array with amount + 1 (acts as infinity)." },
+        { "left": -1, "right": -1, "line": 4, "desc": "Base case: dp[0] = 0 coins needed for amount 0." }
+      ],
+      "quiz": [
+        {
+          "q": "Why fill the DP array with `amount + 1` instead of `Integer.MAX_VALUE`?",
+          "options": [
+            "To prevent integer overflow when adding 1 to the DP state.",
+            "Because amount + 1 is always the exact answer.",
+            "Integer.MAX_VALUE takes more memory."
+          ],
+          "correct": 0,
+          "explain": "If `dp[i - coin]` was `Integer.MAX_VALUE`, adding 1 would cause integer overflow and result in a negative number."
+        }
+      ]
+    },
+    "houseRobber": {
+      "title": "House Robber",
+      "patternSubtype": "Take or Skip DP",
+      "description": "Maximize loot without robbing adjacent houses.",
+      "story": "To rob or not to rob?",
+      "array": [1, 2, 3, 1],
+      "code": [
+        "public int rob(int[] nums) {",
+        "    int rob1 = 0, rob2 = 0;",
+        "    for (int n : nums) {",
+        "        int temp = Math.max(n + rob1, rob2);",
+        "        rob1 = rob2;",
+        "        rob2 = temp;",
+        "    }",
+        "    return rob2;",
+        "}"
+      ],
+      "steps": [
+        { "left": -1, "right": -1, "line": 2, "desc": "Initialize two variables to track max loot." },
+        { "left": -1, "right": -1, "line": 4, "desc": "Decide: rob current house (n + rob1) or skip it (rob2)." }
+      ],
+      "quiz": [
+        {
+          "q": "What does rob1 represent in the loop?",
+          "options": [
+            "The maximum loot excluding the immediate previous house.",
+            "The maximum loot including the current house.",
+            "The index of the last robbed house."
+          ],
+          "correct": 0,
+          "explain": "rob1 represents the max loot excluding the immediate previous house, allowing us to safely add the current house's value."
+        }
+      ]
+    }
+  }
+}

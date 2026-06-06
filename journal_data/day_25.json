@@ -111,5 +111,27 @@
         "correct": 0
       }
     ]
-  }
+  },
+  "followUps": [
+    {
+      "q": "Can you reverse just nodes from position m to n?",
+      "a": "Yes, traverse to position `m-1`, save that connection point, then use standard reversal for `n-m` steps, and finally reconnect the severed ends."
+    },
+    {
+      "q": "Reverse in groups of K?",
+      "a": "Count nodes to ensure there are at least K left. Reverse the K group, then recursively call the function on the `next` pointer of the original group's head."
+    },
+    {
+      "q": "Detect the cycle AND return the node where the cycle begins?",
+      "a": "Use Fast/Slow pointers. Once they meet, reset one pointer to the `head`. Move both one step at a time; where they meet again is the cycle start (Floyd's algorithm)."
+    },
+    {
+      "q": "Can you remove the cycle once detected?",
+      "a": "Yes, once you find the start node of the cycle, traverse the cycle one more time to find the node whose `next` points to the start, and set `next = null`."
+    },
+    {
+      "q": "How would you handle concurrency in LRU Cache?",
+      "a": "Use a `ConcurrentHashMap` for node lookup, and `ReentrantLock` or `synchronized` blocks around Doubly-LinkedList modifications to prevent race conditions during evictions."
+    }
+  ]
 }

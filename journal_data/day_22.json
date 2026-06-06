@@ -60,18 +60,81 @@
         "line": 3,
         "title": "Init Stack",
         "text": "Create an empty stack to track closing brackets."
+      },
+      {
+        "line": 4,
+        "title": "Loop",
+        "text": "Iterate through every character in the string."
+      },
+      {
+        "line": 5,
+        "title": "Push Expected",
+        "text": "If we see an open bracket '(', push the expected closing bracket ')' to the stack."
+      },
+      {
+        "line": 6,
+        "title": "Match & Pop",
+        "text": "If it's a closing bracket, check if the stack is empty (unmatched closing bracket) or if the popped element doesn't match the current character."
+      },
+      {
+        "line": 8,
+        "title": "Final Check",
+        "text": "After the loop, the stack MUST be empty. If it's not, there were unmatched open brackets left over."
       }
     ],
     "sandbox": [
       {
         "step": "INIT",
-        "question": "Why use a stack?",
+        "question": "Why use a stack for Valid Parentheses?",
         "options": [
-          "LIFO matches nested pairs",
-          "FIFO is faster"
+          "LIFO matches nested pairs (last opened must be first closed)",
+          "FIFO is faster",
+          "It saves memory compared to an array"
+        ],
+        "correct": 0
+      },
+      {
+        "step": "PUSH",
+        "question": "Why push the closing bracket instead of the opening bracket?",
+        "options": [
+          "It makes the matching step later a simple equality check `stack.pop() != c`",
+          "Java requires it",
+          "It is easier to type"
+        ],
+        "correct": 0
+      },
+      {
+        "step": "FINAL",
+        "question": "If the string is just `((`, what happens?",
+        "options": [
+          "The loop finishes, but stack is not empty, returning false",
+          "It returns true",
+          "It throws an exception"
         ],
         "correct": 0
       }
     ]
-  }
+  },
+  "followUps": [
+    {
+      "q": "What if the array is circular?",
+      "a": "If you need the Next Greater Element in a circular array, iterate up to `2*N` using modulo `i % N` to simulate wrapping around."
+    },
+    {
+      "q": "How does your solution handle duplicate values?",
+      "a": "Monotonic Stacks handle duplicates fine. You just decide whether to strictly increase (`>`) or monotonic non-decreasing (`>=`) when popping from the stack."
+    },
+    {
+      "q": "Can you optimize space further?",
+      "a": "Sometimes you can reuse the input array as the stack itself using a pointer, achieving O(1) auxiliary space, but this destroys the original input."
+    },
+    {
+      "q": "Can you solve Trapping Rain Water with a monotonic stack?",
+      "a": "Yes, use a decreasing monotonic stack. When you find a taller bar, you pop from the stack to form 'valleys' and calculate trapped water bounded by the current bar and the new top of the stack."
+    },
+    {
+      "q": "What's the difference between increasing vs decreasing monotonic stack?",
+      "a": "Decreasing stack (larger at bottom) finds the Next Greater Element. Increasing stack (smaller at bottom) finds the Next Smaller Element."
+    }
+  ]
 }

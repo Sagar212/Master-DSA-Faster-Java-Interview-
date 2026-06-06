@@ -1585,3 +1585,83 @@
 .story-banner.ll { background: var(--ll-glow); border-left: 3px solid var(--ll-primary); }
 .story-banner.ll i { color: var(--ll-primary); }
 .leetcode-card.ll { border-left: 3px solid var(--ll-primary); background: var(--ll-glow); }
+
+/* Phase 4 New Themes (Graphs, DP, Intervals, Greedy) */
+:root {
+  --gr-primary: #eab308;
+  --gr-glow: rgba(234, 179, 8, 0.15);
+  --dp-primary: #f43f5e;
+  --dp-glow: rgba(244, 63, 94, 0.15);
+  --iv-primary: #06b6d4;
+  --iv-glow: rgba(6, 182, 212, 0.15);
+  --gd-primary: #84cc16;
+  --gd-glow: rgba(132, 204, 22, 0.15);
+}
+
+.day-num.gr { color: var(--gr-primary); }
+.dash-day-icon.gr { background: var(--gr-glow); color: var(--gr-primary); }
+.dash-day-card.gr-card .action-link { color: var(--gr-primary); }
+.prob-tab.active.gr { color: var(--gr-primary); }
+.prob-tab.active.gr::after { background: var(--gr-primary); }
+.story-banner.gr { background: var(--gr-glow); border-left: 3px solid var(--gr-primary); }
+.story-banner.gr i { color: var(--gr-primary); }
+.leetcode-card.gr { border-left: 3px solid var(--gr-primary); background: var(--gr-glow); }
+.roi-icon-container.gr { background: var(--gr-glow); color: var(--gr-primary); }
+.step-explain-box.gr i { color: var(--gr-primary); }
+.sandbox-step-card.gr h4 { color: var(--gr-primary); }
+.primary-action-btn.gr { background: var(--gr-primary); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); }
+.pass-btn.active.gr { background: var(--gr-primary); color: white; }
+.day-card.active-gr::after { background: var(--gr-primary); }
+.quiz-option.selected.gr { border-color: var(--gr-primary); background: rgba(234, 179, 8, 0.05); }
+
+
+.day-num.dp { color: var(--dp-primary); }
+.dash-day-icon.dp { background: var(--dp-glow); color: var(--dp-primary); }
+.dash-day-card.dp-card .action-link { color: var(--dp-primary); }
+.prob-tab.active.dp { color: var(--dp-primary); }
+.prob-tab.active.dp::after { background: var(--dp-primary); }
+.story-banner.dp { background: var(--dp-glow); border-left: 3px solid var(--dp-primary); }
+.story-banner.dp i { color: var(--dp-primary); }
+.leetcode-card.dp { border-left: 3px solid var(--dp-primary); background: var(--dp-glow); }
+.roi-icon-container.dp { background: var(--dp-glow); color: var(--dp-primary); }
+.step-explain-box.dp i { color: var(--dp-primary); }
+.sandbox-step-card.dp h4 { color: var(--dp-primary); }
+.primary-action-btn.dp { background: var(--dp-primary); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); }
+.pass-btn.active.dp { background: var(--dp-primary); color: white; }
+.day-card.active-dp::after { background: var(--dp-primary); }
+.quiz-option.selected.dp { border-color: var(--dp-primary); background: rgba(244, 63, 94, 0.05); }
+
+
+.day-num.iv { color: var(--iv-primary); }
+.dash-day-icon.iv { background: var(--iv-glow); color: var(--iv-primary); }
+.dash-day-card.iv-card .action-link { color: var(--iv-primary); }
+.prob-tab.active.iv { color: var(--iv-primary); }
+.prob-tab.active.iv::after { background: var(--iv-primary); }
+.story-banner.iv { background: var(--iv-glow); border-left: 3px solid var(--iv-primary); }
+.story-banner.iv i { color: var(--iv-primary); }
+.leetcode-card.iv { border-left: 3px solid var(--iv-primary); background: var(--iv-glow); }
+.roi-icon-container.iv { background: var(--iv-glow); color: var(--iv-primary); }
+.step-explain-box.iv i { color: var(--iv-primary); }
+.sandbox-step-card.iv h4 { color: var(--iv-primary); }
+.primary-action-btn.iv { background: var(--iv-primary); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); }
+.pass-btn.active.iv { background: var(--iv-primary); color: white; }
+.day-card.active-iv::after { background: var(--iv-primary); }
+.quiz-option.selected.iv { border-color: var(--iv-primary); background: rgba(6, 182, 212, 0.05); }
+
+
+.day-num.gd { color: var(--gd-primary); }
+.dash-day-icon.gd { background: var(--gd-glow); color: var(--gd-primary); }
+.dash-day-card.gd-card .action-link { color: var(--gd-primary); }
+.prob-tab.active.gd { color: var(--gd-primary); }
+.prob-tab.active.gd::after { background: var(--gd-primary); }
+.story-banner.gd { background: var(--gd-glow); border-left: 3px solid var(--gd-primary); }
+.story-banner.gd i { color: var(--gd-primary); }
+.leetcode-card.gd { border-left: 3px solid var(--gd-primary); background: var(--gd-glow); }
+.roi-icon-container.gd { background: var(--gd-glow); color: var(--gd-primary); }
+.step-explain-box.gd i { color: var(--gd-primary); }
+.sandbox-step-card.gd h4 { color: var(--gd-primary); }
+.primary-action-btn.gd { background: var(--gd-primary); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); }
+.pass-btn.active.gd { background: var(--gd-primary); color: white; }
+.day-card.active-gd::after { background: var(--gd-primary); }
+.quiz-option.selected.gd { border-color: var(--gd-primary); background: rgba(132, 204, 22, 0.05); }
+
