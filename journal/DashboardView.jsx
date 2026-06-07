@@ -22,9 +22,9 @@ function DashboardView({ progress, setActiveDay, percent, curriculumIndex, isDay
         </h3>
         Each pattern is mastered in a high-retention 3-day cycle:
         <ul style={{ marginLeft: '20px', marginTop: '6px', color: 'var(--text-muted)' }}>
-          <li><strong>Day 1 / 4 (Pattern Learn 2x):</strong> Build conceptual understanding by tracing templates and doing step-by-step reconstruction.</li>
-          <li><strong>Day 2 / 5 (Dry Run & Recall):</strong> Analyze execution flow line-by-line using pointer visualization on existing interview problems.</li>
-          <li><strong>Day 3 / 6 (Active Recall Skeletons):</strong> Force memory retrieval by writing/filling the code from blank templates.</li>
+          <li><strong>Phase 1: Pattern Learn (2x Trace):</strong> Build conceptual understanding by tracing templates line-by-line and doing step-by-step reconstruction.</li>
+          <li><strong>Phase 2: Visual Dry Run & Quiz:</strong> Analyze execution flow line-by-line using pointer visualization on real LeetCode problems.</li>
+          <li><strong>Phase 3: Active Recall Skeletons:</strong> Force memory retrieval by writing the core logic from blank templates under time pressure.</li>
         </ul>
       </div>
 
