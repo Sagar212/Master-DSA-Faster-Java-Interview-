@@ -49,13 +49,22 @@ function JavaBuildingBlocks({ onBack }) {
       <div style={{ display: 'grid', gap: '24px' }}>
         {activeTab === 'classes' && (
           <>
+            <div style={{ marginBottom: '24px', background: 'rgba(56, 189, 248, 0.05)', border: '1px solid rgba(56, 189, 248, 0.2)', padding: '16px', borderRadius: '12px' }}>
+              <h3 style={{ margin: '0 0 8px 0', fontSize: '16px', color: '#38bdf8', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <i className="fa-solid fa-circle-info"></i> What are these classes?
+              </h3>
+              <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+                Unlike <code>ArrayList</code> or <code>HashMap</code>, the <code>ListNode</code> and <code>TreeNode</code> classes are <strong>not built into standard Java</strong>. They are custom helper classes provided by coding platforms (like LeetCode or HackerRank) to build Linked Lists and Trees. When you write your solution, the platform silently includes these class definitions behind the scenes.
+              </p>
+            </div>
+
             <div className="card" style={{ padding: '24px', borderLeft: '4px solid var(--ll-primary)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
                 <i className="fa-solid fa-link" style={{ fontSize: '20px', color: 'var(--ll-primary)' }}></i>
                 <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '800' }}>ListNode (Singly Linked List)</h3>
               </div>
               <p style={{ color: 'var(--text-muted)', fontSize: '14px', marginBottom: '16px' }}>
-                The standard representation of a linked list node in LeetCode environments.
+                Used to create a chain of nodes. Each node holds a value and a pointer (reference) to the next node in the chain.
               </p>
               <div style={{ background: '#0d1117', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
                 <pre style={{ margin: 0, fontFamily: 'Fira Code, monospace', fontSize: '13px', color: '#c9d1d9', lineHeight: '1.5' }}>
@@ -66,6 +75,16 @@ function JavaBuildingBlocks({ onBack }) {
                   {'    '}<span style={{ color: '#ff7b72' }}>public</span> <span style={{ color: '#d2a8ff' }}>ListNode</span>() {'{}'}<br/>
                   {'    '}<span style={{ color: '#ff7b72' }}>public</span> <span style={{ color: '#d2a8ff' }}>ListNode</span>(<span style={{ color: '#ff7b72' }}>int</span> val) {'{'} <span style={{ color: '#79c0ff' }}>this</span>.val = val; {'}'}<br/>
                   {'    '}<span style={{ color: '#ff7b72' }}>public</span> <span style={{ color: '#d2a8ff' }}>ListNode</span>(<span style={{ color: '#ff7b72' }}>int</span> val, <span style={{ color: '#d2a8ff' }}>ListNode</span> next) {'{'} <span style={{ color: '#79c0ff' }}>this</span>.val = val; <span style={{ color: '#79c0ff' }}>this</span>.next = next; {'}'}<br/>
+                  {'}'}
+                </pre>
+              </div>
+              <div style={{ marginTop: '16px', background: '#0d1117', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <div style={{ fontSize: '12px', color: '#8b949e', marginBottom: '8px', textTransform: 'uppercase', fontWeight: 'bold' }}>How to traverse a Linked List:</div>
+                <pre style={{ margin: 0, fontFamily: 'Fira Code, monospace', fontSize: '13px', color: '#c9d1d9', lineHeight: '1.5' }}>
+                  <span style={{ color: '#d2a8ff' }}>ListNode</span> curr = head; <span style={{ color: '#8b949e' }}>// Start at the head</span><br/>
+                  <span style={{ color: '#ff7b72' }}>while</span> (curr != <span style={{ color: '#79c0ff' }}>null</span>) {'{'}<br/>
+                  {'    '}<span style={{ color: '#d2a8ff' }}>System</span>.out.println(curr.val); <span style={{ color: '#8b949e' }}>// Process node</span><br/>
+                  {'    '}curr = curr.next; <span style={{ color: '#8b949e' }}>// Move to the next node</span><br/>
                   {'}'}
                 </pre>
               </div>
@@ -80,7 +99,7 @@ function JavaBuildingBlocks({ onBack }) {
                 <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '800' }}>TreeNode (Binary Tree)</h3>
               </div>
               <p style={{ color: 'var(--text-muted)', fontSize: '14px', marginBottom: '16px' }}>
-                The standard representation of a binary tree node.
+                Used to create a hierarchical tree structure. Each node holds a value and pointers to up to two children (left and right).
               </p>
               <div style={{ background: '#0d1117', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
                 <pre style={{ margin: 0, fontFamily: 'Fira Code, monospace', fontSize: '13px', color: '#c9d1d9', lineHeight: '1.5' }}>
@@ -99,6 +118,20 @@ function JavaBuildingBlocks({ onBack }) {
                   {'}'}
                 </pre>
               </div>
+              <div style={{ marginTop: '16px', background: '#0d1117', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <div style={{ fontSize: '12px', color: '#8b949e', marginBottom: '8px', textTransform: 'uppercase', fontWeight: 'bold' }}>How to traverse a Binary Tree (DFS Recursion):</div>
+                <pre style={{ margin: 0, fontFamily: 'Fira Code, monospace', fontSize: '13px', color: '#c9d1d9', lineHeight: '1.5' }}>
+                  <span style={{ color: '#ff7b72' }}>public void</span> <span style={{ color: '#d2a8ff' }}>dfs</span>(<span style={{ color: '#d2a8ff' }}>TreeNode</span> node) {'{'}<br/>
+                  {'    '}<span style={{ color: '#ff7b72' }}>if</span> (node == <span style={{ color: '#79c0ff' }}>null</span>) <span style={{ color: '#ff7b72' }}>return</span>; <span style={{ color: '#8b949e' }}>// Base Case: Empty node</span><br/>
+                  <br/>
+                  {'    '}<span style={{ color: '#8b949e' }}>// PRE-ORDER: Process node here</span><br/>
+                  {'    '}dfs(node.left);  <span style={{ color: '#8b949e' }}>// Recurse left child</span><br/>
+                  {'    '}<span style={{ color: '#8b949e' }}>// IN-ORDER: Process node here</span><br/>
+                  {'    '}dfs(node.right); <span style={{ color: '#8b949e' }}>// Recurse right child</span><br/>
+                  {'    '}<span style={{ color: '#8b949e' }}>// POST-ORDER: Process node here</span><br/>
+                  {'}'}
+                </pre>
+              </div>
             </div>
 
             <div className="card" style={{ padding: '24px', borderLeft: '4px solid #a855f7' }}>
@@ -107,15 +140,16 @@ function JavaBuildingBlocks({ onBack }) {
                 <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '800' }}>Graph Representations</h3>
               </div>
               <p style={{ color: 'var(--text-muted)', fontSize: '14px', marginBottom: '16px' }}>
-                Unlike Trees/Lists, Graphs rarely have a standard node class. You usually build an adjacency list.
+                Unlike Trees or Lists, Graphs rarely have a standard <code>GraphNode</code> class. Instead, you usually build an <strong>Adjacency List</strong> to map a node to all of its direct neighbors.
               </p>
               <div style={{ background: '#0d1117', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
                 <pre style={{ margin: 0, fontFamily: 'Fira Code, monospace', fontSize: '13px', color: '#c9d1d9', lineHeight: '1.5' }}>
                   <span style={{ color: '#8b949e' }}>// 1. Array of Lists (Fastest, assuming N nodes labeled 0 to N-1)</span><br/>
                   <span style={{ color: '#d2a8ff' }}>List</span>&lt;<span style={{ color: '#d2a8ff' }}>Integer</span>&gt;[] adj = <span style={{ color: '#ff7b72' }}>new</span> <span style={{ color: '#d2a8ff' }}>ArrayList</span>[N];<br/>
                   <span style={{ color: '#ff7b72' }}>for</span> (<span style={{ color: '#ff7b72' }}>int</span> i = <span style={{ color: '#79c0ff' }}>0</span>; i &lt; N; i++) adj[i] = <span style={{ color: '#ff7b72' }}>new</span> <span style={{ color: '#d2a8ff' }}>ArrayList</span>&lt;&gt;();<br/>
+                  adj[u].add(v); <span style={{ color: '#8b949e' }}>// Connect node u to node v</span><br/>
                   <br/>
-                  <span style={{ color: '#8b949e' }}>// 2. Map of Lists (Most Flexible, handles any node types/labels)</span><br/>
+                  <span style={{ color: '#8b949e' }}>// 2. Map of Lists (Most Flexible, handles any node types/labels like Strings)</span><br/>
                   <span style={{ color: '#d2a8ff' }}>Map</span>&lt;<span style={{ color: '#d2a8ff' }}>Integer</span>, <span style={{ color: '#d2a8ff' }}>List</span>&lt;<span style={{ color: '#d2a8ff' }}>Integer</span>&gt;&gt; adj = <span style={{ color: '#ff7b72' }}>new</span> <span style={{ color: '#d2a8ff' }}>HashMap</span>&lt;&gt;();<br/>
                   adj.computeIfAbsent(u, k -&gt; <span style={{ color: '#ff7b72' }}>new</span> <span style={{ color: '#d2a8ff' }}>ArrayList</span>&lt;&gt;()).add(v);
                 </pre>
