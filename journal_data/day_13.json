@@ -15,6 +15,10 @@
     "filename": "TopK_Template.java",
     "codeLines": [
       {
+        "num": 0,
+        "text": "public class TopK_Template {"
+      },
+      {
         "num": 1,
         "text": "public int findKthLargest(int[] nums, int k) {"
       },
@@ -72,6 +76,10 @@
       },
       {
         "num": 15,
+        "text": "}"
+      },
+      {
+        "num": 99,
         "text": "}"
       }
     ],

@@ -16,7 +16,7 @@
     "codeLines": [
       {
         "num": 1,
-        "text": "public class TwoSum {"
+        "text": "public class TwoSum_HashMap_Template {"
       },
       {
         "num": 2,

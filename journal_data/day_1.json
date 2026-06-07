@@ -60,7 +60,7 @@
       },
       {
         "num": 12,
-        "text": "                return ...; // MATCH found!"
+        "text": "                return new int[]{}; // MATCH found!"
       },
       {
         "num": 13,

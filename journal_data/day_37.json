@@ -16,7 +16,7 @@
     "codeLines": [
       {
         "num": 1,
-        "text": "public class Greedy_Pattern_Template {"
+        "text": "public class JumpGame_Template {"
       },
       {
         "num": 2,
