@@ -91,9 +91,9 @@ function JavaBuildingBlocks({ onBack }) {
               <div style={{ marginTop: '16px', fontSize: '13px', background: 'rgba(20, 184, 166, 0.1)', padding: '16px', borderRadius: '8px', color: 'var(--ll-primary)' }}>
                 <strong style={{ fontSize: '14px', display: 'block', marginBottom: '8px' }}>💡 Interview Pro-Tips for Linked Lists:</strong>
                 <ul style={{ margin: 0, paddingLeft: '20px', lineHeight: '1.6' }}>
-                  <li><strong>Use a Dummy Node:</strong> When creating a new list or removing the head, always use a `ListNode dummy = new ListNode(0); dummy.next = head;`. Return `dummy.next` at the end to avoid annoying edge cases.</li>
-                  <li><strong>`curr != null` vs `curr.next != null`:</strong> Use `curr != null` when you need to process every node. Use `curr.next != null` when you need to stop AT the last node (e.g., when appending a new node to the end).</li>
-                  <li><strong>Fast & Slow Pointers:</strong> The easiest way to find the middle is `ListNode slow = head, fast = head; while (fast != null && fast.next != null) { slow = slow.next; fast = fast.next.next; }`.</li>
+                  <li><strong>Use a Dummy Node:</strong> When creating a new list or removing the head, always use a <code>ListNode dummy = new ListNode(0); dummy.next = head;</code>. Return <code>dummy.next</code> at the end to avoid annoying edge cases.</li>
+                  <li><strong>`curr != null` vs `curr.next != null`:</strong> Use <code>curr != null</code> when you need to process every node. Use <code>curr.next != null</code> when you need to stop AT the last node (e.g., when appending a new node to the end).</li>
+                  <li><strong>Fast & Slow Pointers:</strong> The easiest way to find the middle is <code>{"ListNode slow = head, fast = head; while (fast != null && fast.next != null) { slow = slow.next; fast = fast.next.next; }"}</code>.</li>
                 </ul>
               </div>
             </div>
