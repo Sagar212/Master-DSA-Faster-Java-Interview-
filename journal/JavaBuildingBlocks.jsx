@@ -54,7 +54,7 @@ function JavaBuildingBlocks({ onBack }) {
                 <i className="fa-solid fa-circle-info"></i> What are these classes?
               </h3>
               <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.6' }}>
-                Unlike <code>ArrayList</code> or <code>HashMap</code>, the <code>ListNode</code> and <code>TreeNode</code> classes are <strong>not built into standard Java</strong>. They are custom helper classes provided by coding platforms (like LeetCode or HackerRank) to build Linked Lists and Trees. When you write your solution, the platform silently includes these class definitions behind the scenes.
+                Unlike <code>ArrayList</code> or <code>HashMap</code>, classes like <code>ListNode</code>, <code>TreeNode</code>, <code>TrieNode</code>, and <code>Pair</code> are <strong>not built into standard Java</strong>. They are custom helper classes provided by coding platforms (like LeetCode or HackerRank) to build Linked Lists and Trees. When you write your solution on a platform, they silently include these definitions behind the scenes. In a white-board interview, you might have to quickly define them yourself!
               </p>
             </div>
 
@@ -88,8 +88,13 @@ function JavaBuildingBlocks({ onBack }) {
                   {'}'}
                 </pre>
               </div>
-              <div style={{ marginTop: '16px', fontSize: '13px', background: 'rgba(20, 184, 166, 0.1)', padding: '12px', borderRadius: '8px', color: 'var(--ll-primary)' }}>
-                <strong>🧠 Mnemonic:</strong> "Value and Next. Three constructors (empty, value, both)."
+              <div style={{ marginTop: '16px', fontSize: '13px', background: 'rgba(20, 184, 166, 0.1)', padding: '16px', borderRadius: '8px', color: 'var(--ll-primary)' }}>
+                <strong style={{ fontSize: '14px', display: 'block', marginBottom: '8px' }}>💡 Interview Pro-Tips for Linked Lists:</strong>
+                <ul style={{ margin: 0, paddingLeft: '20px', lineHeight: '1.6' }}>
+                  <li><strong>Use a Dummy Node:</strong> When creating a new list or removing the head, always use a `ListNode dummy = new ListNode(0); dummy.next = head;`. Return `dummy.next` at the end to avoid annoying edge cases.</li>
+                  <li><strong>`curr != null` vs `curr.next != null`:</strong> Use `curr != null` when you need to process every node. Use `curr.next != null` when you need to stop AT the last node (e.g., when appending a new node to the end).</li>
+                  <li><strong>Fast & Slow Pointers:</strong> The easiest way to find the middle is `ListNode slow = head, fast = head; while (fast != null && fast.next != null) { slow = slow.next; fast = fast.next.next; }`.</li>
+                </ul>
               </div>
             </div>
 
@@ -124,12 +129,67 @@ function JavaBuildingBlocks({ onBack }) {
                   <span style={{ color: '#ff7b72' }}>public void</span> <span style={{ color: '#d2a8ff' }}>dfs</span>(<span style={{ color: '#d2a8ff' }}>TreeNode</span> node) {'{'}<br/>
                   {'    '}<span style={{ color: '#ff7b72' }}>if</span> (node == <span style={{ color: '#79c0ff' }}>null</span>) <span style={{ color: '#ff7b72' }}>return</span>; <span style={{ color: '#8b949e' }}>// Base Case: Empty node</span><br/>
                   <br/>
-                  {'    '}<span style={{ color: '#8b949e' }}>// PRE-ORDER: Process node here</span><br/>
+                  {'    '}<span style={{ color: '#8b949e' }}>// PRE-ORDER: Process node here (e.g., adding to a list)</span><br/>
                   {'    '}dfs(node.left);  <span style={{ color: '#8b949e' }}>// Recurse left child</span><br/>
-                  {'    '}<span style={{ color: '#8b949e' }}>// IN-ORDER: Process node here</span><br/>
+                  {'    '}<span style={{ color: '#8b949e' }}>// IN-ORDER: Process node here (Visits BST in sorted order)</span><br/>
                   {'    '}dfs(node.right); <span style={{ color: '#8b949e' }}>// Recurse right child</span><br/>
-                  {'    '}<span style={{ color: '#8b949e' }}>// POST-ORDER: Process node here</span><br/>
+                  {'    '}<span style={{ color: '#8b949e' }}>// POST-ORDER: Process node here (e.g., deleting nodes)</span><br/>
                   {'}'}
+                </pre>
+              </div>
+              <div style={{ marginTop: '16px', fontSize: '13px', background: 'rgba(16, 185, 129, 0.1)', padding: '16px', borderRadius: '8px', color: 'var(--tr-primary)' }}>
+                <strong style={{ fontSize: '14px', display: 'block', marginBottom: '8px' }}>💡 Interview Pro-Tips for Trees:</strong>
+                <ul style={{ margin: 0, paddingLeft: '20px', lineHeight: '1.6' }}>
+                  <li><strong>Always handle `null`:</strong> Your first line in a recursive DFS should almost always be `if (node == null) return;`.</li>
+                  <li><strong>Global State is messy:</strong> Instead of using class-level global variables to track things like 'max diameter', pass an array of size 1 (e.g., `int[] max = new int[1];`) into your DFS function. Modifying `max[0]` acts like a pass-by-reference pointer in Java!</li>
+                  <li><strong>Level-Order (BFS):</strong> Use `Queue<TreeNode> q = new ArrayDeque<>();`. Remember to capture `int size = q.size();` before the inner loop so you process one horizontal level at a time.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="card" style={{ padding: '24px', borderLeft: '4px solid var(--st-primary)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                <i className="fa-solid fa-diagram-project" style={{ fontSize: '20px', color: 'var(--st-primary)' }}></i>
+                <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '800' }}>TrieNode (Prefix Tree)</h3>
+              </div>
+              <p style={{ color: 'var(--text-muted)', fontSize: '14px', marginBottom: '16px' }}>
+                Extremely common custom class for string/prefix problems. Instead of left/right children, a Trie has an array of children for the alphabet.
+              </p>
+              <div style={{ background: '#0d1117', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <pre style={{ margin: 0, fontFamily: 'Fira Code, monospace', fontSize: '13px', color: '#c9d1d9', lineHeight: '1.5' }}>
+                  <span style={{ color: '#ff7b72' }}>class</span> <span style={{ color: '#d2a8ff' }}>TrieNode</span> {'{'}<br/>
+                  {'    '}<span style={{ color: '#d2a8ff' }}>TrieNode</span>[] children = <span style={{ color: '#ff7b72' }}>new</span> <span style={{ color: '#d2a8ff' }}>TrieNode</span>[<span style={{ color: '#79c0ff' }}>26</span>]; <span style={{ color: '#8b949e' }}>// For lowercase letters a-z</span><br/>
+                  {'    '}<span style={{ color: '#ff7b72' }}>boolean</span> isWord = <span style={{ color: '#79c0ff' }}>false</span>; <span style={{ color: '#8b949e' }}>// Marks the end of a valid dictionary word</span><br/>
+                  {'}'}<br/>
+                  <br/>
+                  <span style={{ color: '#8b949e' }}>// How to access a child pointer for character 'c':</span><br/>
+                  <span style={{ color: '#ff7b72' }}>int</span> index = c - <span style={{ color: '#a5d6ff' }}>'a'</span>;<br/>
+                  <span style={{ color: '#ff7b72' }}>if</span> (curr.children[index] == <span style={{ color: '#79c0ff' }}>null</span>) {'{'}<br/>
+                  {'    '}curr.children[index] = <span style={{ color: '#ff7b72' }}>new</span> <span style={{ color: '#d2a8ff' }}>TrieNode</span>();<br/>
+                  {'}'}
+                </pre>
+              </div>
+            </div>
+
+            <div className="card" style={{ padding: '24px', borderLeft: '4px solid var(--sw-primary)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                <i className="fa-solid fa-masks-theater" style={{ fontSize: '20px', color: 'var(--sw-primary)' }}></i>
+                <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '800' }}>Pair (Custom Tuple)</h3>
+              </div>
+              <p style={{ color: 'var(--text-muted)', fontSize: '14px', marginBottom: '16px' }}>
+                Java does not have a built-in `Pair` or `Tuple` class like C++ or Python. In interviews, quickly define a generic or specific Pair class when you need to store two associated values (like row/col coordinates in a BFS queue).
+              </p>
+              <div style={{ background: '#0d1117', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <pre style={{ margin: 0, fontFamily: 'Fira Code, monospace', fontSize: '13px', color: '#c9d1d9', lineHeight: '1.5' }}>
+                  <span style={{ color: '#ff7b72' }}>class</span> <span style={{ color: '#d2a8ff' }}>Pair</span> {'{'}<br/>
+                  {'    '}<span style={{ color: '#ff7b72' }}>int</span> key;<br/>
+                  {'    '}<span style={{ color: '#ff7b72' }}>int</span> val;<br/>
+                  {'    '}<span style={{ color: '#ff7b72' }}>public</span> <span style={{ color: '#d2a8ff' }}>Pair</span>(<span style={{ color: '#ff7b72' }}>int</span> k, <span style={{ color: '#ff7b72' }}>int</span> v) {'{'} key = k; val = v; {'}'}<br/>
+                  {'}'}<br/>
+                  <br/>
+                  <span style={{ color: '#8b949e' }}>// Usage example in BFS:</span><br/>
+                  <span style={{ color: '#d2a8ff' }}>Queue</span>&lt;<span style={{ color: '#d2a8ff' }}>Pair</span>&gt; q = <span style={{ color: '#ff7b72' }}>new</span> <span style={{ color: '#d2a8ff' }}>ArrayDeque</span>&lt;&gt;();<br/>
+                  q.offer(<span style={{ color: '#ff7b72' }}>new</span> <span style={{ color: '#d2a8ff' }}>Pair</span>(row, col));
                 </pre>
               </div>
             </div>
