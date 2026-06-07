@@ -140,9 +140,9 @@ function JavaBuildingBlocks({ onBack }) {
               <div style={{ marginTop: '16px', fontSize: '13px', background: 'rgba(16, 185, 129, 0.1)', padding: '16px', borderRadius: '8px', color: 'var(--tr-primary)' }}>
                 <strong style={{ fontSize: '14px', display: 'block', marginBottom: '8px' }}>💡 Interview Pro-Tips for Trees:</strong>
                 <ul style={{ margin: 0, paddingLeft: '20px', lineHeight: '1.6' }}>
-                  <li><strong>Always handle `null`:</strong> Your first line in a recursive DFS should almost always be `if (node == null) return;`.</li>
-                  <li><strong>Global State is messy:</strong> Instead of using class-level global variables to track things like 'max diameter', pass an array of size 1 (e.g., `int[] max = new int[1];`) into your DFS function. Modifying `max[0]` acts like a pass-by-reference pointer in Java!</li>
-                  <li><strong>Level-Order (BFS):</strong> Use `Queue<TreeNode> q = new ArrayDeque<>();`. Remember to capture `int size = q.size();` before the inner loop so you process one horizontal level at a time.</li>
+                  <li><strong>Always handle <code>null</code>:</strong> Your first line in a recursive DFS should almost always be <code>if (node == null) return;</code>.</li>
+                  <li><strong>Global State is messy:</strong> Instead of using class-level global variables to track things like 'max diameter', pass an array of size 1 (e.g., <code>int[] max = new int[1];</code>) into your DFS function. Modifying <code>max[0]</code> acts like a pass-by-reference pointer in Java!</li>
+                  <li><strong>Level-Order (BFS):</strong> Use <code>Queue&lt;TreeNode&gt; q = new ArrayDeque&lt;&gt;();</code>. Remember to capture <code>int size = q.size();</code> before the inner loop so you process one horizontal level at a time.</li>
                 </ul>
               </div>
             </div>
