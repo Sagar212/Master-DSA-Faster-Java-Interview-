@@ -36,7 +36,10 @@
         "        dfs(grid, i, j - 1);",
         "    }",
         "}"
-      ]
+      ],
+      "story": "Paint bucket tool. Find an unpainted land block, then splash paint on it and all its connected land blocks to mark them visited.",
+      "description": "Scan the grid. When you hit a '1', run DFS to sink the entire island to '0'. Count the number of DFS calls.",
+      "patternSubtype": "Matrix DFS (Connected Components)"
     },
     {
       "blanks": [
@@ -72,7 +75,10 @@
         "        return ___4___;",
         "    }",
         "}"
-      ]
+      ],
+      "story": "College prerequisites. Take courses with 0 prerequisites. Every time you finish one, cross it off to unlock the next.",
+      "description": "Build an indegree array. Use a Queue to process courses with 0 indegree (Topological Sort).",
+      "patternSubtype": "Topological Sort (Kahn's Algorithm BFS)"
     },
     {
       "blanks": [
@@ -117,7 +123,10 @@
         "        return ___5___;",
         "    }",
         "}"
-      ]
+      ],
+      "story": "Zombie infection. All zombies (rotten oranges) bite adjacent humans (fresh oranges) simultaneously every single minute.",
+      "description": "Multi-source BFS. Put all initially rotten oranges in a queue, then expand level by level, tracking minutes.",
+      "patternSubtype": "Multi-source Matrix BFS"
     }
   ]
 }

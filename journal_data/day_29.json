@@ -74,7 +74,17 @@
           "explain": "Modifying the grid avoids allocating an extra O(M*N) boolean matrix for visited states."
         }
       ],
-      "title": "Number of Islands"
+      "title": "Number of Islands",
+      "story": "Paint bucket tool. Find an unpainted land block, then splash paint on it and all its connected land blocks to mark them visited.",
+      "description": "Scan the grid. When you hit a '1', run DFS to sink the entire island to '0'. Count the number of DFS calls.",
+      "patternSubtype": "Matrix DFS (Connected Components)",
+      "array": [
+        "1",
+        "1",
+        "0",
+        "0",
+        "0"
+      ]
     },
     {
       "code": [
@@ -146,7 +156,16 @@
           "explain": "This is Kahn's algorithm for Topological Sorting using BFS and indegrees."
         }
       ],
-      "title": "Course Schedule"
+      "title": "Course Schedule",
+      "story": "College prerequisites. Take courses with 0 prerequisites. Every time you finish one, cross it off to unlock the next.",
+      "description": "Build an indegree array. Use a Queue to process courses with 0 indegree (Topological Sort).",
+      "patternSubtype": "Topological Sort (Kahn's Algorithm BFS)",
+      "array": [
+        0,
+        1,
+        2,
+        3
+      ]
     },
     {
       "code": [
@@ -230,7 +249,17 @@
           "explain": "The problem asks for the minimum time for all oranges to rot, which is equivalent to finding the shortest path from multiple sources simultaneously."
         }
       ],
-      "title": "Rotting Oranges"
+      "title": "Rotting Oranges",
+      "story": "Zombie infection. All zombies (rotten oranges) bite adjacent humans (fresh oranges) simultaneously every single minute.",
+      "description": "Multi-source BFS. Put all initially rotten oranges in a queue, then expand level by level, tracking minutes.",
+      "patternSubtype": "Multi-source Matrix BFS",
+      "array": [
+        2,
+        1,
+        1,
+        0,
+        1
+      ]
     }
   ]
 }

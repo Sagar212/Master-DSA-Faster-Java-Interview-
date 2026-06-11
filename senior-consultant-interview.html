@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Senior Consultant Interview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-dark: #070913;
+      --bg-card: rgba(13, 17, 33, 0.7);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --primary: #10b981;
+      --primary-gradient: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(at 10% 10%, rgba(16, 185, 129, 0.06) 0px, transparent 40%),
+        radial-gradient(at 90% 90%, rgba(59, 130, 246, 0.06) 0px, transparent 40%);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 24px;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: color 0.2s;
+      align-self: flex-start;
+      margin-bottom: -10px;
+    }
+
+    .back-btn:hover {
+      color: var(--text-main);
+    }
+
+    .qa-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 28px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .qa-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--primary-gradient);
+    }
+
+    .question {
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #fff;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .q-icon {
+      color: #3b82f6;
+      margin-top: 4px;
+    }
+
+    .answer {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+      padding-left: 32px;
+    }
+
+    .answer strong {
+      color: #f1f5f9;
+    }
+
+    .trick-box {
+      margin-top: 16px;
+      margin-left: 32px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #6ee7b7;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    code {
+      font-family: 'Fira Code', monospace;
+      background: #090b11;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #3b82f6;
+    }
+    
+    .list-points {
+      margin-top: 12px;
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="index.html" class="back-btn">
+      <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+    </a>
+
+    <header>
+      <h1>Senior Consultant Interview</h1>
+      <p>System Architecture, Modern Spring Boot 3.x, Hibernate 6, and Advanced Caching at Scale.</p>
+    </header>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-solid fa-server q-icon"></i>
+        Architectural Design: High-Traffic Read-Heavy Catalog
+      </div>
+      <div class="answer">
+        <p><strong>Scenario:</strong> You have a high-traffic e-commerce catalog microservice using Spring Boot 3.x and Hibernate 6.x. Data changes infrequently but reads are extremely high. Initially, Redis with <code>@Cacheable</code> was used, but under massive spikes, Redis became a network bottleneck, and "cache stampedes" crushed the database when TTL expired.</p>
+        <p style="margin-top: 12px;"><strong>How do you optimize this using modern paradigms (as of 2026), tackle the stampede, and handle cache invalidation effectively without DB polling?</strong></p>
+        
+        <ol class="list-points">
+          <li><strong>Multi-Level Caching (L1 + L2):</strong> Relying solely on Redis (L2) introduces network latency. We implement an L1 in-memory cache (like <strong>Caffeine</strong>) for ultra-fast, zero-network overhead. A request first checks Caffeine, then Redis, and finally the DB.</li>
+          <li><strong>Cache Stampede Prevention:</strong> Instead of simple TTL expiration (<code>expireAfterWrite</code>) which causes all concurrent requests to miss at once, we use <code>refreshAfterWrite</code> in Caffeine coupled with asynchronous cache loading. Only one thread fetches the updated value from the DB while others are served the stale value, fully shielding the database. In Spring, we can also use <code>@Cacheable(sync = true)</code> to lock the key on cache misses.</li>
+          <li><strong>Event-Driven Cache Invalidation (CDC):</strong> TTLs lead to stale data. Polling the DB is inefficient. We use <strong>Change Data Capture (CDC)</strong> like Debezium. When a product updates, Debezium reads the database transaction log (WAL) and publishes an event to Kafka. Our microservice consumes this event and evicts the specific key from both L2 (Redis) and L1 (Caffeine). Since L1 is local to each instance, we broadcast the invalidation via Redis Pub/Sub to all pods.</li>
+          <li><strong>Spring Boot 3 & Java 21+ Virtual Threads:</strong> We enable Project Loom's Virtual Threads (<code>spring.threads.virtual.enabled=true</code>). For any cache misses that require a blocking DB call, Virtual Threads prevent OS thread starvation, allowing the service to handle tens of thousands of concurrent connections with a minimal memory footprint.</li>
+          <li><strong>Hibernate 6 Optimizations:</strong> We utilize Hibernate 6's semantic query engine and array batching capabilities. Since reads are heavy, we map <code>@NaturalId</code> and leverage Hibernate's 2nd-Level Cache synced with our L2 strategy if entity caching is preferred over DTO caching.</li>
+        </ol>
+
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb" style="font-size: 24px;"></i>
+          <div><strong>Tricky Part / Interview Trap:</strong> Interviewers will often poke holes in multi-level caches by asking about <em>cache coherence</em> across instances. If Pod A updates the DB and clears its local cache, Pod B still has the old data in its local Caffeine cache. Mentioning the <strong>Pub/Sub broadcasting pattern</strong> to notify all instances to evict their L1 cache is the hallmark of a Senior/Architect answer.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

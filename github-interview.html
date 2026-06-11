@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Interview Questions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-dark: #070913;
+      --bg-card: rgba(13, 17, 33, 0.7);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --primary: #8b5cf6;
+      --primary-gradient: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(at 10% 10%, rgba(139, 92, 246, 0.06) 0px, transparent 40%),
+        radial-gradient(at 90% 90%, rgba(236, 72, 153, 0.06) 0px, transparent 40%);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 24px;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: color 0.2s;
+      align-self: flex-start;
+      margin-bottom: -10px;
+    }
+
+    .back-btn:hover {
+      color: var(--text-main);
+    }
+
+    .qa-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 28px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .qa-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--primary-gradient);
+    }
+
+    .question {
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #fff;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .q-icon {
+      color: #ec4899;
+      margin-top: 4px;
+    }
+
+    .answer {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+      padding-left: 32px;
+    }
+
+    .answer strong {
+      color: #f1f5f9;
+    }
+
+    .trick-box {
+      margin-top: 16px;
+      margin-left: 32px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #d8b4fe;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    code {
+      font-family: 'Fira Code', monospace;
+      background: #090b11;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #ec4899;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="index.html" class="back-btn">
+      <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+    </a>
+
+    <header>
+      <h1>GitHub Interview: Must Know & Tricky</h1>
+      <p>Top version control questions focusing on edge cases, disaster recovery, and advanced commands.</p>
+    </header>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-solid fa-circle-question q-icon"></i>
+        1. How do you undo a commit that has already been pushed and made public?
+      </div>
+      <div class="answer">
+        <p>You should use <code>git revert &lt;commit_hash&gt;</code>. This creates a <strong>new commit</strong> that undoes all the changes made in the specified commit, preserving the history.</p>
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb"></i>
+          <div><strong>Tricky Part:</strong> Never use <code>git reset</code> on a public/shared branch, because it rewrites history and will break the repository for your teammates when they try to pull.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-solid fa-circle-question q-icon"></i>
+        2. Git Rebase vs Git Merge: When to use which?
+      </div>
+      <div class="answer">
+        <p><strong>Merge</strong> takes the contents of a source branch and integrates them with a target branch, creating a new "merge commit". It preserves the complete history and chronological order.<br><br>
+        <strong>Rebase</strong> moves the entire feature branch to begin on the tip of the master branch, rewriting the project history to be perfectly linear.</p>
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb"></i>
+          <div><strong>Tricky Part:</strong> The golden rule of rebase is to <strong>never rebase a public branch</strong>. Only rebase your local, private branches before merging them into a shared branch to keep a clean history.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-solid fa-circle-question q-icon"></i>
+        3. You realize you forgot to add a file to your last commit, or made a typo in the commit message. How do you fix it without creating a new commit?
+      </div>
+      <div class="answer">
+        <p>Use <code>git commit --amend</code>. First, stage the forgotten file using <code>git add</code>, then run the amend command. It will open your editor to let you change the last commit message and bundle the new changes into that single commit.</p>
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb"></i>
+          <div><strong>Tricky Part:</strong> This rewrites the commit hash. If you've already pushed the previous commit, amending it will cause conflicts unless you force push (which you shouldn't do on a shared branch).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-solid fa-circle-question q-icon"></i>
+        4. What is `git cherry-pick` and when is it useful?
+      </div>
+      <div class="answer">
+        <p><code>git cherry-pick &lt;commit_hash&gt;</code> applies the changes introduced by an existing commit from another branch onto your current branch.</p>
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb"></i>
+          <div><strong>Tricky Part:</strong> It's most commonly used for backporting bug fixes. If a bug is fixed in `master`, you can cherry-pick that specific fix commit to an older `release-1.0` branch without merging all the other new features.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-solid fa-circle-question q-icon"></i>
+        5. You need to switch branches urgently, but have half-finished, untracked work. How do you stash it?
+      </div>
+      <div class="answer">
+        <p>A standard <code>git stash</code> only saves changes to <strong>tracked</strong> files. To include untracked (new) files, you must use <code>git stash -u</code> (or <code>--include-untracked</code>).</p>
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb"></i>
+          <div><strong>Tricky Part:</strong> If you use just `git stash`, your new files will remain in your working directory and might conflict with the branch you switch to!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-solid fa-circle-question q-icon"></i>
+        6. How do you find which commit introduced a bug (regression)?
+      </div>
+      <div class="answer">
+        <p>Use <code>git bisect</code>. It uses a binary search algorithm to quickly find the offending commit.<br>
+        1. <code>git bisect start</code><br>
+        2. <code>git bisect bad</code> (current broken state)<br>
+        3. <code>git bisect good &lt;old_hash&gt;</code> (a known working commit)<br>
+        Git will then checkout a commit in the middle for you to test.</p>
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb"></i>
+          <div><strong>Tricky Part:</strong> You can automate this! If you have a test script, you can run <code>git bisect run ./test.sh</code> and Git will find the bad commit automatically without manual intervention.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

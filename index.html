@@ -21,6 +21,7 @@
       --primary: #0ea5e9;
       --primary-gradient: linear-gradient(135deg, #0ea5e9 0%, #14b8a6 100%);
       --accent-gradient: linear-gradient(135deg, #f97316 0%, #eab308 100%);
+      --github-gradient: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
     }
 
     * {
@@ -122,6 +123,10 @@
       background: var(--accent-gradient);
     }
 
+    .suite-card.github-card::before {
+      background: var(--github-gradient);
+    }
+
     .suite-card:hover {
       transform: translateY(-8px);
       border-color: rgba(255, 255, 255, 0.15);
@@ -149,6 +154,12 @@
       background: rgba(249, 115, 22, 0.1);
       color: #f97316;
       border: 1px solid rgba(249, 115, 22, 0.2);
+    }
+
+    .github-card .card-icon {
+      background: rgba(139, 92, 246, 0.1);
+      color: #8b5cf6;
+      border: 1px solid rgba(139, 92, 246, 0.2);
     }
 
     .card-body h2 {
@@ -186,6 +197,7 @@
 
     .journal-card .feature-list li i { color: #0ea5e9; }
     .viz-card .feature-list li i { color: #f97316; }
+    .github-card .feature-list li i { color: #8b5cf6; }
 
     .action-btn {
       width: 100%;
@@ -221,6 +233,15 @@
 
     .viz-card .action-btn:hover {
       box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+    }
+
+    .github-card .action-btn {
+      background: var(--github-gradient);
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+    }
+
+    .github-card .action-btn:hover {
+      box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
     }
 
     .cors-box {
@@ -259,6 +280,12 @@
       color: #eab308;
       font-size: 12px;
     }
+
+    .senior-card::before { background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%); }
+    .senior-card .card-icon { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
+    .senior-card .feature-list li i { color: #10b981; }
+    .senior-card .action-btn { background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
+    .senior-card .action-btn:hover { box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); }
 
     footer {
       color: rgba(255,255,255,0.2);
@@ -323,6 +350,48 @@
           <button class="action-btn" onclick="launchVisualizer()">
             Launch Visualizer <i class="fa-solid fa-play"></i>
           </button>
+        </div>
+
+        <!-- GitHub Tricky Q&A -->
+        <div class="suite-card github-card">
+          <div>
+            <div class="card-icon">
+              <i class="fa-brands fa-github"></i>
+            </div>
+            <div class="card-body">
+              <h2>GitHub Tricky Q&A</h2>
+              <p>Must-know, advanced Git scenarios that test your practical knowledge beyond basic commands.</p>
+              <ul class="feature-list">
+                <li><i class="fa-solid fa-check"></i> Fixes & Reverting mistakes safely</li>
+                <li><i class="fa-solid fa-check"></i> Rebase vs Merge edge cases</li>
+                <li><i class="fa-solid fa-check"></i> Advanced commands like bisect & cherry-pick</li>
+              </ul>
+            </div>
+          </div>
+          <a href="github-interview.html" class="action-btn">
+            View Q&A <i class="fa-solid fa-arrow-right-long"></i>
+          </a>
+        </div>
+
+        <!-- Senior Consultant Q&A -->
+        <div class="suite-card senior-card">
+          <div>
+            <div class="card-icon">
+              <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div class="card-body">
+              <h2>Senior Consultant Q&A</h2>
+              <p>Must-know architectural patterns, Spring Boot 3.x, Hibernate 6.x & advanced caching optimizations.</p>
+              <ul class="feature-list">
+                <li><i class="fa-solid fa-check"></i> L1/L2 Caching & Stampede Prevention</li>
+                <li><i class="fa-solid fa-check"></i> Spring Boot 3 Virtual Threads</li>
+                <li><i class="fa-solid fa-check"></i> Cache Invalidation strategies</li>
+              </ul>
+            </div>
+          </div>
+          <a href="senior-consultant-interview.html" class="action-btn">
+            View Q&A <i class="fa-solid fa-arrow-right-long"></i>
+          </a>
         </div>
       </div>
 
