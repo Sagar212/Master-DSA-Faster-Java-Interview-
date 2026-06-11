@@ -1,8 +1,8 @@
 {
   "id": 14,
-  "title": "Heap (PQ) \u2014 Dry Run & Recall",
+  "title": "\ud83d\udfe1 Heap (PQ) \u2014 Dry Run & Recall",
   "patternType": "heap",
-  "category": "Heap (PQ)",
+  "category": "\ud83d\udfe1 Heap (PQ)",
   "oneSentence": "Trace Top K Elements and Merge K Sorted Lists.",
   "problems": {
     "topK": {

@@ -1,128 +1,128 @@
 [
   {
     "id": 1,
-    "title": "Two Pointers \u2014 ROI & Pattern",
+    "title": "\ud83d\udfe2 Two Pointers \u2014 ROI & Pattern",
     "patternType": "tp",
-    "category": "Two Pointers",
+    "category": "\ud83d\udfe2 Two Pointers",
     "oneSentence": "Two pointers narrow down the search space in sorted data from opposite ends."
   },
   {
     "id": 2,
-    "title": "Two Pointers \u2014 Dry Run & Recall",
+    "title": "\ud83d\udfe2 Two Pointers \u2014 Dry Run & Recall",
     "patternType": "tp",
-    "category": "Two Pointers",
+    "category": "\ud83d\udfe2 Two Pointers",
     "oneSentence": "Trace existing problems (Two Sum II, Palindrome, 3Sum, Trapping Rain, LinkedList Cycle) step-by-step."
   },
   {
     "id": 3,
-    "title": "Two Pointers \u2014 Active Recall Skeletons",
+    "title": "\ud83d\udfe2 Two Pointers \u2014 Active Recall Skeletons",
     "patternType": "tp",
-    "category": "Two Pointers",
+    "category": "\ud83d\udfe2 Two Pointers",
     "oneSentence": "Fill in the blank active recall templates for Two Pointer problems."
   },
   {
     "id": 4,
-    "title": "Sliding Window \u2014 ROI & Pattern",
+    "title": "\ud83d\udfe2 Sliding Window \u2014 ROI & Pattern",
     "patternType": "sw",
-    "category": "Sliding Window",
+    "category": "\ud83d\udfe2 Sliding Window",
     "oneSentence": "Avoid recalculating overlapping subarray values by sliding a window."
   },
   {
     "id": 5,
-    "title": "Sliding Window \u2014 Dry Run & Recall",
+    "title": "\ud83d\udfe2 Sliding Window \u2014 Dry Run & Recall",
     "patternType": "sw",
-    "category": "Sliding Window",
+    "category": "\ud83d\udfe2 Sliding Window",
     "oneSentence": "Trace Maximum Average Subarray, Max Vowels, and Minimum Window Substring."
   },
   {
     "id": 6,
-    "title": "Sliding Window \u2014 Active Recall Skeletons",
+    "title": "\ud83d\udfe2 Sliding Window \u2014 Active Recall Skeletons",
     "patternType": "sw",
-    "category": "Sliding Window",
+    "category": "\ud83d\udfe2 Sliding Window",
     "oneSentence": "Fill in the blank active recall templates for Sliding Window problems."
   },
   {
     "id": 7,
-    "title": "Binary Search \u2014 ROI & Pattern",
+    "title": "\ud83d\udfe1 Binary Search \u2014 ROI & Pattern",
     "patternType": "bs",
-    "category": "Binary Search",
+    "category": "\ud83d\udfe1 Binary Search",
     "oneSentence": "Binary search divides the search interval in half recursively in sorted data."
   },
   {
     "id": 8,
-    "title": "Binary Search \u2014 Dry Run & Recall",
+    "title": "\ud83d\udfe1 Binary Search \u2014 Dry Run & Recall",
     "patternType": "bs",
-    "category": "Binary Search",
+    "category": "\ud83d\udfe1 Binary Search",
     "oneSentence": "Trace Binary Search, Search in Rotated Sorted Array, and Median of Two Sorted Arrays."
   },
   {
     "id": 9,
-    "title": "Binary Search \u2014 Active Recall Skeletons",
+    "title": "\ud83d\udfe1 Binary Search \u2014 Active Recall Skeletons",
     "patternType": "bs",
-    "category": "Binary Search",
+    "category": "\ud83d\udfe1 Binary Search",
     "oneSentence": "Fill in the blank active recall templates for Binary Search problems."
   },
   {
     "id": 10,
-    "title": "Arrays & HashMap \u2014 ROI & Pattern",
+    "title": "\ud83d\udfe2 Arrays & HashMap \u2014 ROI & Pattern",
     "patternType": "hashmap",
-    "category": "Arrays & HashMap",
+    "category": "\ud83d\udfe2 Arrays & HashMap",
     "oneSentence": "Trade O(N) space for O(N) time using a map for instant lookups."
   },
   {
     "id": 11,
-    "title": "Arrays & HashMap \u2014 Dry Run & Recall",
+    "title": "\ud83d\udfe2 Arrays & HashMap \u2014 Dry Run & Recall",
     "patternType": "hashmap",
-    "category": "Arrays & HashMap",
+    "category": "\ud83d\udfe2 Arrays & HashMap",
     "oneSentence": "Trace Two Sum and Group Anagrams."
   },
   {
     "id": 12,
-    "title": "Arrays & HashMap \u2014 Active Recall",
+    "title": "\ud83d\udfe2 Arrays & HashMap \u2014 Active Recall",
     "patternType": "hashmap",
-    "category": "Arrays & HashMap",
+    "category": "\ud83d\udfe2 Arrays & HashMap",
     "oneSentence": "Fill in the blank active recall templates."
   },
   {
     "id": 13,
-    "title": "Heap (PQ) \u2014 ROI & Pattern",
+    "title": "\ud83d\udfe1 Heap (PQ) \u2014 ROI & Pattern",
     "patternType": "heap",
-    "category": "Heap (PQ)",
+    "category": "\ud83d\udfe1 Heap (PQ)",
     "oneSentence": "Always keep the top K items using a priority queue."
   },
   {
     "id": 14,
-    "title": "Heap (PQ) \u2014 Dry Run & Recall",
+    "title": "\ud83d\udfe1 Heap (PQ) \u2014 Dry Run & Recall",
     "patternType": "heap",
-    "category": "Heap (PQ)",
+    "category": "\ud83d\udfe1 Heap (PQ)",
     "oneSentence": "Trace Top K Elements and Merge K Sorted Lists."
   },
   {
     "id": 15,
-    "title": "Heap (PQ) \u2014 Active Recall",
+    "title": "\ud83d\udfe1 Heap (PQ) \u2014 Active Recall",
     "patternType": "heap",
-    "category": "Heap (PQ)",
+    "category": "\ud83d\udfe1 Heap (PQ)",
     "oneSentence": "Fill in the blank active recall templates."
   },
   {
     "id": 16,
-    "title": "Backtracking \u2014 ROI & Pattern",
+    "title": "\ud83d\udfe1 Backtracking \u2014 ROI & Pattern",
     "patternType": "backtrack",
-    "category": "Backtracking",
+    "category": "\ud83d\udfe1 Backtracking",
     "oneSentence": "Explore all paths, backtrack on dead ends."
   },
   {
     "id": 17,
-    "title": "Backtracking \u2014 Dry Run & Recall",
+    "title": "\ud83d\udfe1 Backtracking \u2014 Dry Run & Recall",
     "patternType": "backtrack",
-    "category": "Backtracking",
+    "category": "\ud83d\udfe1 Backtracking",
     "oneSentence": "Trace Subsets and Permutations."
   },
   {
     "id": 18,
-    "title": "Backtracking \u2014 Active Recall",
+    "title": "\ud83d\udfe1 Backtracking \u2014 Active Recall",
     "patternType": "backtrack",
-    "category": "Backtracking",
+    "category": "\ud83d\udfe1 Backtracking",
     "oneSentence": "Fill in the blank active recall templates."
   },
   {
@@ -148,63 +148,63 @@
   },
   {
     "id": 22,
-    "title": "Stack \u2014 ROI & Pattern",
+    "title": "\ud83d\udfe1 Stack \u2014 ROI & Pattern",
     "patternType": "st",
-    "category": "Stack",
+    "category": "\ud83d\udfe1 Stack",
     "oneSentence": "Use a LIFO structure to parse expressions or track previous states."
   },
   {
     "id": 23,
-    "title": "Stack \u2014 Dry Run & Recall",
+    "title": "\ud83d\udfe1 Stack \u2014 Dry Run & Recall",
     "patternType": "st",
-    "category": "Stack",
+    "category": "\ud83d\udfe1 Stack",
     "oneSentence": "Trace Valid Parentheses and Daily Temperatures."
   },
   {
     "id": 24,
-    "title": "Stack \u2014 Active Recall Skeletons",
+    "title": "\ud83d\udfe1 Stack \u2014 Active Recall Skeletons",
     "patternType": "st",
-    "category": "Stack",
+    "category": "\ud83d\udfe1 Stack",
     "oneSentence": "Fill in the blank templates for Stack problems."
   },
   {
     "id": 25,
-    "title": "Linked List \u2014 ROI & Pattern",
+    "title": "\ud83d\udfe1 Linked List \u2014 ROI & Pattern",
     "patternType": "ll",
-    "category": "Linked List",
+    "category": "\ud83d\udfe1 Linked List",
     "oneSentence": "Manipulate node pointers directly to reverse or merge structures."
   },
   {
     "id": 26,
-    "title": "Linked List \u2014 Dry Run & Recall",
+    "title": "\ud83d\udfe1 Linked List \u2014 Dry Run & Recall",
     "patternType": "ll",
-    "category": "Linked List",
+    "category": "\ud83d\udfe1 Linked List",
     "oneSentence": "Trace Reverse Linked List and Merge Two Sorted Lists."
   },
   {
     "id": 27,
-    "title": "Linked List \u2014 Active Recall Skeletons",
+    "title": "\ud83d\udfe1 Linked List \u2014 Active Recall Skeletons",
     "patternType": "ll",
-    "category": "Linked List",
+    "category": "\ud83d\udfe1 Linked List",
     "oneSentence": "Fill in the blank templates for Linked List problems."
   },
   {
     "id": 28,
-    "title": "Graphs \u2014 ROI & Pattern",
+    "title": "\ud83d\udfe1 Graphs \u2014 ROI & Pattern",
     "patternType": "gr",
-    "category": "Graphs"
+    "category": "\ud83d\udfe1 Graphs"
   },
   {
     "id": 29,
-    "title": "Graphs \u2014 Dry Run & Quiz",
+    "title": "\ud83d\udfe1 Graphs \u2014 Dry Run & Quiz",
     "patternType": "gr",
-    "category": "Graphs"
+    "category": "\ud83d\udfe1 Graphs"
   },
   {
     "id": 30,
-    "title": "Graphs \u2014 Active Recall",
+    "title": "\ud83d\udfe1 Graphs \u2014 Active Recall",
     "patternType": "gr",
-    "category": "Graphs"
+    "category": "\ud83d\udfe1 Graphs"
   },
   {
     "id": 31,
@@ -226,38 +226,38 @@
   },
   {
     "id": 34,
-    "title": "Intervals \u2014 ROI & Pattern",
+    "title": "\ud83d\udfe1 Intervals \u2014 ROI & Pattern",
     "patternType": "iv",
-    "category": "Intervals"
+    "category": "\ud83d\udfe1 Intervals"
   },
   {
     "id": 35,
-    "title": "Intervals \u2014 Dry Run & Quiz",
+    "title": "\ud83d\udfe1 Intervals \u2014 Dry Run & Quiz",
     "patternType": "iv",
-    "category": "Intervals"
+    "category": "\ud83d\udfe1 Intervals"
   },
   {
     "id": 36,
-    "title": "Intervals \u2014 Active Recall",
+    "title": "\ud83d\udfe1 Intervals \u2014 Active Recall",
     "patternType": "iv",
-    "category": "Intervals"
+    "category": "\ud83d\udfe1 Intervals"
   },
   {
     "id": 37,
-    "title": "Greedy \u2014 ROI & Pattern",
+    "title": "\ud83d\udd34 Greedy \u2014 ROI & Pattern",
     "patternType": "gd",
-    "category": "Greedy"
+    "category": "\ud83d\udd34 Greedy"
   },
   {
     "id": 38,
-    "title": "Greedy \u2014 Dry Run & Quiz",
+    "title": "\ud83d\udd34 Greedy \u2014 Dry Run & Quiz",
     "patternType": "gd",
-    "category": "Greedy"
+    "category": "\ud83d\udd34 Greedy"
   },
   {
     "id": 39,
-    "title": "Greedy \u2014 Active Recall",
+    "title": "\ud83d\udd34 Greedy \u2014 Active Recall",
     "patternType": "gd",
-    "category": "Greedy"
+    "category": "\ud83d\udd34 Greedy"
   }
 ]

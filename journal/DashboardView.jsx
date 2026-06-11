@@ -52,7 +52,7 @@ function DashboardView({ progress, setActiveDay, percent, curriculumIndex, isDay
                 </div>
               </div>
               <div className="dash-day-body">
-                <h3>{day.title.split(" — ")[1] || day.title}</h3>
+                <h3><span style={{opacity: 0.8, fontSize: '0.85em', display: 'block', marginBottom: '4px', fontWeight: '600'}}>{day.title.split(" — ")[0]}</span>{day.title.split(" — ")[1] || ""}</h3>
                 <p>{day.oneSentence}</p>
               </div>
               <div className={`dash-day-footer ${isDone ? 'completed' : ''}`}>

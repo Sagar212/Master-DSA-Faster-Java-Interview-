@@ -1,8 +1,8 @@
 {
   "day": 29,
   "patternType": "gr",
-  "category": "Graphs",
-  "title": "Graphs \u2014 Dry Run & Quiz",
+  "category": "\ud83d\udfe1 Graphs",
+  "title": "\ud83d\udfe1 Graphs \u2014 Dry Run & Quiz",
   "oneSentence": "Trace Number of Islands, Course Schedule, and Rotting Oranges.",
   "problems": [
     {

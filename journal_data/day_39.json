@@ -1,8 +1,8 @@
 {
   "id": 39,
-  "title": "Greedy \u2014 Active Recall",
+  "title": "\ud83d\udd34 Greedy \u2014 Active Recall",
   "patternType": "gd",
-  "category": "Greedy",
+  "category": "\ud83d\udd34 Greedy",
   "oneSentence": "Fill in the blanks for Greedy choices.",
   "problems": {
     "jumpGame": {

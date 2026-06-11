@@ -1,8 +1,8 @@
 {
   "id": 18,
-  "title": "Backtracking \u2014 Active Recall",
+  "title": "\ud83d\udfe1 Backtracking \u2014 Active Recall",
   "patternType": "backtrack",
-  "category": "Backtracking",
+  "category": "\ud83d\udfe1 Backtracking",
   "oneSentence": "Reconstruct Subsets, Permutations, Combination Sum, and N-Queens from scratch.",
   "problems": {
     "subsets": {

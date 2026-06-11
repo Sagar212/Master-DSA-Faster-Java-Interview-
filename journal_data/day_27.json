@@ -1,8 +1,8 @@
 {
   "id": 27,
-  "title": "Linked List \u2014 Active Recall Skeletons",
+  "title": "\ud83d\udfe1 Linked List \u2014 Active Recall Skeletons",
   "patternType": "ll",
-  "category": "Linked List",
+  "category": "\ud83d\udfe1 Linked List",
   "problems": {
     "reverseList": {
       "title": "Reverse Linked List",

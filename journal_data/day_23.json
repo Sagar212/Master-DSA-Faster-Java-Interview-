@@ -1,8 +1,8 @@
 {
   "id": 23,
-  "title": "Stack \u2014 Dry Run & Recall",
+  "title": "\ud83d\udfe1 Stack \u2014 Dry Run & Recall",
   "patternType": "st",
-  "category": "Stack",
+  "category": "\ud83d\udfe1 Stack",
   "problems": {
     "validParentheses": {
       "title": "Valid Parentheses",

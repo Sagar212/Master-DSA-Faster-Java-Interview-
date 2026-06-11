@@ -1,8 +1,8 @@
 {
   "id": 15,
-  "title": "Heap (PQ) \u2014 Active Recall",
+  "title": "\ud83d\udfe1 Heap (PQ) \u2014 Active Recall",
   "patternType": "heap",
-  "category": "Heap (PQ)",
+  "category": "\ud83d\udfe1 Heap (PQ)",
   "oneSentence": "Fill in the blank active recall templates.",
   "problems": {
     "topK": {

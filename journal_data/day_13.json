@@ -1,8 +1,8 @@
 {
   "id": 13,
-  "title": "Heap (PQ) \u2014 ROI & Pattern",
+  "title": "\ud83d\udfe1 Heap (PQ) \u2014 ROI & Pattern",
   "patternType": "heap",
-  "category": "Heap (PQ)",
+  "category": "\ud83d\udfe1 Heap (PQ)",
   "oneSentence": "Always keep the top K items using a priority queue.",
   "description": "Master the Min-Heap pattern to solve Top K problems.",
   "roi": {

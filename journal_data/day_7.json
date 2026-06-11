@@ -1,8 +1,8 @@
 {
   "id": 7,
-  "title": "Binary Search \u2014 ROI & Pattern",
+  "title": "\ud83d\udfe1 Binary Search \u2014 ROI & Pattern",
   "patternType": "bs",
-  "category": "Binary Search",
+  "category": "\ud83d\udfe1 Binary Search",
   "oneSentence": "Binary search divides the search interval in half recursively in sorted data.",
   "description": "Master the standard sorted-array Binary Search template twice. First through guided line-by-line tracing, then by reconstructing the core steps.",
   "roi": {

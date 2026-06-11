@@ -1,8 +1,8 @@
 {
   "id": 5,
-  "title": "Sliding Window \u2014 Dry Run & Recall",
+  "title": "\ud83d\udfe2 Sliding Window \u2014 Dry Run & Recall",
   "patternType": "sw",
-  "category": "Sliding Window",
+  "category": "\ud83d\udfe2 Sliding Window",
   "oneSentence": "Trace Maximum Average Subarray, Max Vowels, and Minimum Window Substring.",
   "problems": {
     "maxAvgSubarray": {

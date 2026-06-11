@@ -1,12 +1,12 @@
 {
   "id": 34,
-  "title": "Intervals — ROI & Pattern",
+  "title": "\ud83d\udfe1 Intervals \u2014 ROI & Pattern",
   "patternType": "iv",
-  "category": "Intervals",
+  "category": "\ud83d\udfe1 Intervals",
   "oneSentence": "Sort by start time to merge overlapping ranges efficiently.",
   "description": "Master the Interval pattern. Always sort first, then compare `current.end` with `next.start`.",
   "roi": {
-    "frequency": "⭐⭐⭐⭐",
+    "frequency": "\u2b50\u2b50\u2b50\u2b50",
     "complexity": "Time: O(N log N) | Space: O(N)",
     "dependsOn": "Sorting, Arrays",
     "signals": "Schedules, overlapping times, ranges."
@@ -32,7 +32,7 @@
       },
       {
         "num": 5,
-        "text": "        // STEP 1 — SORT: Sort intervals by start time"
+        "text": "        // STEP 1 \u2014 SORT: Sort intervals by start time"
       },
       {
         "num": 6,
@@ -60,7 +60,7 @@
       },
       {
         "num": 12,
-        "text": "        // STEP 2 — LOOP: Iterate through the remaining intervals"
+        "text": "        // STEP 2 \u2014 LOOP: Iterate through the remaining intervals"
       },
       {
         "num": 13,
@@ -84,7 +84,7 @@
       },
       {
         "num": 18,
-        "text": "            // STEP 3 — CHECK OVERLAP: If they overlap, merge them"
+        "text": "            // STEP 3 \u2014 CHECK OVERLAP: If they overlap, merge them"
       },
       {
         "num": 19,
@@ -100,7 +100,7 @@
       },
       {
         "num": 22,
-        "text": "                // STEP 4 — NO OVERLAP: Add next interval to the list and update current"
+        "text": "                // STEP 4 \u2014 NO OVERLAP: Add next interval to the list and update current"
       },
       {
         "num": 23,
@@ -124,7 +124,7 @@
       },
       {
         "num": 28,
-        "text": "        // STEP 5 — RETURN: Convert list to 2D array"
+        "text": "        // STEP 5 \u2014 RETURN: Convert list to 2D array"
       },
       {
         "num": 29,

@@ -1,8 +1,8 @@
 {
   "id": 11,
-  "title": "Arrays & HashMap — Dry Run & Recall",
+  "title": "\ud83d\udfe2 Arrays & HashMap \u2014 Dry Run & Recall",
   "patternType": "hashmap",
-  "category": "Arrays & HashMap",
+  "category": "\ud83d\udfe2 Arrays & HashMap",
   "oneSentence": "Trace Two Sum, Group Anagrams, Valid Sudoku, and Subarray Sum Equals K step-by-step.",
   "problems": {
     "twoSum": {
@@ -10,23 +10,28 @@
       "patternSubtype": "HashMap Complement Lookup",
       "description": "Find two numbers that add up to target. Return their indices.",
       "story": "Guest book at a party. Check if your dance partner already signed in, if not, sign yourself.",
-      "array": [2, 7, 11, 15],
+      "array": [
+        2,
+        7,
+        11,
+        15
+      ],
       "target": 9,
       "code": [
         "public static int[] solve(int[] nums, int target) {",
-        "    // STEP 1 — INIT: Create guest book (HashMap)",
+        "    // STEP 1 \u2014 INIT: Create guest book (HashMap)",
         "    Map<Integer, Integer> guestBook = new HashMap<>();",
         "",
-        "    // STEP 2 — LOOP: Go through each guest at the party",
+        "    // STEP 2 \u2014 LOOP: Go through each guest at the party",
         "    for (int i = 0; i < nums.length; i++) {",
         "        int need = target - nums[i];",
         "",
-        "        // STEP 3 — CHECK: Has my dance partner already signed in?",
+        "        // STEP 3 \u2014 CHECK: Has my dance partner already signed in?",
         "        if (guestBook.containsKey(need)) {",
         "            return new int[] { guestBook.get(need), i };",
         "        }",
         "",
-        "        // STEP 4 — STORE: Sign myself into the guest book",
+        "        // STEP 4 \u2014 STORE: Sign myself into the guest book",
         "        guestBook.put(nums[i], i);",
         "    }",
         "",
@@ -50,13 +55,13 @@
           "left": 0,
           "right": -1,
           "line": 6,
-          "desc": "Check guestBook for 7 → NOT found. No dance partner yet."
+          "desc": "Check guestBook for 7 \u2192 NOT found. No dance partner yet."
         },
         {
           "left": 0,
           "right": -1,
           "line": 10,
-          "desc": "Store nums[0]=2 → index 0 in guestBook. guestBook = {2:0}."
+          "desc": "Store nums[0]=2 \u2192 index 0 in guestBook. guestBook = {2:0}."
         },
         {
           "left": 1,
@@ -68,7 +73,7 @@
           "left": 1,
           "right": 0,
           "line": 7,
-          "desc": "Check guestBook for 2 → FOUND at index 0! Dance partner found! Return [0, 1]."
+          "desc": "Check guestBook for 2 \u2192 FOUND at index 0! Dance partner found! Return [0, 1]."
         }
       ],
       "quiz": [
@@ -89,28 +94,35 @@
       "patternSubtype": "HashMap Fingerprint Grouping",
       "description": "Group words that are anagrams of each other using sorted-key fingerprinting.",
       "story": "Filing cabinet. Sort each word to create a fingerprint (key). File the word into the matching drawer.",
-      "array": ["eat", "tea", "tan", "ate", "nat", "bat"],
+      "array": [
+        "eat",
+        "tea",
+        "tan",
+        "ate",
+        "nat",
+        "bat"
+      ],
       "code": [
         "public static List<List<String>> solve(String[] strs) {",
-        "    // STEP 1 — INIT: Create the filing cabinet (HashMap)",
+        "    // STEP 1 \u2014 INIT: Create the filing cabinet (HashMap)",
         "    Map<String, List<String>> groups = new HashMap<>();",
         "",
-        "    // STEP 2 — LOOP: Go through each word in the pile",
+        "    // STEP 2 \u2014 LOOP: Go through each word in the pile",
         "    for (String word : strs) {",
         "",
-        "        // STEP 3 — FINGERPRINT: Sort the letters to create a unique key",
+        "        // STEP 3 \u2014 FINGERPRINT: Sort the letters to create a unique key",
         "        char[] chars = word.toCharArray();",
         "        Arrays.sort(chars);",
         "        String fingerprint = new String(chars);",
         "",
-        "        // STEP 4 — STORE: File into the correct drawer",
+        "        // STEP 4 \u2014 STORE: File into the correct drawer",
         "        if (!groups.containsKey(fingerprint)) {",
         "            groups.put(fingerprint, new ArrayList<>());",
         "        }",
         "        groups.get(fingerprint).add(word);",
         "    }",
         "",
-        "    // STEP 5 — RETURN: Return all drawers as a list of lists",
+        "    // STEP 5 \u2014 RETURN: Return all drawers as a list of lists",
         "    return new ArrayList<>(groups.values());",
         "}"
       ],
@@ -125,19 +137,19 @@
           "left": 0,
           "right": -1,
           "line": 7,
-          "desc": "word=\"eat\". Sort letters → fingerprint = \"aet\"."
+          "desc": "word=\"eat\". Sort letters \u2192 fingerprint = \"aet\"."
         },
         {
           "left": 0,
           "right": -1,
           "line": 13,
-          "desc": "\"aet\" NOT in map → create new drawer. Add \"eat\". groups = {\"aet\": [\"eat\"]}."
+          "desc": "\"aet\" NOT in map \u2192 create new drawer. Add \"eat\". groups = {\"aet\": [\"eat\"]}."
         },
         {
           "left": 1,
           "right": -1,
           "line": 7,
-          "desc": "word=\"tea\". Sort letters → fingerprint = \"aet\"."
+          "desc": "word=\"tea\". Sort letters \u2192 fingerprint = \"aet\"."
         },
         {
           "left": 1,
@@ -149,19 +161,19 @@
           "left": 2,
           "right": -1,
           "line": 7,
-          "desc": "word=\"tan\". Sort letters → fingerprint = \"ant\"."
+          "desc": "word=\"tan\". Sort letters \u2192 fingerprint = \"ant\"."
         },
         {
           "left": 2,
           "right": -1,
           "line": 13,
-          "desc": "\"ant\" NOT in map → create new drawer. Add \"tan\". groups = {\"aet\": [\"eat\", \"tea\"], \"ant\": [\"tan\"]}."
+          "desc": "\"ant\" NOT in map \u2192 create new drawer. Add \"tan\". groups = {\"aet\": [\"eat\", \"tea\"], \"ant\": [\"tan\"]}."
         },
         {
           "left": 3,
           "right": -1,
           "line": 7,
-          "desc": "word=\"ate\". Sort letters → fingerprint = \"aet\"."
+          "desc": "word=\"ate\". Sort letters \u2192 fingerprint = \"aet\"."
         },
         {
           "left": 3,
@@ -174,7 +186,7 @@
         {
           "q": "Why do we sort each word's characters before using it as a HashMap key?",
           "options": [
-            "Anagrams have the same characters in different order — sorting normalizes them to the same key",
+            "Anagrams have the same characters in different order \u2014 sorting normalizes them to the same key",
             "Sorting makes the words alphabetically ordered in the output",
             "HashMap requires sorted keys to work correctly"
           ],
@@ -186,12 +198,22 @@
     "validSudoku": {
       "title": "Valid Sudoku",
       "patternSubtype": "HashSet Duplicate Detection",
-      "description": "Determine if a 9×9 Sudoku board is valid using HashSets for rows, columns, and boxes.",
-      "story": "Hotel check-in. 3 guest books (row, col, box). If a name appears in ANY book already → invalid!",
-      "array": [5, 3, ".", ".", 7, ".", ".", ".", "."],
+      "description": "Determine if a 9\u00d79 Sudoku board is valid using HashSets for rows, columns, and boxes.",
+      "story": "Hotel check-in. 3 guest books (row, col, box). If a name appears in ANY book already \u2192 invalid!",
+      "array": [
+        5,
+        3,
+        ".",
+        ".",
+        7,
+        ".",
+        ".",
+        ".",
+        "."
+      ],
       "code": [
         "public static boolean solve(char[][] board) {",
-        "    // STEP 1 — INIT: Create 3 sets of guest books",
+        "    // STEP 1 \u2014 INIT: Create 3 sets of guest books",
         "    Set<Character>[] rows = new HashSet[9];",
         "    Set<Character>[] cols = new HashSet[9];",
         "    Set<Character>[] boxes = new HashSet[9];",
@@ -201,30 +223,30 @@
         "        boxes[i] = new HashSet<>();",
         "    }",
         "",
-        "    // STEP 2 — LOOP: Check in each guest (cell)",
+        "    // STEP 2 \u2014 LOOP: Check in each guest (cell)",
         "    for (int row = 0; row < 9; row++) {",
         "        for (int col = 0; col < 9; col++) {",
         "            char num = board[row][col];",
         "",
-        "            // STEP 3 — SKIP: Empty cells",
+        "            // STEP 3 \u2014 SKIP: Empty cells",
         "            if (num == '.') continue;",
         "",
-        "            // STEP 4 — BOX INDEX",
+        "            // STEP 4 \u2014 BOX INDEX",
         "            int boxIndex = (row / 3) * 3 + (col / 3);",
         "",
-        "            // STEP 5 — CHECK: Duplicate in any guest book?",
+        "            // STEP 5 \u2014 CHECK: Duplicate in any guest book?",
         "            if (rows[row].contains(num) || cols[col].contains(num) || boxes[boxIndex].contains(num)) {",
         "                return false;",
         "            }",
         "",
-        "            // STEP 6 — STORE: Register in all 3 books",
+        "            // STEP 6 \u2014 STORE: Register in all 3 books",
         "            rows[row].add(num);",
         "            cols[col].add(num);",
         "            boxes[boxIndex].add(num);",
         "        }",
         "    }",
         "",
-        "    // STEP 7 — RETURN: No duplicates",
+        "    // STEP 7 \u2014 RETURN: No duplicates",
         "    return true;",
         "}"
       ],
@@ -233,36 +255,36 @@
           "left": -1,
           "right": -1,
           "line": 1,
-          "desc": "Init: Create 3 arrays of 9 HashSets each — rows[], cols[], boxes[]. All empty."
+          "desc": "Init: Create 3 arrays of 9 HashSets each \u2014 rows[], cols[], boxes[]. All empty."
         },
         {
           "left": 0,
           "right": -1,
           "line": 21,
-          "desc": "Cell (0,0)='5'. boxIndex = (0/3)*3 + (0/3) = 0. Check rows[0], cols[0], boxes[0] — all empty. Add '5' to all three."
+          "desc": "Cell (0,0)='5'. boxIndex = (0/3)*3 + (0/3) = 0. Check rows[0], cols[0], boxes[0] \u2014 all empty. Add '5' to all three."
         },
         {
           "left": 1,
           "right": -1,
           "line": 21,
-          "desc": "Cell (0,1)='3'. boxIndex = (0/3)*3 + (1/3) = 0. Check rows[0], cols[1], boxes[0] — no duplicate. Add '3' to all three."
+          "desc": "Cell (0,1)='3'. boxIndex = (0/3)*3 + (1/3) = 0. Check rows[0], cols[1], boxes[0] \u2014 no duplicate. Add '3' to all three."
         },
         {
           "left": 2,
           "right": -1,
           "line": 16,
-          "desc": "Cell (0,2)='.'. Skip empty cell — continue to next."
+          "desc": "Cell (0,2)='.'. Skip empty cell \u2014 continue to next."
         },
         {
           "left": 4,
           "right": -1,
           "line": 21,
-          "desc": "Cell (0,4)='7'. boxIndex = (0/3)*3 + (4/3) = 1. Check rows[0], cols[4], boxes[1] — no duplicate. Add '7' to all three."
+          "desc": "Cell (0,4)='7'. boxIndex = (0/3)*3 + (4/3) = 1. Check rows[0], cols[4], boxes[1] \u2014 no duplicate. Add '7' to all three."
         }
       ],
       "quiz": [
         {
-          "q": "What is the formula to determine which 3×3 box a cell at (row, col) belongs to?",
+          "q": "What is the formula to determine which 3\u00d73 box a cell at (row, col) belongs to?",
           "options": [
             "row * 3 + col",
             "(row / 3) * 3 + (col / 3)",
@@ -278,33 +300,37 @@
       "patternSubtype": "HashMap Prefix Sum",
       "description": "Count continuous subarrays whose sum equals K using prefix sum + HashMap.",
       "story": "Walking a road tracking distance. At each point, check: 'Was there a past milestone where the gap to here = K?'",
-      "array": [1, 1, 1],
+      "array": [
+        1,
+        1,
+        1
+      ],
       "target": 2,
       "code": [
         "public static int solve(int[] nums, int k) {",
         "    int count = 0;",
         "    int runningSum = 0;",
         "",
-        "    // STEP 1 — INIT: Create logbook of prefix sums",
+        "    // STEP 1 \u2014 INIT: Create logbook of prefix sums",
         "    Map<Integer, Integer> logbook = new HashMap<>();",
         "",
-        "    // STEP 2 — SEED: Distance 0 happened 1 time",
+        "    // STEP 2 \u2014 SEED: Distance 0 happened 1 time",
         "    logbook.put(0, 1);",
         "",
-        "    // STEP 3 — LOOP: Walk the road",
+        "    // STEP 3 \u2014 LOOP: Walk the road",
         "    for (int num : nums) {",
         "        runningSum += num;",
         "",
-        "        // STEP 4 — CHECK: Gap = runningSum - k. In logbook?",
+        "        // STEP 4 \u2014 CHECK: Gap = runningSum - k. In logbook?",
         "        if (logbook.containsKey(runningSum - k)) {",
         "            count += logbook.get(runningSum - k);",
         "        }",
         "",
-        "        // STEP 5 — STORE: Record this milestone",
+        "        // STEP 5 \u2014 STORE: Record this milestone",
         "        logbook.put(runningSum, logbook.getOrDefault(runningSum, 0) + 1);",
         "    }",
         "",
-        "    // STEP 6 — RETURN",
+        "    // STEP 6 \u2014 RETURN",
         "    return count;",
         "}"
       ],
@@ -313,25 +339,25 @@
           "left": -1,
           "right": -1,
           "line": 4,
-          "desc": "Init: Create logbook HashMap. Seed with {0: 1} — distance 0 happened once."
+          "desc": "Init: Create logbook HashMap. Seed with {0: 1} \u2014 distance 0 happened once."
         },
         {
           "left": 0,
           "right": -1,
           "line": 11,
-          "desc": "num=1, runningSum = 0+1 = 1. Check logbook for 1-2 = -1 → NOT found. count stays 0. Store: logbook = {0:1, 1:1}."
+          "desc": "num=1, runningSum = 0+1 = 1. Check logbook for 1-2 = -1 \u2192 NOT found. count stays 0. Store: logbook = {0:1, 1:1}."
         },
         {
           "left": 1,
           "right": -1,
           "line": 14,
-          "desc": "num=1, runningSum = 1+1 = 2. Check logbook for 2-2 = 0 → FOUND (1 time)! count = 0+1 = 1. Store: logbook = {0:1, 1:1, 2:1}."
+          "desc": "num=1, runningSum = 1+1 = 2. Check logbook for 2-2 = 0 \u2192 FOUND (1 time)! count = 0+1 = 1. Store: logbook = {0:1, 1:1, 2:1}."
         },
         {
           "left": 2,
           "right": -1,
           "line": 14,
-          "desc": "num=1, runningSum = 2+1 = 3. Check logbook for 3-2 = 1 → FOUND (1 time)! count = 1+1 = 2. Store: logbook = {0:1, 1:1, 2:1, 3:1}."
+          "desc": "num=1, runningSum = 2+1 = 3. Check logbook for 3-2 = 1 \u2192 FOUND (1 time)! count = 1+1 = 2. Store: logbook = {0:1, 1:1, 2:1, 3:1}."
         },
         {
           "left": 2,

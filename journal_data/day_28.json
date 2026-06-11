@@ -1,12 +1,12 @@
 {
   "day": 28,
   "patternType": "gr",
-  "category": "Graphs",
-  "title": "Graphs — ROI & Pattern",
+  "category": "\ud83d\udfe1 Graphs",
+  "title": "\ud83d\udfe1 Graphs \u2014 ROI & Pattern",
   "oneSentence": "Traverse networks using BFS for shortest paths and DFS for deep exploration.",
   "description": "Master the Graph traversal template. BFS uses a Queue, DFS uses recursion or a Stack. Both require a visited set.",
   "roi": {
-    "frequency": "⭐⭐⭐⭐⭐ (Critical for onsite rounds)",
+    "frequency": "\u2b50\u2b50\u2b50\u2b50\u2b50 (Critical for onsite rounds)",
     "complexity": "Time: O(V+E) | Space: O(V)",
     "dependsOn": "Trees, Recursion, Queues",
     "signals": "Grids, networks, connected components, shortest paths."

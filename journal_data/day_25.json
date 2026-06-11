@@ -1,8 +1,8 @@
 {
   "id": 25,
-  "title": "Linked List \u2014 ROI & Pattern",
+  "title": "\ud83d\udfe1 Linked List \u2014 ROI & Pattern",
   "patternType": "ll",
-  "category": "Linked List",
+  "category": "\ud83d\udfe1 Linked List",
   "oneSentence": "Manipulate node pointers directly to reverse or merge structures.",
   "description": "Master pointer manipulation. Tracing the Reverse Linked List pattern is essential.",
   "roi": {

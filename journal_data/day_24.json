@@ -1,8 +1,8 @@
 {
   "id": 24,
-  "title": "Stack \u2014 Active Recall Skeletons",
+  "title": "\ud83d\udfe1 Stack \u2014 Active Recall Skeletons",
   "patternType": "st",
-  "category": "Stack",
+  "category": "\ud83d\udfe1 Stack",
   "problems": {
     "validParentheses": {
       "title": "Valid Parentheses",

@@ -1,8 +1,8 @@
 {
   "id": 35,
-  "title": "Intervals — Dry Run & Quiz",
+  "title": "\ud83d\udfe1 Intervals \u2014 Dry Run & Quiz",
   "patternType": "iv",
-  "category": "Intervals",
+  "category": "\ud83d\udfe1 Intervals",
   "oneSentence": "Trace Merge Intervals, Insert Interval, and Meeting Rooms II.",
   "problems": {
     "mergeIntervals": {
@@ -10,7 +10,24 @@
       "patternSubtype": "Intervals",
       "description": "Given an array of intervals, merge all overlapping intervals.",
       "story": "Sort by start times, then merge if current end >= next start.",
-      "array": [[1, 3], [2, 6], [8, 10], [15, 18]],
+      "array": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          15,
+          18
+        ]
+      ],
       "code": [
         "public static int[][] solve(int[][] intervals) {",
         "    if (intervals.length <= 1) return intervals;",
@@ -30,13 +47,34 @@
         "}"
       ],
       "steps": [
-        { "line": 3, "desc": "Sort intervals: [[1,3], [2,6], [8,10], [15,18]]." },
-        { "line": 5, "desc": "Current interval: [1,3]." },
-        { "line": 8, "desc": "Compare [1,3] and [1,3]. Overlap. End is max(3, 3) = 3." },
-        { "line": 8, "desc": "Compare [1,3] and [2,6]. Overlap (3 >= 2). End is max(3, 6) = 6. Current is [1,6]." },
-        { "line": 11, "desc": "Compare [1,6] and [8,10]. No overlap (6 < 8). Current becomes [8,10]. Add to res." },
-        { "line": 11, "desc": "Compare [8,10] and [15,18]. No overlap (10 < 15). Current becomes [15,18]. Add to res." },
-        { "line": 15, "desc": "Return [[1,6], [8,10], [15,18]]." }
+        {
+          "line": 3,
+          "desc": "Sort intervals: [[1,3], [2,6], [8,10], [15,18]]."
+        },
+        {
+          "line": 5,
+          "desc": "Current interval: [1,3]."
+        },
+        {
+          "line": 8,
+          "desc": "Compare [1,3] and [1,3]. Overlap. End is max(3, 3) = 3."
+        },
+        {
+          "line": 8,
+          "desc": "Compare [1,3] and [2,6]. Overlap (3 >= 2). End is max(3, 6) = 6. Current is [1,6]."
+        },
+        {
+          "line": 11,
+          "desc": "Compare [1,6] and [8,10]. No overlap (6 < 8). Current becomes [8,10]. Add to res."
+        },
+        {
+          "line": 11,
+          "desc": "Compare [8,10] and [15,18]. No overlap (10 < 15). Current becomes [15,18]. Add to res."
+        },
+        {
+          "line": 15,
+          "desc": "Return [[1,6], [8,10], [15,18]]."
+        }
       ],
       "quiz": [
         {
@@ -56,8 +94,20 @@
       "patternSubtype": "Intervals",
       "description": "Insert a new interval into a sorted array of non-overlapping intervals and merge if necessary.",
       "story": "Add strictly before, merge overlapping, add strictly after.",
-      "array": [[1, 3], [6, 9]],
-      "newInterval": [2, 5],
+      "array": [
+        [
+          1,
+          3
+        ],
+        [
+          6,
+          9
+        ]
+      ],
+      "newInterval": [
+        2,
+        5
+      ],
       "code": [
         "public static int[][] solve(int[][] intervals, int[] newInterval) {",
         "    List<int[]> res = new ArrayList<>();",
@@ -78,12 +128,30 @@
         "}"
       ],
       "steps": [
-        { "line": 4, "desc": "Interval [1,3], newInterval [2,5]. 3 >= 2, so it doesn't end before newInterval. Skip first while loop." },
-        { "line": 8, "desc": "Overlap check: [1,3] starts at 1 <= 5. Merge: min(2,1)=1, max(5,3)=5. newInterval becomes [1,5]. i=1." },
-        { "line": 7, "desc": "Next interval [6,9]. Starts at 6 > 5. No overlap. Exit second while loop." },
-        { "line": 12, "desc": "Add merged newInterval [1,5] to res." },
-        { "line": 14, "desc": "Add remaining intervals: [6,9]." },
-        { "line": 17, "desc": "Return [[1,5], [6,9]]." }
+        {
+          "line": 4,
+          "desc": "Interval [1,3], newInterval [2,5]. 3 >= 2, so it doesn't end before newInterval. Skip first while loop."
+        },
+        {
+          "line": 8,
+          "desc": "Overlap check: [1,3] starts at 1 <= 5. Merge: min(2,1)=1, max(5,3)=5. newInterval becomes [1,5]. i=1."
+        },
+        {
+          "line": 7,
+          "desc": "Next interval [6,9]. Starts at 6 > 5. No overlap. Exit second while loop."
+        },
+        {
+          "line": 12,
+          "desc": "Add merged newInterval [1,5] to res."
+        },
+        {
+          "line": 14,
+          "desc": "Add remaining intervals: [6,9]."
+        },
+        {
+          "line": 17,
+          "desc": "Return [[1,5], [6,9]]."
+        }
       ],
       "quiz": [
         {
@@ -103,7 +171,20 @@
       "patternSubtype": "Intervals",
       "description": "Given an array of meeting time intervals, find the minimum number of conference rooms required.",
       "story": "Separate starts and ends. Two pointers. If start < end, need a room. Else, room freed.",
-      "array": [[0, 30], [5, 10], [15, 20]],
+      "array": [
+        [
+          0,
+          30
+        ],
+        [
+          5,
+          10
+        ],
+        [
+          15,
+          20
+        ]
+      ],
       "code": [
         "public static int solve(int[][] intervals) {",
         "    int[] starts = new int[intervals.length];",
@@ -129,13 +210,34 @@
         "}"
       ],
       "steps": [
-        { "line": 8, "desc": "Extract and sort starts: [0, 5, 15]." },
-        { "line": 9, "desc": "Extract and sort ends: [10, 20, 30]." },
-        { "line": 12, "desc": "s=0 (0), e=0 (10). starts[0] < ends[0]. rooms=1, maxRooms=1. s=1." },
-        { "line": 12, "desc": "s=1 (5), e=0 (10). starts[1] < ends[0]. rooms=2, maxRooms=2. s=2." },
-        { "line": 16, "desc": "s=2 (15), e=0 (10). starts[2] >= ends[0]. Room freed. rooms=1. e=1." },
-        { "line": 12, "desc": "s=2 (15), e=1 (20). starts[2] < ends[1]. rooms=2, maxRooms=2. s=3." },
-        { "line": 21, "desc": "s=3. Loop terminates. Return maxRooms=2." }
+        {
+          "line": 8,
+          "desc": "Extract and sort starts: [0, 5, 15]."
+        },
+        {
+          "line": 9,
+          "desc": "Extract and sort ends: [10, 20, 30]."
+        },
+        {
+          "line": 12,
+          "desc": "s=0 (0), e=0 (10). starts[0] < ends[0]. rooms=1, maxRooms=1. s=1."
+        },
+        {
+          "line": 12,
+          "desc": "s=1 (5), e=0 (10). starts[1] < ends[0]. rooms=2, maxRooms=2. s=2."
+        },
+        {
+          "line": 16,
+          "desc": "s=2 (15), e=0 (10). starts[2] >= ends[0]. Room freed. rooms=1. e=1."
+        },
+        {
+          "line": 12,
+          "desc": "s=2 (15), e=1 (20). starts[2] < ends[1]. rooms=2, maxRooms=2. s=3."
+        },
+        {
+          "line": 21,
+          "desc": "s=3. Loop terminates. Return maxRooms=2."
+        }
       ],
       "quiz": [
         {

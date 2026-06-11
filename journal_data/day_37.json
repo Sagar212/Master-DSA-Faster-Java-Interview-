@@ -1,8 +1,8 @@
 {
   "id": 37,
-  "title": "Greedy \u2014 ROI & Pattern",
+  "title": "\ud83d\udd34 Greedy \u2014 ROI & Pattern",
   "patternType": "gd",
-  "category": "Greedy",
+  "category": "\ud83d\udd34 Greedy",
   "oneSentence": "Make the locally optimal choice at each step without looking back.",
   "description": "Master the Greedy pattern. Focus on proving why local optimization leads to global optimization.",
   "roi": {

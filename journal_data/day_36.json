@@ -1,12 +1,12 @@
 {
   "id": 36,
-  "title": "Intervals — Active Recall",
+  "title": "\ud83d\udfe1 Intervals \u2014 Active Recall",
   "patternType": "iv",
-  "category": "Intervals",
+  "category": "\ud83d\udfe1 Intervals",
   "oneSentence": "Fill in the blanks for Interval logic.",
   "problems": {
     "mergeIntervals": {
-      "title": "Merge Intervals — Active Recall",
+      "title": "Merge Intervals \u2014 Active Recall",
       "patternSubtype": "Intervals",
       "story": "Sort by start times, then merge if current end >= next start.",
       "template": [
@@ -35,7 +35,7 @@
       ]
     },
     "insertInterval": {
-      "title": "Insert Interval — Active Recall",
+      "title": "Insert Interval \u2014 Active Recall",
       "patternSubtype": "Intervals",
       "story": "Add strictly before, merge overlapping, add strictly after.",
       "template": [
@@ -66,7 +66,7 @@
       ]
     },
     "meetingRoomsII": {
-      "title": "Meeting Rooms II — Active Recall",
+      "title": "Meeting Rooms II \u2014 Active Recall",
       "patternSubtype": "Intervals",
       "story": "Separate starts and ends. Two pointers. If start < end, need a room. Else, room freed.",
       "template": [

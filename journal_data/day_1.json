@@ -1,8 +1,8 @@
 {
   "id": 1,
-  "title": "Two Pointers \u2014 ROI & Pattern",
+  "title": "\ud83d\udfe2 Two Pointers \u2014 ROI & Pattern",
   "patternType": "tp",
-  "category": "Two Pointers",
+  "category": "\ud83d\udfe2 Two Pointers",
   "oneSentence": "Two pointers narrow down the search space in sorted data from opposite ends.",
   "description": "Focus on understanding the template twice. First through guided line-by-line tracing, then by reconstructing the core steps.",
   "roi": {

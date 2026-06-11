@@ -1,50 +1,109 @@
 {
   "id": 2,
-  "title": "Two Pointers — Dry Run & Recall",
+  "title": "\ud83d\udfe2 Two Pointers \u2014 Dry Run & Recall",
   "patternType": "tp",
-  "category": "Two Pointers",
+  "category": "\ud83d\udfe2 Two Pointers",
   "oneSentence": "Trace existing problems (Two Sum II, Palindrome, 3Sum, Trapping Rain, LinkedList Cycle) step-by-step.",
   "problems": {
     "twoSumII": {
-      "title": "Two Sum II — Sorted Array",
+      "title": "Two Sum II \u2014 Sorted Array",
       "patternSubtype": "Opposite Ends Two-Pointer",
       "description": "Given a 1-indexed sorted array, find two numbers that sum to a target.",
       "story": "Shortest + tallest kids. Too short? Pick next taller. Too tall? Pick next shorter.",
-      "array": [2, 7, 11, 15],
+      "array": [
+        2,
+        7,
+        11,
+        15
+      ],
       "target": 9,
       "code": [
         "public static int[] solve(int[] nums, int target) {",
-        "    // STEP 1 — INIT: Place pointers at opposite ends of the sorted array",
+        "    // STEP 1 \u2014 INIT: Place pointers at opposite ends of the sorted array",
         "    int left = 0, right = nums.length - 1;",
         "    ",
-        "    // STEP 2 — LOOP: Narrow inward until the pointers meet",
+        "    // STEP 2 \u2014 LOOP: Narrow inward until the pointers meet",
         "    while (left < right) {",
         "        int sum = nums[left] + nums[right];",
         "        ",
-        "        // STEP 3 — CHECK: Compare sum against target and decide which pointer to move",
+        "        // STEP 3 \u2014 CHECK: Compare sum against target and decide which pointer to move",
         "        if (sum == target) {",
         "            return new int[]{left + 1, right + 1};",
         "        } else if (sum < target) {",
-        "            left++;   // sum too small → move left up to increase",
+        "            left++;   // sum too small \u2192 move left up to increase",
         "        } else {",
-        "            right--;  // sum too big → move right down to decrease",
+        "            right--;  // sum too big \u2192 move right down to decrease",
         "        }",
         "    }",
         "    ",
-        "    // STEP 4 — RETURN: Fallback (problem guarantees a solution)",
+        "    // STEP 4 \u2014 RETURN: Fallback (problem guarantees a solution)",
         "    return new int[]{-1, -1};",
         "}"
       ],
       "steps": [
-        { "left": 0, "right": 3, "sum": null, "line": 2, "desc": "Init: left pointer at 0 (value 2), right pointer at 3 (value 15)." },
-        { "left": 0, "right": 3, "sum": 17, "line": 6, "desc": "Check sum: nums[left] + nums[right] = 2 + 15 = 17." },
-        { "left": 0, "right": 3, "sum": 17, "line": 11, "desc": "Sum (17) > target (9). It is too tall. We must narrow our right wall. Decrement right." },
-        { "left": 0, "right": 2, "sum": 17, "line": 14, "desc": "right pointer decremented to index 2 (value 11)." },
-        { "left": 0, "right": 2, "sum": 13, "line": 6, "desc": "Check sum: nums[left] + nums[right] = 2 + 11 = 13." },
-        { "left": 0, "right": 2, "sum": 13, "line": 11, "desc": "Sum (13) > target (9). Still too tall. Decrement right." },
-        { "left": 0, "right": 1, "sum": 13, "line": 14, "desc": "right pointer decremented to index 1 (value 7)." },
-        { "left": 0, "right": 1, "sum": 9, "line": 6, "desc": "Check sum: nums[left] + nums[right] = 2 + 7 = 9." },
-        { "left": 0, "right": 1, "sum": 9, "line": 9, "desc": "Sum (9) matches target (9)! Return 1-indexed result: [1, 2]." }
+        {
+          "left": 0,
+          "right": 3,
+          "sum": null,
+          "line": 2,
+          "desc": "Init: left pointer at 0 (value 2), right pointer at 3 (value 15)."
+        },
+        {
+          "left": 0,
+          "right": 3,
+          "sum": 17,
+          "line": 6,
+          "desc": "Check sum: nums[left] + nums[right] = 2 + 15 = 17."
+        },
+        {
+          "left": 0,
+          "right": 3,
+          "sum": 17,
+          "line": 11,
+          "desc": "Sum (17) > target (9). It is too tall. We must narrow our right wall. Decrement right."
+        },
+        {
+          "left": 0,
+          "right": 2,
+          "sum": 17,
+          "line": 14,
+          "desc": "right pointer decremented to index 2 (value 11)."
+        },
+        {
+          "left": 0,
+          "right": 2,
+          "sum": 13,
+          "line": 6,
+          "desc": "Check sum: nums[left] + nums[right] = 2 + 11 = 13."
+        },
+        {
+          "left": 0,
+          "right": 2,
+          "sum": 13,
+          "line": 11,
+          "desc": "Sum (13) > target (9). Still too tall. Decrement right."
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "sum": 13,
+          "line": 14,
+          "desc": "right pointer decremented to index 1 (value 7)."
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "sum": 9,
+          "line": 6,
+          "desc": "Check sum: nums[left] + nums[right] = 2 + 7 = 9."
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "sum": 9,
+          "line": 9,
+          "desc": "Sum (9) matches target (9)! Return 1-indexed result: [1, 2]."
+        }
       ],
       "quiz": [
         {
@@ -64,41 +123,89 @@
       "patternSubtype": "Opposite Ends Two-Pointer",
       "description": "Check if a string is a palindrome, skipping non-alphanumeric chars and ignoring case.",
       "story": "Two friends reading a banner from outside-in, skipping spaces & punctuation.",
-      "array": ["a", ",", " ", "b", "!", " ", "a"],
+      "array": [
+        "a",
+        ",",
+        " ",
+        "b",
+        "!",
+        " ",
+        "a"
+      ],
       "code": [
         "public static boolean solve(String s) {",
-        "    // STEP 1 — INIT: Place pointers at both ends of the string",
+        "    // STEP 1 \u2014 INIT: Place pointers at both ends of the string",
         "    int left = 0;",
         "    int right = s.length() - 1;",
         "    ",
-        "    // STEP 2 — LOOP: Walk inward until the two friends meet",
+        "    // STEP 2 \u2014 LOOP: Walk inward until the two friends meet",
         "    while (left < right) {",
         "        ",
-        "        // STEP 3 — SKIP: Jump over non-alphanumeric junk on both sides",
-        "        while (left < right && !Character.isLetterOrDigit(s.charAt(left))) left++; // junk on left → skip it",
-        "        while (left < right && !Character.isLetterOrDigit(s.charAt(right))) right--; // junk on right → skip it",
+        "        // STEP 3 \u2014 SKIP: Jump over non-alphanumeric junk on both sides",
+        "        while (left < right && !Character.isLetterOrDigit(s.charAt(left))) left++; // junk on left \u2192 skip it",
+        "        while (left < right && !Character.isLetterOrDigit(s.charAt(right))) right--; // junk on right \u2192 skip it",
         "        ",
-        "        // STEP 4 — CHECK: Compare the two valid characters (case-insensitive)",
+        "        // STEP 4 \u2014 CHECK: Compare the two valid characters (case-insensitive)",
         "        if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right)))",
-        "            return false; // mismatch → NOT a palindrome",
+        "            return false; // mismatch \u2192 NOT a palindrome",
         "        ",
-        "        // STEP 5 — MOVE: Both matched → step inward",
+        "        // STEP 5 \u2014 MOVE: Both matched \u2192 step inward",
         "        left++; right--;",
         "    }",
         "    ",
-        "    // STEP 6 — RETURN: All matched → IS a palindrome",
+        "    // STEP 6 \u2014 RETURN: All matched \u2192 IS a palindrome",
         "    return true;",
         "}"
       ],
       "steps": [
-        { "left": 0, "right": 6, "line": 2, "desc": "Init: left at index 0 ('a'), right at index 6 ('a')." },
-        { "left": 0, "right": 6, "line": 9, "desc": "Left character 'a' is valid alphanumeric. No skip needed." },
-        { "left": 0, "right": 6, "line": 10, "desc": "Right character 'a' is valid alphanumeric. No skip needed." },
-        { "left": 0, "right": 6, "line": 13, "desc": "Compare left ('a') & right ('a'). They match! Both step inward." },
-        { "left": 1, "right": 5, "line": 17, "desc": "left increments to 1 (','), right decrements to 5 (' ')." },
-        { "left": 3, "right": 5, "line": 9, "desc": "Left skip: character at index 1 (',') and index 2 (' ') are not valid. left skips to index 3 ('b')." },
-        { "left": 3, "right": 3, "line": 10, "desc": "Right skip: character at index 5 (' ') and index 4 ('!') are not valid. right skips to index 3 ('b')." },
-        { "left": 3, "right": 3, "line": 6, "desc": "Now left (3) is not less than right (3). The loop terminates. Return true." }
+        {
+          "left": 0,
+          "right": 6,
+          "line": 2,
+          "desc": "Init: left at index 0 ('a'), right at index 6 ('a')."
+        },
+        {
+          "left": 0,
+          "right": 6,
+          "line": 9,
+          "desc": "Left character 'a' is valid alphanumeric. No skip needed."
+        },
+        {
+          "left": 0,
+          "right": 6,
+          "line": 10,
+          "desc": "Right character 'a' is valid alphanumeric. No skip needed."
+        },
+        {
+          "left": 0,
+          "right": 6,
+          "line": 13,
+          "desc": "Compare left ('a') & right ('a'). They match! Both step inward."
+        },
+        {
+          "left": 1,
+          "right": 5,
+          "line": 17,
+          "desc": "left increments to 1 (','), right decrements to 5 (' ')."
+        },
+        {
+          "left": 3,
+          "right": 5,
+          "line": 9,
+          "desc": "Left skip: character at index 1 (',') and index 2 (' ') are not valid. left skips to index 3 ('b')."
+        },
+        {
+          "left": 3,
+          "right": 3,
+          "line": 10,
+          "desc": "Right skip: character at index 5 (' ') and index 4 ('!') are not valid. right skips to index 3 ('b')."
+        },
+        {
+          "left": 3,
+          "right": 3,
+          "line": 6,
+          "desc": "Now left (3) is not less than right (3). The loop terminates. Return true."
+        }
       ],
       "quiz": [
         {
@@ -118,55 +225,128 @@
       "patternSubtype": "Opposite Ends Two-Pointer",
       "description": "Find all unique triplets in an array that sum to zero.",
       "story": "For each person, find two others whose wealth exactly offsets yours to zero. Opposite-ends style.",
-      "array": [-4, -1, -1, 0, 1, 2],
+      "array": [
+        -4,
+        -1,
+        -1,
+        0,
+        1,
+        2
+      ],
       "code": [
         "public static List<List<Integer>> solve(int[] nums) {",
         "    List<List<Integer>> res = new ArrayList<>();",
         "    ",
-        "    // STEP 1 — INIT: Sort the array (required for two pointers to work)",
+        "    // STEP 1 \u2014 INIT: Sort the array (required for two pointers to work)",
         "    Arrays.sort(nums);",
         "    ",
-        "    // STEP 2 — LOOP: Pick each element as the \"anchor\"",
+        "    // STEP 2 \u2014 LOOP: Pick each element as the \"anchor\"",
         "    for (int i = 0; i < nums.length - 2; i++) {",
         "        ",
-        "        // STEP 3 — PRUNE: Early exit & skip duplicate anchors",
-        "        if (nums[i] > 0) break;                           // impossible to sum to 0 → stop",
-        "        if (i > 0 && nums[i] == nums[i-1]) continue;    // same anchor → skip duplicate",
+        "        // STEP 3 \u2014 PRUNE: Early exit & skip duplicate anchors",
+        "        if (nums[i] > 0) break;                           // impossible to sum to 0 \u2192 stop",
+        "        if (i > 0 && nums[i] == nums[i-1]) continue;    // same anchor \u2192 skip duplicate",
         "        ",
-        "        // STEP 4 — INIT POINTERS: Set up TwoSumII on the remaining subarray",
+        "        // STEP 4 \u2014 INIT POINTERS: Set up TwoSumII on the remaining subarray",
         "        int left = i + 1, right = nums.length - 1;",
         "        ",
-        "        // STEP 5 — INNER LOOP: TwoSumII to find pairs that cover the anchor's debt",
+        "        // STEP 5 \u2014 INNER LOOP: TwoSumII to find pairs that cover the anchor's debt",
         "        while (left < right) {",
         "            int sum = nums[i] + nums[left] + nums[right];",
         "            ",
-        "            // STEP 6 — CHECK: Compare sum and decide which pointer to move",
+        "            // STEP 6 \u2014 CHECK: Compare sum and decide which pointer to move",
         "            if (sum == 0) {",
         "                res.add(Arrays.asList(nums[i], nums[left], nums[right]));",
         "                left++; right--;",
         "                while (left < right && nums[left] == nums[left-1]) left++;   // skip dup left",
         "                while (left < right && nums[right] == nums[right+1]) right--; // skip dup right",
-        "            } else if (sum < 0) left++;   // sum too small → need bigger, move left up",
-        "            else right--;  // sum too big → need smaller, move right down",
+        "            } else if (sum < 0) left++;   // sum too small \u2192 need bigger, move left up",
+        "            else right--;  // sum too big \u2192 need smaller, move right down",
         "        }",
         "    }",
         "    ",
-        "    // STEP 7 — RETURN: All unique triplets",
+        "    // STEP 7 \u2014 RETURN: All unique triplets",
         "    return res;",
         "}"
       ],
       "steps": [
-        { "left": 1, "right": 5, "sum": null, "line": 7, "desc": "Outer i=0 (val -4): Place left at 1 (val -1), right at 5 (val 2)." },
-        { "left": 1, "right": 5, "sum": -3, "line": 18, "desc": "Sum = -4 + (-1) + 2 = -3 < 0. Too small! increment left to seek larger values." },
-        { "left": 2, "right": 5, "sum": -3, "line": 26, "desc": "left moves to index 2 (val -1). Sum is still -3 < 0. Increment left." },
-        { "left": 3, "right": 5, "sum": -2, "line": 26, "desc": "left moves to index 3 (val 0). Sum = -4 + 0 + 2 = -2 < 0. Increment left." },
-        { "left": 4, "right": 5, "sum": -1, "line": 26, "desc": "left moves to 4 (val 1). Sum = -4 + 1 + 2 = -1 < 0. Increment left." },
-        { "left": 5, "right": 5, "sum": null, "line": 17, "desc": "left met right (5 == 5). Inner loop ends for i=0." },
-        { "left": 2, "right": 5, "sum": null, "line": 7, "desc": "Outer i=1 (val -1): Place left at 2 (val -1), right at 5 (val 2)." },
-        { "left": 2, "right": 5, "sum": 0, "line": 18, "desc": "Sum = -1 + (-1) + 2 = 0! MATCH found! Add [-1, -1, 2]. Increment left, decrement right." },
-        { "left": 3, "right": 4, "sum": null, "line": 23, "desc": "left becomes 3 (val 0), right becomes 4 (val 1). No duplicates to skip." },
-        { "left": 3, "right": 4, "sum": 0, "line": 18, "desc": "Sum = -1 + 0 + 1 = 0! MATCH found! Add [-1, 0, 1]. Increment left, decrement right." },
-        { "left": 4, "right": 3, "sum": null, "line": 17, "desc": "left crosses right (4 > 3). Inner loop ends. Return results." }
+        {
+          "left": 1,
+          "right": 5,
+          "sum": null,
+          "line": 7,
+          "desc": "Outer i=0 (val -4): Place left at 1 (val -1), right at 5 (val 2)."
+        },
+        {
+          "left": 1,
+          "right": 5,
+          "sum": -3,
+          "line": 18,
+          "desc": "Sum = -4 + (-1) + 2 = -3 < 0. Too small! increment left to seek larger values."
+        },
+        {
+          "left": 2,
+          "right": 5,
+          "sum": -3,
+          "line": 26,
+          "desc": "left moves to index 2 (val -1). Sum is still -3 < 0. Increment left."
+        },
+        {
+          "left": 3,
+          "right": 5,
+          "sum": -2,
+          "line": 26,
+          "desc": "left moves to index 3 (val 0). Sum = -4 + 0 + 2 = -2 < 0. Increment left."
+        },
+        {
+          "left": 4,
+          "right": 5,
+          "sum": -1,
+          "line": 26,
+          "desc": "left moves to 4 (val 1). Sum = -4 + 1 + 2 = -1 < 0. Increment left."
+        },
+        {
+          "left": 5,
+          "right": 5,
+          "sum": null,
+          "line": 17,
+          "desc": "left met right (5 == 5). Inner loop ends for i=0."
+        },
+        {
+          "left": 2,
+          "right": 5,
+          "sum": null,
+          "line": 7,
+          "desc": "Outer i=1 (val -1): Place left at 2 (val -1), right at 5 (val 2)."
+        },
+        {
+          "left": 2,
+          "right": 5,
+          "sum": 0,
+          "line": 18,
+          "desc": "Sum = -1 + (-1) + 2 = 0! MATCH found! Add [-1, -1, 2]. Increment left, decrement right."
+        },
+        {
+          "left": 3,
+          "right": 4,
+          "sum": null,
+          "line": 23,
+          "desc": "left becomes 3 (val 0), right becomes 4 (val 1). No duplicates to skip."
+        },
+        {
+          "left": 3,
+          "right": 4,
+          "sum": 0,
+          "line": 18,
+          "desc": "Sum = -1 + 0 + 1 = 0! MATCH found! Add [-1, 0, 1]. Increment left, decrement right."
+        },
+        {
+          "left": 4,
+          "right": 3,
+          "sum": null,
+          "line": 17,
+          "desc": "left crosses right (4 > 3). Inner loop ends. Return results."
+        }
       ],
       "quiz": [
         {
@@ -186,54 +366,147 @@
       "patternSubtype": "Opposite Ends Two-Pointer",
       "description": "Given wall heights, compute how much rainwater is trapped between them.",
       "story": "Bathtub walls. Always process the shorter wall first because it is the bottleneck.",
-      "array": [0, 1, 0, 2],
+      "array": [
+        0,
+        1,
+        0,
+        2
+      ],
       "code": [
         "public static int solve(int[] height) {",
-        "    // STEP 1 — INIT: Place pointers at both ends, track max heights from each side",
+        "    // STEP 1 \u2014 INIT: Place pointers at both ends, track max heights from each side",
         "    int left = 0, right = height.length - 1;",
         "    int leftMax = 0, rightMax = 0, water = 0;",
         "    ",
-        "    // STEP 2 — LOOP: Walk inwards until pointers meet",
+        "    // STEP 2 \u2014 LOOP: Walk inwards until pointers meet",
         "    while (left < right) {",
         "        ",
-        "        // STEP 3 — CHECK: Which side is the bottleneck? Process that side.",
+        "        // STEP 3 \u2014 CHECK: Which side is the bottleneck? Process that side.",
         "        if (height[left] < height[right]) {",
-        "            // Left side is shorter → it's the bottleneck",
+        "            // Left side is shorter \u2192 it's the bottleneck",
         "            ",
-        "            // STEP 4a — UPDATE: Is this wall taller than any we've seen on the left?",
-        "            if (height[left] >= leftMax) leftMax = height[left]; // new tallest wall → update boundary",
-        "            else water += leftMax - height[left]; // lower than boundary → water trapped!",
+        "            // STEP 4a \u2014 UPDATE: Is this wall taller than any we've seen on the left?",
+        "            if (height[left] >= leftMax) leftMax = height[left]; // new tallest wall \u2192 update boundary",
+        "            else water += leftMax - height[left]; // lower than boundary \u2192 water trapped!",
         "            ",
-        "            // STEP 5a — MOVE: Done with this position → move inward",
+        "            // STEP 5a \u2014 MOVE: Done with this position \u2192 move inward",
         "            left++;",
         "        } else {",
-        "            // Right side is shorter → it's the bottleneck",
+        "            // Right side is shorter \u2192 it's the bottleneck",
         "            ",
-        "            // STEP 4b — UPDATE: Is this wall taller than any we've seen on the right?",
-        "            if (height[right] >= rightMax) rightMax = height[right]; // new tallest wall → update boundary",
-        "            else water += rightMax - height[right]; // lower than boundary → water trapped!",
+        "            // STEP 4b \u2014 UPDATE: Is this wall taller than any we've seen on the right?",
+        "            if (height[right] >= rightMax) rightMax = height[right]; // new tallest wall \u2192 update boundary",
+        "            else water += rightMax - height[right]; // lower than boundary \u2192 water trapped!",
         "            ",
-        "            // STEP 5b — MOVE: Done with this position → move inward",
+        "            // STEP 5b \u2014 MOVE: Done with this position \u2192 move inward",
         "            right--;",
         "        }",
         "    }",
         "    ",
-        "    // STEP 6 — RETURN: Total water trapped",
+        "    // STEP 6 \u2014 RETURN: Total water trapped",
         "    return water;",
         "}"
       ],
       "steps": [
-        { "left": 0, "right": 3, "leftMax": 0, "rightMax": 0, "water": 0, "line": 2, "desc": "Init: left=0 (height 0), right=3 (height 2). leftMax=0, rightMax=0, water=0." },
-        { "left": 0, "right": 3, "leftMax": 0, "rightMax": 0, "water": 0, "line": 9, "desc": "Compare: height[left] (0) < height[right] (2). Left is the bottleneck!" },
-        { "left": 0, "right": 3, "leftMax": 0, "rightMax": 0, "water": 0, "line": 13, "desc": "height[left] (0) >= leftMax (0). Update leftMax to 0." },
-        { "left": 1, "right": 3, "leftMax": 0, "rightMax": 0, "water": 0, "line": 17, "desc": "Move left to index 1." },
-        { "left": 1, "right": 3, "leftMax": 0, "rightMax": 0, "water": 0, "line": 9, "desc": "Compare: height[left] (1) < height[right] (2). Left is still the bottleneck." },
-        { "left": 1, "right": 3, "leftMax": 1, "rightMax": 0, "water": 0, "line": 13, "desc": "height[left] (1) > leftMax (0). Update leftMax to 1." },
-        { "left": 2, "right": 3, "leftMax": 1, "rightMax": 0, "water": 0, "line": 17, "desc": "Move left to index 2." },
-        { "left": 2, "right": 3, "leftMax": 1, "rightMax": 0, "water": 0, "line": 9, "desc": "Compare: height[left] (0) < height[right] (2). Left remains the bottleneck." },
-        { "left": 2, "right": 3, "leftMax": 1, "rightMax": 0, "water": 1, "line": 14, "desc": "height[left] (0) < leftMax (1). Water trapped! water += 1 - 0 = 1 (Total: 1)." },
-        { "left": 3, "right": 3, "leftMax": 1, "rightMax": 0, "water": 1, "line": 17, "desc": "Move left to index 3." },
-        { "left": 3, "right": 3, "leftMax": 1, "rightMax": 0, "water": 1, "line": 6, "desc": "Pointers met (left == right). Loop finishes. Return water (1)." }
+        {
+          "left": 0,
+          "right": 3,
+          "leftMax": 0,
+          "rightMax": 0,
+          "water": 0,
+          "line": 2,
+          "desc": "Init: left=0 (height 0), right=3 (height 2). leftMax=0, rightMax=0, water=0."
+        },
+        {
+          "left": 0,
+          "right": 3,
+          "leftMax": 0,
+          "rightMax": 0,
+          "water": 0,
+          "line": 9,
+          "desc": "Compare: height[left] (0) < height[right] (2). Left is the bottleneck!"
+        },
+        {
+          "left": 0,
+          "right": 3,
+          "leftMax": 0,
+          "rightMax": 0,
+          "water": 0,
+          "line": 13,
+          "desc": "height[left] (0) >= leftMax (0). Update leftMax to 0."
+        },
+        {
+          "left": 1,
+          "right": 3,
+          "leftMax": 0,
+          "rightMax": 0,
+          "water": 0,
+          "line": 17,
+          "desc": "Move left to index 1."
+        },
+        {
+          "left": 1,
+          "right": 3,
+          "leftMax": 0,
+          "rightMax": 0,
+          "water": 0,
+          "line": 9,
+          "desc": "Compare: height[left] (1) < height[right] (2). Left is still the bottleneck."
+        },
+        {
+          "left": 1,
+          "right": 3,
+          "leftMax": 1,
+          "rightMax": 0,
+          "water": 0,
+          "line": 13,
+          "desc": "height[left] (1) > leftMax (0). Update leftMax to 1."
+        },
+        {
+          "left": 2,
+          "right": 3,
+          "leftMax": 1,
+          "rightMax": 0,
+          "water": 0,
+          "line": 17,
+          "desc": "Move left to index 2."
+        },
+        {
+          "left": 2,
+          "right": 3,
+          "leftMax": 1,
+          "rightMax": 0,
+          "water": 0,
+          "line": 9,
+          "desc": "Compare: height[left] (0) < height[right] (2). Left remains the bottleneck."
+        },
+        {
+          "left": 2,
+          "right": 3,
+          "leftMax": 1,
+          "rightMax": 0,
+          "water": 1,
+          "line": 14,
+          "desc": "height[left] (0) < leftMax (1). Water trapped! water += 1 - 0 = 1 (Total: 1)."
+        },
+        {
+          "left": 3,
+          "right": 3,
+          "leftMax": 1,
+          "rightMax": 0,
+          "water": 1,
+          "line": 17,
+          "desc": "Move left to index 3."
+        },
+        {
+          "left": 3,
+          "right": 3,
+          "leftMax": 1,
+          "rightMax": 0,
+          "water": 1,
+          "line": 6,
+          "desc": "Pointers met (left == right). Loop finishes. Return water (1)."
+        }
       ],
       "quiz": [
         {
@@ -253,34 +526,59 @@
       "patternSubtype": "Fast & Slow Pointers",
       "description": "Determine if a linked list contains a cycle using Floyd's Tortoise and Hare.",
       "story": "Tortoise (1 step) and Hare (2 steps) run on a circular track. Collide if there is a cycle.",
-      "array": [3, 2, 0, -4],
+      "array": [
+        3,
+        2,
+        0,
+        -4
+      ],
       "code": [
         "public static boolean hasCycle(ListNode head) {",
-        "    // STEP 1 — INIT: Both pointers start at the head node",
+        "    // STEP 1 \u2014 INIT: Both pointers start at the head node",
         "    if (head == null) return false;",
         "    ListNode slow = head, fast = head;",
         "    ",
-        "    // STEP 2 — LOOP: Walk through the list as long as the fast pointer can move 2 steps",
+        "    // STEP 2 \u2014 LOOP: Walk through the list as long as the fast pointer can move 2 steps",
         "    while (fast != null && fast.next != null) {",
-        "        // STEP 3 — MOVE: Slow moves 1 step, Fast moves 2 steps",
+        "        // STEP 3 \u2014 MOVE: Slow moves 1 step, Fast moves 2 steps",
         "        slow = slow.next;",
         "        fast = fast.next.next;",
         "        ",
-        "        // STEP 4 — CHECK: If they meet at the same node, a cycle is detected!",
+        "        // STEP 4 \u2014 CHECK: If they meet at the same node, a cycle is detected!",
         "        if (slow == fast) {",
         "            return true; // Cycle detected!",
         "        }",
         "    }",
         "    ",
-        "    // STEP 5 — RETURN: Fast pointer reached the end of the list → no cycle",
+        "    // STEP 5 \u2014 RETURN: Fast pointer reached the end of the list \u2192 no cycle",
         "    return false;",
         "}"
       ],
       "steps": [
-        { "left": 0, "right": 0, "line": 3, "desc": "Init: both slow pointer (slow) and fast pointer (fast) start at head node index 0 (val 3)." },
-        { "left": 1, "right": 2, "line": 8, "desc": "slow moves 1 step to index 1 (val 2). fast moves 2 steps to index 2 (val 0)." },
-        { "left": 2, "right": 1, "line": 8, "desc": "slow moves to index 2 (val 0). fast moves 2 steps: index 2 -> 3 (-4) -> cycles back to index 1 (val 2)!" },
-        { "left": 3, "right": 3, "line": 12, "desc": "slow moves to index 3 (-4). fast moves 2 steps: index 1 -> 2 -> 3 (-4). Collision at node -4! Return true." }
+        {
+          "left": 0,
+          "right": 0,
+          "line": 3,
+          "desc": "Init: both slow pointer (slow) and fast pointer (fast) start at head node index 0 (val 3)."
+        },
+        {
+          "left": 1,
+          "right": 2,
+          "line": 8,
+          "desc": "slow moves 1 step to index 1 (val 2). fast moves 2 steps to index 2 (val 0)."
+        },
+        {
+          "left": 2,
+          "right": 1,
+          "line": 8,
+          "desc": "slow moves to index 2 (val 0). fast moves 2 steps: index 2 -> 3 (-4) -> cycles back to index 1 (val 2)!"
+        },
+        {
+          "left": 3,
+          "right": 3,
+          "line": 12,
+          "desc": "slow moves to index 3 (-4). fast moves 2 steps: index 1 -> 2 -> 3 (-4). Collision at node -4! Return true."
+        }
       ],
       "quiz": [
         {
