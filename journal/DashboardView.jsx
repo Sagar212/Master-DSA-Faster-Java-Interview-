@@ -28,6 +28,18 @@ function DashboardView({ progress, setActiveDay, percent, curriculumIndex, isDay
         </ul>
       </div>
 
+      <div style={{ marginBottom: '24px', padding: '16px 20px', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-color)', borderRadius: '12px', fontSize: '14px', lineHeight: '1.6' }}>
+        <h3 style={{ fontSize: '15px', color: 'var(--text-main)', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <i className="fa-solid fa-ranking-star" style={{ color: 'var(--success)' }}></i> 
+          Pattern ROI Legend
+        </h3>
+        <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', marginTop: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><span style={{ fontSize: '16px' }}>🟢</span> <strong>Must Know</strong> <span style={{ color: 'var(--text-muted)' }}>(70% of interviews)</span></div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><span style={{ fontSize: '16px' }}>🟡</span> <strong>High Yield</strong> <span style={{ color: 'var(--text-muted)' }}>(Memorize Template)</span></div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><span style={{ fontSize: '16px' }}>🔴</span> <strong>Low ROI</strong> <span style={{ color: 'var(--text-muted)' }}>(Skip if Cramming)</span></div>
+        </div>
+      </div>
+
       <h2 style={{ fontSize: '18px', fontWeight: '800', marginTop: '32px', marginBottom: '16px', fontFamily: 'Outfit', display: 'flex', alignItems: 'center', gap: '10px' }}>
         <i className="fa-solid fa-road" style={{ color: 'var(--tp-primary)' }}></i> Roadmap Tasks
       </h2>
