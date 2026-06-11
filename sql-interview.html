@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQL Interview Questions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-dark: #070913;
+      --bg-card: rgba(13, 17, 33, 0.7);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --primary: #0ea5e9;
+      --primary-gradient: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(at 10% 10%, rgba(14, 165, 233, 0.06) 0px, transparent 40%),
+        radial-gradient(at 90% 90%, rgba(6, 182, 212, 0.06) 0px, transparent 40%);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 24px;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: color 0.2s;
+      align-self: flex-start;
+      margin-bottom: -10px;
+    }
+
+    .back-btn:hover {
+      color: var(--text-main);
+    }
+
+    .qa-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 28px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .qa-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--primary-gradient);
+    }
+
+    .question {
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #fff;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .q-icon {
+      color: #0ea5e9;
+      margin-top: 4px;
+    }
+
+    .answer {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+      padding-left: 32px;
+    }
+
+    .answer strong {
+      color: #f1f5f9;
+    }
+
+    .trick-box {
+      margin-top: 16px;
+      margin-left: 32px;
+      background: rgba(14, 165, 233, 0.1);
+      border: 1px solid rgba(14, 165, 233, 0.2);
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #7dd3fc;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    code {
+      font-family: 'Fira Code', monospace;
+      background: #090b11;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #38bdf8;
+    }
+    
+    pre code {
+      display: block;
+      padding: 16px;
+      border-radius: 8px;
+      margin: 12px 0;
+      overflow-x: auto;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="index.html" class="back-btn">
+      <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+    </a>
+
+    <header>
+      <h1>SQL Interview: Must Know Queries</h1>
+      <p>Top database and SQL query questions focusing on analytics, aggregations, and edge cases.</p>
+    </header>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-solid fa-database q-icon"></i>
+        1. How do you find the Nth highest salary from an Employee table?
+      </div>
+      <div class="answer">
+        <p>There are a few ways to solve this, but the most robust method in modern SQL is using the <code>DENSE_RANK()</code> window function, which handles duplicates automatically.</p>
+<pre><code>WITH RankedSalaries AS (
+    SELECT 
+        salary, 
+        DENSE_RANK() OVER (ORDER BY salary DESC) as rnk
+    FROM Employee
+)
+SELECT salary 
+FROM RankedSalaries 
+WHERE rnk = N; -- Replace N with the desired rank (e.g., 2 for second highest)
+</code></pre>
+        <p>Alternatively, using <code>LIMIT</code> and <code>OFFSET</code> (MySQL/PostgreSQL):</p>
+<pre><code>SELECT DISTINCT salary
+FROM Employee
+ORDER BY salary DESC
+LIMIT 1 OFFSET N-1;
+</code></pre>
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb"></i>
+          <div><strong>Tricky Part:</strong> You must account for duplicates! If two employees share the top salary, the 2nd highest salary should be the next distinct value. Using <code>DENSE_RANK()</code> or <code>DISTINCT</code> is mandatory. Using <code>RANK()</code> will skip ranks if there are ties.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-solid fa-database q-icon"></i>
+        2. What is the difference between WHERE and HAVING clauses?
+      </div>
+      <div class="answer">
+        <p><strong>WHERE</strong> is used to filter rows <em>before</em> any grouping occurs. It cannot be used with aggregate functions like <code>SUM()</code> or <code>COUNT()</code>.<br><br>
+        <strong>HAVING</strong> is used to filter groups <em>after</em> the <code>GROUP BY</code> clause has been applied. It is specifically designed to be used with aggregate functions.</p>
+<pre><code>SELECT department_id, SUM(salary) as total_salary
+FROM Employee
+WHERE status = 'ACTIVE' -- Filters individual employees FIRST
+GROUP BY department_id
+HAVING SUM(salary) > 500000; -- Filters grouped departments LATER
+</code></pre>
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb"></i>
+          <div><strong>Tricky Part:</strong> Interviewers will ask if you can use both in the same query. Yes, you can! Always filter as much as possible with <code>WHERE</code> first, because reducing the row count before grouping is significantly faster.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-solid fa-database q-icon"></i>
+        3. Explain the difference between INNER JOIN, LEFT JOIN, and FULL OUTER JOIN.
+      </div>
+      <div class="answer">
+        <p><strong>INNER JOIN</strong> returns only the rows where there is a match in both tables.<br>
+        <strong>LEFT JOIN</strong> returns ALL rows from the left table, and the matched rows from the right table. If there is no match, the right side will contain NULLs.<br>
+        <strong>FULL OUTER JOIN</strong> returns ALL rows when there is a match in either the left or right table. Unmatched rows on either side will contain NULLs for the other side.</p>
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb"></i>
+          <div><strong>Tricky Part:</strong> If you are filtering on the right table of a <code>LEFT JOIN</code> using the <code>WHERE</code> clause, it implicitly converts the <code>LEFT JOIN</code> into an <code>INNER JOIN</code> by discarding the NULLs! Put right-table conditions in the <code>ON</code> clause instead.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

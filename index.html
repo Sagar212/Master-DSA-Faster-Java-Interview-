@@ -311,6 +311,12 @@
     .java-streams-card .action-btn { background: linear-gradient(135deg, #ef4444 0%, #f59e0b 100%); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3); }
     .java-streams-card .action-btn:hover { box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4); }
 
+    .sql-card::before { background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%); }
+    .sql-card .card-icon { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; border: 1px solid rgba(14, 165, 233, 0.2); }
+    .sql-card .feature-list li i { color: #0ea5e9; }
+    .sql-card .action-btn { background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%); box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3); }
+    .sql-card .action-btn:hover { box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4); }
+
     footer {
       color: rgba(255,255,255,0.2);
       font-size: 12px;
@@ -460,6 +466,27 @@
           </a>
         </div>
 
+
+        <!-- SQL Interview Q&A -->
+        <div class="suite-card sql-card">
+          <div>
+            <div class="card-icon">
+              <i class="fa-solid fa-database"></i>
+            </div>
+            <div class="card-body">
+              <h2>SQL Interview Q&A</h2>
+              <p>Top database and SQL queries to test core analytics, aggregations, and window functions.</p>
+              <ul class="feature-list">
+                <li><i class="fa-solid fa-check"></i> Nth Highest Salary (Window Funcs)</li>
+                <li><i class="fa-solid fa-check"></i> JOIN Types & Edge Cases</li>
+                <li><i class="fa-solid fa-check"></i> WHERE vs HAVING Execution Order</li>
+              </ul>
+            </div>
+          </div>
+          <a href="sql-interview.html" class="action-btn">
+            View Q&A <i class="fa-solid fa-arrow-right-long"></i>
+          </a>
+        </div>
         <!-- Java Streams Mastery -->
         <div class="suite-card java-streams-card">
           <div>
