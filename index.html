@@ -47,7 +47,7 @@
     }
 
     .container {
-      max-width: 1000px;
+      max-width: 1400px;
       width: 100%;
       text-align: center;
       display: flex;
@@ -76,9 +76,15 @@
 
     .dashboard-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 32px;
       width: 100%;
+    }
+
+    @media (max-width: 1100px) {
+      .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     @media (max-width: 800px) {
@@ -287,6 +293,24 @@
     .senior-card .action-btn { background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
     .senior-card .action-btn:hover { box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); }
 
+    .springboot-card::before { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+    .springboot-card .card-icon { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
+    .springboot-card .feature-list li i { color: #10b981; }
+    .springboot-card .action-btn { background: linear-gradient(135deg, #10b981 0%, #059669 100%); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
+    .springboot-card .action-btn:hover { box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); }
+
+    .docker-card::before { background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%); }
+    .docker-card .card-icon { background: rgba(37, 99, 235, 0.1); color: #3b82f6; border: 1px solid rgba(37, 99, 235, 0.2); }
+    .docker-card .feature-list li i { color: #3b82f6; }
+    .docker-card .action-btn { background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%); box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); }
+    .docker-card .action-btn:hover { box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4); }
+
+    .java-streams-card::before { background: linear-gradient(135deg, #ef4444 0%, #f59e0b 100%); }
+    .java-streams-card .card-icon { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
+    .java-streams-card .feature-list li i { color: #ef4444; }
+    .java-streams-card .action-btn { background: linear-gradient(135deg, #ef4444 0%, #f59e0b 100%); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3); }
+    .java-streams-card .action-btn:hover { box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4); }
+
     footer {
       color: rgba(255,255,255,0.2);
       font-size: 12px;
@@ -391,6 +415,69 @@
           </div>
           <a href="senior-consultant-interview.html" class="action-btn">
             View Q&A <i class="fa-solid fa-arrow-right-long"></i>
+          </a>
+        </div>
+
+        <!-- Spring Boot Q&A -->
+        <div class="suite-card springboot-card">
+          <div>
+            <div class="card-icon">
+              <i class="fa-brands fa-envira"></i>
+            </div>
+            <div class="card-body">
+              <h2>Spring Boot Core Q&A</h2>
+              <p>Deep-dive into Spring Boot internals, Actuator, DI, and bean scopes for senior roles.</p>
+              <ul class="feature-list">
+                <li><i class="fa-solid fa-check"></i> DispatcherServlet & Lifecycle</li>
+                <li><i class="fa-solid fa-check"></i> Bean Scopes & Thread Safety</li>
+                <li><i class="fa-solid fa-check"></i> ComponentScan & Autoconfiguration</li>
+              </ul>
+            </div>
+          </div>
+          <a href="springboot-interview.html" class="action-btn">
+            View Q&A <i class="fa-solid fa-arrow-right-long"></i>
+          </a>
+        </div>
+
+        <!-- Docker & Kubernetes Q&A -->
+        <div class="suite-card docker-card">
+          <div>
+            <div class="card-icon">
+              <i class="fa-brands fa-docker"></i>
+            </div>
+            <div class="card-body">
+              <h2>Docker & K8s Q&A</h2>
+              <p>Containerization and orchestration questions covering optimizations, ephemeral architecture, and security.</p>
+              <ul class="feature-list">
+                <li><i class="fa-solid fa-check"></i> Image Size Optimization</li>
+                <li><i class="fa-solid fa-check"></i> CMD vs ENTRYPOINT & Layering</li>
+                <li><i class="fa-solid fa-check"></i> K8s Services & Pod Lifecycle</li>
+              </ul>
+            </div>
+          </div>
+          <a href="docker-kubernetes-interview.html" class="action-btn">
+            View Q&A <i class="fa-solid fa-arrow-right-long"></i>
+          </a>
+        </div>
+
+        <!-- Java Streams Mastery -->
+        <div class="suite-card java-streams-card">
+          <div>
+            <div class="card-icon">
+              <i class="fa-brands fa-java"></i>
+            </div>
+            <div class="card-body">
+              <h2>Java Streams Mastery</h2>
+              <p>Master modern Java 8+ functional programming, stream API patterns, and lambdas.</p>
+              <ul class="feature-list">
+                <li><i class="fa-solid fa-check"></i> Filter, Map & Reduce Patterns</li>
+                <li><i class="fa-solid fa-check"></i> Collectors & Grouping By</li>
+                <li><i class="fa-solid fa-check"></i> Parallel Streams & Performance</li>
+              </ul>
+            </div>
+          </div>
+          <a href="java-streams-mastery.html" class="action-btn">
+            View Patterns <i class="fa-solid fa-arrow-right-long"></i>
           </a>
         </div>
       </div>

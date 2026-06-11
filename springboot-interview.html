@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spring Boot Interview Q&A</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-dark: #070913;
+      --bg-card: rgba(13, 17, 33, 0.7);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --primary: #10b981;
+      --primary-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(at 10% 10%, rgba(16, 185, 129, 0.06) 0px, transparent 40%),
+        radial-gradient(at 90% 90%, rgba(5, 150, 105, 0.06) 0px, transparent 40%);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 24px;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: color 0.2s;
+      align-self: flex-start;
+      margin-bottom: -10px;
+    }
+
+    .back-btn:hover {
+      color: var(--text-main);
+    }
+
+    .qa-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 28px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .qa-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--primary-gradient);
+    }
+
+    .question {
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #fff;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .q-icon {
+      color: #10b981;
+      margin-top: 4px;
+    }
+
+    .answer {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+      padding-left: 32px;
+    }
+
+    .answer strong {
+      color: #f1f5f9;
+    }
+
+    .trick-box {
+      margin-top: 16px;
+      margin-left: 32px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #6ee7b7;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    code {
+      font-family: 'Fira Code', monospace;
+      background: #090b11;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #34d399;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="index.html" class="back-btn">
+      <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+    </a>
+
+    <header>
+      <h1>Spring Boot: Core Concepts & Internals</h1>
+      <p>Detailed, must-know questions for cracking mid to senior level Spring Boot interviews.</p>
+    </header>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-envira q-icon"></i>
+        1. How exactly does @SpringBootApplication work internally?
+      </div>
+      <div class="answer">
+        <p>The <code>@SpringBootApplication</code> annotation is actually a combination of three key annotations:</p>
+        <ul style="margin-top: 8px; padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+          <li><strong>@Configuration:</strong> Designates the class as a source of bean definitions for the application context.</li>
+          <li><strong>@ComponentScan:</strong> Tells Spring to look for other components, configurations, and services in the <em>current package and its sub-packages</em>, automatically registering them as beans.</li>
+          <li><strong>@EnableAutoConfiguration:</strong> This is the true magic of Spring Boot. It tells Spring to start adding beans based on classpath settings, other beans, and various property settings. For instance, if <code>spring-webmvc</code> is on the classpath, this annotation flags the application as a web application and activates key behaviors like setting up a <code>DispatcherServlet</code>.</li>
+        </ul>
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb" style="margin-top: 3px;"></i>
+          <div><strong>Tricky Part:</strong> Interviewers will ask "What happens if you move a @Service class to a package OUTSIDE the folder where your @SpringBootApplication class is?" Answer: Spring won't find it! You must explicitly add <code>@ComponentScan(basePackages = {"com.other.package"})</code>.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-envira q-icon"></i>
+        2. Bean Scopes and Thread Safety: Is a Spring @Service thread-safe?
+      </div>
+      <div class="answer">
+        <p><strong>By default, all Spring Beans are Singleton scope.</strong> This means only one instance of the <code>@Service</code> or <code>@Controller</code> is created per Application Context. It is shared across all incoming HTTP requests (which run on separate threads).</p>
+        <p style="margin-top: 10px;">Therefore, <strong>Spring Beans are NOT inherently thread-safe</strong>. If you store state (like a class-level mutable variable <code>private int counter = 0;</code>) in a Service or Controller, concurrent requests will cause race conditions.</p>
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb" style="margin-top: 3px;"></i>
+          <div><strong>Tricky Part:</strong> To make them thread-safe, you must keep them <em>stateless</em>. Never use class-level variables to hold request-specific data. If you absolutely need state, you must change the bean scope to <code>@Scope("request")</code> or use <code>ThreadLocal</code>.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-envira q-icon"></i>
+        3. Explain the request lifecycle in Spring Boot (DispatcherServlet).
+      </div>
+      <div class="answer">
+        <p>Spring MVC uses the <strong>Front Controller Pattern</strong>. The lifecycle is:</p>
+        <ol style="margin-top: 8px; padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+          <li>An HTTP request hits the <code>DispatcherServlet</code> (the front controller).</li>
+          <li>The <code>DispatcherServlet</code> consults the <strong>HandlerMapping</strong> to find the appropriate <code>@Controller</code>/<code>@RestController</code> method that matches the URL.</li>
+          <li>It then routes the request to the Controller via a <strong>HandlerAdapter</strong>.</li>
+          <li>The Controller processes the business logic (usually calling a Service) and returns data.</li>
+          <li>If it's a <code>@RestController</code>, the data is passed through <strong>HttpMessageConverters</strong> (like Jackson) to convert the Java object into JSON directly into the HTTP response body.</li>
+        </ol>
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb" style="margin-top: 3px;"></i>
+          <div><strong>Tricky Part:</strong> Knowing the difference between <code>@Controller</code> and <code>@RestController</code>. <code>@RestController</code> is simply a meta-annotation that combines <code>@Controller</code> + <code>@ResponseBody</code>. Without <code>@ResponseBody</code>, Spring assumes you are returning the name of a view template (like Thymeleaf/JSP) instead of raw JSON!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-envira q-icon"></i>
+        4. What is Spring Boot Actuator and why is it essential for microservices?
+      </div>
+      <div class="answer">
+        <p>Spring Boot Actuator brings production-ready features to our application out of the box without us having to write code for them. It exposes operational information about the running application via HTTP endpoints (e.g., <code>/actuator/*</code>).</p>
+        <ul style="margin-top: 8px; padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+          <li><strong>/health:</strong> Shows application health information. Kubernetes uses this for Liveness and Readiness probes to automatically restart failed pods or stop sending traffic to them.</li>
+          <li><strong>/metrics:</strong> Exposes metrics like memory usage, garbage collection, and HTTP request timings. Can be scraped by Prometheus.</li>
+          <li><strong>/env:</strong> Exposes properties from Spring's ConfigurableEnvironment.</li>
+        </ul>
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb" style="margin-top: 3px;"></i>
+          <div><strong>Tricky Part:</strong> Security! Actuator endpoints expose sensitive data. In Spring Boot 2.x/3.x, only <code>/health</code> and <code>/info</code> are exposed over HTTP by default. You must explicitly enable others via <code>management.endpoints.web.exposure.include=*</code> and secure them using Spring Security.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-envira q-icon"></i>
+        5. Dependency Injection: Constructor Injection vs @Autowired Field Injection
+      </div>
+      <div class="answer">
+        <p>Spring allows injecting dependencies via Fields (using <code>@Autowired</code> on a private field), Setter methods, or Constructors.</p>
+        <p style="margin-top: 10px;"><strong>Constructor Injection is the highly recommended approach:</strong></p>
+        <ul style="margin-top: 8px; padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+          <li><strong>Immutability:</strong> Dependencies can be declared as <code>final</code>, ensuring they are not changed after initialization.</li>
+          <li><strong>Testing:</strong> You can easily instantiate the class in unit tests using the constructor without needing Spring or reflection (Mockito's <code>@InjectMocks</code>).</li>
+          <li><strong>Startup Failures:</strong> Missing dependencies throw an error immediately on application startup, rather than a NullPointerException randomly at runtime.</li>
+        </ul>
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb" style="margin-top: 3px;"></i>
+          <div><strong>Tricky Part:</strong> Since Spring 4.3, if a class only has one constructor, you don't even need to write the <code>@Autowired</code> annotation. Spring will automatically use that constructor for injection.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

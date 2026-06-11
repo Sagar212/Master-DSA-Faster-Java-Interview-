@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Docker & Kubernetes Interview Questions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-dark: #070913;
+      --bg-card: rgba(13, 17, 33, 0.7);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --primary: #3b82f6;
+      --primary-gradient: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(at 10% 10%, rgba(37, 99, 235, 0.06) 0px, transparent 40%),
+        radial-gradient(at 90% 90%, rgba(6, 182, 212, 0.06) 0px, transparent 40%);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 24px;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: color 0.2s;
+      align-self: flex-start;
+      margin-bottom: -10px;
+    }
+
+    .back-btn:hover {
+      color: var(--text-main);
+    }
+
+    .qa-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 28px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .qa-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--primary-gradient);
+    }
+
+    .question {
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #fff;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .q-icon {
+      color: #0ea5e9;
+      margin-top: 4px;
+    }
+
+    .answer {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+      padding-left: 32px;
+    }
+
+    .answer strong {
+      color: #f1f5f9;
+    }
+
+    .trick-box {
+      margin-top: 16px;
+      margin-left: 32px;
+      background: rgba(37, 99, 235, 0.1);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #93c5fd;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    code {
+      font-family: 'Fira Code', monospace;
+      background: #090b11;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #38bdf8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="index.html" class="back-btn">
+      <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+    </a>
+
+    <header>
+      <h1>Docker & Kubernetes: Must Know & Tricky</h1>
+      <p>Containerization and orchestration questions covering optimizations, ephemeral architecture, and security.</p>
+    </header>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-docker q-icon"></i>
+        1. What is the difference between COPY and ADD in a Dockerfile?
+      </div>
+      <div class="answer">
+        <p>Both instructions copy files from the host to the container. However, <code>ADD</code> has two extra features: it can automatically extract local tar files into the image, and it can download files from a remote URL.</p>
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb"></i>
+          <div><strong>Tricky Part:</strong> Best practice dictates that you should always use <code>COPY</code> unless you explicitly need the auto-extraction feature of <code>ADD</code>. Using <code>ADD</code> for remote URLs is discouraged because it adds an extra layer without letting you delete the archive to save space.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-docker q-icon"></i>
+        2. How do CMD and ENTRYPOINT differ, and how do they work together?
+      </div>
+      <div class="answer">
+        <p><code>ENTRYPOINT</code> specifies the executable that will always run when the container starts. <code>CMD</code> provides default arguments to that executable, or specifies a default command if no entrypoint is set.</p>
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb"></i>
+          <div><strong>Tricky Part:</strong> If you use the "shell form" (e.g., <code>ENTRYPOINT node app.js</code> instead of the array form <code>ENTRYPOINT ["node", "app.js"]</code>), Docker wraps it in <code>/bin/sh -c</code>. This means your app won't run as PID 1 and won't receive OS signals (like SIGTERM), causing graceful shutdown to fail.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-docker q-icon"></i>
+        3. What are the best strategies to reduce Docker image size?
+      </div>
+      <div class="answer">
+        <p>Use smaller base images like Alpine linux (<code>alpine</code>). Combine multiple <code>RUN</code> commands into a single layer to reduce intermediate layers. Use <strong>Multi-stage builds</strong> to compile code in one stage and only copy the final binaries into a minimal production stage.</p>
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb"></i>
+          <div><strong>Tricky Part:</strong> Removing temporary files in a subsequent <code>RUN</code> layer does NOT reduce the image size! The previous layer still contains the files. You must clean up the cache and temp files in the <em>same</em> <code>RUN</code> command where they were created.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-solid fa-dharmachakra q-icon"></i>
+        4. In Kubernetes, what happens to the underlying Pods when a Deployment is updated?
+      </div>
+      <div class="answer">
+        <p>Kubernetes performs a <strong>Rolling Update</strong>. It creates a new ReplicaSet, spins up new Pods based on the new template, and gradually scales down the old ReplicaSet. Pods are immutable; they are never "restarted" or updated in place.</p>
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb"></i>
+          <div><strong>Tricky Part:</strong> Pods are fundamentally <em>ephemeral</em>. Never store local state in a Pod expecting it to persist. If a node crashes, the Pod dies permanently, and a brand new Pod is scheduled elsewhere.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-solid fa-dharmachakra q-icon"></i>
+        5. What is the difference between ClusterIP, NodePort, and LoadBalancer services?
+      </div>
+      <div class="answer">
+        <p><strong>ClusterIP</strong> (default) exposes the service on an internal IP only reachable within the cluster.<br>
+        <strong>NodePort</strong> exposes the service on each Node's IP at a static port (between 30000-32767).<br>
+        <strong>LoadBalancer</strong> provisions an external load balancer in the cloud provider (AWS, GCP, etc.) and routes traffic to the NodePort automatically.</p>
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb"></i>
+          <div><strong>Tricky Part:</strong> NodePort actually creates a ClusterIP under the hood. LoadBalancer creates a NodePort under the hood. They build on top of each other!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-solid fa-dharmachakra q-icon"></i>
+        6. Are Kubernetes Secrets actually secure?
+      </div>
+      <div class="answer">
+        <p>By default, <strong>no</strong>. They are just base64-encoded strings, not encrypted. Anyone with access to the API or the underlying etcd database can easily decode them.</p>
+        <div class="trick-box">
+          <i class="fa-solid fa-lightbulb"></i>
+          <div><strong>Tricky Part:</strong> Base64 is encoding, not encryption! For real security, you must explicitly configure <em>Encryption at Rest</em> for etcd, or use external secret management solutions like HashiCorp Vault or AWS Secrets Manager.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
