@@ -201,10 +201,28 @@ function App() {
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       {/* Header */}
       <header>
-        <div className="logo" onClick={() => setActiveDay(null)} style={{ cursor: 'pointer' }}>
-          <i className="fa-solid fa-graduation-cap logo-badge"></i>
-          <span>DSA <span className="logo-badge">Mastery</span> Journal</span>
-          <span className="logo-subtitle">Interactive Blueprint</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+          <a 
+            href="index.html" 
+            style={{ 
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              background: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '8px', padding: '8px 14px',
+              color: 'var(--text-muted)', textDecoration: 'none',
+              fontSize: '14px', fontWeight: '600', transition: 'all 0.2s'
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-main)'; e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-muted)'; e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)'; }}
+            title="Back to Main Dashboard"
+          >
+            <i className="fa-solid fa-house" style={{ marginRight: '8px' }}></i> Home
+          </a>
+          <div className="logo" onClick={() => setActiveDay(null)} style={{ cursor: 'pointer' }}>
+            <i className="fa-solid fa-graduation-cap logo-badge"></i>
+            <span>DSA <span className="logo-badge">Mastery</span> Journal</span>
+            <span className="logo-subtitle">Interactive Blueprint</span>
+          </div>
         </div>
         
         <div className="overall-stats">
