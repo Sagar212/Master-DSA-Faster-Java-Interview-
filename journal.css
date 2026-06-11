@@ -1825,3 +1825,25 @@
   border-color: rgba(132, 204, 22, 0.3);
   box-shadow: 0 4px 20px rgba(132, 204, 22, 0.08);
 }
+
+.atomic-habit-note {
+  background: rgba(74, 222, 128, 0.08);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  border-radius: 12px;
+  padding: 16px 24px;
+  margin: 0 auto 32px auto;
+  max-width: 800px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #bbf7d0;
+  font-size: 14px;
+  line-height: 1.6;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+.atomic-habit-note i {
+  font-size: 20px;
+}
+.atomic-habit-note strong {
+  color: #4ade80;
+}
