@@ -1,8 +1,8 @@
 {
   "id": 20,
-  "title": "Tree (DFS/BFS) — Dry Run & Recall",
+  "title": "\ud83d\udfe2 Trees \u2014 Dry Run & Recall",
   "patternType": "tr",
-  "category": "Trees",
+  "category": "\ud83d\udfe2 Trees",
   "oneSentence": "Trace Invert Tree, Level Order Traversal, and Lowest Common Ancestor step-by-step.",
   "problems": {
     "invertTree": {

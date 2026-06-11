@@ -127,23 +127,23 @@
   },
   {
     "id": 19,
-    "title": "Trees (DFS/BFS) \u2014 ROI & Pattern",
+    "title": "\ud83d\udfe2 Trees \u2014 ROI & Pattern",
     "patternType": "tr",
-    "category": "Trees",
+    "category": "\ud83d\udfe2 Trees",
     "oneSentence": "Navigate nodes deeply (DFS) or level-by-level (BFS) to solve hierarchical problems."
   },
   {
     "id": 20,
-    "title": "Trees (DFS/BFS) \u2014 Dry Run & Recall",
+    "title": "\ud83d\udfe2 Trees \u2014 Dry Run & Recall",
     "patternType": "tr",
-    "category": "Trees",
+    "category": "\ud83d\udfe2 Trees",
     "oneSentence": "Trace Invert Tree, Level Order Traversal, and Lowest Common Ancestor."
   },
   {
     "id": 21,
-    "title": "Trees (DFS/BFS) \u2014 Active Recall Skeletons",
+    "title": "\ud83d\udfe2 Trees \u2014 Active Recall Skeletons",
     "patternType": "tr",
-    "category": "Trees",
+    "category": "\ud83d\udfe2 Trees",
     "oneSentence": "Fill in the blank active recall templates for Tree problems."
   },
   {
@@ -208,21 +208,21 @@
   },
   {
     "id": 31,
-    "title": "1D DP \u2014 ROI & Pattern",
+    "title": "\ud83d\udd34 1D Dynamic Programming \u2014 ROI & Pattern",
     "patternType": "dp",
-    "category": "1D Dynamic Programming"
+    "category": "\ud83d\udd34 1D Dynamic Programming"
   },
   {
     "id": 32,
-    "title": "1D DP \u2014 Dry Run & Quiz",
+    "title": "\ud83d\udd34 1D Dynamic Programming \u2014 Dry Run & Quiz",
     "patternType": "dp",
-    "category": "1D Dynamic Programming"
+    "category": "\ud83d\udd34 1D Dynamic Programming"
   },
   {
     "id": 33,
-    "title": "1D DP \u2014 Active Recall",
+    "title": "\ud83d\udd34 1D Dynamic Programming \u2014 Active Recall",
     "patternType": "dp",
-    "category": "1D Dynamic Programming"
+    "category": "\ud83d\udd34 1D Dynamic Programming"
   },
   {
     "id": 34,

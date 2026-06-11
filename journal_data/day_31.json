@@ -1,12 +1,12 @@
 {
   "id": 31,
-  "title": "1D DP — ROI & Pattern",
+  "title": "\ud83d\udd34 1D Dynamic Programming \u2014 ROI & Pattern",
   "patternType": "dp",
-  "category": "1D Dynamic Programming",
+  "category": "\ud83d\udd34 1D Dynamic Programming",
   "oneSentence": "Trade memory for time by saving solutions to overlapping subproblems.",
   "description": "Master the 1D DP template using Climbing Stairs. Learn top-down memoization and bottom-up tabulation.",
   "roi": {
-    "frequency": "⭐⭐⭐⭐ (Very common in onsites)",
+    "frequency": "\u2b50\u2b50\u2b50\u2b50 (Very common in onsites)",
     "complexity": "Time: O(N) | Space: O(N) or O(1)",
     "dependsOn": "Recursion, HashMaps",
     "signals": "Maximize/minimize, 'number of ways', overlapping subproblems."
@@ -14,26 +14,85 @@
   "template": {
     "filename": "ClimbingStairs.java",
     "codeLines": [
-      { "num": 1, "text": "public class ClimbingStairs {" },
-      { "num": 2, "text": "    public int climbStairs(int n) {" },
-      { "num": 3, "text": "        if (n == 1) return 1;" },
-      { "num": 4, "text": "        int first = 1;" },
-      { "num": 5, "text": "        int second = 2;" },
-      { "num": 6, "text": "        for (int i = 3; i <= n; i++) {" },
-      { "num": 7, "text": "            int third = first + second;" },
-      { "num": 8, "text": "            first = second;" },
-      { "num": 9, "text": "            second = third;" },
-      { "num": 10, "text": "        }" },
-      { "num": 11, "text": "        return second;" },
-      { "num": 12, "text": "    }" },
-      { "num": 13, "text": "}" }
+      {
+        "num": 1,
+        "text": "public class ClimbingStairs {"
+      },
+      {
+        "num": 2,
+        "text": "    public int climbStairs(int n) {"
+      },
+      {
+        "num": 3,
+        "text": "        if (n == 1) return 1;"
+      },
+      {
+        "num": 4,
+        "text": "        int first = 1;"
+      },
+      {
+        "num": 5,
+        "text": "        int second = 2;"
+      },
+      {
+        "num": 6,
+        "text": "        for (int i = 3; i <= n; i++) {"
+      },
+      {
+        "num": 7,
+        "text": "            int third = first + second;"
+      },
+      {
+        "num": 8,
+        "text": "            first = second;"
+      },
+      {
+        "num": 9,
+        "text": "            second = third;"
+      },
+      {
+        "num": 10,
+        "text": "        }"
+      },
+      {
+        "num": 11,
+        "text": "        return second;"
+      },
+      {
+        "num": 12,
+        "text": "    }"
+      },
+      {
+        "num": 13,
+        "text": "}"
+      }
     ],
     "traceSteps": [
-      { "line": 3, "title": "Base Case", "text": "If there is only 1 step, there's only 1 way to climb." },
-      { "line": 4, "title": "Init Pointers", "text": "Initialize variables for n=1 and n=2 ways." },
-      { "line": 6, "title": "Iterate", "text": "Compute ways for step 3 up to step n iteratively." },
-      { "line": 7, "title": "Transition", "text": "Ways to get to step i is the sum of ways to get to (i-1) and (i-2)." },
-      { "line": 8, "title": "Shift State", "text": "Shift the window forward to prepare for the next iteration." }
+      {
+        "line": 3,
+        "title": "Base Case",
+        "text": "If there is only 1 step, there's only 1 way to climb."
+      },
+      {
+        "line": 4,
+        "title": "Init Pointers",
+        "text": "Initialize variables for n=1 and n=2 ways."
+      },
+      {
+        "line": 6,
+        "title": "Iterate",
+        "text": "Compute ways for step 3 up to step n iteratively."
+      },
+      {
+        "line": 7,
+        "title": "Transition",
+        "text": "Ways to get to step i is the sum of ways to get to (i-1) and (i-2)."
+      },
+      {
+        "line": 8,
+        "title": "Shift State",
+        "text": "Shift the window forward to prepare for the next iteration."
+      }
     ],
     "sandbox": [
       {

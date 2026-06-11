@@ -1,8 +1,8 @@
 {
   "id": 33,
-  "title": "1D DP \u2014 Active Recall",
+  "title": "\ud83d\udd34 1D Dynamic Programming \u2014 Active Recall",
   "patternType": "dp",
-  "category": "1D Dynamic Programming",
+  "category": "\ud83d\udd34 1D Dynamic Programming",
   "oneSentence": "Fill in the blanks for 1D DP algorithms.",
   "problems": {
     "climbStairs": {

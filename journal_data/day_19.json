@@ -1,8 +1,8 @@
 {
   "id": 19,
-  "title": "Tree (DFS/BFS) \u2014 ROI & Pattern",
+  "title": "\ud83d\udfe2 Trees \u2014 ROI & Pattern",
   "patternType": "tr",
-  "category": "Trees",
+  "category": "\ud83d\udfe2 Trees",
   "oneSentence": "Navigate nodes deeply (DFS) or level-by-level (BFS) to solve hierarchical problems.",
   "description": "Master the foundational recursive DFS template. Most tree problems are just variations of this basic traversal.",
   "roi": {

@@ -1,8 +1,8 @@
 {
   "id": 32,
-  "title": "1D DP \u2014 Dry Run & Quiz",
+  "title": "\ud83d\udd34 1D Dynamic Programming \u2014 Dry Run & Quiz",
   "patternType": "dp",
-  "category": "1D Dynamic Programming",
+  "category": "\ud83d\udd34 1D Dynamic Programming",
   "oneSentence": "Trace Climbing Stairs, Coin Change, and House Robber.",
   "problems": {
     "climbStairs": {
@@ -10,7 +10,12 @@
       "patternSubtype": "Fibonacci DP",
       "description": "Find the number of ways to climb to the top.",
       "story": "Each step builds upon the previous two.",
-      "array": [1, 2, 3, 4],
+      "array": [
+        1,
+        2,
+        3,
+        4
+      ],
       "code": [
         "public int climbStairs(int n) {",
         "    if (n == 1) return 1;",
@@ -25,9 +30,24 @@
         "}"
       ],
       "steps": [
-        { "left": -1, "right": -1, "line": 3, "desc": "Initialize first = 1." },
-        { "left": -1, "right": -1, "line": 4, "desc": "Initialize second = 2." },
-        { "left": -1, "right": -1, "line": 6, "desc": "Loop starts. Compute third = first + second." }
+        {
+          "left": -1,
+          "right": -1,
+          "line": 3,
+          "desc": "Initialize first = 1."
+        },
+        {
+          "left": -1,
+          "right": -1,
+          "line": 4,
+          "desc": "Initialize second = 2."
+        },
+        {
+          "left": -1,
+          "right": -1,
+          "line": 6,
+          "desc": "Loop starts. Compute third = first + second."
+        }
       ],
       "quiz": [
         {
@@ -47,7 +67,11 @@
       "patternSubtype": "Unbounded Knapsack",
       "description": "Find minimum coins to make up an amount.",
       "story": "Build the smallest wallet for each amount.",
-      "array": [1, 2, 5],
+      "array": [
+        1,
+        2,
+        5
+      ],
       "code": [
         "public int coinChange(int[] coins, int amount) {",
         "    int[] dp = new int[amount + 1];",
@@ -64,9 +88,24 @@
         "}"
       ],
       "steps": [
-        { "left": -1, "right": -1, "line": 2, "desc": "Create dp array of size amount + 1." },
-        { "left": -1, "right": -1, "line": 3, "desc": "Fill dp array with amount + 1 (acts as infinity)." },
-        { "left": -1, "right": -1, "line": 4, "desc": "Base case: dp[0] = 0 coins needed for amount 0." }
+        {
+          "left": -1,
+          "right": -1,
+          "line": 2,
+          "desc": "Create dp array of size amount + 1."
+        },
+        {
+          "left": -1,
+          "right": -1,
+          "line": 3,
+          "desc": "Fill dp array with amount + 1 (acts as infinity)."
+        },
+        {
+          "left": -1,
+          "right": -1,
+          "line": 4,
+          "desc": "Base case: dp[0] = 0 coins needed for amount 0."
+        }
       ],
       "quiz": [
         {
@@ -86,7 +125,12 @@
       "patternSubtype": "Take or Skip DP",
       "description": "Maximize loot without robbing adjacent houses.",
       "story": "To rob or not to rob?",
-      "array": [1, 2, 3, 1],
+      "array": [
+        1,
+        2,
+        3,
+        1
+      ],
       "code": [
         "public int rob(int[] nums) {",
         "    int rob1 = 0, rob2 = 0;",
@@ -99,8 +143,18 @@
         "}"
       ],
       "steps": [
-        { "left": -1, "right": -1, "line": 2, "desc": "Initialize two variables to track max loot." },
-        { "left": -1, "right": -1, "line": 4, "desc": "Decide: rob current house (n + rob1) or skip it (rob2)." }
+        {
+          "left": -1,
+          "right": -1,
+          "line": 2,
+          "desc": "Initialize two variables to track max loot."
+        },
+        {
+          "left": -1,
+          "right": -1,
+          "line": 4,
+          "desc": "Decide: rob current house (n + rob1) or skip it (rob2)."
+        }
       ],
       "quiz": [
         {
