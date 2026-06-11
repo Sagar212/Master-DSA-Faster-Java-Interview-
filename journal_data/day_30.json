@@ -6,14 +6,20 @@
   "oneSentence": "Fill in the blanks for Graph traversals.",
   "problems": [
     {
-      "code": [
+      "blanks": [
+        "numIslands++",
+        "grid[i][j] == '0'",
+        "grid[i][j] = '0'"
+      ],
+      "title": "Number of Islands",
+      "template": [
         "class Solution {",
         "    public int numIslands(char[][] grid) {",
         "        int numIslands = 0;",
         "        for (int i = 0; i < grid.length; i++) {",
         "            for (int j = 0; j < grid[0].length; j++) {",
         "                if (grid[i][j] == '1') {",
-        "                    [[blank1]];",
+        "                    ___1___;",
         "                    dfs(grid, i, j);",
         "                }",
         "            }",
@@ -22,24 +28,25 @@
         "    }",
         "    ",
         "    private void dfs(char[][] grid, int i, int j) {",
-        "        if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || [[blank2]]) return;",
-        "        [[blank3]];",
+        "        if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || ___2___) return;",
+        "        ___3___;",
         "        dfs(grid, i + 1, j);",
         "        dfs(grid, i - 1, j);",
         "        dfs(grid, i, j + 1);",
         "        dfs(grid, i, j - 1);",
         "    }",
         "}"
-      ],
-      "blanks": [
-        "numIslands++",
-        "grid[i][j] == '0'",
-        "grid[i][j] = '0'"
-      ],
-      "title": "Number of Islands"
+      ]
     },
     {
-      "code": [
+      "blanks": [
+        "indegree[pre[0]]++",
+        "indegree[i] == 0",
+        "indegree[next]--",
+        "count == numCourses"
+      ],
+      "title": "Course Schedule",
+      "template": [
         "class Solution {",
         "    public boolean canFinish(int numCourses, int[][] prerequisites) {",
         "        List<List<Integer>> adj = new ArrayList<>();",
@@ -47,42 +54,43 @@
         "        int[] indegree = new int[numCourses];",
         "        for (int[] pre : prerequisites) {",
         "            adj.get(pre[1]).add(pre[0]);",
-        "            [[blank1]];",
+        "            ___1___;",
         "        }",
         "        Queue<Integer> q = new LinkedList<>();",
         "        for (int i = 0; i < numCourses; i++) {",
-        "            if ([[blank2]]) q.offer(i);",
+        "            if (___2___) q.offer(i);",
         "        }",
         "        int count = 0;",
         "        while (!q.isEmpty()) {",
         "            int curr = q.poll();",
         "            count++;",
         "            for (int next : adj.get(curr)) {",
-        "                [[blank3]];",
+        "                ___3___;",
         "                if (indegree[next] == 0) q.offer(next);",
         "            }",
         "        }",
-        "        return [[blank4]];",
+        "        return ___4___;",
         "    }",
         "}"
-      ],
-      "blanks": [
-        "indegree[pre[0]]++",
-        "indegree[i] == 0",
-        "indegree[next]--",
-        "count == numCourses"
-      ],
-      "title": "Course Schedule"
+      ]
     },
     {
-      "code": [
+      "blanks": [
+        "grid[i][j] == 2",
+        "grid[r][c] == 1",
+        "grid[r][c] = 2",
+        "fresh--",
+        "fresh == 0 ? minutes : -1"
+      ],
+      "title": "Rotting Oranges",
+      "template": [
         "class Solution {",
         "    public int orangesRotting(int[][] grid) {",
         "        Queue<int[]> q = new LinkedList<>();",
         "        int fresh = 0;",
         "        for (int i = 0; i < grid.length; i++) {",
         "            for (int j = 0; j < grid[0].length; j++) {",
-        "                if ([[blank1]]) q.offer(new int[]{i, j});",
+        "                if (___1___) q.offer(new int[]{i, j});",
         "                else if (grid[i][j] == 1) fresh++;",
         "            }",
         "        }",
@@ -96,28 +104,20 @@
         "                int[] curr = q.poll();",
         "                for (int[] d : dirs) {",
         "                    int r = curr[0] + d[0], c = curr[1] + d[1];",
-        "                    if (r >= 0 && r < grid.length && c >= 0 && c < grid[0].length && [[blank2]]) {",
-        "                        [[blank3]];",
+        "                    if (r >= 0 && r < grid.length && c >= 0 && c < grid[0].length && ___2___) {",
+        "                        ___3___;",
         "                        q.offer(new int[]{r, c});",
-        "                        [[blank4]];",
+        "                        ___4___;",
         "                        rotted = true;",
         "                    }",
         "                }",
         "            }",
         "            if (rotted) minutes++;",
         "        }",
-        "        return [[blank5]];",
+        "        return ___5___;",
         "    }",
         "}"
-      ],
-      "blanks": [
-        "grid[i][j] == 2",
-        "grid[r][c] == 1",
-        "grid[r][c] = 2",
-        "fresh--",
-        "fresh == 0 ? minutes : -1"
-      ],
-      "title": "Rotting Oranges"
+      ]
     }
   ]
 }

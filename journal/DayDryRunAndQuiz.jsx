@@ -201,7 +201,7 @@ function DayDryRunAndQuiz({ dayData, onComplete, isCompleted, onBack }) {
               <div>
                 {activeProb.nums2 && <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginBottom: '4px', fontWeight: 'bold' }}>nums1 (Shorter Array)</div>}
                 <div className="array-row">
-                  {activeProb.array.map((val, idx) => {
+                  {activeProb.array && activeProb.array.map((val, idx) => {
                     let cellClass = "";
                     
                     // Highlights for Two Pointer
