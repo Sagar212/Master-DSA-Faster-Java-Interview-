@@ -6,7 +6,6 @@
   "oneSentence": "Trace Number of Islands, Course Schedule, and Rotting Oranges.",
   "problems": [
     {
-      "name": "Number of Islands",
       "code": [
         "class Solution {",
         "    public int numIslands(char[][] grid) {",
@@ -34,13 +33,34 @@
         "}"
       ],
       "steps": [
-        "Initialize `numIslands = 0`.",
-        "Loop through `i` from 0 to rows - 1.",
-        "Loop through `j` from 0 to cols - 1.",
-        "If `grid[i][j] == '1'`, increment `numIslands` and call `dfs(i, j)`.",
-        "In `dfs`, if out of bounds or `grid[i][j] == '0'`, return.",
-        "Set `grid[i][j] = '0'`.",
-        "Call `dfs` on (i+1, j), (i-1, j), (i, j+1), (i, j-1)."
+        {
+          "line": -1,
+          "desc": "Initialize `numIslands = 0`."
+        },
+        {
+          "line": -1,
+          "desc": "Loop through `i` from 0 to rows - 1."
+        },
+        {
+          "line": -1,
+          "desc": "Loop through `j` from 0 to cols - 1."
+        },
+        {
+          "line": -1,
+          "desc": "If `grid[i][j] == '1'`, increment `numIslands` and call `dfs(i, j)`."
+        },
+        {
+          "line": -1,
+          "desc": "In `dfs`, if out of bounds or `grid[i][j] == '0'`, return."
+        },
+        {
+          "line": -1,
+          "desc": "Set `grid[i][j] = '0'`."
+        },
+        {
+          "line": -1,
+          "desc": "Call `dfs` on (i+1, j), (i-1, j), (i, j+1), (i, j-1)."
+        }
       ],
       "quiz": [
         {
@@ -53,10 +73,10 @@
           "correct": 1,
           "explain": "Modifying the grid avoids allocating an extra O(M*N) boolean matrix for visited states."
         }
-      ]
+      ],
+      "title": "Number of Islands"
     },
     {
-      "name": "Course Schedule",
       "code": [
         "class Solution {",
         "    public boolean canFinish(int numCourses, int[][] prerequisites) {",
@@ -85,13 +105,34 @@
         "}"
       ],
       "steps": [
-        "Build an adjacency list `adj` and an `indegree` array.",
-        "Populate `adj` and increment `indegree` for each dependent course.",
-        "Add all courses with `indegree == 0` to a queue `q`.",
-        "While `q` is not empty, poll `curr` and increment `count`.",
-        "For each neighbor `next` of `curr`, decrement `indegree[next]`.",
-        "If `indegree[next] == 0`, add `next` to `q`.",
-        "Return true if `count == numCourses`."
+        {
+          "line": -1,
+          "desc": "Build an adjacency list `adj` and an `indegree` array."
+        },
+        {
+          "line": -1,
+          "desc": "Populate `adj` and increment `indegree` for each dependent course."
+        },
+        {
+          "line": -1,
+          "desc": "Add all courses with `indegree == 0` to a queue `q`."
+        },
+        {
+          "line": -1,
+          "desc": "While `q` is not empty, poll `curr` and increment `count`."
+        },
+        {
+          "line": -1,
+          "desc": "For each neighbor `next` of `curr`, decrement `indegree[next]`."
+        },
+        {
+          "line": -1,
+          "desc": "If `indegree[next] == 0`, add `next` to `q`."
+        },
+        {
+          "line": -1,
+          "desc": "Return true if `count == numCourses`."
+        }
       ],
       "quiz": [
         {
@@ -104,10 +145,10 @@
           "correct": 1,
           "explain": "This is Kahn's algorithm for Topological Sorting using BFS and indegrees."
         }
-      ]
+      ],
+      "title": "Course Schedule"
     },
     {
-      "name": "Rotting Oranges",
       "code": [
         "class Solution {",
         "    public int orangesRotting(int[][] grid) {",
@@ -144,14 +185,38 @@
         "}"
       ],
       "steps": [
-        "Initialize queue `q` with all initially rotten oranges (2) and count `fresh` oranges.",
-        "If `fresh == 0`, return 0.",
-        "Initialize `minutes = 0` and direction array `dirs`.",
-        "While `q` is not empty, iterate through the current level (size of `q`).",
-        "For each polled cell, check 4 directions.",
-        "If a fresh orange is found, rot it (set to 2), add to `q`, decrement `fresh`, set `rotted = true`.",
-        "If `rotted` is true after checking the level, increment `minutes`.",
-        "Return `minutes` if `fresh == 0`, else -1."
+        {
+          "line": -1,
+          "desc": "Initialize queue `q` with all initially rotten oranges (2) and count `fresh` oranges."
+        },
+        {
+          "line": -1,
+          "desc": "If `fresh == 0`, return 0."
+        },
+        {
+          "line": -1,
+          "desc": "Initialize `minutes = 0` and direction array `dirs`."
+        },
+        {
+          "line": -1,
+          "desc": "While `q` is not empty, iterate through the current level (size of `q`)."
+        },
+        {
+          "line": -1,
+          "desc": "For each polled cell, check 4 directions."
+        },
+        {
+          "line": -1,
+          "desc": "If a fresh orange is found, rot it (set to 2), add to `q`, decrement `fresh`, set `rotted = true`."
+        },
+        {
+          "line": -1,
+          "desc": "If `rotted` is true after checking the level, increment `minutes`."
+        },
+        {
+          "line": -1,
+          "desc": "Return `minutes` if `fresh == 0`, else -1."
+        }
       ],
       "quiz": [
         {
@@ -164,7 +229,8 @@
           "correct": 2,
           "explain": "The problem asks for the minimum time for all oranges to rot, which is equivalent to finding the shortest path from multiple sources simultaneously."
         }
-      ]
+      ],
+      "title": "Rotting Oranges"
     }
   ]
 }

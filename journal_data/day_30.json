@@ -6,7 +6,6 @@
   "oneSentence": "Fill in the blanks for Graph traversals.",
   "problems": [
     {
-      "name": "Number of Islands",
       "code": [
         "class Solution {",
         "    public int numIslands(char[][] grid) {",
@@ -36,10 +35,10 @@
         "numIslands++",
         "grid[i][j] == '0'",
         "grid[i][j] = '0'"
-      ]
+      ],
+      "title": "Number of Islands"
     },
     {
-      "name": "Course Schedule",
       "code": [
         "class Solution {",
         "    public boolean canFinish(int numCourses, int[][] prerequisites) {",
@@ -72,10 +71,10 @@
         "indegree[i] == 0",
         "indegree[next]--",
         "count == numCourses"
-      ]
+      ],
+      "title": "Course Schedule"
     },
     {
-      "name": "Rotting Oranges",
       "code": [
         "class Solution {",
         "    public int orangesRotting(int[][] grid) {",
@@ -117,7 +116,8 @@
         "grid[r][c] = 2",
         "fresh--",
         "fresh == 0 ? minutes : -1"
-      ]
+      ],
+      "title": "Rotting Oranges"
     }
   ]
 }
