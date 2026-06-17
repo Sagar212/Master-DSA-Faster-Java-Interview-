@@ -226,7 +226,7 @@
 </head>
 <body>
 <div id="root"></div>
-<script type="text/babel">
+<script id="jsx-code" type="text/plain">
 const { useState, useCallback, useMemo, useRef } = React;
 
 /* ═══════════════════════════════════════════
@@ -1007,6 +1007,13 @@ List<List<Integer>> groups = Stream.of(1,2,3,4,5)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
+</script>
+<script>
+  const code = document.getElementById('jsx-code').textContent;
+  const compiled = Babel.transform(code, { presets: [['react', { runtime: 'classic' }]] }).code;
+  const script = document.createElement('script');
+  script.text = compiled;
+  document.body.appendChild(script);
 </script>
 </body>
 </html>
