@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accolite L1 Interview Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Plus+Jakarta+Sans:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-dark: #070913;
+      --bg-card: rgba(13, 17, 33, 0.7);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --primary-gradient: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+      --icon-color: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      display: flex; flex-direction: column; align-items: center; padding: 40px 24px;
+    }
+    .container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 32px; }
+    header { text-align: center; margin-bottom: 20px; }
+    header h1 { font-family: 'Outfit', sans-serif; font-size: 38px; font-weight: 800; margin-bottom: 12px; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    header p { color: var(--text-muted); font-size: 16px; line-height: 1.6; }
+    .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 14px; margin-bottom: -10px; }
+    .back-btn:hover { color: var(--text-main); }
+    .qa-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 28px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); position: relative; overflow: hidden; }
+    .qa-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary-gradient); }
+    .question { font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 16px; color: #fff; display: flex; gap: 12px; align-items: flex-start; }
+    .q-icon { color: var(--icon-color); margin-top: 4px; }
+    .answer { color: var(--text-muted); font-size: 15px; line-height: 1.7; padding-left: 32px; }
+    .answer strong { color: #f1f5f9; }
+    pre code { display: block; padding: 16px; border-radius: 8px; margin: 12px 0; overflow-x: auto; line-height: 1.5; background: #090b11; color: #38bdf8; font-family: 'Fira Code', monospace; font-size: 13px; }
+    code { font-family: 'Fira Code', monospace; background: #090b11; padding: 4px 8px; border-radius: 4px; font-size: 13px; color: #38bdf8; }
+    .section-title { font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 800; margin-top: 24px; margin-bottom: -12px; color: #fff; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+    <header>
+      <h1>Accolite L1 Interview Guide</h1>
+      <p>Exhaustive, production-grade answers to Core Java, Spring Boot, and System Design.</p>
+    </header>
+    <div class="section-title">Section 1: Core Java</div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-java q-icon"></i>
+        1. Why is String immutable in Java?
+      </div>
+      <div class="answer">
+        Immutability ensures that once a String object is instantiated, its state cannot be modified. Java enforces this for:<br><br><ul><li><strong>String Constant Pool (SCP) Optimization:</strong> Memory efficiency is achieved through string sharing.</li><li><strong>Security Constraints:</strong> Strings are relied upon for file paths, DB connections, etc. Immutability prevents Time-of-Check to Time-of-Use flaws.</li><li><strong>Thread Safety:</strong> Inherently thread-safe because state cannot be modified, eliminating synchronization overhead.</li><li><strong>HashCode Caching:</strong> The hash code is cached at creation, making Strings extremely high-performing as keys in HashMaps.</li></ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-java q-icon"></i>
+        2. Internal Working of HashMap in Java 8
+      </div>
+      <div class="answer">
+        A HashMap uses an internal array of nodes (buckets) to store key-value entries. In Java 8, <strong>Treeification</strong> was introduced:<br><br><ul><li><strong>Data Structures:</strong> Elements are tracked as instance nodes. Extreme hash collisions transition the single-linked list into a balanced Red-Black Tree.</li><li><strong>Treeification Mechanics:</strong> If bucket nodes exceed <code>TREEIFY_THRESHOLD = 8</code> and table capacity >= 64, it transforms into a Red-Black tree, reducing search time from O(n) to O(log n). Untreeifies at 6.</li><li><strong>Hash Distribution:</strong> Uses bitwise XOR (<code>h ^ (h >>> 16)</code>) to mix higher-order bits downward, eliminating bucket distribution clustering.</li></ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-java q-icon"></i>
+        3. Difference between HashMap and ConcurrentHashMap
+      </div>
+      <div class="answer">
+        <ul><li><strong>Thread Safety:</strong> HashMap is not thread-safe. CHM is fully thread-safe for high concurrent modifications.</li><li><strong>Locking Strategy:</strong> HashMap has no synchronization. CHM uses fine-grained bucket-level locking (CAS for empty buckets, synchronized blocks on collision heads).</li><li><strong>Null Support:</strong> HashMap permits one null key and multiple null values. CHM prohibits both null keys and values (throws NullPointerException).</li><li><strong>Iterator Behavior:</strong> HashMap is Fail-Fast (throws ConcurrentModificationException). CHM is Fail-Safe (weakly consistent).</li></ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-java q-icon"></i>
+        4. Explain equals() and hashCode() Contract
+      </div>
+      <div class="answer">
+        1. If two objects are equal via <code>equals()</code>, executing <code>hashCode()</code> on both must return the exact same integer value.<br>2. If two objects yield matching integers via <code>hashCode()</code>, they are <em>not</em> required to be equal (this is a hash collision).<br><br><strong>Consequence:</strong> If equals() is customized but hashCode() is ignored, HashMaps will locate different buckets during retrieval, causing duplicate keys or null returns.
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-java q-icon"></i>
+        5. Can we override static methods?
+      </div>
+      <div class="answer">
+        <strong>No.</strong> Method overriding is dependent on dynamic execution binding at runtime based on the object instance. Static methods are bound at compile-time (static binding).<br><br>If a child class declares an identical static signature, it is termed <strong>Method Hiding</strong>. The executing method is determined strictly by the reference type declared on the caller variable.
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-java q-icon"></i>
+        6. Difference between Abstract Class and Interface
+      </div>
+      <div class="answer">
+        <ul><li><strong>Inheritance:</strong> Abstract classes bind by single inheritance. Interfaces allow multiple implementation simultaneously.</li><li><strong>State:</strong> Abstract classes can declare instance variables with varying scope. Interfaces only declare <code>public static final</code> constants.</li><li><strong>Constructors:</strong> Abstract classes permit constructors. Interfaces cannot have constructors.</li><li><strong>Methods:</strong> Abstract classes have abstract, concrete, protected, or private routines. Interfaces have abstract, default, static, and private helpers (Java 8+).</li></ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-java q-icon"></i>
+        7. What is the purpose of volatile?
+      </div>
+      <div class="answer">
+        <ul><li><strong>Memory Visibility:</strong> Instructs JVM to bypass local CPU caches and read/write directly from main memory.</li><li><strong>Instruction Reordering Inhibition:</strong> Places memory fences around reads/writes, establishing a strict 'happens-before' contract.</li><li><strong>Non-Atomicity Caveat:</strong> Does <em>not</em> make compound operations (like count++) atomic. Still requires locks or Atomic wrapper classes.</li></ul>
+      </div>
+    </div>
+<div class="section-title">Section 2: Java 8 Stream API</div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-java q-icon"></i>
+        11. Difference between map() and flatMap()
+      </div>
+      <div class="answer">
+        <ul><li><code>map()</code>: 1-to-1 mapping transformation. Outputs a single processed value of type R.</li><li><code>flatMap()</code>: 1-to-many structural transformation combined with flattening. Useful for unwrapping nested collection matrices (e.g., Stream&lt;List&lt;String&gt;&gt; to Stream&lt;String&gt;).</li></ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-java q-icon"></i>
+        15. Difference between Optional.orElse() and orElseGet()
+      </div>
+      <div class="answer">
+        <ul><li><code>orElse(T other)</code>: Evaluates argument eagerly. Fallback instantiation runs even if Optional is non-empty, causing overhead.</li><li><code>orElseGet(Supplier)</code>: Implements lazy evaluation. Lambda is only evaluated if the Optional is explicitly empty.</li></ul>
+      </div>
+    </div>
+<div class="section-title">Section 3: System Design & Production</div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-java q-icon"></i>
+        20. LRU Cache Design
+      </div>
+      <div class="answer">
+        An LRU cache requires O(1) operations. Achieved using a <strong>HashMap</strong> paired with a custom <strong>Doubly Linked List</strong>. The map provides O(1) lookups, while the linked list allows O(1) node detachment and moving to the head (most recently used).
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-java q-icon"></i>
+        24. What happens internally when Spring Boot starts?
+      </div>
+      <div class="answer">
+        1. <strong>Initializer Setup:</strong> Identifies profiles and configurations via spring.factories.<br>2. <strong>Environment Preparation:</strong> Binds active properties and system variables.<br>3. <strong>ApplicationContext Creation:</strong> Instantiates the core container.<br>4. <strong>Component Scanning:</strong> Parses stereotype markers to construct BeanDefinitions.<br>5. <strong>Embedded Container:</strong> Bootstraps Tomcat or Jetty.<br>6. <strong>Runner Invocation:</strong> Executes CommandLineRunner beans.
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-java q-icon"></i>
+        28. How does @Transactional work internally?
+      </div>
+      <div class="answer">
+        Spring manages transactions using <strong>AOP Proxies</strong>. When a caller executes a method, it hits the auto-generated proxy first. The proxy opens a DB transaction via PlatformTransactionManager, invokes the target method in a try-catch, and commits on success (or rolls back on RuntimeException).
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="question">
+        <i class="fa-brands fa-java q-icon"></i>
+        36. Explain one complex production issue you resolved
+      </div>
+      <div class="answer">
+        <strong>Issue:</strong> High-traffic Promotional Event caused HikariPool connection timeouts and JVM OutOfMemoryErrors.<br><br><strong>Root Cause:</strong> Heap dump analysis via Eclipse MAT revealed a reporting feature streaming huge datasets inside an active <code>@Transactional</code> block. The DB stream remained open, holding the connection indefinitely, starving the pool and exhausting heap space.<br><br><strong>Resolution:</strong> Refactored retrieval using Spring Data Pageable for chunking, moved processing outside the <code>@Transactional</code> block, wrapped access in <code>try-with-resources</code>, and enabled HikariCP leak-detection.
+      </div>
+    </div>
+  </div>
+</body>
+</html>

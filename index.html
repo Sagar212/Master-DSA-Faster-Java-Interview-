@@ -317,6 +317,18 @@
     .sql-card .action-btn { background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%); box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3); }
     .sql-card .action-btn:hover { box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4); }
 
+    .accolite-card::before { background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%); }
+    .accolite-card .card-icon { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
+    .accolite-card .feature-list li i { color: #10b981; }
+    .accolite-card .action-btn { background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
+    .accolite-card .action-btn:hover { box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); }
+
+    .streams-card::before { background: linear-gradient(135deg, #ef4444 0%, #f97316 100%); }
+    .streams-card .card-icon { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
+    .streams-card .feature-list li i { color: #ef4444; }
+    .streams-card .action-btn { background: linear-gradient(135deg, #ef4444 0%, #f97316 100%); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3); }
+    .streams-card .action-btn:hover { box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4); }
+
     footer {
       color: rgba(255,255,255,0.2);
       font-size: 12px;
@@ -496,6 +508,48 @@
         </div>
 
 
+
+        <!-- Accolite Interview Q&A -->
+        <div class="suite-card accolite-card">
+          <div>
+            <div class="card-icon">
+              <i class="fa-brands fa-java"></i>
+            </div>
+            <div class="card-body">
+              <h2>Accolite L1 Interview</h2>
+              <p>Exhaustive, production-grade answers to Core Java, Spring Boot, and System Design.</p>
+              <ul class="feature-list">
+                <li><i class="fa-solid fa-check"></i> Core Java & Volatile</li>
+                <li><i class="fa-solid fa-check"></i> Spring Boot Architecture</li>
+                <li><i class="fa-solid fa-check"></i> LLD & Kafka Scaling</li>
+              </ul>
+            </div>
+          </div>
+          <a href="accolite-interview.html" class="action-btn">
+            View Q&A <i class="fa-solid fa-arrow-right-long"></i>
+          </a>
+        </div>
+
+        <!-- Java 8 Streams Coding Interview -->
+        <div class="suite-card streams-card">
+          <div>
+            <div class="card-icon">
+              <i class="fa-solid fa-code"></i>
+            </div>
+            <div class="card-body">
+              <h2>Java 8 Streams Coding</h2>
+              <p>Highly optimized, production-grade coding solutions using lambdas and advanced Collectors.</p>
+              <ul class="feature-list">
+                <li><i class="fa-solid fa-check"></i> Numerical Transformations</li>
+                <li><i class="fa-solid fa-check"></i> Text & String Processing</li>
+                <li><i class="fa-solid fa-check"></i> Filtering & Grouping</li>
+              </ul>
+            </div>
+          </div>
+          <a href="java-8-coding-interview.html" class="action-btn">
+            View Q&A <i class="fa-solid fa-arrow-right-long"></i>
+          </a>
+        </div>
         <!-- SQL Interview Q&A -->
         <div class="suite-card sql-card">
           <div>
