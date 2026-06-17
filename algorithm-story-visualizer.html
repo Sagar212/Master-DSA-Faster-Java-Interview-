@@ -20,9 +20,42 @@
   <!-- Babel for parsing JSX -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-  <!-- Modularized App Scripts -->
+  <!-- Data (plain JS, loads synchronously) -->
   <script src="algorithm-story-visualizer-data.js"></script>
-  <script type="text/babel" src="algorithm-story-visualizer-components.jsx"></script>
-  <script type="text/babel" src="algorithm-story-visualizer-app.jsx"></script>
+
+  <!-- 
+    Babel Standalone processes external text/babel scripts asynchronously
+    with no guaranteed execution order. This causes app.jsx to run before
+    components.jsx, making window.FloydView etc. undefined.
+    Fix: plain script that manually fetches, transpiles, and executes in order.
+  -->
+  <script>
+    (async function() {
+      try {
+        const [componentsRes, appRes] = await Promise.all([
+          fetch('algorithm-story-visualizer-components.jsx'),
+          fetch('algorithm-story-visualizer-app.jsx')
+        ]);
+        const componentsSrc = await componentsRes.text();
+        const appSrc = await appRes.text();
+
+        // Transpile with Babel (already loaded above)
+        // Force classic runtime to emit React.createElement() instead of
+        // import { jsx } from "react/jsx-runtime" (which fails outside modules)
+        const babelOpts = { presets: [['react', { runtime: 'classic' }]] };
+        const componentsCode = Babel.transform(componentsSrc, babelOpts).code;
+        const appCode = Babel.transform(appSrc, babelOpts).code;
+
+        // Execute in order: components first, then app
+        (0, eval)(componentsCode);
+        (0, eval)(appCode);
+      } catch (err) {
+        console.error('Failed to load JSX modules:', err);
+        document.getElementById('root').innerHTML = 
+          '<div style="padding:2rem;color:red;font-family:monospace">' +
+          '<h2>Load Error</h2><pre>' + err.message + '</pre></div>';
+      }
+    })();
+  </script>
 </body>
 </html>

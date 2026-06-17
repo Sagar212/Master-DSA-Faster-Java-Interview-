@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Accolite L1 Interview Guide</title>
+  <title>Accolite Digital L1 Interview Guide — Java Backend Developer</title>
+  <meta name="description" content="Comprehensive technical guide with production-grade answers to core Java, Java 8, coding challenges, and Spring Boot questions for Accolite Digital L1 interviews.">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Plus+Jakarta+Sans:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -15,220 +16,932 @@
       --emerald: #10b981;
       --emerald-g: rgba(16, 185, 129, 0.25);
       --blue: #3b82f6;
+      --violet: #8b5cf6;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
       --text: #f1f5f9;
       --text-muted: #94a3b8;
+      --text-dim: #64748b;
     }
-    body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; padding-bottom: 50px; }
-    .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
-    header { text-align: center; margin-bottom: 40px; padding: 40px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1)); border-radius: 20px; border: 1px solid var(--glass-border); }
-    h1 { font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 800; margin-bottom: 10px; background: linear-gradient(135deg, var(--emerald), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    h2 { font-family: 'Outfit', sans-serif; font-size: 24px; color: var(--emerald); margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; }
-    .qa-card { background: var(--bg2); border: 1px solid var(--glass-border); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
-    .q-title { font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 12px; display: flex; gap: 12px; align-items: flex-start; }
-    .q-num { background: rgba(16, 185, 129, 0.15); color: var(--emerald); padding: 2px 8px; border-radius: 6px; font-size: 14px; font-weight: 800; font-family: 'Outfit'; }
-    .ans { color: var(--text-muted); font-size: 15px; }
-    pre { background: #000; padding: 12px; border-radius: 8px; overflow-x: auto; font-family: 'Fira Code', monospace; font-size: 13px; color: #a8b2d1; border: 1px solid #1e293b; margin-top: 10px; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.75;
+      padding-bottom: 80px;
+    }
+
+    .container {
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+      padding: 48px 32px;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.06));
+      border-radius: 24px;
+      border: 1px solid var(--glass-border);
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at 30% 50%, rgba(16, 185, 129, 0.06) 0%, transparent 60%),
+                  radial-gradient(ellipse at 70% 50%, rgba(59, 130, 246, 0.06) 0%, transparent 60%);
+      animation: headerGlow 8s ease-in-out infinite alternate;
+    }
+    @keyframes headerGlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(3deg); }
+    }
+    header h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, var(--emerald), var(--blue), var(--violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      z-index: 1;
+    }
+    header .subtitle {
+      color: var(--text-muted);
+      font-size: 15px;
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Section Headings */
+    .section-heading {
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--emerald);
+      margin-top: 52px;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-heading .section-icon {
+      font-size: 18px;
+      opacity: 0.7;
+    }
+
+    /* Q&A Cards */
+    .qa-card {
+      background: var(--bg2);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      padding: 28px;
+      margin-bottom: 20px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .qa-card:hover {
+      border-color: rgba(16, 185, 129, 0.2);
+      box-shadow: 0 0 24px rgba(16, 185, 129, 0.04);
+    }
+
+    .q-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .q-num {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--emerald);
+      padding: 2px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 800;
+      font-family: 'Outfit';
+      flex-shrink: 0;
+    }
+
+    .ans {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+    .ans p {
+      margin-bottom: 12px;
+    }
+    .ans p:last-child {
+      margin-bottom: 0;
+    }
+    .ans strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .ans code {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--emerald);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: 'Fira Code', monospace;
+      font-size: 13px;
+    }
+    .ans ul, .ans ol {
+      margin: 10px 0 10px 20px;
+    }
+    .ans li {
+      margin-bottom: 8px;
+    }
+
+    /* Code Blocks */
+    pre {
+      background: #000a14;
+      padding: 18px 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'Fira Code', monospace;
+      font-size: 13px;
+      color: #a8b2d1;
+      border: 1px solid #1a2540;
+      margin: 14px 0;
+      line-height: 1.6;
+    }
+    pre .kw { color: #c792ea; }
+    pre .type { color: #ffcb6b; }
+    pre .str { color: #c3e88d; }
+    pre .cm { color: #546e7a; font-style: italic; }
+    pre .num { color: #f78c6c; }
+    pre .fn { color: #82aaff; }
+
+    /* Comparison Tables */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+    .comparison-table th {
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--emerald);
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 2px solid rgba(16, 185, 129, 0.2);
+      font-family: 'Outfit', sans-serif;
+    }
+    .comparison-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      vertical-align: top;
+    }
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+    .comparison-table tbody tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .comparison-table td:first-child {
+      color: var(--text);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header h1 { font-size: 26px; }
+      .container { padding: 16px; }
+      .qa-card { padding: 20px; }
+      .comparison-table { font-size: 13px; }
+      .comparison-table th, .comparison-table td { padding: 8px 10px; }
+      pre { font-size: 12px; padding: 14px; }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
       <h1>Accolite Digital L1 Interview Guide</h1>
-      <p>Java Backend Developer &mdash; Full Production-Grade Q&A</p>
+      <p class="subtitle">Java Backend Developer &mdash; This comprehensive technical guide provides exhaustive, production-grade answers to core Java, Java 8, structural coding challenges, and Spring Boot conceptual questions frequently discussed during technical rounds at Accolite Digital.</p>
     </header>
 
-    <h2>Section 1: Java Core, Strings, and Thread Safety</h2>
-    
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q1</span> String Memory & Immutability</div>
-      <div class="ans">Strings are immutable to ensure security (database URLs/passwords can't be altered), thread safety (can be shared safely across threads), and caching performance (String pool relies on immutability to save memory).</div>
+    <!-- ==================== SECTION 1: CORE JAVA ==================== -->
+    <h2 class="section-heading"><i class="fa-solid fa-coffee section-icon"></i> Section 1: Core Java</h2>
+
+    <div class="qa-card" id="q1">
+      <div class="q-title"><span class="q-num">Q1</span> Why is String immutable in Java?</div>
+      <div class="ans">
+        <p>Immutability ensures that once a String object is instantiated, its state cannot be modified. Java enforces this for several critical architectural reasons:</p>
+        <ul>
+          <li><strong>String Constant Pool (SCP) Optimization:</strong> Memory efficiency is achieved through string sharing. Multiple reference variables can point to a single instance in the pool. If strings were mutable, altering a string via one reference would catastrophically corrupt the values observed by other components.</li>
+          <li><strong>Security Constraints:</strong> Strings are heavily relied upon to pass parameters such as file paths, database connections, URLs, and network sockets. If strings were mutable, an attacker could bypass validation checks by changing the string contents right after the check (Time-of-Check to Time-of-Use flaw).</li>
+          <li><strong>Thread Safety:</strong> Because their underlying state cannot be modified, String instances are inherently thread-safe. They can be shared concurrently across multiple threads without the performance penalties associated with synchronized code blocks.</li>
+          <li><strong>HashCode Caching:</strong> The hash code of a string is frequently computed and cached inside the object structure at creation time (lazy initialization). This makes strings extremely high-performing when used as keys in hash-based collections such as <code>HashMap</code> and <code>HashSet</code>, as the hash calculation is executed exactly once.</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q2</span> String Constant Pool Internals</div>
-      <div class="ans">The String Pool is a special area in the JVM Heap. When creating a String via <code>String s = "Hello"</code>, the JVM checks the pool first. If it exists, it returns the reference, otherwise it creates it. Using <code>new String("Hello")</code> forces creation of a new object in the general heap, bypassing the pool.</div>
+    <div class="qa-card" id="q2">
+      <div class="q-title"><span class="q-num">Q2</span> Internal Working of HashMap in Java 8</div>
+      <div class="ans">
+        <p>A <code>HashMap</code> operates on the principle of hashing, utilizing an internal array of nodes (buckets) to store structural key-value entries. In Java 8, a critical performance optimization called <strong>Treeification</strong> was introduced:</p>
+        <ul>
+          <li><strong>Data Structures:</strong> Elements are tracked as instance nodes containing four properties: <code>int hash</code>, <code>K key</code>, <code>V value</code>, and <code>Node&lt;K,V&gt; next</code>. When a specific bucket experiences extreme hash collisions, the single-linked list transitions into a balanced Red-Black Tree composed of <code>TreeNode</code> elements.</li>
+          <li><strong>Treeification Mechanics:</strong> If the number of nodes within a single bucket exceeds the <code>TREEIFY_THRESHOLD = 8</code> and the overall capacity of the table array is at least <code>MIN_TREEIFY_CAPACITY = 64</code>, the linked list transforms into a Red-Black tree. This reduces search time from <strong>O(n)</strong> down to <strong>O(log n)</strong>. If elements drop below the <code>UNTREEIFY_THRESHOLD = 6</code> during a resize operation, it converts back into a standard linked list.</li>
+          <li><strong>Hash Distribution and Masking:</strong> The index position is determined via bitwise operations:</li>
+        </ul>
+<pre>int hash = (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);
+int index = (n - 1) &amp; hash;</pre>
+        <p>The bitwise XOR shifts the higher-order bits downward to mix variable data uniformly, eliminating structural bucket distribution clustering.</p>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q3</span> Exception Handling (try-with-resources)</div>
-      <div class="ans">Introduced in Java 7, <code>try-with-resources</code> automatically closes any resources that implement the <code>AutoCloseable</code> interface. This prevents memory leaks and removes the need for messy <code>finally</code> blocks containing <code>close()</code> calls.</div>
+    <div class="qa-card" id="q3">
+      <div class="q-title"><span class="q-num">Q3</span> Difference between HashMap and ConcurrentHashMap</div>
+      <div class="ans">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>Feature</th><th>HashMap</th><th>ConcurrentHashMap (Java 8+)</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Thread Safety</td>
+              <td>Not thread-safe; requires external manual synchronization when shared across threads.</td>
+              <td>Fully thread-safe; designed specifically for high concurrent data modifications.</td>
+            </tr>
+            <tr>
+              <td>Locking Strategy</td>
+              <td>None; completely un-synchronized.</td>
+              <td>Fine-grained bucket-level locking. Uses Compare-And-Swap (CAS) for empty buckets and locks only the bucket head via synchronized blocks on collisions.</td>
+            </tr>
+            <tr>
+              <td>Null Support</td>
+              <td>Permits one single null key and multiple null values.</td>
+              <td>Prohibits both null keys and null values (throws NullPointerException to prevent ambiguous states).</td>
+            </tr>
+            <tr>
+              <td>Iterator Behavior</td>
+              <td>Fail-Fast; throws ConcurrentModificationException on structural mutations.</td>
+              <td>Fail-Safe (Weakly consistent); allows ongoing mutations without throwing exceptions.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q4</span> Volatile vs Synchronized</div>
-      <div class="ans"><code>volatile</code> guarantees visibility of changes to variables across threads by forcing reads/writes from main memory instead of CPU caches. It does NOT guarantee atomicity. <code>synchronized</code> guarantees both visibility and atomicity by acquiring a monitor lock, allowing only one thread to execute the block at a time.</div>
+    <div class="qa-card" id="q4">
+      <div class="q-title"><span class="q-num">Q4</span> Explain equals() and hashCode() Contract</div>
+      <div class="ans">
+        <p>The contract establishes rules for how objects must behave when used together in hash-based hashing frameworks:</p>
+        <ul>
+          <li>If two objects are evaluated as equal via the <code>equals(Object)</code> logic, executing <code>hashCode()</code> on both instances must return the exact same integer value.</li>
+          <li>If two objects yield matching integers via <code>hashCode()</code>, they are <strong>not</strong> fundamentally required to be equal via <code>equals()</code>. This behavior is termed a <strong>hash collision</strong>.</li>
+        </ul>
+        <p><strong>Consequence of Violating the Contract:</strong> If <code>equals()</code> is customized but <code>hashCode()</code> is ignored, a collection like <code>HashMap</code> will locate different storage bucket array positions during retrieval attempts, causing duplicated keys or retrieving <code>null</code> even if an identical key exists.</p>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q5</span> ReentrantLock vs Synchronized</div>
-      <div class="ans"><code>ReentrantLock</code> offers advanced features over <code>synchronized</code>: fairness policies (longest waiting thread gets the lock), <code>tryLock()</code> (attempt lock without blocking forever), and interruptible locks. <code>synchronized</code> is simpler and handled implicitly by the JVM.</div>
+    <div class="qa-card" id="q5">
+      <div class="q-title"><span class="q-num">Q5</span> Can we override static methods?</div>
+      <div class="ans">
+        <p>No, static methods cannot be overridden. Method overriding is dependent on dynamic execution binding at runtime based on the actual object instance type. Static methods, conversely, are coupled strictly to the enclosing class type rather than an explicit instance. They are bound at compile-time using compile-time polymorphism (static binding).</p>
+        <p>If a child class declares an identical static signature matching a parent method, this action is termed <strong>Method Hiding</strong>. The method version that executes is determined strictly by the reference type declared on the caller variable, not the underlying instance.</p>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q6</span> Object-Level vs Class-Level Locking</div>
-      <div class="ans">Object-level lock (<code>synchronized(this)</code>) restricts concurrent access to the instance methods of a specific object. Class-level lock (<code>synchronized(MyClass.class)</code> or static synchronized) restricts concurrent access across ALL instances of the class.</div>
+    <div class="qa-card" id="q6">
+      <div class="q-title"><span class="q-num">Q6</span> Difference between Abstract Class and Interface</div>
+      <div class="ans">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>Feature</th><th>Abstract Class</th><th>Interface (Java 8+)</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Inheritance Model</td>
+              <td>Classes are bound by single inheritance (can extend exactly one parent class).</td>
+              <td>Classes can implement multiple interfaces simultaneously.</td>
+            </tr>
+            <tr>
+              <td>State &amp; Variables</td>
+              <td>Can declare instance variables, constants, and fields with varying scope visibility.</td>
+              <td>Can only declare implicit variables that are forced as <code>public static final</code> constants.</td>
+            </tr>
+            <tr>
+              <td>Constructors</td>
+              <td>Permits constructor definitions to initialize abstract or concrete base state.</td>
+              <td>Cannot contain constructors.</td>
+            </tr>
+            <tr>
+              <td>Method Definitions</td>
+              <td>Can have abstract, concrete, protected, or private instance routines.</td>
+              <td>Allows abstract methods, default methods, static methods, and private helper variations.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q7</span> ConcurrentHashMap Treeification</div>
-      <div class="ans">In Java 8+, when a bucket in a HashMap/ConcurrentHashMap exceeds a certain threshold (usually 8 nodes) and total capacity > 64, the linked list is converted into a Red-Black Tree (Treeification). This improves worst-case lookup performance from O(n) to O(log n).</div>
+    <div class="qa-card" id="q7">
+      <div class="q-title"><span class="q-num">Q7</span> What is the purpose of volatile?</div>
+      <div class="ans">
+        <p>The <code>volatile</code> keyword solves memory visibility issues in multithreaded systems:</p>
+        <ul>
+          <li><strong>Memory Visibility:</strong> It instructs the JVM that reads and writes targeting the field must bypass local CPU caches and interact directly with central main memory, guaranteeing that modifications made by one thread are immediately visible to all other threads.</li>
+          <li><strong>Instruction Reordering Inhibition:</strong> It places memory fences around reads and writes of the volatile reference, preventing compilers or underlying hardware execution units from optimizing instruction ordering around the variable (establishing a clear "happens-before" contract).</li>
+          <li><strong>Non-Atomicity Caveat:</strong> It does not make compound transformations atomic. For example, <code>count++</code> requires an explicit lock or an atomic wrapper class like <code>AtomicInteger</code> to execute safely under concurrent access.</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q8</span> Fail-Fast vs Fail-Safe Iterators</div>
-      <div class="ans">Fail-Fast iterators (e.g., ArrayList, HashMap) throw <code>ConcurrentModificationException</code> if the collection is structurally modified during iteration. Fail-Safe iterators (e.g., ConcurrentHashMap, CopyOnWriteArrayList) operate on a clone of the collection or use lock-free mechanisms, never throwing the exception.</div>
+    <div class="qa-card" id="q8">
+      <div class="q-title"><span class="q-num">Q8</span> Explain Synchronization with an example</div>
+      <div class="ans">
+        <p>Synchronization prevents race conditions by enforcing mutual exclusion so that only one thread can access a critical block of code at a time:</p>
+<pre><span class="kw">public class</span> <span class="type">SynchronizedCounter</span> {
+    <span class="kw">private int</span> count = <span class="num">0</span>;
+
+    <span class="cm">// Enforces lock acquisition using the intrinsic 'this' monitor</span>
+    <span class="kw">public synchronized void</span> <span class="fn">increment</span>() {
+        count++;
+    }
+
+    <span class="kw">public int</span> <span class="fn">getCount</span>() {
+        <span class="kw">synchronized</span>(<span class="kw">this</span>) {
+            <span class="kw">return</span> count;
+        }
+    }
+}</pre>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q9</span> HashMap vs ConcurrentHashMap Internal Differences</div>
-      <div class="ans"><code>HashMap</code> is not thread-safe. <code>ConcurrentHashMap</code> is thread-safe. In Java 8, CHM abandoned segment locking in favor of Node-level locking (using synchronized blocks on the head node of a bucket) and CAS operations, allowing vastly higher concurrency.</div>
+    <div class="qa-card" id="q9">
+      <div class="q-title"><span class="q-num">Q9</span> What causes ConcurrentModificationException?</div>
+      <div class="ans">
+        <p>This exception occurs when a collection structure is modified structurally (elements inserted, cleared, or appended) while an active iterator loop is traversing its contents, unless the mutation is performed directly via the iterator's own methods (e.g., <code>iterator.remove()</code>).</p>
+        <p><strong>Internal Tracking:</strong> Collections maintain an internal tracker field named <code>modCount</code>. When an iterator instance is spawned, it takes a snapshot value named <code>expectedModCount = modCount</code>. During each call to <code>next()</code>, if any numerical variance is discovered between <code>modCount</code> and <code>expectedModCount</code>, a <code>ConcurrentModificationException</code> is immediately thrown.</p>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q10</span> Callable vs Runnable</div>
-      <div class="ans"><code>Runnable</code> has a <code>run()</code> method that returns <code>void</code> and cannot throw checked exceptions. <code>Callable</code> has a <code>call()</code> method that returns a result (via a <code>Future</code>) and can throw checked exceptions.</div>
+    <div class="qa-card" id="q10">
+      <div class="q-title"><span class="q-num">Q10</span> Difference between Fail-Fast and Fail-Safe Iterators</div>
+      <div class="ans">
+        <ul>
+          <li><strong>Fail-Fast Iterators:</strong> Operate directly on the live, original data array. They immediately throw a <code>ConcurrentModificationException</code> if structural modifications take place during loop cycles. Examples include standard iterators for <code>ArrayList</code>, <code>HashSet</code>, and <code>HashMap</code>.</li>
+          <li><strong>Fail-Safe Iterators:</strong> Operate either on an independent structural clone or a weakly-consistent view of the collection data. They allow ongoing concurrent modifications without raising runtime exceptions. Examples include iterators for <code>CopyOnWriteArrayList</code> and <code>ConcurrentHashMap</code>.</li>
+        </ul>
+      </div>
     </div>
 
-    <h2>Section 2: Object Orientation, Cloning & Design Principles</h2>
+    <!-- ==================== SECTION 2: JAVA 8 STREAM API ==================== -->
+    <h2 class="section-heading"><i class="fa-solid fa-bolt section-icon"></i> Section 2: Java 8 Stream API &amp; Optionals</h2>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q11</span> Shallow vs Deep Copy</div>
-      <div class="ans">A Shallow Copy copies primitive fields but copies only the memory addresses of nested objects (they share the same nested objects). A Deep Copy recursively creates exact copies of all nested objects so the two instances are completely independent.</div>
+    <div class="qa-card" id="q11">
+      <div class="q-title"><span class="q-num">Q11</span> Difference between map() and flatMap()</div>
+      <div class="ans">
+        <ul>
+          <li><strong>map():</strong> Implements a 1-to-1 mapping transformation. It processes a single stream value of type <code>T</code> and outputs a single processed value of type <code>R</code>. (e.g., converting a list of string elements into a stream of their respective lengths).</li>
+          <li><strong>flatMap():</strong> Implements a 1-to-many structural transformation combined with flattening. It maps an individual element into an intermediate stream, and then flattens all of these sub-streams into a single continuous sequence. This is useful for unwrapping nested collection matrices (e.g., converting <code>Stream&lt;List&lt;String&gt;&gt;</code> down to a continuous <code>Stream&lt;String&gt;</code>).</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q12</span> Object.clone() internally</div>
-      <div class="ans">The default <code>Object.clone()</code> provides a shallow copy. To use it, a class must implement the marker interface <code>Cloneable</code>, otherwise it throws <code>CloneNotSupportedException</code>.</div>
+    <div class="qa-card" id="q12">
+      <div class="q-title"><span class="q-num">Q12</span> Find duplicate elements using Streams</div>
+      <div class="ans">
+<pre><span class="kw">import</span> java.util.*;
+<span class="kw">import</span> java.util.stream.Collectors;
+
+<span class="kw">public class</span> <span class="type">StreamDuplicates</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        List&lt;Integer&gt; items = Arrays.asList(<span class="num">10</span>, <span class="num">24</span>, <span class="num">10</span>, <span class="num">33</span>, <span class="num">24</span>, <span class="num">56</span>, <span class="num">78</span>);
+
+        Set&lt;Integer&gt; trackSet = <span class="kw">new</span> HashSet&lt;&gt;();
+        Set&lt;Integer&gt; duplicates = items.stream()
+            .filter(n -&gt; !trackSet.add(n)) <span class="cm">// HashSet.add yields false if element exists</span>
+            .collect(Collectors.toSet());
+
+        System.out.println(duplicates); <span class="cm">// Outputs: [10, 24]</span>
+    }
+}</pre>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q13</span> Abstract Class vs Interface (Java 8+)</div>
-      <div class="ans">Interfaces can now have <code>default</code> and <code>static</code> methods. However, abstract classes can still hold instance state (fields/constructors) and have varied access modifiers (protected/private methods). A class can implement multiple interfaces but extend only one abstract class.</div>
+    <div class="qa-card" id="q13">
+      <div class="q-title"><span class="q-num">Q13</span> Find second highest salary using Streams</div>
+      <div class="ans">
+<pre><span class="kw">import</span> java.util.*;
+
+<span class="kw">public class</span> <span class="type">SalaryStream</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        List&lt;Employee&gt; employees = getEmployeeList();
+
+        Optional&lt;Double&gt; secondHighest = employees.stream()
+            .map(Employee::getSalary)
+            .distinct()
+            .sorted(Comparator.reverseOrder())
+            .skip(<span class="num">1</span>)
+            .findFirst();
+    }
+}</pre>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q14</span> Method Hiding vs Overriding</div>
-      <div class="ans">Method Overriding applies to instance methods and is resolved at runtime (Dynamic Polymorphism). Method Hiding applies to static methods; the child class hides the parent's static method, but resolution happens at compile-time based on the reference type.</div>
+    <div class="qa-card" id="q14">
+      <div class="q-title"><span class="q-num">Q14</span> Group employees by department using Streams</div>
+      <div class="ans">
+<pre><span class="kw">import</span> java.util.*;
+<span class="kw">import</span> java.util.stream.Collectors;
+
+<span class="kw">public class</span> <span class="type">GroupingExample</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        List&lt;Employee&gt; employees = getEmployeeList();
+
+        Map&lt;String, List&lt;Employee&gt;&gt; empByDept = employees.stream()
+            .collect(Collectors.groupingBy(Employee::getDepartment));
+    }
+}</pre>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q15</span> SOLID Principles in real projects</div>
-      <div class="ans">Single Responsibility (Classes do one thing), Open/Closed (Extensible via interfaces, closed for modification), Liskov Substitution (Derived classes can substitute parents without breaking code), Interface Segregation (Small, specific interfaces), Dependency Inversion (Depend on abstractions, not concretions).</div>
+    <div class="qa-card" id="q15">
+      <div class="q-title"><span class="q-num">Q15</span> Difference between Optional.orElse() and orElseGet()</div>
+      <div class="ans">
+        <ul>
+          <li><strong>orElse(T other):</strong> This method evaluates the argument expression <strong>eagerly</strong>. The fallback instantiation logic inside <code>orElse()</code> runs even if the wrapping Optional contains a valid non-empty object value, incurring unnecessary overhead.</li>
+          <li><strong>orElseGet(Supplier&lt;? extends T&gt; supplementary):</strong> This method implements <strong>lazy evaluation</strong>. The functional lambda expression is only evaluated if the target Optional container is explicitly empty, making it more efficient for expensive object allocations.</li>
+        </ul>
+      </div>
     </div>
 
-    <h2>Section 3: Database, Hibernate, and Querying</h2>
+    <!-- ==================== SECTION 3: CODING ROUND ==================== -->
+    <h2 class="section-heading"><i class="fa-solid fa-code section-icon"></i> Section 3: Coding Round Algorithms &amp; System Design</h2>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q16</span> FetchType.LAZY vs EAGER</div>
-      <div class="ans">EAGER fetches related entities immediately along with the parent. LAZY delays fetching until the related entity is explicitly accessed via a getter, improving initial load performance but risking <code>LazyInitializationException</code> outside a transaction.</div>
+    <div class="qa-card" id="q16">
+      <div class="q-title"><span class="q-num">Q16</span> Reverse words in a String without using library methods</div>
+      <div class="ans">
+<pre><span class="kw">public class</span> <span class="type">StringWordReversal</span> {
+    <span class="kw">public static</span> String <span class="fn">reverseWords</span>(String input) {
+        <span class="kw">if</span> (input == <span class="kw">null</span> || input.length() == <span class="num">0</span>) <span class="kw">return</span> input;
+        <span class="kw">char</span>[] chars = input.toCharArray();
+        <span class="kw">int</span> len = chars.length;
+
+        <span class="cm">// Step 1: Reverse the entire continuous character sequence</span>
+        reverseRange(chars, <span class="num">0</span>, len - <span class="num">1</span>);
+
+        <span class="cm">// Step 2: Reverse individual word segments boundaries</span>
+        <span class="kw">int</span> wordStart = <span class="num">0</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; len; i++) {
+            <span class="kw">if</span> (chars[i] == <span class="str">' '</span>) {
+                reverseRange(chars, wordStart, i - <span class="num">1</span>);
+                wordStart = i + <span class="num">1</span>;
+            } <span class="kw">else if</span> (i == len - <span class="num">1</span>) {
+                reverseRange(chars, wordStart, i);
+            }
+        }
+        <span class="kw">return new</span> String(chars);
+    }
+
+    <span class="kw">private static void</span> <span class="fn">reverseRange</span>(<span class="kw">char</span>[] arr, <span class="kw">int</span> left, <span class="kw">int</span> right) {
+        <span class="kw">while</span> (left &lt; right) {
+            <span class="kw">char</span> temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left++; right--;
+        }
+    }
+}</pre>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q17</span> L1 vs L2 Cache in Hibernate</div>
-      <div class="ans">L1 Cache is session-scoped, enabled by default, and cleared when the Session closes. L2 Cache is SessionFactory-scoped, shared across all sessions, and requires an external provider (like EhCache or Redis) to be configured.</div>
+    <div class="qa-card" id="q17">
+      <div class="q-title"><span class="q-num">Q17</span> Find the first non-repeating character</div>
+      <div class="ans">
+<pre><span class="kw">public class</span> <span class="type">FirstUniqueChar</span> {
+    <span class="kw">public static char</span> <span class="fn">findFirstUnique</span>(String input) {
+        <span class="kw">int</span>[] freq = <span class="kw">new int</span>[<span class="num">256</span>]; <span class="cm">// ASCII optimization mapping array</span>
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; input.length(); i++) {
+            freq[input.charAt(i)]++;
+        }
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; input.length(); i++) {
+            <span class="kw">if</span> (freq[input.charAt(i)] == <span class="num">1</span>) {
+                <span class="kw">return</span> input.charAt(i);
+            }
+        }
+        <span class="kw">return</span> <span class="str">'\0'</span>;
+    }
+}</pre>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q18</span> N+1 Select Problem</div>
-      <div class="ans">Occurs when querying a collection of N parents triggers 1 query to load the parents, and then N additional queries to load their LAZY children. Solved using <code>JOIN FETCH</code> in JPQL or Entity Graphs to fetch everything in a single query.</div>
+    <div class="qa-card" id="q18">
+      <div class="q-title"><span class="q-num">Q18</span> Find the longest substring without repeating characters</div>
+      <div class="ans">
+<pre><span class="kw">import</span> java.util.HashSet;
+
+<span class="kw">public class</span> <span class="type">LongestUniqueSubstring</span> {
+    <span class="kw">public static int</span> <span class="fn">getLongestSubstringLength</span>(String text) {
+        <span class="kw">int</span> left = <span class="num">0</span>, right = <span class="num">0</span>, maxLength = <span class="num">0</span>;
+        HashSet&lt;Character&gt; elements = <span class="kw">new</span> HashSet&lt;&gt;();
+
+        <span class="kw">while</span> (right &lt; text.length()) {
+            <span class="kw">if</span> (!elements.contains(text.charAt(right))) {
+                elements.add(text.charAt(right));
+                maxLength = Math.max(maxLength, right - left + <span class="num">1</span>);
+                right++;
+            } <span class="kw">else</span> {
+                elements.remove(text.charAt(left));
+                left++;
+            }
+        }
+        <span class="kw">return</span> maxLength;
+    }
+}</pre>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q19</span> Save vs SaveOrUpdate vs Persist</div>
-      <div class="ans"><code>persist()</code> makes a transient instance persistent and void return type. <code>save()</code> does the same but returns the generated identifier. <code>saveOrUpdate()</code> executes an INSERT if the entity is transient, or an UPDATE if it is detached.</div>
+    <div class="qa-card" id="q19">
+      <div class="q-title"><span class="q-num">Q19</span> Check if two strings are anagrams</div>
+      <div class="ans">
+<pre><span class="kw">public class</span> <span class="type">AnagramVerification</span> {
+    <span class="kw">public static boolean</span> <span class="fn">checkAnagram</span>(String val1, String val2) {
+        <span class="kw">if</span> (val1.length() != val2.length()) <span class="kw">return false</span>;
+        <span class="kw">int</span>[] indexCounts = <span class="kw">new int</span>[<span class="num">256</span>];
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; val1.length(); i++) {
+            indexCounts[val1.charAt(i)]++;
+            indexCounts[val2.charAt(i)]--;
+        }
+        <span class="kw">for</span> (<span class="kw">int</span> val : indexCounts) {
+            <span class="kw">if</span> (val != <span class="num">0</span>) <span class="kw">return false</span>;
+        }
+        <span class="kw">return true</span>;
+    }
+}</pre>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q20</span> Optimistic vs Pessimistic Locking</div>
-      <div class="ans">Optimistic locking (using <code>@Version</code>) assumes conflicts are rare; it checks version numbers on update and throws an exception on mismatch. Pessimistic locking acquires actual database row-level locks (SELECT FOR UPDATE) preventing other transactions from reading/writing until committed.</div>
+    <div class="qa-card" id="q20">
+      <div class="q-title"><span class="q-num">Q20</span> LRU Cache Design</div>
+      <div class="ans">
+        <p>An LRU (Least Recently Used) cache requires <strong>O(1)</strong> operations for both get and put actions. This is achieved by combining a <code>HashMap</code> with a custom <strong>Doubly Linked List</strong>:</p>
+<pre><span class="kw">import</span> java.util.HashMap;
+
+<span class="kw">public class</span> <span class="type">LRUCache</span> {
+    <span class="kw">private class</span> <span class="type">Node</span> {
+        <span class="kw">int</span> key, value;
+        Node prev, next;
+        Node(<span class="kw">int</span> k, <span class="kw">int</span> v) { <span class="kw">this</span>.key = k; <span class="kw">this</span>.value = v; }
+    }
+
+    <span class="kw">private final int</span> capacity;
+    <span class="kw">private final</span> HashMap&lt;Integer, Node&gt; cacheIndex;
+    <span class="kw">private final</span> Node head, tail;
+
+    <span class="kw">public</span> <span class="fn">LRUCache</span>(<span class="kw">int</span> cap) {
+        <span class="kw">this</span>.capacity = cap;
+        <span class="kw">this</span>.cacheIndex = <span class="kw">new</span> HashMap&lt;&gt;();
+        head = <span class="kw">new</span> Node(<span class="num">0</span>, <span class="num">0</span>);
+        tail = <span class="kw">new</span> Node(<span class="num">0</span>, <span class="num">0</span>);
+        head.next = tail;
+        tail.prev = head;
+    }
+
+    <span class="kw">public int</span> <span class="fn">get</span>(<span class="kw">int</span> key) {
+        <span class="kw">if</span> (!cacheIndex.containsKey(key)) <span class="kw">return</span> -<span class="num">1</span>;
+        Node entry = cacheIndex.get(key);
+        detachNode(entry);
+        moveToHead(entry);
+        <span class="kw">return</span> entry.value;
+    }
+
+    <span class="kw">public void</span> <span class="fn">put</span>(<span class="kw">int</span> key, <span class="kw">int</span> value) {
+        <span class="kw">if</span> (cacheIndex.containsKey(key)) {
+            Node entry = cacheIndex.get(key);
+            entry.value = value;
+            detachNode(entry);
+            moveToHead(entry);
+        } <span class="kw">else</span> {
+            <span class="kw">if</span> (cacheIndex.size() == capacity) {
+                cacheIndex.remove(tail.prev.key);
+                detachNode(tail.prev);
+            }
+            Node incoming = <span class="kw">new</span> Node(key, value);
+            cacheIndex.put(key, incoming);
+            moveToHead(incoming);
+        }
+    }
+
+    <span class="kw">private void</span> <span class="fn">detachNode</span>(Node node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+
+    <span class="kw">private void</span> <span class="fn">moveToHead</span>(Node node) {
+        node.next = head.next;
+        node.next.prev = node;
+        head.next = node;
+        node.prev = head;
+    }
+}</pre>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q21</span> Indexing (B-Tree vs Hash)</div>
-      <div class="ans">B-Tree indexes keep data sorted, allowing efficient range queries (>, <, BETWEEN). Hash indexes use a hash function to map keys directly to buckets, making exact-match lookups (=, IN) O(1) but cannot support range queries.</div>
+    <div class="qa-card" id="q21">
+      <div class="q-title"><span class="q-num">Q21</span> Design Parking Lot (Low-Level Design Discussion)</div>
+      <div class="ans">
+        <p>When discussing a low-level object-oriented parking lot design, define structured domain boundaries clearly using core classes and design principles:</p>
+        <p><strong>Core Entities &amp; Classes:</strong></p>
+        <ul>
+          <li><strong>ParkingLot:</strong> A Singleton coordinator tracking floor topologies and status properties.</li>
+          <li><strong>ParkingFloor:</strong> Contains distinct configurations of designated slots (e.g., Compact, Large, Motorbike, Handicap).</li>
+          <li><strong>ParkingSpot:</strong> Tracks allocation status, unique identifiers, and supported vehicle categories.</li>
+          <li><strong>Vehicle:</strong> An abstract base class extended by specific variations like Car, Truck, or Motorbike.</li>
+          <li><strong>Ticket:</strong> Captures entry timestamps, designated lane allocations, and structural pricing data.</li>
+        </ul>
+        <p><strong>Applicable Design Patterns:</strong></p>
+        <ul>
+          <li><strong>Singleton Pattern:</strong> Enforces a single global orchestration instance for the primary ParkingLot class.</li>
+          <li><strong>Factory Pattern:</strong> Generates instance objects for varying subclass profiles of Vehicle or ParkingSpot types.</li>
+          <li><strong>Strategy Pattern:</strong> Implements decoupled billing and fee-calculation logic variations (e.g., hourly flat rates versus duration-tiered billing models).</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q22</span> Transaction Isolation Levels</div>
-      <div class="ans">Read Uncommitted (Lowest, dirty reads), Read Committed (Prevents dirty reads), Repeatable Read (Prevents non-repeatable reads), Serializable (Highest, locks entire ranges, prevents phantom reads but kills concurrency).</div>
+    <div class="qa-card" id="q22">
+      <div class="q-title"><span class="q-num">Q22</span> Producer-Consumer Problem Implementation</div>
+      <div class="ans">
+<pre><span class="kw">import</span> java.util.LinkedList;
+
+<span class="kw">public class</span> <span class="type">SharedQueueBuffer</span> {
+    <span class="kw">private final</span> LinkedList&lt;Integer&gt; bufferList = <span class="kw">new</span> LinkedList&lt;&gt;();
+    <span class="kw">private final int</span> limitSize = <span class="num">5</span>;
+
+    <span class="kw">public void</span> <span class="fn">produceElement</span>(<span class="kw">int</span> item) <span class="kw">throws</span> InterruptedException {
+        <span class="kw">synchronized</span> (<span class="kw">this</span>) {
+            <span class="kw">while</span> (bufferList.size() == limitSize) {
+                wait(); <span class="cm">// Suspend process while buffer is full</span>
+            }
+            bufferList.add(item);
+            notifyAll(); <span class="cm">// Signal consumer threads</span>
+        }
+    }
+
+    <span class="kw">public int</span> <span class="fn">consumeElement</span>() <span class="kw">throws</span> InterruptedException {
+        <span class="kw">synchronized</span> (<span class="kw">this</span>) {
+            <span class="kw">while</span> (bufferList.isEmpty()) {
+                wait(); <span class="cm">// Suspend process while buffer is empty</span>
+            }
+            <span class="kw">int</span> processed = bufferList.removeFirst();
+            notifyAll(); <span class="cm">// Signal producer threads</span>
+            <span class="kw">return</span> processed;
+        }
+    }
+}</pre>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q23</span> Dirty Read, Phantom Read, Non-Repeatable Read</div>
-      <div class="ans">Dirty Read: Reading uncommitted changes. Non-Repeatable Read: Same query yields different data because another transaction updated it. Phantom Read: Same query yields different number of rows because another transaction inserted/deleted records.</div>
+    <div class="qa-card" id="q23">
+      <div class="q-title"><span class="q-num">Q23</span> Multi-threaded Counter Implementation</div>
+      <div class="ans">
+<pre><span class="kw">import</span> java.util.concurrent.atomic.AtomicInteger;
+
+<span class="kw">public class</span> <span class="type">SafeConcurrentCounter</span> {
+    <span class="cm">// Uses low-level hardware CAS instructions for lock-free thread safety</span>
+    <span class="kw">private final</span> AtomicInteger sequenceNum = <span class="kw">new</span> AtomicInteger(<span class="num">0</span>);
+
+    <span class="kw">public void</span> <span class="fn">safeIncrement</span>() {
+        sequenceNum.incrementAndGet();
+    }
+
+    <span class="kw">public int</span> <span class="fn">fetchValue</span>() {
+        <span class="kw">return</span> sequenceNum.get();
+    }
+}</pre>
+      </div>
     </div>
 
-    <h2>Section 4: Spring Framework, Spring Boot & AOP</h2>
+    <!-- ==================== SECTION 4: SPRING BOOT ==================== -->
+    <h2 class="section-heading"><i class="fa-solid fa-leaf section-icon"></i> Section 4: Spring Boot Core Architecture</h2>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q24</span> Spring Boot Autoconfiguration</div>
-      <div class="ans">Powered by <code>@EnableAutoConfiguration</code>, Spring Boot scans the classpath and automatically configures beans based on detected dependencies. For example, if <code>spring-webmvc</code> is found, it automatically sets up a DispatcherServlet and embedded Tomcat.</div>
+    <div class="qa-card" id="q24">
+      <div class="q-title"><span class="q-num">Q24</span> What happens internally when Spring Boot starts?</div>
+      <div class="ans">
+        <p>When executing the entry point method <code>SpringApplication.run(Application.class, args)</code>, the framework orchestrates the following internal lifecycle events:</p>
+        <ol>
+          <li><strong>Initializer Setup:</strong> Identifies application profiles and classpath configurations using factories found in <code>META-INF/spring.factories</code>.</li>
+          <li><strong>Environment Preparation:</strong> Creates and configures the <code>ConfigurableEnvironment</code>, binding active properties, profiles, and system environment variables.</li>
+          <li><strong>ApplicationContext Creation:</strong> Instantiates the core application context container (e.g., <code>AnnotationConfigServletWebServerApplicationContext</code> for web runtimes).</li>
+          <li><strong>Component Scanning and Definition Loading:</strong> The <code>ConfigurationClassPostProcessor</code> parses configuration files, scanning for stereotype markers beneath the <code>@SpringBootApplication</code> root package to construct metadata structures called <code>BeanDefinitions</code>.</li>
+          <li><strong>Embedded Container Initialization:</strong> The context bootstraps embedded servlet engines like Tomcat or Jetty directly.</li>
+          <li><strong>Runner Invocation:</strong> Finds and runs any registered <code>CommandLineRunner</code> or <code>ApplicationRunner</code> beans to complete startup.</li>
+        </ol>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q25</span> @Controller vs @RestController</div>
-      <div class="ans"><code>@Controller</code> maps to View Resolvers (returning HTML pages). <code>@RestController</code> is a convenience annotation combining <code>@Controller</code> and <code>@ResponseBody</code>, meaning methods directly serialize objects into JSON/XML via HttpMessageConverters.</div>
+    <div class="qa-card" id="q25">
+      <div class="q-title"><span class="q-num">Q25</span> How does Dependency Injection work?</div>
+      <div class="ans">
+        <p>Dependency Injection (DI) is a structural realization of Inversion of Control (IoC). Instead of components self-instantiating dependencies directly, object references are supplied to target beans by the container framework:</p>
+        <ul>
+          <li>The <code>ApplicationContext</code> maps out structural dependencies using <code>BeanDefinitions</code>.</li>
+          <li>When target instances are initialized, Spring dynamically resolves dependencies by type or qualifying identifier name.</li>
+          <li>The framework uses <strong>Java Reflection</strong> mechanisms to wire dependency instances directly into fields, constructors, or setter methods.</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q26</span> Bean Scopes & Default Scope</div>
-      <div class="ans">The default is Singleton (one instance per Spring IoC container). Prototype creates a new instance every time it's injected. Request, Session, and Application scopes are specific to web-aware application contexts.</div>
+    <div class="qa-card" id="q26">
+      <div class="q-title"><span class="q-num">Q26</span> Why is Constructor Injection preferred?</div>
+      <div class="ans">
+        <p>Constructor injection is the industry standard recommendation over field or setter approach mechanisms due to several engineering benefits:</p>
+        <ul>
+          <li><strong>Immutability Support:</strong> Dependencies can be declared as <code>final</code>, ensuring they cannot be mutated or changed post-initialization.</li>
+          <li><strong>Compile-Time Dependency Safety:</strong> Guarantees that an object cannot be instantiated in an incomplete or broken state; required dependencies must be provided at instantiation time, eliminating runtime <code>NullPointerException</code> flaws.</li>
+          <li><strong>Testing Flexibility:</strong> Simplifies unit testing by allowing developers to pass mock dependencies directly through the constructor without needing a heavy Spring container environment or complex reflection hacks.</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q27</span> @Transactional propagation and rollback rules</div>
-      <div class="ans">By default, Spring rolls back transactions ONLY for unchecked exceptions (RuntimeExceptions). To rollback for checked exceptions, use <code>@Transactional(rollbackFor = Exception.class)</code>. Propagation REQUIRED joins an existing transaction or creates a new one. REQUIRES_NEW suspends the current transaction and forces a new one.</div>
+    <div class="qa-card" id="q27">
+      <div class="q-title"><span class="q-num">Q27</span> Difference between @Component, @Service, and @Repository</div>
+      <div class="ans">
+        <p>All three are stereotype annotations, meaning any class marked with them becomes a Spring-managed bean within the container. However, they serve different layer-specific roles:</p>
+        <ul>
+          <li><strong>@Component:</strong> The root generic stereotype annotation. It marks a class as a utility or bean candidate for automated component scans.</li>
+          <li><strong>@Service:</strong> A semantic specialization applied at the business logic or service layer. It adds no extra technical features over <code>@Component</code>, but communicates architectural intent.</li>
+          <li><strong>@Repository:</strong> A specialization used at the data access or DAO layer. It enables automatic database exception translation, converting low-level vendor-specific database exceptions (e.g., SQL exceptions) into Spring's uniform <code>DataAccessException</code> hierarchy.</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q28</span> AOP (Aspect Oriented Programming)</div>
-      <div class="ans">AOP modularizes cross-cutting concerns (logging, security, transactions) separately from business logic. Key concepts: Aspect (the module), Pointcut (expression matching where advice should run), Advice (the action taken: Before, After, Around), JoinPoint (the actual execution point in the code).</div>
+    <div class="qa-card" id="q28">
+      <div class="q-title"><span class="q-num">Q28</span> How does @Transactional work internally?</div>
+      <div class="ans">
+        <p>Spring manages database transactions using <strong>Aspect-Oriented Programming (AOP) Proxies</strong>:</p>
+        <ol>
+          <li>When a bean contains a method annotated with <code>@Transactional</code>, Spring does not inject the raw bean instance directly into callers. Instead, it wraps it within an auto-generated <strong>proxy object</strong> (using either CGLIB or JDK dynamic proxies).</li>
+          <li>When a caller executes the method, the call goes to the proxy first. The proxy opens a database transaction using the configured <code>PlatformTransactionManager</code>.</li>
+          <li>The proxy invokes the target method inside an internal try-catch context block.</li>
+          <li>If the method finishes successfully, the proxy automatically <strong>commits</strong> the transaction. If a runtime, unchecked exception (e.g., <code>RuntimeException</code>) is raised, it automatically <strong>rolls back</strong> the transaction.</li>
+        </ol>
+      </div>
     </div>
 
-    <h2>Section 5: Microservices & Distributed Systems</h2>
+    <!-- ==================== SECTION 5: DATABASE ==================== -->
+    <h2 class="section-heading"><i class="fa-solid fa-database section-icon"></i> Section 5: Database Architecture &amp; Query Optimization</h2>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q29</span> API Gateway pattern</div>
-      <div class="ans">A single entry point for all client requests. It handles cross-cutting concerns like authentication, SSL termination, rate limiting, and request routing/aggregation to backend microservices, preventing direct coupling between clients and internal services.</div>
+    <div class="qa-card" id="q29">
+      <div class="q-title"><span class="q-num">Q29</span> Find Nth Highest Salary</div>
+      <div class="ans">
+        <p>This can be solved either using SQL query definitions or Java 8 Streams directly depending on where the operation is offloaded:</p>
+        <p><strong>SQL (Subquery approach):</strong></p>
+<pre>SELECT Salary FROM Employee e1
+WHERE N-1 = (SELECT COUNT(DISTINCT Salary) FROM Employee e2 WHERE e2.Salary &gt; e1.Salary);</pre>
+        <p><strong>SQL (Modern Window Function approach):</strong></p>
+<pre>SELECT Salary FROM (
+    SELECT Salary, DENSE_RANK() OVER (ORDER BY Salary DESC) as rnk
+    FROM Employee
+) WHERE rnk = N;</pre>
+        <p><strong>Java 8 Streams API:</strong></p>
+<pre>Optional&lt;Double&gt; nthHighest = employees.stream()
+    .map(Employee::getSalary)
+    .distinct()
+    .sorted(Comparator.reverseOrder())
+    .skip(n - <span class="num">1</span>)
+    .findFirst();</pre>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q30</span> Circuit Breaker (Resilience4j)</div>
-      <div class="ans">Prevents cascading failures by "tripping" when a downstream service fails repeatedly. State machine: CLOSED (requests flow normally), OPEN (fails fast without calling the failing service), HALF-OPEN (allows a few test requests to see if the service recovered).</div>
+    <div class="qa-card" id="q30">
+      <div class="q-title"><span class="q-num">Q30</span> Difference between Clustered and Non-Clustered Index</div>
+      <div class="ans">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>Feature</th><th>Clustered Index</th><th>Non-Clustered Index</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Physical Storage</td>
+              <td>Alters and dictates the physical storage order of the data rows on the disk.</td>
+              <td>Maintains a completely separate logical structure from the physical table data.</td>
+            </tr>
+            <tr>
+              <td>Leaf Node Content</td>
+              <td>Leaf nodes contain the actual concrete data rows themselves.</td>
+              <td>Leaf nodes contain row pointers or clustering keys pointing back to the data rows.</td>
+            </tr>
+            <tr>
+              <td>Quantity Limit</td>
+              <td>Strictly exactly one per table.</td>
+              <td>Can define multiple indexes per table based on access patterns.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q31</span> Saga Pattern (Choreography vs Orchestration)</div>
-      <div class="ans">Manages distributed transactions. Choreography: Services independently listen and emit events (decentralized, hard to track). Orchestration: A central controller service dictates the sequence of local transactions and triggers compensating transactions on failure.</div>
+    <div class="qa-card" id="q31">
+      <div class="q-title"><span class="q-num">Q31</span> Explain Database Normalization</div>
+      <div class="ans">
+        <p>Normalization is a systematic database design practice aimed at removing data redundancy and preventing data modification anomalies (Insertion, Update, and Deletion anomalies):</p>
+        <ul>
+          <li><strong>First Normal Form (1NF):</strong> Data values within cells must be completely atomic. Repeating groups or multi-valued column rows are strictly prohibited.</li>
+          <li><strong>Second Normal Form (2NF):</strong> Must be in 1NF. Additionally, all non-key attributes must be fully functionally dependent on the entire composite primary key, completely eliminating partial dependency configurations.</li>
+          <li><strong>Third Normal Form (3NF):</strong> Must be in 2NF. Also, fields must have no transitive dependencies. A non-key attribute cannot establish a functional dependency on another non-key attribute.</li>
+          <li><strong>Boyce-Codd Normal Form (BCNF):</strong> A stronger version of 3NF. For any non-trivial functional dependency X &rarr; Y, the determinant X must be a candidate super key.</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q32</span> Event-Driven Architecture with Kafka</div>
-      <div class="ans">Services communicate asynchronously via a broker (Kafka). Producers publish events to Topics; Consumers subscribe to Topics. This decouples services, handles traffic spikes via buffering, and allows replayability of events.</div>
+    <div class="qa-card" id="q32">
+      <div class="q-title"><span class="q-num">Q32</span> How would you optimize a slow query?</div>
+      <div class="ans">
+        <p>Query optimization follows a structured diagnostic lifecycle:</p>
+        <ol>
+          <li><strong>Analyze Execution Plans:</strong> Run <code>EXPLAIN ANALYZE</code> on the target query statement to determine bottlenecks like Full Table Scans vs Index Range Scans.</li>
+          <li><strong>Evaluate Indexing Strategies:</strong> Add appropriate B-Tree or composite indexes for columns utilized inside <code>WHERE</code> clauses, <code>JOIN</code> conditions, or <code>ORDER BY</code> operators.</li>
+          <li><strong>Refactor Query Semantics:</strong> Eliminate wildcards (replace <code>SELECT *</code> with specific column listings), avoid bad operators like <code>NOT IN</code> or leading wildcards (<code>LIKE '%xyz'</code>) which break index usage, and split large operations into manageable chunks.</li>
+          <li><strong>Connection Pooling &amp; DB Properties:</strong> Verify sizing configurations for tools like HikariCP and confirm that data fetch limits (such as JPA Hibernate batch fetching sizes) are enabled to mitigate N+1 fetch issues.</li>
+          <li><strong>Architectural Fallbacks:</strong> Introduce distributed read replicas to split write traffic from read queries, set up caching using Redis for static hot data, or implement database partitioning/sharding for very large datasets.</li>
+        </ol>
+      </div>
     </div>
 
-    <h2>Section 6: Caching & Performance</h2>
+    <!-- ==================== SECTION 6: DISTRIBUTED SYSTEMS ==================== -->
+    <h2 class="section-heading"><i class="fa-solid fa-network-wired section-icon"></i> Section 6: Distributed Systems, Kafka &amp; Scaling</h2>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q33</span> Redis data structures</div>
-      <div class="ans">Redis supports Strings (simple key-value caching), Hashes (storing objects), Lists (queues), Sets (unique elements, fast intersection), and Sorted Sets (leaderboards, ranking by score).</div>
+    <div class="qa-card" id="q33">
+      <div class="q-title"><span class="q-num">Q33</span> If Kafka is down, what will happen?</div>
+      <div class="ans">
+        <p>The systemic impact of an Apache Kafka broker failure depends on how producers and consumers are configured:</p>
+        <ul>
+          <li><strong>Impact on Producers:</strong> In-memory message send buffers will begin filling up rapidly. If the cluster outage lasts longer than the time set in <code>max.block.ms</code>, producer threads will throw exceptions. If configurations use synchronous blocking writes, incoming API gateway calls will hang, potentially causing upstream timeouts. To prevent data loss, fallback patterns must be implemented to write messages to a local failover data bucket or relational database.</li>
+          <li><strong>Impact on Consumers:</strong> Consumers will fail to poll new record batches, but they can safely finish processing whatever records they already fetched in memory. Once Kafka comes back online, consumers will reconnect and resume reading messages from their last securely committed offset position.</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q34</span> Cache Aside vs Write-Through</div>
-      <div class="ans">Cache Aside: Application reads from cache; on miss, reads from DB and updates cache. Write-Through: Application writes to cache, and the cache synchronously writes to the DB, ensuring consistency at the cost of write latency.</div>
+    <div class="qa-card" id="q34">
+      <div class="q-title"><span class="q-num">Q34</span> How do you avoid duplicate message processing?</div>
+      <div class="ans">
+        <p>This is solved by designing an <strong>Idempotent Consumer</strong> pattern to guarantee that processing a message multiple times yields the same system state as processing it exactly once:</p>
+        <ol>
+          <li><strong>Unique Correlation Identifiers:</strong> Enforce that every event message contains a unique business identifier (such as a Transaction UUID).</li>
+          <li><strong>Deduplication Registry Check:</strong> Before executing any business logic, the consumer attempts to write this unique ID into a distributed cache with an explicit TTL (like Redis) or a relational database table with a unique constraint.</li>
+          <li><strong>Atomic Commit or Skip:</strong> If the database insert throws a unique constraint violation or Redis indicates the key already exists, the consumer immediately acknowledges the message to Kafka and skips processing to prevent duplicates.</li>
+        </ol>
+      </div>
     </div>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q35</span> Eviction Policies (LRU/LFU)</div>
-      <div class="ans">When cache is full, LRU (Least Recently Used) evicts the oldest accessed items. LFU (Least Frequently Used) tracks access counts and evicts the least popular items. Redis often uses <code>volatile-lru</code>.</div>
+    <div class="qa-card" id="q35">
+      <div class="q-title"><span class="q-num">Q35</span> How do you scale a microservice handling high traffic?</div>
+      <div class="ans">
+        <p>Scaling high-throughput microservices requires changes across multiple infrastructure layers:</p>
+        <ul>
+          <li><strong>Application Layer Scaling:</strong> Deploy multiple containerized stateless service instances across a Kubernetes cluster. Use a Horizontal Pod Autoscaler (HPA) to scale pods automatically based on CPU utilization or custom application metrics.</li>
+          <li><strong>Asynchronous Decoupling:</strong> Offload resource-heavy or non-blocking tasks (like notification dispatches or statement generation) to message queues like Kafka to keep API response times low.</li>
+          <li><strong>Caching Layer:</strong> Deploy a Redis cluster to serve frequently read, slow-changing database records, reducing the read load on your primary databases.</li>
+          <li><strong>Database Layer Scaling:</strong> Implement a read-write architecture with read replicas, configure high-performance connection pooling via HikariCP, and use database sharding to distribute large tables across multiple database nodes.</li>
+        </ul>
+      </div>
     </div>
 
-    <h2>Section 7: System Design Scenario</h2>
+    <!-- ==================== SECTION 7: PRODUCTION SCENARIO ==================== -->
+    <h2 class="section-heading"><i class="fa-solid fa-shield-halved section-icon"></i> Section 7: Production Scenario &amp; Experience</h2>
 
-    <div class="qa-card">
-      <div class="q-title"><span class="q-num">Q36</span> Design a Rate Limiter</div>
-      <div class="ans">Use a distributed caching system like Redis to store limits per User/IP. Algorithms: Token Bucket (add tokens at constant rate, allow request if token exists), Leaky Bucket (queue requests, process at constant rate), or Sliding Window Log (store timestamps in Redis Sorted Sets, drop old timestamps, count size). Sliding window log provides accurate throttling.</div>
+    <div class="qa-card" id="q36">
+      <div class="q-title"><span class="q-num">Q36</span> Explain one complex production issue you resolved</div>
+      <div class="ans">
+        <p><strong>Problem Statement:</strong> During a high-traffic promotional event, an account service began failing with connection timeouts, throwing <code>HikariPool-1 - Connection is not available, request timed out after 30000ms</code> errors, quickly followed by <code>java.lang.OutOfMemoryError: Java heap space</code> crashes.</p>
+
+        <p><strong>Root Cause Investigation:</strong> We pulled heap dumps using <code>jcmd</code> and analyzed them with Eclipse Memory Analyzer (MAT). The analysis revealed that a newly deployed reporting feature was streaming huge datasets inside an active Spring <code>@Transactional</code> block. Because the database stream remained open while processing business logic, it held onto the underlying database connection indefinitely. Under high concurrent traffic, this caused connection pool starvation, and the large data structures held in memory rapidly exhausted the JVM heap space.</p>
+
+        <p><strong>Resolution Strategy:</strong> We resolved the issue by implementing a multi-step fix:</p>
+        <ol>
+          <li>Refactored the data retrieval logic to use explicit pagination with Spring Data <code>Pageable</code>, ensuring data was processed in small, manageable chunks instead of a single massive block.</li>
+          <li>Moved the data processing out of the long-running <code>@Transactional</code> context block to release database connections back to the pool as quickly as possible.</li>
+          <li>Wrapped the data access code in a proper <code>try-with-resources</code> block to guarantee that resources were safely closed even if exceptions occurred.</li>
+          <li>Turned on HikariCP's <code>leak-detection-threshold</code> configuration to automatically track and log unclosed connection leaks in the future.</li>
+        </ol>
+      </div>
     </div>
 
   </div>
