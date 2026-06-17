@@ -17,7 +17,7 @@ function DashboardView({ progress, setActiveDay, percent, curriculumIndex, isDay
 
       <div className="atomic-habit-note" style={{ margin: '0 auto 32px auto' }}>
         <i className="fa-solid fa-leaf" style={{ color: '#4ade80' }}></i>
-        <span><strong>Gentle Reminder:</strong> You don't have to master it all today. The secret to learning is simply focusing on deeply understanding <em>one problem at a time</em> until it clicks effortlessly. Small, atomic habits build unbreakable mastery.</span>
+        <span><strong>Gentle Reminder:</strong> You don&apos;t have to master it all today. The secret to learning is simply focusing on deeply understanding <em>one problem at a time</em> until it clicks effortlessly. Small, atomic habits build unbreakable mastery.</span>
       </div>
 
       <div style={{ margin: '24px 0', padding: '16px 20px', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-color)', borderRadius: '12px', fontSize: '14px', lineHeight: '1.6' }}>

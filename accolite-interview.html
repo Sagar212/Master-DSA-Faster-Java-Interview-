@@ -8,178 +8,229 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --bg-dark: #070913;
-      --bg-card: rgba(13, 17, 33, 0.7);
-      --border-color: rgba(255, 255, 255, 0.08);
-      --text-main: #f1f5f9;
+      --bg: #070913;
+      --bg2: #0f1420;
+      --glass: rgba(17, 22, 38, 0.72);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --emerald: #10b981;
+      --emerald-g: rgba(16, 185, 129, 0.25);
+      --blue: #3b82f6;
+      --text: #f1f5f9;
       --text-muted: #94a3b8;
-      --primary-gradient: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
-      --icon-color: #10b981;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      display: flex; flex-direction: column; align-items: center; padding: 40px 24px;
-    }
-    .container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 32px; }
-    header { text-align: center; margin-bottom: 20px; }
-    header h1 { font-family: 'Outfit', sans-serif; font-size: 38px; font-weight: 800; margin-bottom: 12px; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    header p { color: var(--text-muted); font-size: 16px; line-height: 1.6; }
-    .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 14px; margin-bottom: -10px; }
-    .back-btn:hover { color: var(--text-main); }
-    .qa-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 28px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); position: relative; overflow: hidden; }
-    .qa-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary-gradient); }
-    .question { font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 16px; color: #fff; display: flex; gap: 12px; align-items: flex-start; }
-    .q-icon { color: var(--icon-color); margin-top: 4px; }
-    .answer { color: var(--text-muted); font-size: 15px; line-height: 1.7; padding-left: 32px; }
-    .answer strong { color: #f1f5f9; }
-    pre code { display: block; padding: 16px; border-radius: 8px; margin: 12px 0; overflow-x: auto; line-height: 1.5; background: #090b11; color: #38bdf8; font-family: 'Fira Code', monospace; font-size: 13px; }
-    code { font-family: 'Fira Code', monospace; background: #090b11; padding: 4px 8px; border-radius: 4px; font-size: 13px; color: #38bdf8; }
-    .section-title { font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 800; margin-top: 24px; margin-bottom: -12px; color: #fff; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+    body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; padding-bottom: 50px; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+    header { text-align: center; margin-bottom: 40px; padding: 40px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1)); border-radius: 20px; border: 1px solid var(--glass-border); }
+    h1 { font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 800; margin-bottom: 10px; background: linear-gradient(135deg, var(--emerald), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    h2 { font-family: 'Outfit', sans-serif; font-size: 24px; color: var(--emerald); margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; }
+    .qa-card { background: var(--bg2); border: 1px solid var(--glass-border); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+    .q-title { font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 12px; display: flex; gap: 12px; align-items: flex-start; }
+    .q-num { background: rgba(16, 185, 129, 0.15); color: var(--emerald); padding: 2px 8px; border-radius: 6px; font-size: 14px; font-weight: 800; font-family: 'Outfit'; }
+    .ans { color: var(--text-muted); font-size: 15px; }
+    pre { background: #000; padding: 12px; border-radius: 8px; overflow-x: auto; font-family: 'Fira Code', monospace; font-size: 13px; color: #a8b2d1; border: 1px solid #1e293b; margin-top: 10px; }
   </style>
 </head>
 <body>
   <div class="container">
-    <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
     <header>
-      <h1>Accolite L1 Interview Guide</h1>
-      <p>Exhaustive, production-grade answers to Core Java, Spring Boot, and System Design.</p>
+      <h1>Accolite Digital L1 Interview Guide</h1>
+      <p>Java Backend Developer &mdash; Full Production-Grade Q&A</p>
     </header>
-    <div class="section-title">Section 1: Core Java</div>
 
+    <h2>Section 1: Java Core, Strings, and Thread Safety</h2>
+    
     <div class="qa-card">
-      <div class="question">
-        <i class="fa-brands fa-java q-icon"></i>
-        1. Why is String immutable in Java?
-      </div>
-      <div class="answer">
-        Immutability ensures that once a String object is instantiated, its state cannot be modified. Java enforces this for:<br><br><ul><li><strong>String Constant Pool (SCP) Optimization:</strong> Memory efficiency is achieved through string sharing.</li><li><strong>Security Constraints:</strong> Strings are relied upon for file paths, DB connections, etc. Immutability prevents Time-of-Check to Time-of-Use flaws.</li><li><strong>Thread Safety:</strong> Inherently thread-safe because state cannot be modified, eliminating synchronization overhead.</li><li><strong>HashCode Caching:</strong> The hash code is cached at creation, making Strings extremely high-performing as keys in HashMaps.</li></ul>
-      </div>
+      <div class="q-title"><span class="q-num">Q1</span> String Memory & Immutability</div>
+      <div class="ans">Strings are immutable to ensure security (database URLs/passwords can't be altered), thread safety (can be shared safely across threads), and caching performance (String pool relies on immutability to save memory).</div>
     </div>
 
     <div class="qa-card">
-      <div class="question">
-        <i class="fa-brands fa-java q-icon"></i>
-        2. Internal Working of HashMap in Java 8
-      </div>
-      <div class="answer">
-        A HashMap uses an internal array of nodes (buckets) to store key-value entries. In Java 8, <strong>Treeification</strong> was introduced:<br><br><ul><li><strong>Data Structures:</strong> Elements are tracked as instance nodes. Extreme hash collisions transition the single-linked list into a balanced Red-Black Tree.</li><li><strong>Treeification Mechanics:</strong> If bucket nodes exceed <code>TREEIFY_THRESHOLD = 8</code> and table capacity >= 64, it transforms into a Red-Black tree, reducing search time from O(n) to O(log n). Untreeifies at 6.</li><li><strong>Hash Distribution:</strong> Uses bitwise XOR (<code>h ^ (h >>> 16)</code>) to mix higher-order bits downward, eliminating bucket distribution clustering.</li></ul>
-      </div>
+      <div class="q-title"><span class="q-num">Q2</span> String Constant Pool Internals</div>
+      <div class="ans">The String Pool is a special area in the JVM Heap. When creating a String via <code>String s = "Hello"</code>, the JVM checks the pool first. If it exists, it returns the reference, otherwise it creates it. Using <code>new String("Hello")</code> forces creation of a new object in the general heap, bypassing the pool.</div>
     </div>
 
     <div class="qa-card">
-      <div class="question">
-        <i class="fa-brands fa-java q-icon"></i>
-        3. Difference between HashMap and ConcurrentHashMap
-      </div>
-      <div class="answer">
-        <ul><li><strong>Thread Safety:</strong> HashMap is not thread-safe. CHM is fully thread-safe for high concurrent modifications.</li><li><strong>Locking Strategy:</strong> HashMap has no synchronization. CHM uses fine-grained bucket-level locking (CAS for empty buckets, synchronized blocks on collision heads).</li><li><strong>Null Support:</strong> HashMap permits one null key and multiple null values. CHM prohibits both null keys and values (throws NullPointerException).</li><li><strong>Iterator Behavior:</strong> HashMap is Fail-Fast (throws ConcurrentModificationException). CHM is Fail-Safe (weakly consistent).</li></ul>
-      </div>
+      <div class="q-title"><span class="q-num">Q3</span> Exception Handling (try-with-resources)</div>
+      <div class="ans">Introduced in Java 7, <code>try-with-resources</code> automatically closes any resources that implement the <code>AutoCloseable</code> interface. This prevents memory leaks and removes the need for messy <code>finally</code> blocks containing <code>close()</code> calls.</div>
     </div>
 
     <div class="qa-card">
-      <div class="question">
-        <i class="fa-brands fa-java q-icon"></i>
-        4. Explain equals() and hashCode() Contract
-      </div>
-      <div class="answer">
-        1. If two objects are equal via <code>equals()</code>, executing <code>hashCode()</code> on both must return the exact same integer value.<br>2. If two objects yield matching integers via <code>hashCode()</code>, they are <em>not</em> required to be equal (this is a hash collision).<br><br><strong>Consequence:</strong> If equals() is customized but hashCode() is ignored, HashMaps will locate different buckets during retrieval, causing duplicate keys or null returns.
-      </div>
+      <div class="q-title"><span class="q-num">Q4</span> Volatile vs Synchronized</div>
+      <div class="ans"><code>volatile</code> guarantees visibility of changes to variables across threads by forcing reads/writes from main memory instead of CPU caches. It does NOT guarantee atomicity. <code>synchronized</code> guarantees both visibility and atomicity by acquiring a monitor lock, allowing only one thread to execute the block at a time.</div>
     </div>
 
     <div class="qa-card">
-      <div class="question">
-        <i class="fa-brands fa-java q-icon"></i>
-        5. Can we override static methods?
-      </div>
-      <div class="answer">
-        <strong>No.</strong> Method overriding is dependent on dynamic execution binding at runtime based on the object instance. Static methods are bound at compile-time (static binding).<br><br>If a child class declares an identical static signature, it is termed <strong>Method Hiding</strong>. The executing method is determined strictly by the reference type declared on the caller variable.
-      </div>
+      <div class="q-title"><span class="q-num">Q5</span> ReentrantLock vs Synchronized</div>
+      <div class="ans"><code>ReentrantLock</code> offers advanced features over <code>synchronized</code>: fairness policies (longest waiting thread gets the lock), <code>tryLock()</code> (attempt lock without blocking forever), and interruptible locks. <code>synchronized</code> is simpler and handled implicitly by the JVM.</div>
     </div>
 
     <div class="qa-card">
-      <div class="question">
-        <i class="fa-brands fa-java q-icon"></i>
-        6. Difference between Abstract Class and Interface
-      </div>
-      <div class="answer">
-        <ul><li><strong>Inheritance:</strong> Abstract classes bind by single inheritance. Interfaces allow multiple implementation simultaneously.</li><li><strong>State:</strong> Abstract classes can declare instance variables with varying scope. Interfaces only declare <code>public static final</code> constants.</li><li><strong>Constructors:</strong> Abstract classes permit constructors. Interfaces cannot have constructors.</li><li><strong>Methods:</strong> Abstract classes have abstract, concrete, protected, or private routines. Interfaces have abstract, default, static, and private helpers (Java 8+).</li></ul>
-      </div>
+      <div class="q-title"><span class="q-num">Q6</span> Object-Level vs Class-Level Locking</div>
+      <div class="ans">Object-level lock (<code>synchronized(this)</code>) restricts concurrent access to the instance methods of a specific object. Class-level lock (<code>synchronized(MyClass.class)</code> or static synchronized) restricts concurrent access across ALL instances of the class.</div>
     </div>
 
     <div class="qa-card">
-      <div class="question">
-        <i class="fa-brands fa-java q-icon"></i>
-        7. What is the purpose of volatile?
-      </div>
-      <div class="answer">
-        <ul><li><strong>Memory Visibility:</strong> Instructs JVM to bypass local CPU caches and read/write directly from main memory.</li><li><strong>Instruction Reordering Inhibition:</strong> Places memory fences around reads/writes, establishing a strict 'happens-before' contract.</li><li><strong>Non-Atomicity Caveat:</strong> Does <em>not</em> make compound operations (like count++) atomic. Still requires locks or Atomic wrapper classes.</li></ul>
-      </div>
-    </div>
-<div class="section-title">Section 2: Java 8 Stream API</div>
-
-    <div class="qa-card">
-      <div class="question">
-        <i class="fa-brands fa-java q-icon"></i>
-        11. Difference between map() and flatMap()
-      </div>
-      <div class="answer">
-        <ul><li><code>map()</code>: 1-to-1 mapping transformation. Outputs a single processed value of type R.</li><li><code>flatMap()</code>: 1-to-many structural transformation combined with flattening. Useful for unwrapping nested collection matrices (e.g., Stream&lt;List&lt;String&gt;&gt; to Stream&lt;String&gt;).</li></ul>
-      </div>
+      <div class="q-title"><span class="q-num">Q7</span> ConcurrentHashMap Treeification</div>
+      <div class="ans">In Java 8+, when a bucket in a HashMap/ConcurrentHashMap exceeds a certain threshold (usually 8 nodes) and total capacity > 64, the linked list is converted into a Red-Black Tree (Treeification). This improves worst-case lookup performance from O(n) to O(log n).</div>
     </div>
 
     <div class="qa-card">
-      <div class="question">
-        <i class="fa-brands fa-java q-icon"></i>
-        15. Difference between Optional.orElse() and orElseGet()
-      </div>
-      <div class="answer">
-        <ul><li><code>orElse(T other)</code>: Evaluates argument eagerly. Fallback instantiation runs even if Optional is non-empty, causing overhead.</li><li><code>orElseGet(Supplier)</code>: Implements lazy evaluation. Lambda is only evaluated if the Optional is explicitly empty.</li></ul>
-      </div>
-    </div>
-<div class="section-title">Section 3: System Design & Production</div>
-
-    <div class="qa-card">
-      <div class="question">
-        <i class="fa-brands fa-java q-icon"></i>
-        20. LRU Cache Design
-      </div>
-      <div class="answer">
-        An LRU cache requires O(1) operations. Achieved using a <strong>HashMap</strong> paired with a custom <strong>Doubly Linked List</strong>. The map provides O(1) lookups, while the linked list allows O(1) node detachment and moving to the head (most recently used).
-      </div>
+      <div class="q-title"><span class="q-num">Q8</span> Fail-Fast vs Fail-Safe Iterators</div>
+      <div class="ans">Fail-Fast iterators (e.g., ArrayList, HashMap) throw <code>ConcurrentModificationException</code> if the collection is structurally modified during iteration. Fail-Safe iterators (e.g., ConcurrentHashMap, CopyOnWriteArrayList) operate on a clone of the collection or use lock-free mechanisms, never throwing the exception.</div>
     </div>
 
     <div class="qa-card">
-      <div class="question">
-        <i class="fa-brands fa-java q-icon"></i>
-        24. What happens internally when Spring Boot starts?
-      </div>
-      <div class="answer">
-        1. <strong>Initializer Setup:</strong> Identifies profiles and configurations via spring.factories.<br>2. <strong>Environment Preparation:</strong> Binds active properties and system variables.<br>3. <strong>ApplicationContext Creation:</strong> Instantiates the core container.<br>4. <strong>Component Scanning:</strong> Parses stereotype markers to construct BeanDefinitions.<br>5. <strong>Embedded Container:</strong> Bootstraps Tomcat or Jetty.<br>6. <strong>Runner Invocation:</strong> Executes CommandLineRunner beans.
-      </div>
+      <div class="q-title"><span class="q-num">Q9</span> HashMap vs ConcurrentHashMap Internal Differences</div>
+      <div class="ans"><code>HashMap</code> is not thread-safe. <code>ConcurrentHashMap</code> is thread-safe. In Java 8, CHM abandoned segment locking in favor of Node-level locking (using synchronized blocks on the head node of a bucket) and CAS operations, allowing vastly higher concurrency.</div>
     </div>
 
     <div class="qa-card">
-      <div class="question">
-        <i class="fa-brands fa-java q-icon"></i>
-        28. How does @Transactional work internally?
-      </div>
-      <div class="answer">
-        Spring manages transactions using <strong>AOP Proxies</strong>. When a caller executes a method, it hits the auto-generated proxy first. The proxy opens a DB transaction via PlatformTransactionManager, invokes the target method in a try-catch, and commits on success (or rolls back on RuntimeException).
-      </div>
+      <div class="q-title"><span class="q-num">Q10</span> Callable vs Runnable</div>
+      <div class="ans"><code>Runnable</code> has a <code>run()</code> method that returns <code>void</code> and cannot throw checked exceptions. <code>Callable</code> has a <code>call()</code> method that returns a result (via a <code>Future</code>) and can throw checked exceptions.</div>
+    </div>
+
+    <h2>Section 2: Object Orientation, Cloning & Design Principles</h2>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q11</span> Shallow vs Deep Copy</div>
+      <div class="ans">A Shallow Copy copies primitive fields but copies only the memory addresses of nested objects (they share the same nested objects). A Deep Copy recursively creates exact copies of all nested objects so the two instances are completely independent.</div>
     </div>
 
     <div class="qa-card">
-      <div class="question">
-        <i class="fa-brands fa-java q-icon"></i>
-        36. Explain one complex production issue you resolved
-      </div>
-      <div class="answer">
-        <strong>Issue:</strong> High-traffic Promotional Event caused HikariPool connection timeouts and JVM OutOfMemoryErrors.<br><br><strong>Root Cause:</strong> Heap dump analysis via Eclipse MAT revealed a reporting feature streaming huge datasets inside an active <code>@Transactional</code> block. The DB stream remained open, holding the connection indefinitely, starving the pool and exhausting heap space.<br><br><strong>Resolution:</strong> Refactored retrieval using Spring Data Pageable for chunking, moved processing outside the <code>@Transactional</code> block, wrapped access in <code>try-with-resources</code>, and enabled HikariCP leak-detection.
-      </div>
+      <div class="q-title"><span class="q-num">Q12</span> Object.clone() internally</div>
+      <div class="ans">The default <code>Object.clone()</code> provides a shallow copy. To use it, a class must implement the marker interface <code>Cloneable</code>, otherwise it throws <code>CloneNotSupportedException</code>.</div>
     </div>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q13</span> Abstract Class vs Interface (Java 8+)</div>
+      <div class="ans">Interfaces can now have <code>default</code> and <code>static</code> methods. However, abstract classes can still hold instance state (fields/constructors) and have varied access modifiers (protected/private methods). A class can implement multiple interfaces but extend only one abstract class.</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q14</span> Method Hiding vs Overriding</div>
+      <div class="ans">Method Overriding applies to instance methods and is resolved at runtime (Dynamic Polymorphism). Method Hiding applies to static methods; the child class hides the parent's static method, but resolution happens at compile-time based on the reference type.</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q15</span> SOLID Principles in real projects</div>
+      <div class="ans">Single Responsibility (Classes do one thing), Open/Closed (Extensible via interfaces, closed for modification), Liskov Substitution (Derived classes can substitute parents without breaking code), Interface Segregation (Small, specific interfaces), Dependency Inversion (Depend on abstractions, not concretions).</div>
+    </div>
+
+    <h2>Section 3: Database, Hibernate, and Querying</h2>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q16</span> FetchType.LAZY vs EAGER</div>
+      <div class="ans">EAGER fetches related entities immediately along with the parent. LAZY delays fetching until the related entity is explicitly accessed via a getter, improving initial load performance but risking <code>LazyInitializationException</code> outside a transaction.</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q17</span> L1 vs L2 Cache in Hibernate</div>
+      <div class="ans">L1 Cache is session-scoped, enabled by default, and cleared when the Session closes. L2 Cache is SessionFactory-scoped, shared across all sessions, and requires an external provider (like EhCache or Redis) to be configured.</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q18</span> N+1 Select Problem</div>
+      <div class="ans">Occurs when querying a collection of N parents triggers 1 query to load the parents, and then N additional queries to load their LAZY children. Solved using <code>JOIN FETCH</code> in JPQL or Entity Graphs to fetch everything in a single query.</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q19</span> Save vs SaveOrUpdate vs Persist</div>
+      <div class="ans"><code>persist()</code> makes a transient instance persistent and void return type. <code>save()</code> does the same but returns the generated identifier. <code>saveOrUpdate()</code> executes an INSERT if the entity is transient, or an UPDATE if it is detached.</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q20</span> Optimistic vs Pessimistic Locking</div>
+      <div class="ans">Optimistic locking (using <code>@Version</code>) assumes conflicts are rare; it checks version numbers on update and throws an exception on mismatch. Pessimistic locking acquires actual database row-level locks (SELECT FOR UPDATE) preventing other transactions from reading/writing until committed.</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q21</span> Indexing (B-Tree vs Hash)</div>
+      <div class="ans">B-Tree indexes keep data sorted, allowing efficient range queries (>, <, BETWEEN). Hash indexes use a hash function to map keys directly to buckets, making exact-match lookups (=, IN) O(1) but cannot support range queries.</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q22</span> Transaction Isolation Levels</div>
+      <div class="ans">Read Uncommitted (Lowest, dirty reads), Read Committed (Prevents dirty reads), Repeatable Read (Prevents non-repeatable reads), Serializable (Highest, locks entire ranges, prevents phantom reads but kills concurrency).</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q23</span> Dirty Read, Phantom Read, Non-Repeatable Read</div>
+      <div class="ans">Dirty Read: Reading uncommitted changes. Non-Repeatable Read: Same query yields different data because another transaction updated it. Phantom Read: Same query yields different number of rows because another transaction inserted/deleted records.</div>
+    </div>
+
+    <h2>Section 4: Spring Framework, Spring Boot & AOP</h2>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q24</span> Spring Boot Autoconfiguration</div>
+      <div class="ans">Powered by <code>@EnableAutoConfiguration</code>, Spring Boot scans the classpath and automatically configures beans based on detected dependencies. For example, if <code>spring-webmvc</code> is found, it automatically sets up a DispatcherServlet and embedded Tomcat.</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q25</span> @Controller vs @RestController</div>
+      <div class="ans"><code>@Controller</code> maps to View Resolvers (returning HTML pages). <code>@RestController</code> is a convenience annotation combining <code>@Controller</code> and <code>@ResponseBody</code>, meaning methods directly serialize objects into JSON/XML via HttpMessageConverters.</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q26</span> Bean Scopes & Default Scope</div>
+      <div class="ans">The default is Singleton (one instance per Spring IoC container). Prototype creates a new instance every time it's injected. Request, Session, and Application scopes are specific to web-aware application contexts.</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q27</span> @Transactional propagation and rollback rules</div>
+      <div class="ans">By default, Spring rolls back transactions ONLY for unchecked exceptions (RuntimeExceptions). To rollback for checked exceptions, use <code>@Transactional(rollbackFor = Exception.class)</code>. Propagation REQUIRED joins an existing transaction or creates a new one. REQUIRES_NEW suspends the current transaction and forces a new one.</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q28</span> AOP (Aspect Oriented Programming)</div>
+      <div class="ans">AOP modularizes cross-cutting concerns (logging, security, transactions) separately from business logic. Key concepts: Aspect (the module), Pointcut (expression matching where advice should run), Advice (the action taken: Before, After, Around), JoinPoint (the actual execution point in the code).</div>
+    </div>
+
+    <h2>Section 5: Microservices & Distributed Systems</h2>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q29</span> API Gateway pattern</div>
+      <div class="ans">A single entry point for all client requests. It handles cross-cutting concerns like authentication, SSL termination, rate limiting, and request routing/aggregation to backend microservices, preventing direct coupling between clients and internal services.</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q30</span> Circuit Breaker (Resilience4j)</div>
+      <div class="ans">Prevents cascading failures by "tripping" when a downstream service fails repeatedly. State machine: CLOSED (requests flow normally), OPEN (fails fast without calling the failing service), HALF-OPEN (allows a few test requests to see if the service recovered).</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q31</span> Saga Pattern (Choreography vs Orchestration)</div>
+      <div class="ans">Manages distributed transactions. Choreography: Services independently listen and emit events (decentralized, hard to track). Orchestration: A central controller service dictates the sequence of local transactions and triggers compensating transactions on failure.</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q32</span> Event-Driven Architecture with Kafka</div>
+      <div class="ans">Services communicate asynchronously via a broker (Kafka). Producers publish events to Topics; Consumers subscribe to Topics. This decouples services, handles traffic spikes via buffering, and allows replayability of events.</div>
+    </div>
+
+    <h2>Section 6: Caching & Performance</h2>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q33</span> Redis data structures</div>
+      <div class="ans">Redis supports Strings (simple key-value caching), Hashes (storing objects), Lists (queues), Sets (unique elements, fast intersection), and Sorted Sets (leaderboards, ranking by score).</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q34</span> Cache Aside vs Write-Through</div>
+      <div class="ans">Cache Aside: Application reads from cache; on miss, reads from DB and updates cache. Write-Through: Application writes to cache, and the cache synchronously writes to the DB, ensuring consistency at the cost of write latency.</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q35</span> Eviction Policies (LRU/LFU)</div>
+      <div class="ans">When cache is full, LRU (Least Recently Used) evicts the oldest accessed items. LFU (Least Frequently Used) tracks access counts and evicts the least popular items. Redis often uses <code>volatile-lru</code>.</div>
+    </div>
+
+    <h2>Section 7: System Design Scenario</h2>
+
+    <div class="qa-card">
+      <div class="q-title"><span class="q-num">Q36</span> Design a Rate Limiter</div>
+      <div class="ans">Use a distributed caching system like Redis to store limits per User/IP. Algorithms: Token Bucket (add tokens at constant rate, allow request if token exists), Leaky Bucket (queue requests, process at constant rate), or Sliding Window Log (store timestamps in Redis Sorted Sets, drop old timestamps, count size). Sliding window log provides accurate throttling.</div>
+    </div>
+
   </div>
 </body>
 </html>
