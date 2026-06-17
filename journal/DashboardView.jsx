@@ -15,6 +15,11 @@ function DashboardView({ progress, setActiveDay, percent, curriculumIndex, isDay
         </div>
       </div>
 
+      <div className="atomic-habit-note" style={{ margin: '0 auto 32px auto' }}>
+        <i className="fa-solid fa-leaf" style={{ color: '#4ade80' }}></i>
+        <span><strong>Gentle Reminder:</strong> You don't have to master it all today. The secret to learning is simply focusing on deeply understanding <em>one problem at a time</em> until it clicks effortlessly. Small, atomic habits build unbreakable mastery.</span>
+      </div>
+
       <div style={{ margin: '24px 0', padding: '16px 20px', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-color)', borderRadius: '12px', fontSize: '14px', lineHeight: '1.6' }}>
         <h3 style={{ fontSize: '15px', color: 'var(--text-main)', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
           <i className="fa-solid fa-bolt" style={{ color: 'var(--warning)' }}></i> 
@@ -86,6 +91,41 @@ function DashboardView({ progress, setActiveDay, percent, curriculumIndex, isDay
             </div>
           );
         })}
+      </div>
+
+      <h2 style={{ fontSize: '18px', fontWeight: '800', marginTop: '40px', marginBottom: '16px', fontFamily: 'Outfit', display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <i className="fa-solid fa-briefcase" style={{ color: 'var(--success)' }}></i> Interview Preparation Guides
+      </h2>
+      
+      <div className="dashboard-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))' }}>
+        <a href="accolite-interview.html" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <div className="dash-day-card accolite-card" style={{ cursor: 'pointer' }}>
+            <div className="dash-day-header">
+              <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: 'var(--success)' }}>INTERVIEW GUIDE</span>
+              <div className="dash-day-icon" style={{ background: 'rgba(16, 185, 129, 0.1)', color: '#10b981' }}>
+                <i className="fa-brands fa-java"></i>
+              </div>
+            </div>
+            <div className="dash-day-body">
+              <h3>Accolite L1 Backend</h3>
+              <p>Exhaustive, production-grade answers to Core Java, Spring Boot, and System Design.</p>
+            </div>
+          </div>
+        </a>
+        <a href="java-8-coding-interview.html" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <div className="dash-day-card streams-card" style={{ cursor: 'pointer' }}>
+            <div className="dash-day-header">
+              <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: 'var(--warning)' }}>INTERVIEW GUIDE</span>
+              <div className="dash-day-icon" style={{ background: 'rgba(249, 115, 22, 0.1)', color: '#f97316' }}>
+                <i className="fa-solid fa-code"></i>
+              </div>
+            </div>
+            <div className="dash-day-body">
+              <h3>Java 8 Streams Coding</h3>
+              <p>Highly optimized, production-grade coding solutions using lambdas and advanced Collectors.</p>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   );
